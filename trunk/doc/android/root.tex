@@ -1,0 +1,139 @@
+ \documentclass[a4paper,12pt,brazil,doubleside]{book}
+
+% tentei incluir o da pasta comum mas não funcionou
+% \include{../comum/header}
+\input{../comum/header.tex}
+
+\title{Título}
+
+\begin{document}
+\selectlanguage{brazil}
+
+
+\pagestyle{empty}
+
+\cleardoublepage
+
+\selectlanguage{brazil}
+\onehalfspace
+
+\pagestyle{plain}
+\pagenumbering{roman}
+
+\setcounter{tocdepth}{1} % 0 capítulos, 1 seções, 2 subseções
+\tableofcontents
+\clearpage % se o verso ficar em branco...% VAI
+\thispagestyle{empty}
+
+\listoffigures
+\addcontentsline{toc}{section}{Lista de Figuras}
+\clearpage % se o verso ficar em branco...% VAI
+\thispagestyle{empty}
+
+\listoftables
+\addcontentsline{toc}{section}{Lista de Tabelas}
+\clearpage % se o verso ficar em branco...% VAI
+\thispagestyle{empty}
+
+\lstlistoflistings
+\addcontentsline{toc}{section}{Lista de Algoritmos}
+\clearpage % se o verso ficar em branco...% VAI
+\thispagestyle{empty}
+
+\chapter*{Lista de Abreviaturas}
+\addcontentsline{toc}{section}{Lista de Abreviaturas}
+\begin{longtable}{ll}
+\end{longtable}
+
+
+\chapter*{Resumo}
+\addcontentsline{toc}{section}{Resumo}
+
+\begin{singlespace}
+Resumo...
+\end{singlespace}
+
+\clearpage % se o verso ficar em branco...
+\thispagestyle{empty}
+
+\thispagestyle{empty}
+
+\doublespace
+%\onehalfspace
+%\singlespace
+
+\cleardoublepage
+
+\pagestyle{body}
+\pagenumbering{arabic}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\cha{introducao}{Introdução}
+%\setcounter{page}{1}
+%7-10p
+
+Introdução...
+
+
+Você pode citar a \autoref{fig:dc} assim. A \autoref{tab:tabela} mostra como é difícil criar uma tabela...
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=.5\textwidth]{../figuras/LogoDC.jpg}
+  \caption{Departamento de Computação}
+  \label{fig:dc}
+\end{figure}
+
+\begin{table}[!htb]
+\caption{Tabelas são realmente chatas...}
+\centering
+\footnotesize
+\begin{tabular}{lrc}
+\hline
+\textbf{Coluna} & \textbf{Coluna} & \textbf{Coluna} \\
+\hline
+\hline
+\textbf{Android} & 4560 & 42 \\
+\hline
+\textbf{iOS} & 7072 & 64 \\
+\hline
+\end{tabular}
+\label{tab:tabela}
+\end{table}
+
+% http://tug.ctan.org/tex-archive/macros/latex/contrib/minted/
+% http://pygments.org/
+
+
+
+\begin{singlespace}
+
+\lstinputlisting[float, language=java, label=cod:exemplo, caption={Exemplo ... \citep{muchnick}}]{../../src/android/teste.java}
+
+\end{singlespace}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\singlespace
+\selectlanguage{brazil}
+\cleardoublepage
+\thispagestyle{empty}
+\phantomsection
+\addcontentsline{toc}{chapter}{Referências Bibliográficas}
+\bibliography{../comum/biblio}
+\bibliographystyle{apalike}
+\doublespace
+
+
+\appendix
+\addtocontents{toc}{\protect\setcounter{tocdepth}{0}} % as seções do apêndice não aparecem do sumário com este comando...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ape{apen}{Especificação blá, blá, blá}
+
+Isto é um apêndice...
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+
+\end{document}

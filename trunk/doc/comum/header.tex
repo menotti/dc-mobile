@@ -1,0 +1,208 @@
+\usepackage{amssymb}                        %%% para simbolo de 'marca registrada'
+\usepackage[brazil]{varioref}               %%% referencias com página \vref
+\usepackage[sf,bf,compact,topmarks,calcwidth,pagestyles]{titlesec} %%% definir títulos de seção
+\usepackage{amsmath,amsfonts,amstext,amsthm,textcomp}
+\usepackage{fancybox}                       %%% boxes
+\usepackage{color}                          %%% Cores de fonte e fundo
+\usepackage{colortbl}                       %%% Cores em tabelas
+\usepackage{rotating}
+\usepackage{fancyvrb}                       %%% Inclusão de texto usando VerbatimInput
+\usepackage{bookman}                        %%% Fonte de Letras
+\usepackage{enumerate}
+\usepackage{lettrine}
+
+%\usepackage{listings}
+%\lstset{
+%  numbers=left,
+%  numberstyle=\tiny,
+%  mathescape=true,
+%  frame=single,
+%  stepnumber=1,
+%%  basicstyle=\scriptsize, % fontes menores nos codigos
+%  keywordstyle=\ttfamily,
+%  identifierstyle=\ttfamily, % \bfseries negrito nos codigos
+%  commentstyle=\ttfamily
+%}
+\usepackage{pstricks} % listings color: black!50!red
+
+\usepackage{listings}
+\lstset{
+	numbers=left,
+	stepnumber=1,
+	firstnumber=1,
+	numberstyle=\tiny,
+	mathescape=true,
+	extendedchars=true,
+	breaklines=true,
+	frame=single,
+	basicstyle=\footnotesize,
+%	basicstyle=\scriptsize,
+	stringstyle=\ttfamily,
+% 	moredelim=*[l][\itshape]{||},%
+	showstringspaces=false,
+	float=h,
+}
+\lstdefinelanguage{lalp} {
+  sensitive=true,
+  keywordstyle={\color{black!50!green}\ttfamily\bfseries},
+  keywords={const, typedef, fixed, in, out, counter, when, block_ram, delay_op, mult_op_s, add_reg_op_s},
+  otherkeywords={<-},
+  otherkeywords={@},
+  commentstyle={\color{black!50!red}\itshape},
+  morecomment=[l]{//}, 
+  morecomment=[s]{/*}{*/},
+}
+\lstdefinelanguage{ican} {
+  sensitive=true,
+  keywordstyle={\color{black!50!red}\ttfamily\bfseries},
+  keywords={array, begin, boolean, by, case, character, default, do, each, elif, else, end, enum, esac, false, fi, for, goto, if, in, inout, integer, nil, od, of, out, procedure, real, record, repeat, return, returns, sequence, set, to, true, until, where, while},
+  commentstyle={\color{black!50!green}\itshape},
+  morecomment=[l]{||},
+  literate={{(X)}{$\times$}1 {(E)}{$\in$}1 {(U)}{$\cup$}1 {(N)}{$\cap$}1 {(<)}{$\langle$}1 {(>)}{$\rangle$}1 {->}{$\rightarrow$}2 {<\-}{$\leftarrow$}2 {=}{$=$}1 {>}{$>$}1 {<}{$<$}1 {!=}{$\neq$}1 {>=}{$\ge$}1 {<=}{$\le$}1}
+}
+\renewcommand{\lstlistingname}{Algoritmo}
+\renewcommand{\lstlistlistingname}{Lista de Algoritmos}
+
+\usepackage[english,brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage{graphicx,xr}
+\usepackage{subfigure}
+\usepackage{longtable}
+\usepackage{setspace}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{indentfirst}
+\usepackage{xspace}
+\usepackage[sort]{natbib}
+\usepackage[a4paper,top=30mm,bottom=20mm,left=30mm,right=20mm]{geometry}
+
+\usepackage{hyperref}
+\hypersetup{
+%  backref, %omitir na versão final
+  pdfsubject =	{...},
+  pdftitle =	{...},
+  pdfkeywords = {...},
+  pdfauthor =	{Ricardo Menotti, Daniel Lucrédio, ...},
+  colorlinks =	{true}, %true na versão final
+  linkcolor =	{black!50!blue},
+  citecolor =	{black!50!blue},
+  urlcolor =	{black!50!blue},
+}
+
+\exhyphenpenalty = 10000
+
+\onehalfspace
+
+\hyphenation{es-ta-be-le-ci-das a-tu-al-men-te Simple-Scalar-ARM}
+
+\newcommand{\up}[1]{\raisebox{1.5ex}[0pt]{#1}}
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\be}{\begin{enumerate}}
+\newcommand{\ee}{\end{enumerate}}
+
+% using \autoref{} instead
+%\newcommand{\reffig}[1]{Figura~\ref{fig:#1}}
+%\newcommand{\reftab}[1]{Tabela~\ref{tab:#1}}
+%\newcommand{\refcha}[1]{Capítulo~\ref{cha:#1}}
+%\newcommand{\refses}[1]{Seção~\ref{ses:#1}}
+%\newcommand{\refsub}[1]{Subseção~\ref{sub:#1}}
+%\newcommand{\refape}[1]{Apêndice~\ref{ape:#1}}
+%\newcommand{\refcod}[1]{Código~\ref{cod:#1}}
+\newcommand{\subfigureautorefname}{\figureautorefname}
+
+\newcommand{\cha}[2]{\chapter{#2}\label{cha:#1}} %\thispagestyle{empty}
+\newcommand{\ses}[2]{\section{#2}\label{ses:#1}}
+\newcommand{\sub}[2]{\subsection{#2}\label{sub:#1}}
+\newcommand{\ape}[2]{\chapter{#2}\label{ape:#1}} %\thispagestyle{empty}
+
+\newcommand{\figsim}[2]{
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\textwidth]{../figuras/#1.jpg}
+  \caption{#2}
+  \label{fig:#1}
+\end{figure}
+}
+
+\newcommand{\ew}[1]{\selectlanguage{english}\emph{#1}\selectlanguage{brazil}}
+%\newcommand{\ew}[1]{\emph{#1}}
+
+\renewcommand{\bibname}{Referências Bibliográficas}
+
+\setcounter{secnumdepth}{2}
+
+\setcounter{tocdepth}{2}
+
+\pagestyle{empty}
+
+%\font\numberfont= goxi2074 scaled 2000      %%% Fonte para o Número do Capítulo
+\font\numberfont= pzcmi scaled 6500      %%% Fonte para o Número do Capítulo
+
+                                            %%% redefine o formato do título
+\titleformat{\chapter}[display]
+  {\normalfont\Large\sffamily
+  }
+  {
+   \rule[32pt]{.7\linewidth}{4pt}
+   \hspace{-10pt}
+   \shadowbox{
+   \begin{minipage}{.18\linewidth}
+     \begin{center}
+       \textsc{\Large\chaptertitlename}\\
+       \vspace{1ex}
+       {\numberfont \thechapter}\\
+       \vspace{1ex}
+     \end{center}
+   \end{minipage}}
+  }
+  {0pt}
+  {\filcenter
+   \Huge
+   }
+  [\hfill\rule{.8\textwidth}{0.75pt}\\
+     \vskip-1.8ex\hfill\rule{.7\textwidth}{2pt}]
+
+
+\newpagestyle{body}{ %[\small\sffamily]{
+\headrule
+
+\sethead[\thepage][][\ifthechapter{\thechapter\quad}{} \textsl{\chaptertitle}]%
+          {\ifthechapter{\thechapter\quad \textsl{\chaptertitle}}{\textsl{\chaptertitle}}}{}{\thepage}
+
+
+}
+
+\newpagestyle{misc}{
+  \headrule
+  \sethead{\textsl{\chaptertitle}}{}{\thepage}
+  \setfoot{}{}{}
+}
+
+\font\largefont= pzcmi scaled 6500
+
+\newcommand{\versal}[1]{{\noindent
+    \setbox0\hbox{\largefont #1 }%
+    \count0=\ht0                   % height of versal
+    \count1=\baselineskip          % baselineskip
+    \divide\count0 by \count1      % versal height/baselineskip
+    \dimen1 = \count0\baselineskip % distance to drop versal
+    \advance\count0 by 1\relax     % no of indented lines
+    \dimen0=\wd0                   % width of versal
+    \global\hangindent\dimen0      % set indentation distance
+    \global\hangafter-\count0      % set no of indented lines
+    \hskip-\dimen0\setbox0\hbox to\dimen0{\raise-\dimen1\box0\hss}%
+    \dp0=0in\ht0=0in\box0}}
+
+
+%%%  define linha mais grossa para tabelas
+
+\newdimen\arrayruleHwidth
+\setlength{\arrayruleHwidth}{2pt} \makeatletter
+\def\Hline{\noalign{\ifnum0=`}\fi\hrule \@height \arrayruleHwidth
+\futurelet \@tempa\@xhline} \makeatother
+
+
