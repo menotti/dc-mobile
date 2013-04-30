@@ -1,0 +1,141 @@
+ \documentclass[a4paper,12pt,brazil,doubleside]{book}
+
+% tentei incluir o da pasta comum mas não funcionou
+% \include{../comum/header}
+\input{../comum/header.tex}
+
+\title{Título}
+
+\begin{document}
+\selectlanguage{brazil}
+
+
+\pagestyle{empty}
+
+\cleardoublepage
+
+\selectlanguage{brazil}
+\onehalfspace
+
+\pagestyle{plain}
+\pagenumbering{roman}
+
+\setcounter{tocdepth}{1} % 0 capítulos, 1 seções, 2 subseções
+\tableofcontents
+\clearpage % se o verso ficar em branco...% VAI
+\thispagestyle{empty}
+
+\listoffigures
+\addcontentsline{toc}{section}{Lista de Figuras}
+\clearpage % se o verso ficar em branco...% VAI
+\thispagestyle{empty}
+
+\listoftables
+\addcontentsline{toc}{section}{Lista de Tabelas}
+\clearpage % se o verso ficar em branco...% VAI
+\thispagestyle{empty}
+
+\lstlistoflistings
+\addcontentsline{toc}{section}{Lista de Algoritmos}
+\clearpage % se o verso ficar em branco...% VAI
+\thispagestyle{empty}
+
+\chapter*{Lista de Abreviaturas}
+\addcontentsline{toc}{section}{Lista de Abreviaturas}
+\begin{longtable}{ll}
+\end{longtable}
+
+
+\chapter*{Resumo}
+\addcontentsline{toc}{section}{Resumo}
+
+\begin{singlespace}
+Esse material didático oferece ao aluno de graduação uma visão geral de como programar para o sistema móvel Android e utilizar suas APIs nativas na criação de aplicativos. O material tentará cobrir desde o mais básico como a configuração do ambiente de desenvolvimento, criação de layouts básicos e complexos, estrutura geral de um aplicativo e ir até a programação de aplicativos mais complexos que tentam utilizar uma ou várias APIs em conjunto.
+\end{singlespace}
+
+\clearpage % se o verso ficar em branco...
+\thispagestyle{empty}
+
+\thispagestyle{empty}
+
+\doublespace
+%\onehalfspace
+%\singlespace
+
+\cleardoublepage
+
+\pagestyle{body}
+\pagenumbering{arabic}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\cha{introducao}{Introdução}
+%\setcounter{page}{1}
+%7-10p
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=.5\textwidth]{../figuras/LogoDC.jpg}
+  \caption{Departamento de Computação}
+  \label{fig:dc}
+\end{figure}
+
+
+% http://tug.ctan.org/tex-archive/macros/latex/contrib/minted/
+% http://pygments.org/
+
+\cha{configambiente}{Configuração do Ambiente}
+A instalação e configuração do ambiente de desenvolvimento para Android é simples, o Google fornece um pacote chamado ADT (Android Development Tools) que contém o ambiente Eclipse com o plugin do Android, algumas ferramentas para instalação dos aplicativos nos smartphones, o gerenciador do SDK e as imagens para o emulador do Android. Essas ferramentas são suficientes para o desenvolvimento na plataforma.
+O pacote ADT pode ser encontrado em: \href{http://developer.android.com/sdk/}{Android SDK}\footnote{\href{http://developer.android.com/sdk/}{http://developer.android.com/sdk/}} .
+
+Basta fazer o download do pacote e extrair que tudo já está pré-configurado para iniciar o desenvolvimento, portanto não há muito o que configurar.
+
+\cha{intro-android}{Introdução à Linguagem Android}
+\section{Introdução}
+A linguagem usada para programar na plataforma Android é baseada em Java. Então antes de engajar no aprendizado Android é altamente recomendável estudar material Java e principalmente o paradigma de orientação à objetos.
+
+A diferença entre o Java convencional e o Android então se dá na organização e configuração feita através de arquivos XML especificos do Android. Alguns XML servem para tratar do aplicativo como um todo enquanto outros apenas do layout de cada tela, ou ainda alguns que dão suporte a strings para facilitar o suporte a multiplos idiomas.
+Felizmente o conjunto Eclipse com ADT já cuida disso automaticamente ou então facilita através de interfaces gráficas para os programadores.
+
+A criação de layouts dos aplicativos pode ser feita inteiramente através da interface gráfica disponível no ambiente, no melhor estilo \textit{drag and drop}. 
+
+\section{Entendendo os arquivos XML}
+Dentre os diversos arquivos XML existentes na configuração de um aplicativo Android o mais importante é o \textit{AndroidManifest.xml} pois é nele que se exprime as configurações gerais do aplicativo, não iremos adentrar muito nos detalhes das configurações, mas apenas deixar claro que é nesse arquivo que se coloca as versões do Android que seu aplicativo será compatível com, as permissões de usar internet, gps, bluetooth, etc. 
+
+Dentro da pasta \textit{res/} encontram-se outros arquivos, estes que podem ser tanto referentes a disposição do layout ou aos valores de strings. A pasta \textit{layout/} junto com as pastas \textit{drawable-*/} são para dispor o layout, cada \textit{drawable} é para comportar artefatos para cada tamanho diferente de tela, enquanto que a \textit{layout} é a dispoção geral do layout, nesse arquivo é que se coloca os itens que irão nas telas, sejam eles botões, caixas de texto, caixas de seleção, etc.
+
+Na pasta \textit{values/} o mais importante é o arquivo \textit{strings.xml} que é aonde irão os valores das strings do aplicativo, sempre que quiser referenciar alguma string, essa deverá estar expressa nesse arquivo. Fica fácil dessa forma fazer o aplicativo suportar múltiplos idiomas através da tradução do conteúdo para outros idiomas. 
+
+Tudo isso será trabalhado a partir de exemplos mais pra frente no material.
+
+
+\begin{singlespace}
+
+\lstinputlisting[float, language=java, label=cod:exemplo, caption={Exemplo ... \citep{muchnick}}]{../../src/android/teste.java}
+
+\end{singlespace}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\singlespace
+\selectlanguage{brazil}
+\cleardoublepage
+\thispagestyle{empty}
+\phantomsection
+\addcontentsline{toc}{chapter}{Referências Bibliográficas}
+\bibliography{../comum/biblio}
+\bibliographystyle{apalike}
+\doublespace
+
+
+\appendix
+\addtocontents{toc}{\protect\setcounter{tocdepth}{0}} % as seções do apêndice não aparecem do sumário com este comando...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ape{apen}{Especificação blá, blá, blá}
+
+Isto é um apêndice...
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+
+\end{document}
