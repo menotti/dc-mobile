@@ -1,0 +1,48 @@
+\documentclass[a4paper,12pt,brazil,doubleside]{book}
+\usepackage{minted}
+\usepackage{listings}
+
+\begin{document}
+
+\lstset{ %
+ breakatwhitespace=false,
+ breaklines=true
+}
+
+Testando código no Minted
+
+Código interno
+\begin{listing}
+\begin{minted}[mathescape,
+               linenos,
+               numbersep=5pt,
+               gobble=2,
+               frame=lines,
+               framesep=2mm]{csharp}
+  string title = "This is a Unicode π in the sky"
+  /*
+  Defined as $\pi=\lim_{n\to\infty}\frac{P_n}{d}$ where $P$ is the perimeter
+  of an $n$-sided regular polygon circumscribing a
+  circle of diameter $d$.
+  */
+  const double pi = 3.1415926535
+\end{minted}
+\end{listing}
+
+Código referenciado externamente, sem quebra manual de linha
+\begin{listing}
+\definecolor{bg}{rgb}{0.95,0.95,0.95}
+\inputminted[linenos=true,bgcolor=bg]{java}{src/teste2.java}
+\label{AndroidManifest.sdk}
+\caption{Teste de caption}
+\end{listing}
+
+Código referenciado externamente, com quebra manual de linha
+\begin{listing}
+\definecolor{bg}{rgb}{0.95,0.95,0.95}
+\inputminted[linenos=true,bgcolor=bg]{java}{src/teste.java}
+\label{AndroidManifest.sdk}
+\caption{Teste de caption}
+\end{listing}
+\end{document}
+
