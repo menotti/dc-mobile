@@ -9,52 +9,257 @@
 \begin{document}
 \selectlanguage{brazil}
 
-
-\pagestyle{empty}
-
 \cleardoublepage
 
-\selectlanguage{brazil}
 \onehalfspace
 
 \pagestyle{plain}
-\pagenumbering{roman}
+\pagenumbering{arabic}
 
 \setcounter{tocdepth}{1} % 0 capítulos, 1 seções, 2 subseções
 \tableofcontents
-\clearpage % se o verso ficar em branco...% VAI
-\thispagestyle{empty}
-
-\listoffigures
-\addcontentsline{toc}{section}{Lista de Figuras}
-\clearpage % se o verso ficar em branco...% VAI
-\thispagestyle{empty}
-
-\listoftables
-\addcontentsline{toc}{section}{Lista de Tabelas}
-\clearpage % se o verso ficar em branco...% VAI
-\thispagestyle{empty}
-
-\lstlistoflistings
-\addcontentsline{toc}{section}{Lista de Algoritmos}
-\clearpage % se o verso ficar em branco...% VAI
-\thispagestyle{empty}
-
-\chapter*{Lista de Abreviaturas}
-\addcontentsline{toc}{section}{Lista de Abreviaturas}
-\begin{longtable}{ll}
-\end{longtable}
 
 
-\chapter*{Resumo}
-\addcontentsline{toc}{section}{Resumo}
+\lstset{language=[Objective]C}
 
-\begin{singlespace}
-Resumo...
-\end{singlespace}
 
-\clearpage % se o verso ficar em branco...
-\thispagestyle{empty}
+
+\chapter{Introdução}
+
+\paragraph{}Este material tem a intenção de auxiliar qualquer programador, de estudante a profissional, no desenvolvimento de aplicativos para a plataforma iOS. Passaremos do básico da linguagem e do ambiente de desenvolvimento, ao layout de telas e utilização de APIs, fazendo a integrando de hardware e software, voltado tanto para projetos pequenos como projetos maiores em equipe.
+\paragraph{}Antes de mais nada, uma boa noção de Orientação a Objeto é requisito obrigatório. Trataremos do assunto ao longo de todo o material, então esteja com o vocabulário na ponta da língua. Alguma experiência com C ou Java também vai ajudar devivo à proximidade com Objective-C, mas qualquer linguagem orientada a objeto já estudada vai servir como uma boa base.
+
+
+
+\chapter{Configuração do Ambiente: XCode}
+
+\paragraph{}O ambiente que utilizaremos é o XCode, da própria Apple. A instalação e configuração dele e do SDK é simples e automática, basta procurar por XCode na App Store ou no site da Apple para desenvolvedores (\textit{developer.apple.com}).
+\paragraph{}Será feito o download do ambiente, de todas as bibliotecas necessárias e do simulador para a última versão do iOS para testar seus aplicativos. É possível, posteriormente, baixar pelo próprio XCode os simuladores de versões anteriores do iOS para garantir a compatibilidade do seu projeto com mais versões do sistema.
+\paragraph{}Para entender melhor as funcionalidades da ferramenta, dê uma olhada na extensa documentação que a Apple disponibiliza em 
+\href{https://developer.apple.com/library/ios/#documentation/ToolsLanguages/Conceptual/Xcode_User_Guide}{XCode User Guide}.
+
+
+
+\chapter{Introdução à linguagem}
+
+\paragraph{}O Objective-C é a linguagem de programação utilizada no ecossistema de produtos da Apple. É uma linguagem orientada a objeto baseada no C que surgiu no início dos anos 80, e acabou se popularizando ao ser utilizada pela NeXT a partir de 1988. Após a compra da NeXT pela Apple, em 1996, o Objective-C e sua então principal API, o OpenStep, foram usados para a construção do Mac OS X e assim se tonaram padrão na empresa.
+\paragraph{}Para o desenvolvimento de aplicativos para iOS, utiliza-se o Objective-C em conjunto com o Foundation Framework. Nesse capítulo teremos, uma visão geral de Objective-C em si, com o básico da sintaxe e os extras que a linguagem agrega ao C em termos de Orientação a Objeto, e também uma pincelada no Foundation Framework com as principais bibliotecas, classes e possibilidades que esse poderoso framework oferece para o ambiente de desenvolvimento.
+
+\bigskip 
+\bigskip
+
+
+\section{Objective-C}
+
+\paragraph{}Veremos as alterações e adições do Objective-C em relação ao C puro. Algumas das características mais notáveis:
+
+\begin{itemize}
+\item Tempo de execução dinâmico.
+\item Classe é objeto de si mesma.
+\item Herança única.
+\item Uso de protocolos para comunicação entre classes.
+\item Possibilidade de tipagem fraca.
+\end{itemize}
+
+\bigskip 
+\bigskip
+
+\subsection{Runtime Dinâmico}
+
+\paragraph{}O Objective-C tem tempo de execução dinâmico, o que significa que diversas decisões em chamadas de métodos e envio de mensagens serão feitas durante a execução, não tendo algo definido na compilação. Isso permite uma série de possibilidades extras em relação ao C, como instanciação dinâmica de objetos, uso de tipagem fraca quando necessário, e vantagens no polimorfismo de métodos.
+\paragraph{}A opção de tipagem fraca aparece com o novo tipo chamado \textit{id}. O \textit{id} é um tipo genérico de objeto, o que permite que qualquer tipo de objeto seja retornado, muito útil em casos que não podemos garantir de antemão qual será o tipo do objeto utilizado. Uma grande porção das classes disponíveis no Foundation Framework utilizam o \textit{id}, tornando o código genérico sem a necessidade de criar diversos métodos polimórficos que preveem o comportamento de cada tipo de dado.
+
+\bigskip 
+
+\subsection{Classes}
+
+\paragraph{}Quando criamos uma classe pelo XCode, automaticamente é criado um arquivo *.m para implementação e um *.h para o header, assim como o *.c e o *.h em C, porém em Objective-C eles também servem para diferenciar contéudo público e privado da classe. Tudo que for declarado no *.h será público e visível para todos, e tudo que estiver no *.m será privado, acessível só para membros da classe.
+
+\bigskip
+
+\paragraph{}Após vermos como é estruturado o código da classe, é preciso entender que em Objective-C uma classe é também um objeto de si mesma. Mesmo sem instanciar um objeto explicitamente, é possível utilizar a classe como um singleton [*] e enviar mensagens para ela. Isso só é possível graças ao tempo de execução dinâmico, e dessa forma todo objeto é, na verdade, um ponteiro para a sua classe, e é bom lembrar que por ser um ponteiro toda e qualquer declaração de um novo objeto precisa do asterisco. Entender este comportamento das classes é essencial para executarmos algumas práticas úteis nos projetos, como poder garantir que uma classe vai manter uma única instância de si mesma quando isso for conveniente, em classes de lógica ou configuração, por exemplo.
+\paragraph{}Quanto à herança, é permitido que uma classe tenha somente uma única superclasse. Isso pode parecer uma limitação, mas isso simplifica o entendimento e induz a construção de um projeto melhor estruturado. Além disso, o Objective-C introduz alguns componentes muito úteis, como o \textit{Protocol}, que possibilita a comunicação entre duas classes sem ligação, definindo o comportamento para chamada de métodos de uma classe por outra e a passagem de dados entre elas, e o \textit{Property}, que tem a função de encapsular uma variável de classe e construir automaticamente um método setter e um getter, tornando-a global e protegida dentro da classe.
+
+\bigskip 
+
+\subsection{Sintaxe}
+
+\paragraph{}As adições de sintaxe do Objective-C são basicamente para declaração de classes e métodos, e para expressões de chamada e envio de mensagens para os objetos. Esta nova sintaxe pode parecer um pouco estranha no início, mas ela se mostra bastante intuitiva e de fácil aprendizado logo que começamos a trabalhar com o código.
+\paragraph{}Começando pelas declarações:
+
+\bigskip 
+
+\paragraph{}\textbf{Classes}
+
+\paragraph{}A declaração de classe é feita de forma ligeiramente diferente no header e na implementação. No header tudo que for declarado da classe fica entre \textit{@interface} e \textit{@end}.
+
+\begin{lstlisting}
+@interface NomeDaClasse : SuperClasse
+
+@end
+\end{lstlisting}
+
+\paragraph{}E na implementação fica entre \textit{@implementation
+} e \textit{@end}, sem colocar a superclasse.
+
+\begin{lstlisting}
+@interface NomeDaClasse
+
+@end
+\end{lstlisting}
+
+\bigskip 
+
+\paragraph{}\textbf{Métodos}
+
+\paragraph{}A declaração de métodos tem algumas mudanças fundamentais em relação ao C. Temos o uso de (-) e (+) para definir se é método de instância ou método de classe (metódo estático, em C++ e Java), e nos parâmetros declaramos um label para o parâmetro a variável responsável, como nos modelos a seguir.\\
+
+\paragraph{}Sem parâmetros:\\
+\emph{<method type> (<return type>) <method name>;}\\
+
+\paragraph{}Com um parâmetro:\\
+\emph{<method type> (<return type>) <method name>: (<argument type>)} <argument name>;\\
+
+\paragraph{}Com mais de um parâmetro:\\
+\emph{<method type> (<return type>) <method name>: (<argument type>) <argument name> <argument 2 label>: (<argument 2 type>) <argument 2 name>;}\\
+
+\paragraph{}Exemplo:
+
+\begin{lstlisting}
+-(void) escreverStringOk {
+	NSLog(@"Ok");
+}
+
+-(void) escreverString:(NSString*)string {
+	NSLog(@"%@",string);
+}
+
+-(NSString*) escreverString:(NSString*)stringA comString:(NSString*)stringB {
+	NSLog(@"%@ %@",stringA,stringB);
+}
+\end{lstlisting}
+
+\bigskip
+
+A ideia de criar um label, além da própria variável, é de tornar intuitiva a leitura do método. No caso do último exemplo, o método seria lido como \emph{escreverString:comString:}.
+
+\bigskip
+
+\paragraph{}\textbf{Propriedades}
+
+\paragraph{}Como já citado anteriormente, o Objective-C oferece uma possibilidade de encapsulamento de variáveis de uma classe, a partir de uma \textit{Property}.
+\paragraph{}Uma \textit{Property} define automaticamente métodos setter e getter de uma variável, e também o tempo de duração na memória se for um objeto, de acordo com os parâmetros definidos. É geralmente definido no header da classe.
+\paragraph{}Exemplo:
+
+\begin{lstlisting}
+@property (nonatomic, strong) NSString *nome;
+@property BOOL existe;
+\end{lstlisting}
+
+\bigskip
+\bigskip
+
+\paragraph{}Agora veremos como acessamos métodos variáveis de uma classe ou objeto:\\
+
+\paragraph{}Sem parâmetros:\\
+\emph{[<method object> <method name>];}\\
+ou\\
+\emph{[receiver message];} (como a Apple prefere)\\
+
+
+\paragraph{}A ideia é da notação é indicar que o método é uma mensagem sendo enviada a um receptor, que é o objeto do método.\\
+
+\paragraph{}Com parâmetros:\\
+\emph{[<method object> <method name>:<argument 1>];}\\
+
+\paragraph{}Exemplo:
+
+\begin{lstlisting}
+Pessoa *funcionario;
+[...]
+funcionario.nome = "Joao";
+funcionario.sobrenome = "Silva";
+
+[self escreverString:funcionario.nome comString:funcionario.sobrenome];
+\end{lstlisting}
+
+\bigskip
+
+\paragraph{}Esse código mostra que estamos setando as variáveis nome e sobrenome do objeto funcionario do tipo \emph{Pessoa} e usando-as como parâmetros para o método \emph{escreverString:comString:} da própria classe (\textit{self} é o mesmo que \textit{this} em C++ e Java).
+\paragraph{}Se fosse um método do objeto funcionario, o \textit{self} seria trocado por \emph{funcionario}.
+
+\bigskip
+
+\subsection{Documentação}
+
+\paragraph{}A Apple disponibiliza uma extensa documentação sobre Objective-C em \href{https://developer.apple.com/library/ios/#documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html}{Programming with Objective-C}. Um estudo desse material será de grande ajuda para entender exatamente o que a linguagem permite.
+
+\bigskip
+\bigskip
+
+
+\section{Foundation Framework}
+
+\paragraph{}O Foundation Framework é o que dá a base para a linguagem. É um conjunto enorme e completo de bibliotecas que auxiliam na manipulação de dados, com estruturas como arrays, dicionários, e strings, entre outras diversas possibilidades como uso de notificações, controle de threads, etc.
+\paragraph{}A seguir, veremos uma introdução aos principais tipos de dados que utilizaremos em Objective-C, presentes no Foundation.
+
+\bigskip
+
+\subsection{NSObject}
+
+\paragraph{}NSObject é a classe raiz da maioria das classes em Objective-C. Ela cria uma interface para que os objetos possam se comportar como um objeto de Objective-C, definindo algumas propriedades básicas.
+\paragraph{}Ela possui basicamente dois métodos que têm alguma utilidade direta para o programador. O primeiro é o \emph{copy}, que serve para criar uma nova instância com a cópia exata dos parâmetros do objeto em questão. O segundo é o \emph{description}, que tem a função interessante de armazenar uma string com a descrição do objeto, de forma que você possa imprimir uma representação do contéudo do objeto, sendo útil como verificação dos dados na depuração.
+
+\bigskip
+
+\subsection{NSArray}
+
+\paragraph{}NSArray é o tipo usado para manipular arrays em Objective-C. Semelhante à biblioteca \emph{vector} do C++, ela traz um conjunto muito completo de métodos para lidar com arrays de forma prática, permitindo operações como comparação, cópia, concatenação, ordenação, contagem, etc.
+
+\bigskip
+
+\subsection{NSString}
+
+\paragraph{}Do mesmo jeito que temos o NSArray para arrays, temos o NSString para strings, semelhante à biblioteca \emph{string} do C++. Esse tipo ambém traz um conjunto imenso de métodos para as mais diversas operações com strings, como as já citadas operações utilizadas em arrays, e particularidades de strings como capitalização, escrita/leitura em arquivo, combinação de mais de uma string, busca, entre outras operações possíveis com caracteres.
+
+\bigskip
+
+\subsection{NSDictionary}
+
+\paragraph{}Dicionário é um modo de organização e indexação de dados baseado em chaves únicas, seguindo a ideia de um dicionário comum dividido pelas letras do alfabeto. O uso de chaves únicas permite buscas eficientes em um conjunto de dados grande, tornando o dicionário uma estrutura muito utilizada para organizar e consultar dados de forma eficiente. Dentro de um dicionário podemos inserir basicamente dados em formato de string, array, número, ou outros dicionários.
+\paragraph{}No Objective-C temos o NSDictionary para lidarmos de forma mais simples com estruturas em dicionário. Podemos fazer operações como escrever/ler em arquivo, ler conteúdo de uma chave específica, transferir dados para outras estruturas como array ou string, obter todas as chaves do dicionário em questão, e fazer ordenação.
+\paragraph{}Em conjunto com o NSDictionary, é recomendável também o estudo das \emph{Property Lists}, arquivos no formato *.plist utilizados para guardar estruturas de dicionário em disco.
+
+\bigskip
+
+\subsection{NSNumber}
+
+\paragraph{}O NSNumber tem a função de simplesmente transformar tipos básicos de número do C (\emph{int}, \emph{float}, e \emph{double}) em objetos. A ideia é que em Objective-C lidemos sempre com objetos, já que o Foundation Framework já tem a base pronta para as operações. Ao utilizarmos números e tipos básicos como objetos, aumentamos o nível de abstração e a responsabilidade passa ser do framework, minimizando o uso incorreto de dados e operações na memória, e evitando interferências nos processos em execução.
+
+\bigskip
+
+\subsection{Documentação}
+
+\paragraph{}A Apple disponibilizada a documentação completa das classes do Foundation em
+\href{http://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/ObjC_classic/_index.html}{Foundation Framework Reference}.
+\paragraph{}Essa documentação será de extrema importância ao longo do estudo de desenvolvimento para iOS. O Foundation é muito extenso e rico em possibilidades, já trazendo a implementação de diversas soluções que tomariam um bom tempo e algumas linhas de código a mais no seu projeto.
+\paragraph{}Nunca hesite em procurar na documentação da classe em questão algum método que possa resolver seu problema. Lidar com strings, arrays e dicionários, além de outras diversas estruturas, será muito mais prático a partir de agora.
+\paragraph{}As classes estão muito bem organizadas na documentação, com os métodos divididos de acordo com o tipo de operação. Vale a pena dar uma olhada por cima nas classes citadas para obter uma visão geral do que é possível fazer, alimentando aos poucos o seu repertório na linguagem.
+
+
+\bigskip
+\bigskip
+
+
+\chapter{Design}
+
+\paragraph{}Nesta parte começaremos a ver como é feita a criação de telas no iOS. Utilizaremos um framework voltado especificamente para a construção da UI (User Interface), chamado UIKit Framework, em conjunto com a interface gráfica do XCode que auxilia a criação do layout.
+\paragraph{}Temos um conjunto enorme de elementos gráficos já prontos, como botões, barras de ferramenta, labels, campos de texto, tabelas, telas com rolagem, slide, entre outros elementos que já conhecemos com o uso do sistema. Além disso, temos também disponíveis diversas ações e interações a serem relacionadas com esses elementos, como tipo e permissão de toque, tipo de rolagem, controle automático de animações, e controle dos elementos e das ações através do código, com métodos extremamente flexíveis que permitem uma ótima customização da interface e da lógica de eventos pelo programador.
+
+A documentação completa das classes do UIKit está em 
+\href{http://developer.apple.com/library/ios/#documentation/uikit/reference/UIKit_Framework/_index.html}{UIKit Framwork Reference}.
+
+
 
 \thispagestyle{empty}
 
@@ -66,44 +271,6 @@ Resumo...
 
 \pagestyle{body}
 \pagenumbering{arabic}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\cha{introducao}{Introdução}
-%\setcounter{page}{1}
-%7-10p
-
-Introdução...
-
-
-Você pode citar a \autoref{fig:dc} assim. A \autoref{tab:tabela} mostra como é difícil criar uma tabela...
-
-\begin{figure}[!htb]
-  \centering
-  \includegraphics[width=.5\textwidth]{../figuras/LogoDC.jpg}
-  \caption{Departamento de Computação}
-  \label{fig:dc}
-\end{figure}
-
-\begin{table}[!htb]
-\caption{Tabelas são realmente chatas...}
-\centering
-\footnotesize
-\begin{tabular}{lrc}
-\hline
-\textbf{Coluna} & \textbf{Coluna} & \textbf{Coluna} \\
-\hline
-\hline
-\textbf{Android} & 4560 & 42 \\
-\hline
-\textbf{iOS} & 7072 & 64 \\
-\hline
-\end{tabular}
-\label{tab:tabela}
-\end{table}
-
-% http://tug.ctan.org/tex-archive/macros/latex/contrib/minted/
-% http://pygments.org/
-
 
 
 \begin{singlespace}
