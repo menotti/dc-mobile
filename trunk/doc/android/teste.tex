@@ -1,8 +1,8 @@
- \documentclass[a4paper,12pt,brazil,doubleside]{book}
+\documentclass[a4paper,12pt,brazil,doubleside]{book}
 
 % tentei incluir o da pasta comum mas não funcionou
 % \include{../comum/header}
-\input{../comum/header.tex}
+\input{header.tex}
 
 \title{Título}
 
@@ -45,6 +45,8 @@
 \begin{longtable}{ll}
 \end{longtable}
 
+\renewcommand\lstlistingname{Algorithm}
+\renewcommand\lstlistlistingname{Algorithms}
 
 \chapter*{Resumo}
 \addcontentsline{toc}{section}{Resumo}
@@ -85,7 +87,7 @@ Esse material didático oferece ao aluno de graduação uma visão geral de como
 
 \cha{configambiente}{Configuração do Ambiente}
 A instalação e configuração do ambiente de desenvolvimento para Android é simples, o Google fornece um pacote chamado ADT (Android Development Tools) que contém o ambiente Eclipse com o plugin do Android, algumas ferramentas para instalação dos aplicativos nos smartphones, o gerenciador do SDK e as imagens para o emulador do Android. Essas ferramentas são suficientes para o desenvolvimento na plataforma.
-O pacote ADT pode ser encontrado em: \href{http://developer.android.com/sdk/}{Android SDK}\footnote{\href{http://developer.android.com/sdk/}{http://developer.android.com/sdk/}} .
+O pacote ADT pode ser encontrado em: \href{http://developer.android.com/sdk/}{Android SDK}\footnote{\href{http://developer.android.com/sdk/}{http://developer.android.com/sdk/}}. 
 
 Basta fazer o download do pacote e extrair que tudo já está pré-configurado para iniciar o desenvolvimento, portanto não há muito o que configurar.
 
@@ -99,18 +101,230 @@ Felizmente o conjunto Eclipse com ADT já cuida disso automaticamente ou então 
 A criação de layouts dos aplicativos pode ser feita inteiramente através da interface gráfica disponível no ambiente, no melhor estilo \textit{drag and drop}. 
 
 \section{Entendendo os arquivos XML}
-Dentre os diversos arquivos XML existentes na configuração de um aplicativo Android o mais importante é o \textit{AndroidManifest.xml} pois é nele que se exprime as configurações gerais do aplicativo, não iremos adentrar muito nos detalhes das configurações, mas apenas deixar claro que é nesse arquivo que se coloca as versões do Android que seu aplicativo será compatível com, as permissões de usar internet, gps, bluetooth, etc. 
+Dentre os diversos arquivos XML existentes na configuração de um aplicativo Android o mais importante é o \texttt{\textcolor{mygreen}{AndroidManifest.xml}} pois é nele que se exprime as configurações gerais do aplicativo, não iremos adentrar muito nos detalhes das configurações, mas apenas deixar claro que é nesse arquivo que se coloca as versões do Android que seu aplicativo será compatível com, as permissões de usar internet, gps, bluetooth, etc. 
 
-Dentro da pasta \textit{res/} encontram-se outros arquivos, estes que podem ser tanto referentes a disposição do layout ou aos valores de strings. A pasta \textit{layout/} junto com as pastas \textit{drawable-*/} são para dispor o layout, cada \textit{drawable} é para comportar artefatos para cada tamanho diferente de tela, enquanto que a \textit{layout} é a dispoção geral do layout, nesse arquivo é que se coloca os itens que irão nas telas, sejam eles botões, caixas de texto, caixas de seleção, etc.
+Dentro da pasta \texttt{\textcolor{mygreen}{res/}} encontram-se outros arquivos, estes que podem ser tanto referentes a disposição do layout ou aos valores de strings. A pasta \texttt{\textcolor{mygreen}{layout/}} junto com as pastas \texttt{\textcolor{mygreen}{drawable-*/}} são para dispor o layout, cada \textit{drawable} é para comportar artefatos para cada tamanho diferente de tela, enquanto que a \textit{layout} é a dispoção geral do layout, nesse arquivo é que se coloca os itens que irão nas telas, sejam eles botões, caixas de texto, caixas de seleção, etc.
 
-Na pasta \textit{values/} o mais importante é o arquivo \textit{strings.xml} que é aonde irão os valores das strings do aplicativo, sempre que quiser referenciar alguma string, essa deverá estar expressa nesse arquivo. Fica fácil dessa forma fazer o aplicativo suportar múltiplos idiomas através da tradução do conteúdo para outros idiomas. 
+Na pasta \texttt{\textcolor{mygreen}{values/}} o mais importante é o arquivo \texttt{\textcolor{mygreen}{strings.xml}} que é aonde irão os valores das strings do aplicativo, sempre que quiser referenciar alguma string, essa deverá estar expressa nesse arquivo. Fica fácil dessa forma fazer o aplicativo suportar múltiplos idiomas através da tradução do conteúdo para outros idiomas. 
 
 Tudo isso será trabalhado a partir de exemplos mais pra frente no material.
 
 
+\cha{primeiro-aplicativo}{Criando seu primeiro aplicativo}
+Para exemplificar a criação de um aplicativo, seguiremos o exemplo dado pelo próprio manual do Google sobre o Android (Ver original\footnote{Original em: \href{http://developer.android.com/training/basics/firstapp/creating-project.html}{http://developer.android.com/training/basics/firstapp/creating-project.html}}). Um aplicativo simples do tipo \textit{''Hello World''}.
+
+Iniciaremos criando um novo projeto no Eclipse: \textit{File -> New -> Android Application Project}.
+
+Na janela que apareceu você deve colocar o nome do aplicativo, do projeto e do pacote. O nome do pacote deve seguir a convenção do Java\footnote{Convenção sobre nome dos pacotes: \href{http://docs.oracle.com/javase/tutorial/java/package/namingpkgs.html}{http://docs.oracle.com/javase/tutorial/java/package/namingpkgs.html}}.
+\begin{itemize}
+	\item \textit{Minimum Required SDK:} É a versão mínima do sistema operacional Android que sua aplicação irá suportar, o mais comum é a versão 8 do SDK que se refere ao Android 2.2, alguns tipos de layouts mais complexos não são suportados em versões mais antigas
+	\item \textit{Target SDK:} É a versão principal para qual seu aplicativo está sendo desenvolvido
+	\item \textit{Compile With:} Versão para qual seu aplicativo será compilado
+	\item \textit{Theme:} Cores do layout
+\end{itemize}
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.8\textwidth]{figuras/1-criando-app.jpg}
+  \caption{Primeira janela de criação de novo aplicativo}
+  \label{fig:d}
+  \includegraphics[width=.8\textwidth]{figuras/2-criando-app.jpg}
+  \caption{Segunda janela de criação de novo aplicativo}
+  \label{fig:c}
+\end{figure}
+
+
+\begin{singlespace}
+\begin{listing}[H]
+\inputminted[linenos=true,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{../../src/android/firstapp/sdk-manifest.xml}
+\label{AndroidManifest.sdk}
+\caption{Exemplo de configuração de versão do SDK no \texttt{\textcolor{mygreen}{AndroidManifest.xml}} }
+\end{listing}
+
+Primeiro vamos criar um layout para o aplicativo usando a interface gráfica do Eclipse, primeiro abra o arquivo \texttt{\textcolor{mygreen}{res/layout/main\_activity.xml}} , segundo o AndroidManifest, é essa \texttt{activity} que será aberta quando o aplicativo for iniciado, configurado através do \textit{intent-filter}. Cada \texttt{activity} é uma tela do aplicativo e é responsáve primariamente por mostrar as informações, o Android segue o modelo \emph{MVC} \textit{(Model-View-Control)}, e as \texttt{activity} são as \textit{Views} do aplicativo.
+\begin{listing}
+\begin{minted}[mathescape,
+               linenos,
+               numbersep=5pt,
+               tabsize=2,
+               frame=lines,
+               framesep=2mm]{xml}
+<intent-filter>
+	<action android:name="android.intent.action.MAIN" />
+	<category android:name="android.intent.category.LAUNCHER"/>
+</intent-filter>
+\end{minted}
+\caption{Configuração dos \textit{intent-filters} no \texttt{\textcolor{mygreen}{AndroidManifest.xml}} }
+\end{listing}
+
+Não entraremos em detalhes sobre os \textit{intent-filters} agora. Selecione o ''Hello world'' e delete ele da sua \texttt{activity}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics{figuras/3-criando-app.png}
+  \caption{Selecionando o Hello world}
+  \label{fig:b}
+\end{figure}
+
+Agora arraste um \textit{Text Field -> Plain Text} e um \textit{Form Widgets -> Button} para sua \texttt{activity} 
+
+\begin{figure}[H]
+  \centering
+  \includegraphics{figuras/4-criando-app.png}
+  \caption{\texttt{activity} com os elementos colocados na tela}
+  \label{fig:a}
+\end{figure}
+
+Ao clicar duas vezes no elemento no modo visual, você sera levado ao correspondente marcador desse elemento no XML correspondente da \texttt{activity}. Clique duas vezes na caixa de texto.
+
+\begin{listing}
+\inputminted[linenos=true,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{../../src/android/firstapp/1.xml}
+\caption{Código da caixa de texto}
+\end{listing}
+
+Primeiro, modifique a \textit{id} para um mais intuitivo, por exemplo você pode chama-lo de \textit{caixaTextoNome}. Todo \textit{id} deve ser precedido de \texttt{@+id/} como definido pelo Android. Os outros atributos são para definir o tamanho, alinhamento e margem, todos relativos ao elemento pai desse elemento que no caso é o próprio layout. Depois adicione uma \textit{hint} para essa caixa de texto, uma \textit{hint} é algo que vai estar escrito na caixa de texto quando ela estiver vazia, indicando que tipo de texto você pretende que seja escrito nessa caixa de texto, essa \textit{hint} é uma referência a \texttt{string} chamada \texttt{nome} que está definida no arquivo \texttt{\textcolor{mygreen}{res/values/strings.xml}}.	 No código acima a \textit{hint} já foi colocada na linha 10.
+
+Depois modifique o código do botão, trocando o \textit{id} e as referências ao \textit{id} da caixa de texto, também edite o \texttt{android:text} para fazer uma referência a uma string no arquivo de strings. Por último adicione um atributo \texttt{android:onClick} que é o método que será executado quando o botão for pressionado.
+
+\begin{listing}[H]
+\inputminted[linenos=true,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{../../src/android/firstapp/2.xml}
+\caption{Código do botão}
+\end{listing}
+
+Adicione as strings ao arquivo de strings, essas strings podem ser referenciadas a qualquer momento tanto na construção do layout como na codificação do aplicativo.
+
+\begin{listing}
+\inputminted[linenos=true,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{../../src/android/firstapp/3.xml}
+\caption{Arquivo de strings com as duas strings adicionadas}
+\end{listing}
+
+Agora abra a classe \texttt{MainActivity} localizada na pasta \texttt{\textcolor{mygreen}{src/}} do seu projeto e adicione um novo método
+
+\begin{listing}
+\inputminted[linenos=true,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/4.java}
+\caption{Adicionando método à classe MainActivity}
+\end{listing}
+
+\bi
+\item{Isso vai requer você importe a classe View, você pode apertar \texttt{Ctrl+Shit+O} no Eclipse para importar classes que estejam faltando}
+\ei
+
+\begin{listing}
+\inputminted[linenos=true,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/4-2.java}
+\caption{Exemplo de import de classe Android}
+\end{listing}
+
+
+Primeiro, crie um novo \texttt{Intent}\footnote{Documentação Intent: \href{http://developer.android.com/reference/android/content/Intent.html}{http://developer.android.com/reference/android/content/Intent.html}}, um \texttt{Intent} é um objeto que providencia uma ligação entre dois componentes separados (tais como duas \textit{activities}). O \texttt{Intent} representa uma ''intenção do aplicativo de fazer algo'', eles podem ser usados para uma variedade de tarefas, mas são principalmente usados para iniciar uma nova \texttt{activity}.
+
+\begin{listing}[H]
+\inputminted[linenos=true,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/5.java}
+\caption{Adicionando uma \texttt{Intent}}
+\end{listing}
+
+Agora você precisa obter o texto que está escrito na caixa para fazer algo com ele, no caso iremos enviar para outra \texttt{activity} que irá mostrar esse texto.
+
+\begin{listing}[H]
+\inputminted[linenos=true,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/6.java}
+\caption{Obtendo o conteúdo da caixa de texto e enviando para outra \texttt{activity}}
+\end{listing}
+
+O código na linha 3 está obtendo a referência a caixa de texto usando o método \texttt{findViewById()} e o argumento passado é o \textit{id} da caixa de texto, observe que você chama com \texttt{R.id.caixaTextoNome} isso é feito dessa forma porque o android compila automaticamente uma classe R (R de \textit{Resources}) que contém as \textit{id's} e \textit{strings} criadas nos arquivos XML.
+Em seguida usando o método \texttt{getText()} da caixa de texto, obtem-se a string que foi escrita lá.
+
+Por fim, essa string é colocada no \texttt{Intent} com o método \texttt{putExtra()}, uma \texttt{Intent} pode carregar consigo uma coleção de vários tipos de dados como pares chave-valor chamados \textit{extras}, esse método toma a chave como primeiro parâmetro e o valor no segundo parâmetro.
+Para que a próxima \texttt{activity} consiga coletar esse valor, você deve definir uma chave para seu \textit{extra} usando uma constante pública. Para isso adicione a definição de \texttt{EXTRA\_MESSAGE} no topo da sua classe \texttt{MainActivity}.
+
+\begin{listing}[H]
+\inputminted[linenos=true,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/7.java}
+\caption{Constante como chave para um extra}
+\end{listing}
+
+Agora você deve criar uma nova \texttt{activity}, para isso vá em \textit{File -> New -> Other -> Android Activity} e selecione \textit{Blank Activity}. Preencha a próxima janela dessa maneira, depois clique \textit{Finish}. 
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\textwidth]{figuras/5-criando-app.png}
+  \caption{Criando uma nova \texttt{activity}}
+  \label{fig:e}
+\end{figure}
+
+A classe já vem com alguns métodos implementados, alguns não serão necessários para esse aplicativo, mas mantenha eles na classe. Todas as classes que são subclasses de \texttt{Activity} precisam implementar o método \texttt{onCreate()}\footnote{\href{http://developer.android.com/reference/android/app/Activity.html\#onCreate(android.os.Bundle)}{http://developer.android.com/reference/android/app/Activity.html\#onCreate(android.os.Bundle)}}.
+
+Geralmente você precisaria adicionar uma nova string com o nome da classe no XML, e adicionar a \texttt{activity} no \texttt{\textcolor{mygreen}{AndroidManifest.xml}} porém como estamos trabalhando com o Eclipse, você não precisa se preocupar que ele faz isso sozinho.
+
+Agora, precisamos extrair os dados enviados a essa \texttt{activity} através do \texttt{intent}, você pode pegar o \texttt{intent} que começou a \texttt{activity} chamando o método \texttt{getIntent()}\footnote{\href{http://developer.android.com/reference/android/app/Activity.html\#getIntent()}{http://developer.android.com/reference/android/app/Activity.html\#getIntent()}}.
+
+\begin{listing}[H]
+\inputminted[linenos=true,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/8.java}
+\caption{Obtendo extras passados através do \texttt{Intent}}
+\end{listing}
+
+Agora para mostrar a mensagem na tela, você precisa criar um \texttt{TextView}\footnote{\href{http://developer.android.com/reference/android/widget/TextView.html}{http://developer.android.com/reference/android/widget/TextView.html}}
+
+\begin{listing}[H]
+\inputminted[linenos=true,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/9.java}
+\caption{Método \texttt{onCreate()} recebendo um \texttt{Intent} e mostrando a mensagem}
+\end{listing}
+
+Agora que o aplicativo está pronto, é necessário testar, caso tenha um smartphone Android você pode conectá-lo no seu computador e rodar diretamente, senão você deverá rodar em um emulador.
+
+
+Para rodar diretamente no smartphone:
+\be
+\item Conecte seu smartphone no computador através do cabo USB. Se estiver desenvolvendo no Windows será preciso instalar os drivers USB do seu dispositivo. Se precisar de ajuda para instalar os drivers acesse: \href{http://developer.android.com/tools/extras/oem-usb.html}{OEM USB}\footnote{\href{http://developer.android.com/tools/extras/oem-usb.html}{http://developer.android.com/tools/extras/oem-usb.html}}
+\item Ative o modo \emph{USB Debugging} no dispositivo
+	\bi
+	\item Para Android 3.2 ou mais antigos, a opção deve estar em \textit{Configurações -> Aplicativos	 -> Desenvolvimento}
+	\item Para Android 4.0 e 4.1, a opção está em \textit{Configurações -> Opções do desenvolvedor}
+	\item Para Andoird 4.2 e mais novos, a opção está escondida por padrão, para mostrar a opção você deve entrar em \textit{Sobre o telefone} e clicar em \textit{Número da versão} 7 vezes, ao retornar para tela anterior deverá aparecer \textit{Opções do desenvolvedor}
+	\ei
+\ee
+
+\newpage 
+Para rodar no emulador:
+\be
+\item Abra o \textit{SDK Manager} através do Eclipse em: \textit{Window -> Android SDK Manager}
+\item Verifique se, para Android 4.2.2 (API 17) ou outro desejado os seguintes pacotes estejam instalados
+	\bi
+	\item \textit{SDK Platform}
+	\item \textit{ARM EABI v7a System Image} ou
+	\item \textit{Intel x86 Atom System Image}
+	\ei
+\item Verifique também se em \textit{Tools}, os pacotes \textit{Android SDK Tools} e \textit{Android SDK Platform-tools} estão instalado
+\item Agora é necessário criar um AVD (Android Virtual Device\footnote{\href{http://developer.android.com/tools/devices/index.html}{http://developer.android.com/tools/devices/index.html}}), no Eclipse vá em \textit{Window -> Android Virtual Device Manager} 
+\item No AVD Manager clique em \emph{New}
+\item Complete as informações do AVD, dê um nome, plataforma, espaço de armazenamento, quantidade de memória RAM
+\item Clique \emph{Create AVD}
+\item Selecione o novo AVD no \textit{Android Virtual Device Manager} e clique \emph{Start}
+\item Quando o emulador terminar de carregar, destrave a tela do emulador
+\ee
+
+Agora para rodar o aplicativo basta clicar em \emph{Run} na barra de tarefas do Eclipse e selecionar \textit{Android Application} na janela \emph{Run as}. O Eclipse irá instalar o APK e abrir o aplicativo automaticamente.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.4\textwidth]{figuras/6-criando-app.png}
+  \caption{Primeira tela do primeiro aplicativo}
+  \label{fig:f}
+  \includegraphics[width=.4\textwidth]{figuras/7-criando-app.png}
+  \caption{Primeira tela após escrever texto na caixa de texto}
+  \label{fig:g}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.4	\textwidth]{figuras/8-criando-app.png}
+  \caption{Segunda tela mostrando a mensagem enviada}
+  \label{fig:h}
+\end{figure}
+
+
+\end{singlespace}
+
 \begin{singlespace}
 
-\lstinputlisting[float, language=java, label=cod:exemplo, caption={Exemplo ... \citep{muchnick}}]{../../src/android/teste.java}
+%\lstinputlisting[float, language=java, label=cod:exemplo, caption={Exemplo ... \citep{muchnick}}]{../../src/android/teste.java}
 
 \end{singlespace}
 
@@ -122,9 +336,6 @@ Tudo isso será trabalhado a partir de exemplos mais pra frente no material.
 \cleardoublepage
 \thispagestyle{empty}
 \phantomsection
-\addcontentsline{toc}{chapter}{Referências Bibliográficas}
-\bibliography{../comum/biblio}
-\bibliographystyle{apalike}
 \doublespace
 
 
