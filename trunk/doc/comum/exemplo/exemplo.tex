@@ -1,6 +1,12 @@
 \documentclass[a4paper,12pt,brazil,doubleside]{book}
+
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+
+\usepackage{pdftexcmds} % http://tex.stackexchange.com/questions/66280/minted-package-undefined-control-sequence
 \usepackage{minted}
 \usepackage{listings}
+
 
 \begin{document}
 
@@ -11,6 +17,9 @@
 
 Testando código no Minted
 
+% Apos o uso do pacote inputenc para corrigir a acentuação, o unicode não é mais aceito
+% https://github.com/vonavi/minted/issues/80
+
 Código interno
 \begin{listing}
 \begin{minted}[mathescape,
@@ -19,7 +28,7 @@ Código interno
                gobble=2,
                frame=lines,
                framesep=2mm]{csharp}
-  string title = "This is a Unicode π in the sky"
+  string title = "This is not a Unicode in the sky"
   /*
   Defined as $\pi=\lim_{n\to\infty}\frac{P_n}{d}$ where $P$ is the perimeter
   of an $n$-sided regular polygon circumscribing a
