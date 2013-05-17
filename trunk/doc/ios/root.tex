@@ -18,15 +18,23 @@
 
 \setcounter{tocdepth}{1} % 0 capítulos, 1 seções, 2 subseções
 \tableofcontents
-
+\clearpage % se o verso ficar em branco...% VAI
 
 \lstset{language=[Objective]C}
 
+\listoffigures
+\addcontentsline{toc}{section}{Lista de Figuras}
+\clearpage % se o verso ficar em branco...% VAI
+\thispagestyle{empty}
 
+\lstlistoflistings
+\addcontentsline{toc}{section}{Lista de Códigos}
+\clearpage % se o verso ficar em branco...% VAI
+\thispagestyle{empty}
 
 \chapter{Introdução}
 
-\paragraph{}Este material tem a intenção de auxiliar qualquer programador, de estudante a profissional, no desenvolvimento de aplicativos para a plataforma iOS. Passaremos do básico da linguagem e do ambiente de desenvolvimento, ao layout de telas e utilização de APIs, fazendo a integrando de hardware e software, voltado tanto para projetos pequenos como projetos maiores em equipe.
+\paragraph{}Este material tem a intenção de auxiliar qualquer programador, de estudante a profissional, no desenvolvimento de aplicativos para a plataforma iOS. Passaremos do básico da linguagem e do ambiente de desenvolvimento, ao layout de telas e utilização de APIs, fazendo a integração de hardware e software, voltado tanto para projetos pequenos como projetos maiores em equipe.
 \paragraph{}Antes de mais nada, uma boa noção de Orientação a Objeto é requisito obrigatório. Trataremos do assunto ao longo de todo o material, então esteja com o vocabulário na ponta da língua. Alguma experiência com C ou Java também vai ajudar devivo à proximidade com Objective-C, mas qualquer linguagem orientada a objeto já estudada vai servir como uma boa base.
 
 
@@ -43,7 +51,7 @@
 \chapter{Introdução à linguagem}
 
 \paragraph{}O Objective-C é a linguagem de programação utilizada no ecossistema de produtos da Apple. É uma linguagem orientada a objeto baseada no C que surgiu no início dos anos 80, e acabou se popularizando ao ser utilizada pela NeXT a partir de 1988. Após a compra da NeXT pela Apple, em 1996, o Objective-C e sua então principal API, o OpenStep, foram usados para a construção do Mac OS X e assim se tonaram padrão na empresa.
-\paragraph{}Para o desenvolvimento de aplicativos para iOS, utiliza-se o Objective-C em conjunto com o Foundation Framework. Nesse capítulo teremos, uma visão geral de Objective-C em si, com o básico da sintaxe e os extras que a linguagem agrega ao C em termos de Orientação a Objeto, e também uma pincelada no Foundation Framework com as principais bibliotecas, classes e possibilidades que esse poderoso framework oferece para o ambiente de desenvolvimento.
+\paragraph{}Para o desenvolvimento de aplicativos para iOS, utiliza-se o Objective-C em conjunto com o Foundation Framework. Nesse capítulo teremos uma visão geral de Objective-C em si, com o básico da sintaxe e os extras que a linguagem agrega ao C em termos de Orientação a Objeto, e também uma pincelada no Foundation Framework com as principais classes, métodos e possibilidades que esse poderoso framework oferece para o ambiente de desenvolvimento.
 
 \bigskip 
 \bigskip
@@ -74,6 +82,8 @@
 \subsection{Classes}
 
 \paragraph{}Quando criamos uma classe pelo XCode, automaticamente é criado um arquivo *.m para implementação e um *.h para o header, assim como o *.c e o *.h em C, porém em Objective-C eles também servem para diferenciar contéudo público e privado da classe. Tudo que for declarado no *.h será público e visível para todos, e tudo que estiver no *.m será privado, acessível só para membros da classe.
+
+\bigskip
 
 \bigskip
 
@@ -256,10 +266,106 @@ funcionario.sobrenome = "Silva";
 \paragraph{}Nesta parte começaremos a ver como é feita a criação de telas no iOS. Utilizaremos um framework voltado especificamente para a construção da UI (User Interface), chamado UIKit Framework, em conjunto com a interface gráfica do XCode que auxilia a criação do layout.
 \paragraph{}Temos um conjunto enorme de elementos gráficos já prontos, como botões, barras de ferramenta, labels, campos de texto, tabelas, telas com rolagem, slide, entre outros elementos que já conhecemos com o uso do sistema. Além disso, temos também disponíveis diversas ações e interações a serem relacionadas com esses elementos, como tipo e permissão de toque, tipo de rolagem, controle automático de animações, e controle dos elementos e das ações através do código, com métodos extremamente flexíveis que permitem uma ótima customização da interface e da lógica de eventos pelo programador.
 
-A documentação completa das classes do UIKit está em 
-\href{http://developer.apple.com/library/ios/#documentation/uikit/reference/UIKit_Framework/_index.html}{UIKit Framwork Reference}.
+\paragraph{}A documentação completa das classes do UIKit está em 
+\href{http://developer.apple.com/library/ios/#documentation/uikit/reference/UIKit_Framework/_index.html}{UIKit Framework Reference}.
+
+\paragraph{}Começaremos explicando como funcionam as diferentes partes responsáveis pelos elementos gráficos no iOS.
+
+\bigskip
+\bigskip
 
 
+\section{Telas}
+
+\paragraph{}Os elementos gráficos no iOS são conjuntos de objetos que se unem em uma certa hierarquia, formando o que entendemos por User Interface (UI).
+\paragraph{}No topo da hierarquia temos a UIWindow, que serve para dar suporte para desenho na tela. Utilizamos ela uma única vez para indicar qual é a tela inicial do aplicativo, a \emph{Root View Controller}, e não mais interagimos com ela. Abaixo dela vem a UIScreen, que representa a tela em si. Além de fornecer o tamanho em pixels da tela, o \emph{bounds}, também não tem mais utilidade direta para o programador.
+\paragraph{}Onde realmente atuaremos será nos objetos do tipo UIView, ligados diretamente à UIWindows, e nos objetos do tipo UIViewController, que gerenciam a UIView.
+
+\bigskip
+\bigskip
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.35\textheight]{../figuras/ios/apple_window_view_controller_screen.png}
+  \caption{Esquema relacionando os elementos da UI}
+  \label{fig:a}
+\end{figure}
+
+\bigskip
+
+\subsection{UIView x UIViewController}
+
+\paragraph{}Um objeto do tipo UIView, ou apenas \emph{View}, é onde colocamos de fato os elementos visuais. Ela representa uma determinada área onde pode conter objetos como UIButton, UILabel e UITextField, além de outras \emph{Views} inseridas, formando uma hierarquia de objetos que vão se orientar diretamente pelo posicionamento e comportamento da UIView maior.
+\paragraph{}A grande ideia a ser entendida e que diferencia uma \emph{View} de uma \emph{View Controller} é que um objeto de UIView contém estritamente elementros gráficos, sem nenhuma lógica do comportamento. Um objeto de UIView não entende e não deve entender as consequências de suas ações. Um UIButton, por exemplo, sabe como agir quando é clicado mas não sabe qual tipo de ação ou mensagem foi gerada e nem pra onde ela foi a partir do seu clique.
+\paragraph{}Deixando algumas coisas claras, uma tela pode conter uma só \emph{View} tomando todo o espaço ou várias \emph{Views} se divindido, sendo elas totalmente independentes ou aninhadas. Além disso, você pode criar novas classes herdando de UIView para serem estanciadas dentro de uma UIViewController.\\
+
+\paragraph{}Uma \emph{View Controller} é o que gerencia a lógica e comportamento de um conjunto específico de uma ou mais \emph{Views}, e é responsável por carregar e interagir com as \emph{Views} na hora correta e da forma correta. Um UIButton clicado envia um sinal para a \emph{View Controller}, que tem o papel de entender qual deve ser a resposta para esse evento, que pode ser algo como envio de dados, interação com as \emph{Views}, ou criação de animações.
+\paragraph{}Uma \emph{View Controller} é criada com uma única \emph{View} atrelada. É possível então adicionar mais \emph{Views} dentro da \emph{View} principal ou em conjunto com ela.
+\paragraph{}Sabendo que é possível criar uma classe para uma \emph{View} genérica, sem possuir uma \emph{View Controller} atrelada, como sabemos se criamos uma classe herdando de UIView ou de UIViewController? Essa pergunta pode causar confusão no início, mas fica mais claro após entender exatamente o papel de cada uma.
+\paragraph{}Primeiramente seguimos a regra de que para cada tela completa criamos uma \emph{View Controller} para gerenciá-la, e nessa classe podemos inserir todos os elementos da tela. Porém há os casos em que a ideia é criar uma \emph{View} genérica a ser inserida no contexto de uma tela completa, \emph{View} essa que pode ser desde uma célula customizada para uma tabela até uma tabela completa, aí então devemos pensar se essa mesma \emph{View} terá algum comportamento ou se será unicamente visual. No caso de uma célula customizada, por exemplo, ela será apenas visual e assim deve ser uma simples classe de UIView; já no caso de uma tabela completa, ela vai precisar de um grande conjunto de lógica para o seu comportamento, portanto precisará de uma \emph{View Controller} própria, que no caso de tabelas tem uma classe especial chamada UITableViewController.
+
+\bigskip
+
+\subsection{Navegação entre telas}
+
+\bigskip
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.35\textheight]{../figuras/ios/apple_navigation_interface.png}
+  \caption{Esquema do funcionamento do Navigation Controller}
+  \label{fig:a}
+\end{figure}
+
+\bigskip
+
+\paragraph{}Conforme vamos criando novas telas, precisamos de um modo de chamá-las e de retornar delas para a tela anterior. O iOS permite mais de um tipo de gerenciamento de navegação das telas, mas em quase 100\% dos casos faremos uso do \emph{Navigation Controller}.
+\paragraph{}O \emph{Navigation Controller} funciona como uma pilha de \emph{View Controllers} que tem início sempre na já citada \emph{Root View Controller}, que será a tela inicial do aplicativo. Definimos uma única vez pelo código qual será nossa \emph{Root View Controller}, após isso trabalharemos apenas com métodos de \emph{push} e \emph{pop} para carregar e descarregar as telas. Graficamente, o \emph{Navigation Controller} é a barra superior (que também pode ser inferior) nas telas dos aplicativos e que contém um botão de retorno e outros botões auxiliares.
+\paragraph{}Há um outro tipo de navegação complementar chamado \emph{Tab Bar Controller}, que nada mais é que uma nova tela, que pode inclusive estar contida na pilha do \emph{Navigation Controller}, e que traz duas ou mais telas divididas por abas.
+
+\bigskip
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.4\textheight]{../figuras/ios/apple_tabbar_interface.png}
+  \caption{Esquema do funcionamento do Tab Bar Controller}
+  \label{fig:a}
+\end{figure}
+
+\bigskip
+\bigskip
+
+
+\section{Interface Builder}
+
+\paragraph{}Para nos auxiliar na construção das telas, utilizeremos o Interface Builder do XCode. Na criação de uma nova \emph{View Controller}, é criado um arquivo *.xib atrelado a essa classe, que ligará automaticamente os objetos criados na interface ao código da classe.
+\paragraph{}O Interface Builder é uma ferramente muito poderosa e o utilizaremos principalmente para definir o posicionamento dos objetos, como as \emph{Views} e seus componentes, e para fazer a ligação dos \emph{outlets} e \emph{actions} ao código.
+\paragraph{}E lembrando que sempre podemos determinar o layout e a criação dos objetos diretamente no código, sendo o Interface Builder apenas um facilitador. Em diversos casos lidar com o código acaba sendo até mais prático.
+
+\bigskip
+
+\subsection{Outlets e Actions}
+
+\paragraph{}\emph{Outlets} representam uma ligação entre um objeto criado na interface pelo Interface Builder, como um botão ou um texto, e uma instância criada no código. Funciona como um ponteiro de um objeto do código para a sua representação gráfica, e assim podemos nos referenciar a esse elemento no código do \emph{View Controller} para definirmos seu comportamento e possíveis mudanças nas suas características.
+\paragraph{}Já uma \emph{action} representa uma mensagem enviada por um objeto na interface. A \emph{action} define o tipo de toque que aciona a mensagem e cria o método que será chamado e conterá o código do programador para definir o comportamento desejado.
+
+\bigskip
+\bigskip
+
+
+\section{Seu primeiro aplicativo}
+
+\paragraph{}Agora vamos enfim colocar a mão na massa e colocar em ordem tudo que foi falado até agora.
+
+\bigskip
+
+\subsection{Primeira tela}
+
+\subsection{Ligando novas telas}
+
+\subsection{Trocando informação}
+
+\subsection{O uso do Delegate}
 
 \thispagestyle{empty}
 
