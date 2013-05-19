@@ -52,7 +52,10 @@
 \addcontentsline{toc}{section}{Resumo}
 
 \begin{singlespace}
-Esse material didático oferece ao aluno de graduação uma visão geral de como programar para o sistema móvel Android e utilizar suas APIs nativas na criação de aplicativos. O material tentará cobrir desde o mais básico como a configuração do ambiente de desenvolvimento, criação de layouts básicos e complexos, estrutura geral de um aplicativo e ir até a programação de aplicativos mais complexos que tentam utilizar uma ou várias APIs em conjunto.
+Esse material didático oferece ao aluno de graduação uma visão geral de como programar para o sistema móvel Android e utilizar suas APIs nativas na criação de aplicativos. O material tentará cobrir desde o básico como a configuração do ambiente de desenvolvimento, criação de layouts básicos e complexos, estrutura geral de um aplicativo e ir até a programação de aplicativos mais complexos que tentam utilizar uma ou várias APIs em conjunto.
+
+O objetivo é dar apenas uma noção de como utilizar as ferramentas do Android, introduzir ao aluno os conceitos e não entrar em detalhes do sistema operacional ou em conceitos mais aprofundados, mas sim uma visão genérica.
+Após a leitura desse material e realização da prática o aluno deve estar preparado para construir seus próprios aplicativos nativos, e poderá até monetizar seus aplicativos se desejar.
 \end{singlespace}
 
 \clearpage % se o verso ficar em branco...
@@ -81,7 +84,7 @@ Esse material didático oferece ao aluno de graduação uma visão geral de como
   \label{fig:dc}
 \end{figure}
 
-
+**** \emph{Não sei o que escrever na introdução que eu não tenha escrito no resumo} ****
 % http://tug.ctan.org/tex-archive/macros/latex/contrib/minted/
 % http://pygments.org/
 
@@ -91,21 +94,21 @@ O pacote ADT pode ser encontrado em: \href{http://developer.android.com/sdk/}{An
 
 Basta fazer o download do pacote e extrair que tudo já está pré-configurado para iniciar o desenvolvimento, portanto não há muito o que configurar.
 
-\cha{intro-android}{Introdução à Linguagem Android}
-\section{Introdução}
+\cha{intro-android}{Linguagem do Android}
+\section{Linguagem}
 A linguagem usada para programar na plataforma Android é baseada em Java. Então antes de engajar no aprendizado Android é altamente recomendável estudar material Java e principalmente o paradigma de orientação à objetos.
 
-A diferença entre o Java convencional e o Android então se dá na organização e configuração feita através de arquivos XML especificos do Android. Alguns XML servem para tratar do aplicativo como um todo enquanto outros apenas do layout de cada tela, ou ainda alguns que dão suporte a strings para facilitar o suporte a multiplos idiomas.
-Felizmente o conjunto Eclipse com ADT já cuida disso automaticamente ou então facilita através de interfaces gráficas para os programadores.
+A diferença entre o Java convencional e o Android então se dá na organização e configuração feita através de arquivos XML especificos do Android. Alguns XML servem para configurar o aplicativo, layout de cada tela, outro dá suporte a strings para facilitar o suporte a multiplos idiomas.
+Felizmente o conjunto Eclipse com ADT já cuida disso automaticamente ou então facilita através de interfaces gráficas para os programadores, então para qualquer iniciante nessa área e recomendável a utilizacão do ambiente Eclipse.
 
 A criação de layouts dos aplicativos pode ser feita inteiramente através da interface gráfica disponível no ambiente, no melhor estilo \textit{drag and drop}. 
 
 \section{Entendendo os arquivos XML}
-Dentre os diversos arquivos XML existentes na configuração de um aplicativo Android o mais importante é o \texttt{\textcolor{mygreen}{AndroidManifest.xml}} pois é nele que se exprime as configurações gerais do aplicativo, não iremos adentrar muito nos detalhes das configurações, mas apenas deixar claro que é nesse arquivo que se coloca as versões do Android que seu aplicativo será compatível com, as permissões de usar internet, gps, bluetooth, etc. 
+Dentre os diversos arquivos XML existentes na configuração de um aplicativo Android o mais importante é o \texttt{\textcolor{mygreen}{AndroidManifest.xml}} pois é nele que se exprime as configurações gerais do aplicativo, não iremos adentrar muito nos detalhes das configurações, mas apenas deixar claro que é nesse arquivo que se coloca as versões do Android que seu aplicativo será compatível com, as permissões para usar os recursos do aparelho como Internet, GPS, Bluetooth, etc. 
 
-Dentro da pasta \texttt{\textcolor{mygreen}{res/}} encontram-se outros arquivos, estes que podem ser tanto referentes a disposição do layout ou aos valores de strings. A pasta \texttt{\textcolor{mygreen}{layout/}} junto com as pastas \texttt{\textcolor{mygreen}{drawable-*/}} são para dispor o layout, cada \textit{drawable} é para comportar artefatos para cada tamanho diferente de tela, enquanto que a \textit{layout} é a dispoção geral do layout, nesse arquivo é que se coloca os itens que irão nas telas, sejam eles botões, caixas de texto, caixas de seleção, etc.
+Dentro da pasta \texttt{\textcolor{mygreen}{res/}} de recursos, encontram-se outros arquivos, estes que são referentes a disposição do layout e a valores de strings. A pasta \texttt{\textcolor{mygreen}{layout/}} junto com as pastas \texttt{\textcolor{mygreen}{drawable-*/}} são para dispor o layout, cada \textit{drawable} é para comportar artefatos para cada tamanho diferente de tela, enquanto que a \textit{layout} é a dispoção geral do layout, nesse arquivo é que se coloca os itens que irão nas telas, como botões, caixas de texto, caixas de seleção, etc.
 
-Na pasta \texttt{\textcolor{mygreen}{values/}} o mais importante é o arquivo \texttt{\textcolor{mygreen}{strings.xml}} que é aonde irão os valores das strings do aplicativo, sempre que quiser referenciar alguma string, essa deverá estar expressa nesse arquivo. Fica fácil dessa forma fazer o aplicativo suportar múltiplos idiomas através da tradução do conteúdo para outros idiomas. 
+Na pasta \texttt{\textcolor{mygreen}{values/}} o mais importante é o arquivo \texttt{\textcolor{mygreen}{strings.xml}} que se escreve os valores das strings do aplicativo, sempre que quiser referenciar alguma string, essa deverá estar expressa nesse arquivo. Fica fácil dessa forma fazer o aplicativo suportar múltiplos idiomas através da tradução desse conteúdo para outros idiomas. 
 
 Tudo isso será trabalhado a partir de exemplos mais pra frente no material.
 
@@ -137,12 +140,12 @@ Na janela que apareceu você deve colocar o nome do aplicativo, do projeto e do 
 
 \begin{singlespace}
 \begin{listing}[H]
-\inputminted[linenos=true,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{../../src/android/firstapp/sdk-manifest.xml}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{../../src/android/firstapp/sdk-manifest.xml}
 \label{AndroidManifest.sdk}
 \caption{Exemplo de configuração de versão do SDK no \texttt{\textcolor{mygreen}{AndroidManifest.xml}} }
 \end{listing}
 
-Primeiro vamos criar um layout para o aplicativo usando a interface gráfica do Eclipse, primeiro abra o arquivo \texttt{\textcolor{mygreen}{res/layout/main\_activity.xml}} , segundo o AndroidManifest, é essa \texttt{activity} que será aberta quando o aplicativo for iniciado, configurado através do \textit{intent-filter}. Cada \texttt{activity} é uma tela do aplicativo e é responsáve primariamente por mostrar as informações, o Android segue o modelo \emph{MVC} \textit{(Model-View-Control)}, e as \texttt{activity} são as \textit{Views} do aplicativo.
+Primeiro vamos criar um layout para o aplicativo usando a interface gráfica do Eclipse, primeiro abra o arquivo \texttt{\textcolor{mygreen}{res/layout/activity\_main.xml}} , segundo o AndroidManifest, é essa \texttt{activity} que será aberta quando o aplicativo for iniciado, configurado através do \textit{intent-filter}. Cada \texttt{activity} é uma tela do aplicativo e é responsáve primariamente por mostrar as informações, o Android segue o modelo \emph{MVC} \textit{(Model-View-Control)}, e as \texttt{activity} são as \textit{Views} do aplicativo.
 \begin{listing}
 \begin{minted}[mathescape,
                linenos,
@@ -179,7 +182,7 @@ Agora arraste um \textit{Text Field -> Plain Text} e um \textit{Form Widgets -> 
 Ao clicar duas vezes no elemento no modo visual, você sera levado ao correspondente marcador desse elemento no XML correspondente da \texttt{activity}. Clique duas vezes na caixa de texto.
 
 \begin{listing}
-\inputminted[linenos=true,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{../../src/android/firstapp/1.xml}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{../../src/android/firstapp/1.xml}
 \caption{Código da caixa de texto}
 \end{listing}
 
@@ -188,21 +191,21 @@ Primeiro, modifique a \textit{id} para um mais intuitivo, por exemplo você pode
 Depois modifique o código do botão, trocando o \textit{id} e as referências ao \textit{id} da caixa de texto, também edite o \texttt{android:text} para fazer uma referência a uma string no arquivo de strings. Por último adicione um atributo \texttt{android:onClick} que é o método que será executado quando o botão for pressionado.
 
 \begin{listing}[H]
-\inputminted[linenos=true,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{../../src/android/firstapp/2.xml}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{../../src/android/firstapp/2.xml}
 \caption{Código do botão}
 \end{listing}
 
 Adicione as strings ao arquivo de strings, essas strings podem ser referenciadas a qualquer momento tanto na construção do layout como na codificação do aplicativo.
 
 \begin{listing}
-\inputminted[linenos=true,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{../../src/android/firstapp/3.xml}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{../../src/android/firstapp/3.xml}
 \caption{Arquivo de strings com as duas strings adicionadas}
 \end{listing}
 
 Agora abra a classe \texttt{MainActivity} localizada na pasta \texttt{\textcolor{mygreen}{src/}} do seu projeto e adicione um novo método
 
 \begin{listing}
-\inputminted[linenos=true,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/4.java}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/4.java}
 \caption{Adicionando método à classe MainActivity}
 \end{listing}
 
@@ -211,7 +214,7 @@ Agora abra a classe \texttt{MainActivity} localizada na pasta \texttt{\textcolor
 \ei
 
 \begin{listing}
-\inputminted[linenos=true,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/4-2.java}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/4-2.java}
 \caption{Exemplo de import de classe Android}
 \end{listing}
 
@@ -219,14 +222,14 @@ Agora abra a classe \texttt{MainActivity} localizada na pasta \texttt{\textcolor
 Primeiro, crie um novo \texttt{Intent}\footnote{Documentação Intent: \href{http://developer.android.com/reference/android/content/Intent.html}{http://developer.android.com/reference/android/content/Intent.html}}, um \texttt{Intent} é um objeto que providencia uma ligação entre dois componentes separados (tais como duas \textit{activities}). O \texttt{Intent} representa uma ''intenção do aplicativo de fazer algo'', eles podem ser usados para uma variedade de tarefas, mas são principalmente usados para iniciar uma nova \texttt{activity}.
 
 \begin{listing}[H]
-\inputminted[linenos=true,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/5.java}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/5.java}
 \caption{Adicionando uma \texttt{Intent}}
 \end{listing}
 
 Agora você precisa obter o texto que está escrito na caixa para fazer algo com ele, no caso iremos enviar para outra \texttt{activity} que irá mostrar esse texto.
 
 \begin{listing}[H]
-\inputminted[linenos=true,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/6.java}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/6.java}
 \caption{Obtendo o conteúdo da caixa de texto e enviando para outra \texttt{activity}}
 \end{listing}
 
@@ -237,7 +240,7 @@ Por fim, essa string é colocada no \texttt{Intent} com o método \texttt{putExt
 Para que a próxima \texttt{activity} consiga coletar esse valor, você deve definir uma chave para seu \textit{extra} usando uma constante pública. Para isso adicione a definição de \texttt{EXTRA\_MESSAGE} no topo da sua classe \texttt{MainActivity}.
 
 \begin{listing}[H]
-\inputminted[linenos=true,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/7.java}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/7.java}
 \caption{Constante como chave para um extra}
 \end{listing}
 
@@ -257,14 +260,14 @@ Geralmente você precisaria adicionar uma nova string com o nome da classe no XM
 Agora, precisamos extrair os dados enviados a essa \texttt{activity} através do \texttt{intent}, você pode pegar o \texttt{intent} que começou a \texttt{activity} chamando o método \texttt{getIntent()}\footnote{\href{http://developer.android.com/reference/android/app/Activity.html\#getIntent()}{http://developer.android.com/reference/android/app/Activity.html\#getIntent()}}.
 
 \begin{listing}[H]
-\inputminted[linenos=true,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/8.java}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/8.java}
 \caption{Obtendo extras passados através do \texttt{Intent}}
 \end{listing}
 
 Agora para mostrar a mensagem na tela, você precisa criar um \texttt{TextView}\footnote{\href{http://developer.android.com/reference/android/widget/TextView.html}{http://developer.android.com/reference/android/widget/TextView.html}}
 
 \begin{listing}[H]
-\inputminted[linenos=true,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/9.java}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/9.java}
 \caption{Método \texttt{onCreate()} recebendo um \texttt{Intent} e mostrando a mensagem}
 \end{listing}
 
@@ -314,11 +317,81 @@ Agora para rodar o aplicativo basta clicar em \emph{Run} na barra de tarefas do 
 \end{figure}
 \begin{figure}[H]
   \centering
-  \includegraphics[width=.4	\textwidth]{figuras/8-criando-app.png}
+  \includegraphics[width=.4\textwidth]{figuras/8-criando-app.png}
   \caption{Segunda tela mostrando a mensagem enviada}
   \label{fig:h}
 \end{figure}
 
+\cha{design}{Design}
+\section{Listas \texttt{(ListView)}}
+Listas são uma das formas mais simples de se mostrar informações ao usuário de forma simples e objetiva, e pode ser usada como um menu. A construção é simples, você pode começar mudando o layout de \texttt{RelativeLayout} para \texttt{LinearLayout}, a diferença entre eles é que o \textit{Relative} permite você posicionar elementos uns relativos aos outros enquanto que o \textit{Linear} segue uma estrutura, vertical ou horizontal, e que pode ser aninhada ou seja, você pode ter um layout \textit{Linear} horizontal dentro de uma das posições do layout vertical. Haverá um exemplo mais pra frente.
+
+\begin{listing}[H]
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{../../src/android/design/layout_linear.xml}
+\caption{Layout \textit{Linear} no \texttt{activity\_main.xml}}
+\end{listing}
+
+Agora, você pode arrastar um \texttt{ListView} para o layout ou criar um manualmente com o seguinte código XML
+
+\begin{listing}[H]
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{../../src/android/design/listview.xml}
+\caption{Código XML de um \texttt{ListView}}
+\end{listing}
+
+Agora para popular a lista, você precisa criar um \texttt{string-array} no arquivo \texttt{\textcolor{mygreen}{strings.xml}} com os elementos que deseja colocar na lista.
+
+\begin{listing}[H]
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{../../src/android/design/string-array.xml}
+\caption{\texttt{string-array} populada com elementos}
+\end{listing}
+
+E por final, escrever o código que irá preencher a lista com as \textit{strings} desse \textit{array}.
+
+\begin{listing}[H]
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/design/listactivity.java}
+\caption{Código de uma \texttt{activity} com lista clicável}
+\end{listing}
+
+Dentro da interface \texttt{OnItemClickListener} você pode configurar a ação de clicar em um dos itens da lista, nesse exemplo é criado um \texttt{Toast} que mostra uma mensagem com o texto do item na lista porém, qualquer ação pode ser executada incluindo abrir uma nova \texttt{activity} que esteja relacionada a esse item.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.7\textwidth]{figuras/design/lista.png}
+  \caption{Lista simples}
+  \label{fig:e}
+\end{figure}
+
+Obs.: O \texttt{Toast} é esse pequeno retângulo preto com uma mensagem, ele aparece e desaparece rapidamente apenas para mostrar uma mensagem ao usuário.
+
+\section{Listas Compostas}
+É possível compor um item da lista colocando mais elementos no mesmo além de um texto. Para isso você precisa criar um novo arquivo XML que irá definir a customização de cada linha de uma \texttt{ListView}, defina um arquivo chamado \texttt{\textcolor{mygreen}{item.xml}}.
+
+\newpage
+
+\begin{listing}[H]
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{../../src/android/design/item.xml}
+\caption{Código do arquivo \texttt{\textcolor{mygreen}{item.xml}}}
+\end{listing}	
+
+Agora você precisa adaptar esse layout customizado para cada item da lista, uma maneira simples é usando a classe \texttt{SimpleAdapter}.
+
+\begin{listing}[H]
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/design/customlist.java}
+\caption{Código da lista customizada}
+\end{listing}	
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.475\textwidth]{figuras/design/lista-composta.png}
+  \caption{Lista Composta}
+  \label{fig:e}
+\end{figure}
+
+\section{Listas expandíveis}
+\section{Grades \texttt{(GridView)}}
+\section{Abas \texttt{(TabView)}}
+\section{Arrastar \texttt{(Swipe View)}}
+\section{Menu lateral}
 
 \end{singlespace}
 
