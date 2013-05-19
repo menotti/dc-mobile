@@ -3,13 +3,15 @@
 \usepackage[sf,bf,compact,topmarks,calcwidth,pagestyles]{titlesec} %%% definir títulos de seção
 \usepackage{amsmath,amsfonts,amstext,amsthm,textcomp}
 \usepackage{fancybox}                       %%% boxes
-\usepackage{color}                          %%% Cores de fonte e fundo
+\usepackage[dvipsnames,usenames]{color}                          %%% Cores de fonte e fundo
+\usepackage[dvipsnames,usenames]{xcolor}
 \usepackage{colortbl}                       %%% Cores em tabelas
 \usepackage{rotating}
 \usepackage{fancyvrb}                       %%% Inclusão de texto usando VerbatimInput
 \usepackage{bookman}                        %%% Fonte de Letras
 \usepackage{enumerate}
 \usepackage{lettrine}
+\usepackage{minted}	
 
 %\usepackage{listings}
 %\lstset{
@@ -205,4 +207,4 @@
 \def\Hline{\noalign{\ifnum0=`}\fi\hrule \@height \arrayruleHwidth
 \futurelet \@tempa\@xhline} \makeatother
 
-
+\definecolor{mygreen}{rgb}{0.1, 0.6, 0.2}

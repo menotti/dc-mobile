@@ -1,0 +1,30 @@
+public class MainActivity extends ListActivity {
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		//Obtém o array de strings para popular a lista
+		String listStr[] = getResources().getStringArray(R.array.listString);
+		
+		//Adaptador das strings para a lista
+		ListView lv = getListView();
+		lv.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listStr));
+		
+		/* Ação para quando clica num elemento da lista
+		 * precisa criar um listener e programa-lo para
+		 * realizar uma ação.
+		 */
+		lv.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position,
+					long id) {
+				//Quando clicado, mostra um Toast com o conteúdo do elemento
+				Toast.makeText(getApplicationContext(),
+					((TextView) view).getText(), Toast.LENGTH_SHORT).show();
+			}
+			
+		});
+	}
+...
