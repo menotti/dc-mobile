@@ -81,11 +81,7 @@
 
 \subsection{Classes}
 
-\paragraph{}Quando criamos uma classe pelo XCode, automaticamente é criado um arquivo *.m para implementação e um *.h para o header, assim como o *.c e o *.h em C, porém em Objective-C eles também servem para diferenciar contéudo público e privado da classe. Tudo que for declarado no *.h será público e visível para todos, e tudo que estiver no *.m será privado, acessível só para membros da classe.
-
-\bigskip
-
-\bigskip
+\paragraph{}Quando criamos uma classe pelo XCode, automaticamente é criado um arquivo *.m para implementação e um *.h para o header, assim como o *.c e o *.h em C, porém em Objective-C eles também servem para diferenciar contéudo público e privado da classe. Tudo que for declarado no *.h será público e visível para todos, e tudo que estiver no *.m será privado, acessível só para membros da classe.\\
 
 \paragraph{}Após vermos como é estruturado o código da classe, é preciso entender que em Objective-C uma classe é também um objeto de si mesma. Mesmo sem instanciar um objeto explicitamente, é possível utilizar a classe como um singleton [*] e enviar mensagens para ela. Isso só é possível graças ao tempo de execução dinâmico, e dessa forma todo objeto é, na verdade, um ponteiro para a sua classe, e é bom lembrar que por ser um ponteiro toda e qualquer declaração de um novo objeto precisa do asterisco. Entender este comportamento das classes é essencial para executarmos algumas práticas úteis nos projetos, como poder garantir que uma classe vai manter uma única instância de si mesma quando isso for conveniente, em classes de lógica ou configuração, por exemplo.
 \paragraph{}Quanto à herança, é permitido que uma classe tenha somente uma única superclasse. Isso pode parecer uma limitação, mas isso simplifica o entendimento e induz a construção de um projeto melhor estruturado. Além disso, o Objective-C introduz alguns componentes muito úteis, como o \textit{Protocol}, que possibilita a comunicação entre duas classes sem ligação, definindo o comportamento para chamada de métodos de uma classe por outra e a passagem de dados entre elas, e o \textit{Property}, que tem a função de encapsular uma variável de classe e construir automaticamente um método setter e um getter, tornando-a global e protegida dentro da classe.
@@ -356,16 +352,312 @@ funcionario.sobrenome = "Silva";
 \section{Seu primeiro aplicativo}
 
 \paragraph{}Agora vamos enfim colocar a mão na massa e colocar em ordem tudo que foi falado até agora.
+\paragraph{}Abra o XCode e escolha a opção de criar um novo projeto. Na nova janela aberta, escolha a opção \emph{Single View Application} e siga em frente.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.3\textheight]{../figuras/ios/1/novo_projeto1.png}
+  \caption{Criação do novo projeto}
+  \label{fig:a}
+\end{figure}
+
+\bigskip
+
+\paragraph{}Na próxima tela você pode escolher os detalhes do aplicativo. Tenha certeza que a opção \emph{Use Automatic Reference Counting} está marcada.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.3\textheight]{../figuras/ios/1/novo_projeto2.png}
+  \caption{Criação do novo projeto}
+  \label{fig:a}
+\end{figure}
+
+\bigskip
+
+\paragraph{}Conclua a criação do projeto, com a opção \emph{Create an .xib file} marcada. Podemos agora visualizar a classe mãe do projeto, que será responsável pela tela inicial do aplicativo.
+\paragraph{}Para visualizar melhor os arquivos do projeto, use os ícones acima de Editor no canto superior direito para escolher a forma da exibição do código.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.3\textheight]{../figuras/ios/1/codigo_classe_mh.png}
+  \caption{Tela dividida com os dois arquivos de código da classe}
+  \label{fig:a}
+\end{figure}
 
 \bigskip
 
 \subsection{Primeira tela}
 
-\subsection{Ligando novas telas}
+\paragraph{}No lado esquerdo está o navegador dos arquivos do projeto. Selecione o arquivo .xib da classe para abrir o Interface Builder.
 
-\subsection{Trocando informação}
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.4\textheight]{../figuras/ios/1/xib.png}
+  \caption{Arquivo xib da primeira tela}
+  \label{fig:a}
+\end{figure}
 
-\subsection{O uso do Delegate}
+\bigskip
+
+\paragraph{}No canto superior direito, entre os acima de View, clique no ícone da direita  para abrir a seção de opções do Interface Builder. Nessa parte poderemos ver e editar as características de qualquer objeto selecionado da tela, desde um botão a uma View, e alternar as opções entre as abas.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.2\textheight]{../figuras/ios/1/xib_opcoes.png}
+  \caption{Barra lateral de opções do Interface Builder}
+  \label{fig:a}
+\end{figure}
+
+\bigskip
+
+\paragraph{}Podemos selecionar e arrastar à tela qualquer objeto. Esses objetos estão presentes na seção de objetos no canto inferior esquerdo.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.4\textheight]{../figuras/ios/1/xib_objetos.png}
+  \caption{Objetos disponíveis no Interface Builder}
+  \label{fig:a}
+\end{figure}
+
+\bigskip
+
+\paragraph{}Vamos inicialmente adicionar um \emph{UILabel} e um \emph{UIButton} com textos de exemplo à tela.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.25\textheight]{../figuras/ios/1/xib_tela1.png}
+  \caption{Interface com os primeiros objetos criados}
+  \label{fig:a}
+\end{figure}
+
+\bigskip
+
+\paragraph{}Com os objetos adicionados, devemos ligá-los ao código. Para isso, basta selecionar o objeto e arratá-lo ao código da classe enquanto segura a tecla Ctrl.
+\paragraph{}No pop-up é possível escolher se é um \emph{outlet} ou uma \emph{action}, mas por enquanto criaremos só os \emph{outlets}. Escolha um nome apropriado ao objeto, que o diferencie mas também deixe claro o seu tipo para facilitar a leitura do código.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.3\textheight]{../figuras/ios/1/link_outlet_button.png}
+  \caption{Criação dos outlets}
+  \label{fig:a}
+\end{figure}
+
+\bigskip
+
+\paragraph{}Agora precisamos definir o funcionamento do Navigation Controller. Abra o arquivo FirstAppAppDelegate.h e adicione a seguinte property:\\
+
+\begin{lstlisting}
+@property (strong, nonatomic) UINavigationController *navController;
+\end{lstlisting}
+
+\paragraph{}E no arquivo FirstAppAppDelegate.m, deixaremos o primeiro método desse jeito:\\
+
+\begin{lstlisting}
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    self.viewController = [[FirstAppViewController alloc] initWithNibName:@"FirstAppViewController" bundle:nil];
+    self.navController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
+   
+    self.window.rootViewController = self.navController;
+    [self.window makeKeyAndVisible];
+    
+    return YES;
+}
+\end{lstlisting}
+
+\paragraph{}Nesse arquivo é inicializado a UIWindow e a UIScreen, já citadas aqui. Como foi dito, a UIWindow é a reponsável por chamar a primeira tela do aplicativo. Nesse código é criado a Navigation Controller que utilizaremos para navegar entre as telas do aplicativo, e definimos qual será a primeira tela, chamada \emph{Root View Controller}.
+\paragraph{}E pronto, com a Navigation Controller criadao não mexeremos mais nesse arquivo.\\
+
+\paragraph{}Voltando à classe da primeira tela, podemos agora criar um título para a tela, que aparecerá na barra de navegação. No método \emph{viewDidLoad} adicione a linha:\\
+
+\begin{lstlisting}
+self.navigationItem.title = @"Tela 1";
+\end{lstlisting}
+
+\paragraph{}O método \emph{viewDidLoad} é onde colocaremos tudo que será setado no carregamento da tela, é o método de inicalização. Há um grande número de métodos do UIViewController que podemos sobreescrever de acordo com a nossa necessidade. Eles têm a função de controlar o comportamento da tela durante toda a existência da tela, desde sua inicialização até finalização, podendo prever respostas a ações do usuário.
+\paragraph{}Agora o aplicativo ainda está extremamente cru, mas já podemos executá-lo no \emph{iOS Simulator} para ver sua primeira aparência. Basta apertar o botão Play no canto superior esquerdo.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.4\textheight]{../figuras/ios/1/simulador1_tela1.png}
+  \caption{Aplicativo executando no iOS Simulator}
+  \label{fig:a}
+\end{figure}
+
+\bigskip
+
+\paragraph{}Podemos agora começar a brincar com o código. Vamos criar uma \emph{action} bem simples para testarmos o comportamento do aplicativo com o simulador. Para isso basta arrastar segurando Ctrl do botão para o código e escolher a opção \emph{action}, e criar um nome para ela. A intenção da nossa primeira \emph{action} é que os textos do botão e do label troquem quando clicarmos no botão.
+\paragraph{}Com a \emph{action} criada, veja que no código de implementação da classe (arquivo *.m) já tem o esqueleto do método que será chamado, e nele colocaremos nossa lógica.\\
+
+\begin{lstlisting}
+- (IBAction)okTouched:(id)sender {
+    
+    NSString *aux = [[NSString alloc] initWithString:self.exemploLabel.text];
+    self.exemploLabel.text = self.okButton.currentTitle;
+    [self.okButton setTitle:aux forState:UIControlStateNormal];
+}
+\end{lstlisting}
+
+\paragraph{}O código funciona como um simples swap. Na linha 3 temos inicializamos uma variável local com o texto do label; na linha 4 atribuimos o texto do botão ao texto do label; e na linha 5 chamamos o método da classe UIButton responsável por setar o texto do botão, que no caso será o texto salvo na variável auxiliar.
+\paragraph{}Rode o aplicativo no simulador para verificar o funcionamento do botão.\\
+
+\bigskip
+
+\subsection{Manipulando o Navigation Controller}
+
+\paragraph{}Pensando agora na próxima tela, vamos preparar o terreno para a transição. Adicionamos um novo botão que servirá de chamada para a segunda tela, e criamos um \emph{outlet} e uma \emph{action} para ele. Colocaremos no método da \emph{action} a chamada para a segunda tela, que será através de um \emph{push} da tela no Navigation Controller.\\
+
+\begin{lstlisting}
+- (IBAction)secondScreenTouched:(id)sender {
+    
+    self.secondScreen = [[SecondScreenViewController alloc] initWithNibName:@"SecondScreenViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:self.secondScreen animated:YES];
+}
+\end{lstlisting}
+
+\bigskip
+
+\paragraph{}Para chamar uma nova tela é preciso criar uma instância da \emph{View Controller} a ser chamada, no caso da SecondScreenViewController (que ainda não criamos), para então jogá-la na pilha com o método de \emph{push}, que recebe como parâmetro a instância criada.
+\paragraph{}A nossa tela deve estar parecida com essa:
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.3\textheight]{../figuras/ios/1/simulador3_tela1.png}
+  \caption{Primeira tela com o botão de chamada da segunda tela}
+  \label{fig:a}
+\end{figure}
+
+\bigskip
+
+\paragraph{}Agora podemos criar a segunda tela. Criamos um novo arquivo em New, definimos a herança da classe, que no caso de uma tela é uma UIViewController, e seu nome, que no exemplo será SecondScreenViewController. É importante que o nome da classe seja exatamente como está no código da criação.
+\paragraph{}Nessa segunda tela vamos colocar uma UIImage, arrastando da mesma forma que os outros objetos, e por enquanto mais um botão que fará a chamada da terceira tela.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.3\textheight]{../figuras/ios/2/xib_tela2.png}
+  \caption{Tela 2 com UIImage sem imagem}
+  \label{fig:a}
+\end{figure}
+
+\bigskip
+
+\paragraph{}Devemos agora definir uma imagem para a UIImage, mas antes é preciso adicionar a imagem que queremos na pasta Supporting Files do projeto. Para isso, basta clicar com o botão direito na pasta e adicionar os arquivos em Add Files to "First App".
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.25\textheight]{../figuras/ios/2/add_files.png}
+  \caption{Adicionando arquivos ao projeto}
+  \label{fig:a}
+\end{figure}
+
+\bigskip
+
+\paragraph{}Adicionamos a imagem LogoDC.png contida neste tutorial. Depois de adicionada, selecionamos a UIImageView e setamos o nome da imagem na barra lateral de opções.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.1\textheight]{../figuras/ios/2/image_path.png}
+  \caption{Setando a imagem}
+  \label{fig:a}
+\end{figure}
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[totalheight=0.35\textheight]{../figuras/ios/2/xib2_tela2.png}
+  \caption{Imagem aparecendo na tela}
+  \label{fig:a}
+\end{figure}
+
+\bigskip
+
+\paragraph{}Para dar funcionalidade ao botão, crie a terceira tela com o nome ThirdScreenViewController, seguindo o exemplo, e faça a chamada da mesma forma que foi feito na primeira tela.
+
+\bigskip
+
+\subsection{Trocando informação entre telas}
+
+\paragraph{}Ao inicializarmos uma instância de uma \emph{View Controller}, podemos atribuir valores às suas Properties antes de fazer o \emph{push} da tela. Dessa forma bem simples, é possível levar informação de uma tela existente para uma tela nova, podendo exibir ou tratar esses dados convenientemente na \emph{View Controller} da próxima tela. Para exemplificar, vamos criar um campo de texto na segunda tela e exibir o seu conteúdo em um label na terceira tela.
+\paragraph{}Para isso vamos precisar de um campo de texto na segunda tela, de um label na terceira tela, e de uma variável do tipo string na terceira tela, onde vamos armazenar o conteúdo do text field. Além disso, também é preciso criar a \emph{action} para fazer a chamada da terceira tela pelo botão.
+\paragraph{}A Property da string é criada no arquivo de header da classe da terceira tela da seguinte forma:\\
+
+\begin{lstlisting}
+@property (nonatomic, strong) NSString *textLabel;
+\end{lstlisting}
+
+\bigskip
+
+\paragraph{}A segunda tela e suas propriedades devem estar assim:\\
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.35\textheight]{../figuras/ios/2/xib_tela2_header.png}
+  \caption{Tela 2 e suas propriedades}
+  \label{fig:a}
+\end{figure}
+
+\bigskip
+\bigskip
+
+\paragraph{}E o método com a chamada da terceira tela será quase do mesmo jeito, apenas com a adição da passagem da variável.\\
+
+\begin{lstlisting}
+- (IBAction)thirdScreen:(id)sender {
+    
+    self.thirdScreen = [[ThirdScreenViewController alloc] initWithNibName:@"ThirdScreenViewController" bundle:nil];
+    
+    self.thirdScreen.textLabel = self.nameTextField.text;
+    
+    [self.navigationController pushViewController:self.thirdScreen animated:YES];
+}
+\end{lstlisting}
+
+\bigskip
+\bigskip
+
+\paragraph{}Além disso, precisamos tratar o conteúdo da variável na classe da terceira tela. Vamos verificar no método \emph{ViewDidLoad} o conteúdo da variável que recebeu o dado da segunda tela.\\
+
+\begin{lstlisting}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    if (![self.textLabel isEqualToString:@""]) {
+        self.nameLabel.text = self.textLabel;
+    } else {
+        self.nameLabel.text = @"Sem nome";
+    }
+    
+    self.messageTextField.delegate = self;
+}
+\end{lstlisting}
+
+\bigskip
+\bigskip
+
+\paragraph{}De uma forma bem simples, verificamos o conteúdo da string recebida e setamos o conteúdo do nosso label.
+\paragraph{}Note que único problema agora será após a edição do campo de texto na segunda tela, já que o teclado sobre mas não abaixa automaticamente. Deixaremos assim por enquanto. Tente posicionar o campo de texto e o botão de forma que o teclado não os cubra, apenas para verificar o funcionamento do código. Resolveremos o problema do teclado mais a frente.\\
+
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+
+\paragraph{}Aqui uma imagem da segunda tela no simulador.\\
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.4\textheight]{../figuras/ios/2/simulador2_tela2.png}
+  \caption{Tela 2 e suas propriedades}
+  \label{fig:a}
+\end{figure}
+
+\bigskip
+\bigskip
+
+\subsection{O uso do protocolo Delegate}
 
 \thispagestyle{empty}
 
