@@ -322,9 +322,33 @@ Agora para rodar o aplicativo basta clicar em \emph{Run} na barra de tarefas do 
   \label{fig:h}
 \end{figure}
 
+%%%%%%% DESIGN %%%%%%%%%%
 \cha{design}{Design}
-\section{Listas \texttt{(ListView)}}
-Listas são uma das formas mais simples de se mostrar informações ao usuário de forma simples e objetiva, e pode ser usada como um menu. A construção é simples, você pode começar mudando o layout de \texttt{RelativeLayout} para \texttt{LinearLayout}, a diferença entre eles é que o \textit{Relative} permite você posicionar elementos uns relativos aos outros enquanto que o \textit{Linear} segue uma estrutura, vertical ou horizontal, e que pode ser aninhada ou seja, você pode ter um layout \textit{Linear} horizontal dentro de uma das posições do layout vertical. Haverá um exemplo mais pra frente.
+
+%%% LIST VIEW %%%%
+\section{Listas \texttt{(ListView)}}\footnote{Documentação \texttt{ListView}:\href{http://developer.android.com/reference/android/widget/ListView.html}{http://developer.android.com/reference/android/widget/ListView.html}}
+Listas são uma das formas mais simples e mais poderosas de se mostrar informações ao usuário de forma simples e objetiva, a \texttt{ListView} é altamente customizável através de adaptadores.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.15\textwidth]{figuras/design/listview-scheme.png}
+  \caption{Esquema de uma lista}
+  \label{fig:e}
+\end{figure}
+
+Um item individual da lista pode ser selecionado, essa seleção pode acionar uma outra tela com detalhes do item.
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.35\textwidth]{figuras/design/listview-scheme2.png}
+  \caption{Detalhes de um elemento da lista}
+  \label{fig:e}
+\end{figure}
+
+\newpage
+
+A construção é simples, você pode começar mudando o layout de \texttt{RelativeLayout} para \texttt{LinearLayout}, a diferença entre eles é que o \texttt{RelativeLayout} do exemplo passado permite você posicionar elementos uns relativos aos outros enquanto que o \texttt{LinearLayout} segue uma estrutura, vertical ou horizontal. Ambas podem ser aninhadas uma dentro de outra.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{../../src/android/design/layout_linear.xml}
@@ -352,7 +376,11 @@ E por final, escrever o código que irá preencher a lista com as \textit{string
 \caption{Código de uma \texttt{activity} com lista clicável}
 \end{listing}
 
+Adaptadores são usados para prover dados para o \texttt{ListView}, ele define como cada linha será mostrada. Um adaptador extende a classe \texttt{BaseAdapter}, o Android provê alguns adaptadores padrões, no caso estamos usando o \texttt{ArrayAdapter} que é para manusear dados em \textit{arrays}.
+
 Dentro da interface \texttt{OnItemClickListener} você pode configurar a ação de clicar em um dos itens da lista, nesse exemplo é criado um \texttt{Toast} que mostra uma mensagem com o texto do item na lista porém, qualquer ação pode ser executada incluindo abrir uma nova \texttt{activity} que esteja relacionada a esse item.
+
+Você pode também herdar da classe \texttt{ListActivity} para uma forma mais simples de manusear \texttt{ListViews}. Você não precisa atribuir um layout a \texttt{ListActivity} contém uma \texttt{ListView} padrão. Caso voce precise colocar mais \texttt{Views} em seu layout, você \emph{deve} colocar a \texttt{ListView} em seu layout com o id \texttt{''@android:id/list''}.
 
 \begin{figure}[H]
   \centering
@@ -363,6 +391,7 @@ Dentro da interface \texttt{OnItemClickListener} você pode configurar a ação 
 
 Obs.: O \texttt{Toast} é esse pequeno retângulo preto com uma mensagem, ele aparece e desaparece rapidamente apenas para mostrar uma mensagem ao usuário.
 
+%%% LIST ADAPTER %%%
 \section{Listas Compostas}
 É possível compor um item da lista colocando mais elementos no mesmo além de um texto. Para isso você precisa criar um novo arquivo XML que irá definir a customização de cada linha de uma \texttt{ListView}, defina um arquivo chamado \texttt{\textcolor{mygreen}{item.xml}}.
 
@@ -373,7 +402,7 @@ Obs.: O \texttt{Toast} é esse pequeno retângulo preto com uma mensagem, ele ap
 \caption{Código do arquivo \texttt{\textcolor{mygreen}{item.xml}}}
 \end{listing}	
 
-Agora você precisa adaptar esse layout customizado para cada item da lista, uma maneira simples é usando a classe \texttt{SimpleAdapter}.
+Agora você precisa usar um adaptador para mostrar esse layout customizado em cada linha da lista, uma maneira fácil é usando a classe \texttt{SimpleAdapter}.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/design/customlist.java}
@@ -387,7 +416,7 @@ Agora você precisa adaptar esse layout customizado para cada item da lista, uma
   \label{fig:e}
 \end{figure}
 
-\section{Listas expandíveis}
+\section{Listas expandíveis \texttt{(ExpandableListView)}}
 \section{Grades \texttt{(GridView)}}
 \section{Abas \texttt{(TabView)}}
 \section{Arrastar \texttt{(Swipe View)}}
