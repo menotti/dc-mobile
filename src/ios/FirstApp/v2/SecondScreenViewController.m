@@ -29,9 +29,6 @@
     // Do any additional setup after loading the view from its nib.
     
     self.navigationController.title = @"Tela 2";
-    
-//    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Voltar" style:UIBarButtonItemStyleBordered target:self action:@selector(backButtonTouched:)];
-//    self.navigationItem.backBarButtonItem = backButton;
 }
 
 - (void)didReceiveMemoryWarning
@@ -45,7 +42,7 @@
     // Cria próxima view
     self.thirdScreen = [[ThirdScreenViewController alloc] initWithNibName:@"ThirdScreenViewController" bundle:nil];
     
-    self.thirdScreen.nameLabel.text = self.nameTextField.text;
+    self.thirdScreen.textLabel = self.nameTextField.text;
     
     // Push da próxima view no Navigation Controller
     [self.navigationController pushViewController:self.thirdScreen animated:YES];
