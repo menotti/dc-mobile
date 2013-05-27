@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ListaSimples</string>
+    <string name="action_settings">Settings</string>
+    <string-array name="listString">
+        <item>Menu 1</item>
+        <item>Menu 2</item>
+        <item>Menu 3</item>
+        <item>Menu 4</item>
+    </string-array>
+
+</resources>
