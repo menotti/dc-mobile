@@ -140,7 +140,7 @@ Na janela que apareceu você deve colocar o nome do aplicativo, do projeto e do 
 
 \begin{singlespace}
 \begin{listing}[H]
-\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{../../src/android/firstapp/sdk-manifest.xml}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/firstapp/sdk-manifest.xml}
 \label{AndroidManifest.sdk}
 \caption{Exemplo de configuração de versão do SDK no \texttt{\textcolor{mygreen}{AndroidManifest.xml}} }
 \end{listing}
@@ -182,7 +182,7 @@ Agora arraste um \textit{Text Field -> Plain Text} e um \textit{Form Widgets -> 
 Ao clicar duas vezes no elemento no modo visual, você sera levado ao correspondente marcador desse elemento no XML correspondente da \texttt{activity}. Clique duas vezes na caixa de texto.
 
 \begin{listing}
-\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{../../src/android/firstapp/1.xml}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/firstapp/1.xml}
 \caption{Código da caixa de texto}
 \end{listing}
 
@@ -191,21 +191,21 @@ Primeiro, modifique a \textit{id} para um mais intuitivo, por exemplo você pode
 Depois modifique o código do botão, trocando o \textit{id} e as referências ao \textit{id} da caixa de texto, também edite o \texttt{android:text} para fazer uma referência a uma string no arquivo de strings. Por último adicione um atributo \texttt{android:onClick} que é o método que será executado quando o botão for pressionado.
 
 \begin{listing}[H]
-\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{../../src/android/firstapp/2.xml}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/firstapp/2.xml}
 \caption{Código do botão}
 \end{listing}
 
 Adicione as strings ao arquivo de strings, essas strings podem ser referenciadas a qualquer momento tanto na construção do layout como na codificação do aplicativo.
 
 \begin{listing}
-\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{../../src/android/firstapp/3.xml}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/firstapp/3.xml}
 \caption{Arquivo de strings com as duas strings adicionadas}
 \end{listing}
 
 Agora abra a classe \texttt{MainActivity} localizada na pasta \texttt{\textcolor{mygreen}{src/}} do seu projeto e adicione um novo método
 
 \begin{listing}
-\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/4.java}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/firstapp/4.java}
 \caption{Adicionando método à classe MainActivity}
 \end{listing}
 
@@ -214,7 +214,7 @@ Agora abra a classe \texttt{MainActivity} localizada na pasta \texttt{\textcolor
 \ei
 
 \begin{listing}
-\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/4-2.java}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/firstapp/4-2.java}
 \caption{Exemplo de import de classe Android}
 \end{listing}
 
@@ -222,14 +222,14 @@ Agora abra a classe \texttt{MainActivity} localizada na pasta \texttt{\textcolor
 Primeiro, crie um novo \texttt{Intent}\footnote{Documentação Intent: \href{http://developer.android.com/reference/android/content/Intent.html}{http://developer.android.com/reference/android/content/Intent.html}}, um \texttt{Intent} é um objeto que providencia uma ligação entre dois componentes separados (tais como duas \textit{activities}). O \texttt{Intent} representa uma ''intenção do aplicativo de fazer algo'', eles podem ser usados para uma variedade de tarefas, mas são principalmente usados para iniciar uma nova \texttt{activity}.
 
 \begin{listing}[H]
-\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/5.java}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/firstapp/5.java}
 \caption{Adicionando uma \texttt{Intent}}
 \end{listing}
 
 Agora você precisa obter o texto que está escrito na caixa para fazer algo com ele, no caso iremos enviar para outra \texttt{activity} que irá mostrar esse texto.
 
 \begin{listing}[H]
-\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/6.java}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/firstapp/6.java}
 \caption{Obtendo o conteúdo da caixa de texto e enviando para outra \texttt{activity}}
 \end{listing}
 
@@ -240,7 +240,7 @@ Por fim, essa string é colocada no \texttt{Intent} com o método \texttt{putExt
 Para que a próxima \texttt{activity} consiga coletar esse valor, você deve definir uma chave para seu \textit{extra} usando uma constante pública. Para isso adicione a definição de \texttt{EXTRA\_MESSAGE} no topo da sua classe \texttt{MainActivity}.
 
 \begin{listing}[H]
-\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/7.java}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/firstapp/7.java}
 \caption{Constante como chave para um extra}
 \end{listing}
 
@@ -260,14 +260,14 @@ Geralmente você precisaria adicionar uma nova string com o nome da classe no XM
 Agora, precisamos extrair os dados enviados a essa \texttt{activity} através do \texttt{intent}, você pode pegar o \texttt{intent} que começou a \texttt{activity} chamando o método \texttt{getIntent()}\footnote{\href{http://developer.android.com/reference/android/app/Activity.html\#getIntent()}{http://developer.android.com/reference/android/app/Activity.html\#getIntent()}}.
 
 \begin{listing}[H]
-\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/8.java}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/firstapp/8.java}
 \caption{Obtendo extras passados através do \texttt{Intent}}
 \end{listing}
 
 Agora para mostrar a mensagem na tela, você precisa criar um \texttt{TextView}\footnote{\href{http://developer.android.com/reference/android/widget/TextView.html}{http://developer.android.com/reference/android/widget/TextView.html}}
 
 \begin{listing}[H]
-\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/firstapp/9.java}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/firstapp/9.java}
 \caption{Método \texttt{onCreate()} recebendo um \texttt{Intent} e mostrando a mensagem}
 \end{listing}
 
@@ -351,28 +351,28 @@ Um item individual da lista pode ser selecionado, essa seleção pode acionar um
 A construção é simples, você pode começar mudando o layout de \texttt{RelativeLayout} para \texttt{LinearLayout}, a diferença entre eles é que o \texttt{RelativeLayout} do exemplo passado permite você posicionar elementos uns relativos aos outros enquanto que o \texttt{LinearLayout} segue uma estrutura, vertical ou horizontal. Ambas podem ser aninhadas uma dentro de outra.
 
 \begin{listing}[H]
-\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{../../src/android/design/layout_linear.xml}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/layout_linear.xml}
 \caption{Layout \textit{Linear} no \texttt{activity\_main.xml}}
 \end{listing}
 
 Agora, você pode arrastar um \texttt{ListView} para o layout ou criar um manualmente com o seguinte código XML
 
 \begin{listing}[H]
-\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{../../src/android/design/listview.xml}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/listview.xml}
 \caption{Código XML de um \texttt{ListView}}
 \end{listing}
 
 Agora para popular a lista, você precisa criar um \texttt{string-array} no arquivo \texttt{\textcolor{mygreen}{strings.xml}} com os elementos que deseja colocar na lista.
 
 \begin{listing}[H]
-\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{../../src/android/design/string-array.xml}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/string-array.xml}
 \caption{\texttt{string-array} populada com elementos}
 \end{listing}
 
 E por final, escrever o código que irá preencher a lista com as \textit{strings} desse \textit{array}.
 
 \begin{listing}[H]
-\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/design/listactivity.java}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/listactivity.java}
 \caption{Código de uma \texttt{activity} com lista clicável}
 \end{listing}
 
@@ -398,14 +398,14 @@ Obs.: O \texttt{Toast} é esse pequeno retângulo preto com uma mensagem, ele ap
 \newpage
 
 \begin{listing}[H]
-\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{../../src/android/design/item.xml}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/item.xml}
 \caption{Código do arquivo \texttt{\textcolor{mygreen}{item.xml}}}
 \end{listing}	
 
 Agora você precisa usar um adaptador para mostrar esse layout customizado em cada linha da lista, uma maneira fácil é usando a classe \texttt{SimpleAdapter}.
 
 \begin{listing}[H]
-\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{../../src/android/design/customlist.java}
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/customlist.java}
 \caption{Código da lista customizada}
 \end{listing}	
 
@@ -424,11 +424,6 @@ Agora você precisa usar um adaptador para mostrar esse layout customizado em ca
 
 \end{singlespace}
 
-\begin{singlespace}
-
-%\lstinputlisting[float, language=java, label=cod:exemplo, caption={Exemplo ... \citep{muchnick}}]{../../src/android/teste.java}
-
-\end{singlespace}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
