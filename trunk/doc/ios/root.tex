@@ -99,20 +99,24 @@
 
 \paragraph{}A declaração de classe é feita de forma ligeiramente diferente no header e na implementação. No header tudo que for declarado da classe fica entre \texttt{\textbf{@interface}} e \texttt{\textbf{@end}}.
 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 @interface NomeDaClasse : SuperClasse
 
 @end
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 \paragraph{}E na implementação fica entre \textit{@implementation
 } e \textit{@end}, sem colocar a superclasse.
 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 @interface NomeDaClasse
 
 @end
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 \bigskip 
 
@@ -131,7 +135,8 @@
 
 \paragraph{}Exemplo:
 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 -(void) escreverStringOk {
 	NSLog(@"Ok");
 }
@@ -140,10 +145,12 @@
 	NSLog(@"%@",string);
 }
 
--(NSString*) escreverString:(NSString*)stringA comString:(NSString*)stringB {
+-(NSString*) escreverString:(NSString*)stringA
+                  comString:(NSString*)stringB {
 	NSLog(@"%@ %@",stringA,stringB);
 }
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 \bigskip
 
@@ -157,10 +164,12 @@ A ideia de criar um label, além da própria variável, é de tornar intuitiva a
 \paragraph{}Uma \texttt{\textbf{Property}} define automaticamente métodos setter e getter de uma variável, e também o tempo de duração na memória se for um objeto, de acordo com os parâmetros definidos. É geralmente definido no header da classe.
 \paragraph{}Exemplo:
 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 @property (nonatomic, strong) NSString *nome;
 @property BOOL existe;
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 \bigskip
 \bigskip
@@ -169,9 +178,6 @@ A ideia de criar um label, além da própria variável, é de tornar intuitiva a
 
 \paragraph{}Sem parâmetros:\\
 \emph{[<method object> <method name>];}\\
-ou\\
-\emph{[receiver message];} (como a Apple prefere)\\
-
 
 \paragraph{}A ideia é da notação é indicar que o método é uma mensagem sendo enviada a um receptor, que é o objeto do método.\\
 
@@ -180,14 +186,16 @@ ou\\
 
 \paragraph{}Exemplo:
 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 Pessoa *funcionario;
 [...]
 funcionario.nome = "Joao";
 funcionario.sobrenome = "Silva";
 
 [self escreverString:funcionario.nome comString:funcionario.sobrenome];
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 \bigskip
 
@@ -388,7 +396,7 @@ funcionario.sobrenome = "Silva";
 
 \begin{figure}[h]
   \centering
-  \includegraphics[totalheight=0.4\textheight]{../figuras/ios/1/xib.png}
+  \includegraphics[totalheight=0.25\textheight]{../figuras/ios/1/xib.png}
   \caption{Arquivo xib da primeira tela}
   \label{fig:a}
 \end{figure}
@@ -399,7 +407,7 @@ funcionario.sobrenome = "Silva";
 
 \begin{figure}[h]
   \centering
-  \includegraphics[totalheight=0.2\textheight]{../figuras/ios/1/xib_opcoes.png}
+  \includegraphics[totalheight=0.35\textheight]{../figuras/ios/1/xib_opcoes.png}
   \caption{Barra lateral de opções do Interface Builder}
   \label{fig:a}
 \end{figure}
@@ -410,7 +418,7 @@ funcionario.sobrenome = "Silva";
 
 \begin{figure}[h]
   \centering
-  \includegraphics[totalheight=0.4\textheight]{../figuras/ios/1/xib_objetos.png}
+  \includegraphics[totalheight=0.25\textheight]{../figuras/ios/1/xib_objetos.png}
   \caption{Objetos disponíveis no Interface Builder}
   \label{fig:a}
 \end{figure}
@@ -421,56 +429,62 @@ funcionario.sobrenome = "Silva";
 
 \begin{figure}[h]
   \centering
-  \includegraphics[totalheight=0.25\textheight]{../figuras/ios/1/xib_tela1.png}
+  \includegraphics[totalheight=0.4\textheight]{../figuras/ios/1/xib_tela1.png}
   \caption{Interface com os primeiros objetos criados}
   \label{fig:a}
 \end{figure}
 
-\bigskip
-
 \paragraph{}Com os objetos adicionados, devemos ligá-los ao código. Para isso, basta selecionar o objeto e arratá-lo ao código da classe enquanto segura a tecla Ctrl.
-\paragraph{}No pop-up é possível escolher se é um \texttt{\textbf{outlet}} ou uma \texttt{\textbf{action}}, mas por enquanto criaremos só os \emph{outlets}. Escolha um nome apropriado ao objeto, que o diferencie mas também deixe claro o seu tipo para facilitar a leitura do código.
+\paragraph{}No pop-up é possível escolher se é um \texttt{\textbf{•}f{outlet}} ou uma \texttt{\textbf{action}}, mas por enquanto criaremos só os \emph{outlets}. Escolha um nome apropriado ao objeto, que o diferencie mas também deixe claro o seu tipo para facilitar a leitura do código.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[totalheight=0.3\textheight]{../figuras/ios/1/link_outlet_button.png}
-  \caption{Criação dos outlets}
+  \includegraphics[totalheight=0.25\textheight]{../figuras/ios/1/link_outlet_button.png}
+  \caption{Outlets: ligação dos objetos com o código}
   \label{fig:a}
 \end{figure}
 
-\bigskip
+\paragraph{}Agora precisamos definir o funcionamento do Navigation Controller. Abra o arquivo FirstAppAppDelegate.h e adicione a seguinte property:
 
-\paragraph{}Agora precisamos definir o funcionamento do Navigation Controller. Abra o arquivo FirstAppAppDelegate.h e adicione a seguinte property:\\
-
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 @property (strong, nonatomic) UINavigationController *navController;
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
-\paragraph{}E no arquivo FirstAppAppDelegate.m, deixaremos o primeiro método desse jeito:\\
+\paragraph{}E no arquivo FirstAppAppDelegate.m, deixaremos o primeiro método desse jeito:
 
-\begin{lstlisting}
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (BOOL)application:(UIApplication *)application
+didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window = [[UIWindow alloc] initWithFrame:
+                  [[UIScreen mainScreen] bounds]];
     
-    self.viewController = [[FirstAppViewController alloc] initWithNibName:@"FirstAppViewController" bundle:nil];
-    self.navController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
+    self.viewController = [[FirstAppViewController alloc]
+                initWithNibName:@"FirstAppViewController" bundle:nil];
+    self.navController = [[UINavigationController alloc]
+                initWithRootViewController:self.viewController];
    
     self.window.rootViewController = self.navController;
     [self.window makeKeyAndVisible];
     
     return YES;
 }
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 \paragraph{}Nesse arquivo é inicializado a \texttt{\textbf{UIWindow}} e a \texttt{\textbf{UIScreen}}, já citadas aqui. Como foi dito, a \texttt{\textbf{UIWindow}} é a reponsável por chamar a primeira tela do aplicativo. Nesse código é criado a Navigation Controller que utilizaremos para navegar entre as telas do aplicativo, e definimos qual será a primeira tela, chamada \texttt{\textbf{RootNavigationController}}.
 \paragraph{}E pronto, com a Navigation Controller criadao não mexeremos mais nesse arquivo.\\
 
-\paragraph{}Voltando à classe da primeira tela, podemos agora criar um título para a tela, que aparecerá na barra de navegação. No método \texttt{\textbf{viewDidLoad}} adicione a linha:\\
+\paragraph{}Voltando à classe da primeira tela, podemos agora criar um título para a tela, que aparecerá na barra de navegação. No método \texttt{\textbf{viewDidLoad}} adicione a linha:
 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 self.navigationItem.title = @"Tela 1";
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 \paragraph{}O método \texttt{\textbf{viewDidLoad}} é onde colocaremos tudo que será setado no carregamento da tela, é o método de inicalização. Há um grande número de métodos do \texttt{\textbf{UIViewController}} que podemos sobreescrever de acordo com a nossa necessidade. Eles têm a função de controlar o comportamento da tela durante toda a existência da tela, desde sua inicialização até finalização, podendo prever respostas a ações do usuário.
 \paragraph{}Agora o aplicativo ainda está extremamente cru, mas já podemos executá-lo no \emph{iOS Simulator} para ver sua primeira aparência. Basta apertar o botão Play no canto superior esquerdo.
@@ -485,16 +499,19 @@ self.navigationItem.title = @"Tela 1";
 \bigskip
 
 \paragraph{}Podemos agora começar a brincar com o código. Vamos criar uma \texttt{\textbf{action}} bem simples para testarmos o comportamento do aplicativo com o simulador. Para isso basta arrastar segurando Ctrl do botão para o código e escolher a opção \texttt{\textbf{action}}, e criar um nome para ela. A intenção da nossa primeira \texttt{\textbf{action}} é que os textos do botão e do label troquem quando clicarmos no botão.
-\paragraph{}Com a \texttt{\textbf{action}} criada, veja que no código de implementação da classe (arquivo *.m) já tem o esqueleto do método que será chamado, e nele colocaremos nossa lógica.\\
+\paragraph{}Com a \texttt{\textbf{action}} criada, veja que no código de implementação da classe (arquivo *.m) já tem o esqueleto do método que será chamado, e nele colocaremos nossa lógica.
 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 - (IBAction)okTouched:(id)sender {
     
-    NSString *aux = [[NSString alloc] initWithString:self.exemploLabel.text];
+    NSString *aux = [[NSString alloc] initWithString:
+                    self.exemploLabel.text];
     self.exemploLabel.text = self.okButton.currentTitle;
     [self.okButton setTitle:aux forState:UIControlStateNormal];
 }
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 \paragraph{}O código funciona como um simples swap. Na linha 3 temos inicializamos uma variável local com o texto do label; na linha 4 atribuimos o texto do botão ao texto do label; e na linha 5 chamamos o método da classe \texttt{\textbf{UIButton}} responsável por setar o texto do botão, que no caso será o texto salvo na variável auxiliar.
 \paragraph{}Rode o aplicativo no simulador para verificar o funcionamento do botão.\\
@@ -503,18 +520,21 @@ self.navigationItem.title = @"Tela 1";
 
 \subsection{Manipulando o Navigation Controller}
 
-\paragraph{}Pensando agora na próxima tela, vamos preparar o terreno para a transição. Adicionamos um novo botão que servirá de chamada para a segunda tela, e criamos um \texttt{\textbf{outlet}} e uma \texttt{\textbf{action}} para ele. Colocaremos no método da \texttt{\textbf{action}} a chamada para a segunda tela, que será através de um \emph{push} da tela no Navigation Controller.\\
+\paragraph{}Pensando agora na próxima tela, vamos preparar o terreno para a transição. Adicionamos um novo botão que servirá de chamada para a segunda tela, e criamos um \texttt{\textbf{outlet}} e uma \texttt{\textbf{action}} para ele. Colocaremos no método da \texttt{\textbf{action}} a chamada para a segunda tela, que será através de um \emph{push} da tela no Navigation Controller.
 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 - (IBAction)secondScreenTouched:(id)sender {
     
-    self.secondScreen = [[SecondScreenViewController alloc] initWithNibName:@"SecondScreenViewController" bundle:nil];
+    self.secondScreen = [[SecondScreenViewController alloc]
+                        initWithNibName:
+                        @"SecondScreenViewController" bundle:nil];
     
-    [self.navigationController pushViewController:self.secondScreen animated:YES];
+    [self.navigationController pushViewController:self.secondScreen
+                                         animated:YES];
 }
-\end{lstlisting}
-
-\bigskip
+\end{minted}
+\end{listing}
 
 \paragraph{}Para chamar uma nova tela é preciso criar uma instância da \emph{View Controller} a ser chamada, no caso da SecondScreenViewController (que ainda não criamos), para então jogá-la na pilha com o método de \emph{push}, que recebe como parâmetro a instância criada.
 \paragraph{}A nossa tela deve estar parecida com essa:
@@ -526,14 +546,12 @@ self.navigationItem.title = @"Tela 1";
   \label{fig:a}
 \end{figure}
 
-\bigskip
-
 \paragraph{}Agora podemos criar a segunda tela. Criamos um novo arquivo em New, definimos a herança da classe, que no caso de uma tela é uma \texttt{\textbf{UIViewController}}, e seu nome, que no exemplo será SecondScreenViewController. É importante que o nome da classe seja exatamente como está no código da criação.
 \paragraph{}Nessa segunda tela vamos colocar uma \texttt{\textbf{UIImage}}, arrastando da mesma forma que os outros objetos, e por enquanto mais um botão que fará a chamada da terceira tela.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[totalheight=0.3\textheight]{../figuras/ios/2/xib_tela2.png}
+  \includegraphics[totalheight=0.25\textheight]{../figuras/ios/2/xib_tela2.png}
   \caption{Tela 2 com UIImage sem imagem}
   \label{fig:a}
 \end{figure}
@@ -544,30 +562,26 @@ self.navigationItem.title = @"Tela 1";
 
 \begin{figure}[h]
   \centering
-  \includegraphics[totalheight=0.25\textheight]{../figuras/ios/2/add_files.png}
+  \includegraphics[totalheight=0.3\textheight]{../figuras/ios/2/add_files.png}
   \caption{Adicionando arquivos ao projeto}
   \label{fig:a}
 \end{figure}
-
-\bigskip
 
 \paragraph{}Adicionamos a imagem LogoDC.png contida neste tutorial. Depois de adicionada, selecionamos a \texttt{\textbf{UIImage}} e setamos o nome da imagem na barra lateral de opções.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[totalheight=0.1\textheight]{../figuras/ios/2/image_path.png}
+  \includegraphics[totalheight=0.12\textheight]{../figuras/ios/2/image_path.png}
   \caption{Setando a imagem}
   \label{fig:a}
 \end{figure}
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[totalheight=0.35\textheight]{../figuras/ios/2/xib2_tela2.png}
+  \includegraphics[totalheight=0.25\textheight]{../figuras/ios/2/xib2_tela2.png}
   \caption{Imagem aparecendo na tela}
   \label{fig:a}
 \end{figure}
-
-\bigskip
 
 \paragraph{}Para dar funcionalidade ao botão, crie a terceira tela com o nome ThirdScreenViewController, seguindo o exemplo, e faça a chamada da mesma forma que foi feito na primeira tela.
 
@@ -577,45 +591,50 @@ self.navigationItem.title = @"Tela 1";
 
 \paragraph{}Ao inicializarmos uma instância de uma \emph{View Controller}, podemos atribuir valores às suas Properties antes de fazer o \emph{push} da tela. Dessa forma bem simples, é possível levar informação de uma tela existente para uma tela nova, podendo exibir ou tratar esses dados convenientemente na \emph{View Controller} da próxima tela. Para exemplificar, vamos criar um campo de texto na segunda tela e exibir o seu conteúdo em um label na terceira tela.
 \paragraph{}Para isso vamos precisar de um campo de texto na segunda tela, de um label na terceira tela, e de uma variável do tipo string na terceira tela, onde vamos armazenar o conteúdo do text field. Além disso, também é preciso criar a \texttt{\textbf{action}} para fazer a chamada da terceira tela pelo botão.
-\paragraph{}A \texttt{\textbf{Property}} da string é criada no arquivo de header da classe da terceira tela da seguinte forma:\\
+\paragraph{}A \texttt{\textbf{Property}} da string é criada no arquivo de header da classe da terceira tela da seguinte forma:
 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 @property (nonatomic, strong) NSString *textLabel;
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
-\bigskip
-
-\paragraph{}A segunda tela e suas propriedades devem estar assim:\\
+\paragraph{}A segunda tela e suas propriedades devem estar assim:
 
 \begin{figure}[h]
   \centering
-  \includegraphics[totalheight=0.35\textheight]{../figuras/ios/2/xib_tela2_header.png}
-  \caption{Tela 2 e suas propriedades}
+  \includegraphics[totalheight=0.3\textheight]{../figuras/ios/2/xib_tela2_header.png}
+  \caption{Tela 2 e seus outlets}
   \label{fig:a}
 \end{figure}
 
 \bigskip
 \bigskip
 
-\paragraph{}E o método com a chamada da terceira tela será quase do mesmo jeito, apenas com a adição da passagem da variável.\\
+\paragraph{}E o método com a chamada da terceira tela será quase do mesmo jeito, apenas com a adição da passagem da variável.
 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 - (IBAction)thirdScreen:(id)sender {
     
-    self.thirdScreen = [[ThirdScreenViewController alloc] initWithNibName:@"ThirdScreenViewController" bundle:nil];
+    self.thirdScreen = [[ThirdScreenViewController alloc]
+                       initWithNibName:@"ThirdScreenViewController"
+                       bundle:nil];
     
     self.thirdScreen.textLabel = self.nameTextField.text;
     
-    [self.navigationController pushViewController:self.thirdScreen animated:YES];
+    [self.navigationController pushViewController:self.thirdScreen
+                                         animated:YES];
 }
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
 \bigskip
-\bigskip
 
-\paragraph{}Além disso, precisamos tratar o conteúdo da variável na classe da terceira tela. Vamos verificar no método \texttt{\textbf{viewDidLoad}} o conteúdo da variável que recebeu o dado da segunda tela.\\
+\paragraph{}Além disso, precisamos tratar o conteúdo da variável na classe da terceira tela. Vamos verificar no método \texttt{\textbf{viewDidLoad}} o conteúdo da variável que recebeu o dado da segunda tela.
 
-\begin{lstlisting}
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -628,29 +647,25 @@ self.navigationItem.title = @"Tela 1";
     
     self.messageTextField.delegate = self;
 }
-\end{lstlisting}
+\end{minted}
+\end{listing}
 
-\bigskip
 \bigskip
 
 \paragraph{}De uma forma bem simples, verificamos o conteúdo da string recebida e setamos o conteúdo do nosso label.
-\paragraph{}Note que único problema agora será após a edição do campo de texto na segunda tela, já que o teclado sobre mas não abaixa automaticamente. Deixaremos assim por enquanto. Tente posicionar o campo de texto e o botão de forma que o teclado não os cubra, apenas para verificar o funcionamento do código. Resolveremos o problema do teclado mais a frente.\\
-
-\bigskip
-\bigskip
-\bigskip
-\bigskip
-
+\paragraph{}Note que único problema agora será após a edição do campo de texto na segunda tela, já que o teclado sobre mas não abaixa automaticamente. Deixaremos assim por enquanto. Tente posicionar o campo de texto e o botão de forma que o teclado não os cubra, apenas para verificar o funcionamento do código. Resolveremos o problema do teclado mais a frente.
 \paragraph{}Aqui uma imagem da segunda tela no simulador.\\
+
+\bigskip
+\bigskip
 
 \begin{figure}[h]
   \centering
   \includegraphics[totalheight=0.4\textheight]{../figuras/ios/2/simulador2_tela2.png}
-  \caption{Tela 2 e os outlets}
+  \caption{Tela 2 completa}
   \label{fig:a}
 \end{figure}
 
-\bigskip
 \bigskip
 
 \subsection{O uso do protocolo Delegate}
@@ -658,7 +673,129 @@ self.navigationItem.title = @"Tela 1";
 \paragraph{}O protocolo \texttt{\textbf{Delegate}} é uma das ferramentas mais importantes do Objective-C. Na execução do código de um objeto, este não tem como ter acesso código do objeto que o instanciou. Com o uso do \texttt{\textbf{Delegate}} um objeto pode enviar dados para um segundo objeto que enxerga o primeiro mas não pode ser enxergado por ele. Assim é possível determinar que a partir de um evento ou uma condição, será enviada uma mensagem, que pode ser uma notificação ou um dado, a partir de um método \texttt{\textbf{Delegate}} que vai saber como e onde encontrar o destino dessa mensagem.
 \paragraph{}Veremos dois exemplos de uso do \texttt{\textbf{Delegate}} no nosso aplicativo. No primeiro usaremos um método já pronto, que será responsável por enviar o aviso para o teclado de que o campo de texto já terminou de ser usado e ele agora deve desaparecer. No segundo vamos implementar um método para enviar uma string da terceira tela para a tela que a chamou, no nosso caso a segunda tela.
 
+\paragraph{}Utilizar o \texttt{\textbf{Delegate}} já implementado do \texttt{\textbf{UITextField}} será bem simples. Faremos uma referência no header das classes em que utilizamos o teclado em um \texttt{\textbf{UITextField}}, no caso a segunda e terceira tela. Fazemos dessa forma:
 
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@interface SecondScreenViewController :
+           UIViewController <UITextFieldDelegate>
+\end{minted}
+\end{listing}
+
+\paragraph{}A referência a um \texttt{\textbf{Delegate}} vem sempre entre < e > na declaração da classe, separando por vírgula dentro da chave se houver mais de um. Após isso, precisamos apenas atribuir o \texttt{\textbf{Delegate}} à classe no \texttt{\textbf{viewDidLoad}}.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+self.nameTextField.delegate = self;
+\end{minted}
+\end{listing}
+
+\paragraph{}Pronto, agora é possível que o objeto \texttt{\textbf{UITextField}}, que foi instanciado na classe da tela e consequentemente não enxerga os elementos dessa classe, como o teclado, envie informações à mesma. No caso, queremos que o teclado seja dispensado no momento que terminarmos de editar o campo de texto, e quando isso ocorre há um método a ser chamado. Vamos implementar este método com a lógica que queremos no arquivo de implementação da classe.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    if (textField == self.nameTextField) {
+        [textField resignFirstResponder];
+    }
+    
+    return YES;
+}
+\end{minted}
+\end{listing}
+
+\paragraph{}Este código verifica se o objeto \texttt{\textbf{UITextField}} que chamou o método é o mesmo objeto instanciado na classe, no caso o \texttt{\textbf{nameTextField}}. Assim, quando há mais de um \texttt{\textbf{UITextField}}, podemos definir comportamentos diferentes para cada um apenas fazendo essa verificação.
+\paragraph{}Execute o projeto e faça o teste, agora o teclado deve sumir quando o campo de texto não está selecionado.
+
+\paragraph{}Agora vamos implementar um novo \texttt{\textbf{Delegate}} do zero para determinar o envio de informações de uma tela para a tela que a chamou. Vamos definir o \texttt{\textbf{Delegate}} na classe da terceira tela, e usar o método na segunda. Criamos um \texttt{\textbf{Protocol}} no header da classe, e dentro inserimos os métodos do \texttt{\textbf{Delegate}}, que no caso será apenas um, que terá a função de enviar como parâmetro o conteúdo de um campo de texto da terceira tela. Ficará assim:
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@protocol MessageDelegate <NSObject>
+
+-(void)sendMessageFromTextField:(NSString*)message;
+
+@end
+\end{minted}
+\end{listing}
+
+\paragraph{}Então criamos uma propriedade no header para o \texttt{\textbf{Delegate}}.
+
+\bigskip
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@property (assign, nonatomic) id <MessageDelegate> delegate;
+\end{minted}
+\end{listing}
+
+\paragraph{}Definimos o \texttt{\textbf{Delegate}} e seu método, agora basta definir onde será a chamada do método. Criaremos um botão na terceira tela, e ligado a ela uma \emph{action} chamada \texttt{\textbf{sendMessage}}, e nesta \emph{action} ficará a chamada para o método do delegate.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (IBAction)sendMessage:(id)sender {
+    
+    [self.delegate sendMessageFromTextField:self.messageTextField.text];
+}
+\end{minted}
+\end{listing}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.4\textheight]{../figuras/ios/3/simulador3_tela3.png}
+  \caption{Tela 3 com o botão para enviar mensagem}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Isso determina que ao apertarmos o botão criado o método do \texttt{\textbf{Delegate}} que criamos será chamado recebendo o conteúdo do campo como parâmetro. Para receber esse conteúdo na segunda tela, faremos como no caso do teclado, implementando o método criado no \texttt{\textbf{Delegate}} com o comportamento que for desejado.
+
+\paragraph{}Na segunda tela, faremos o mesmo processo que fizemos com o \texttt{\textbf{Delegate}} do \texttt{\textbf{UITextField}}. Adicionamos a referência ao nosso \texttt{\textbf{Delegate}} ao header.\\
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@interface SecondScreenViewController :
+           UIViewController <UITextFieldDelegate, MessageDelegate>
+\end{minted}
+\end{listing}
+
+\paragraph{}No método em que é chamada a terceira tela, atribuímos o nosso \texttt{\textbf{Delegate}} à classe da segunda tela, logo após a instanciação.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (IBAction)thirdScreen:(id)sender {
+    
+    self.thirdScreen = [[ThirdScreenViewController alloc] initWithNibName:@"ThirdScreenViewController" bundle:nil];
+    
+    self.thirdScreen.textLabel = self.nameTextField.text;
+    
+    self.thirdScreen.delegate = self;
+    
+    [self.navigationController pushViewController:self.thirdScreen animated:YES];
+}
+\end{minted}
+\end{listing}
+
+\paragraph{}Tudo pronto, agora basta implementar o método. Nossa intenção é que a segunda tela retorne exibindo o texto recebido da terceira tela no campo de texto, ou seja, precisamos dar um pop na terceira tela e atribuir o texto recebido por parâmetro ao \texttt{\textbf{nameTextField}}. Deve ficar assim:
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+-(void)sendMessageFromTextField:(NSString *)message {
+    
+    [self.navigationController popToViewController:self animated:YES];
+    
+    self.nameTextField.text = message;
+}
+\end{minted}
+\end{listing}
+
+\bigskip
+\bigskip
+
+
+\section{Manipulando tabelas}
+
+\paragraph{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
