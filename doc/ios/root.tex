@@ -37,15 +37,15 @@
 \paragraph{}Este material tem a intenção de auxiliar qualquer programador, de estudante a profissional, no desenvolvimento de aplicativos para a plataforma iOS. Passaremos do básico da linguagem e do ambiente de desenvolvimento, ao layout de telas e utilização de APIs, fazendo a integração de hardware e software, voltado tanto para projetos pequenos como projetos maiores em equipe.
 \paragraph{}Antes de mais nada, uma boa noção de Orientação a Objeto é requisito obrigatório. Trataremos do assunto ao longo de todo o material, então esteja com o vocabulário na ponta da língua. Alguma experiência com C ou Java também vai ajudar devivo à proximidade com Objective-C, mas qualquer linguagem orientada a objeto já estudada vai servir como uma boa base.
 
+\bigskip
+\bigskip
 
-
-\chapter{Configuração do Ambiente: XCode}
+\section{Configuração do Ambiente: XCode}
 
 \paragraph{}O ambiente que utilizaremos é o XCode, da própria Apple. A instalação e configuração dele e do SDK é simples e automática, basta procurar por XCode na App Store ou no site da Apple para desenvolvedores (\textit{developer.apple.com}).
 \paragraph{}Será feito o download do ambiente, de todas as bibliotecas necessárias e do simulador para a última versão do iOS para testar seus aplicativos. É possível, posteriormente, baixar pelo próprio XCode os simuladores de versões anteriores do iOS para garantir a compatibilidade do seu projeto com mais versões do sistema.
 \paragraph{}Para entender melhor as funcionalidades da ferramenta, dê uma olhada na extensa documentação que a Apple disponibiliza em 
 \href{https://developer.apple.com/library/ios/#documentation/ToolsLanguages/Conceptual/Xcode_User_Guide}{XCode User Guide}.
-
 
 
 \chapter{Introdução à linguagem}
@@ -75,7 +75,7 @@
 \subsection{Runtime Dinâmico}
 
 \paragraph{}O Objective-C tem tempo de execução dinâmico, o que significa que diversas decisões em chamadas de métodos e envio de mensagens serão feitas durante a execução, não tendo algo definido na compilação. Isso permite uma série de possibilidades extras em relação ao C, como instanciação dinâmica de objetos, uso de tipagem fraca quando necessário, e vantagens no polimorfismo de métodos.
-\paragraph{}A opção de tipagem fraca aparece com o novo tipo chamado \textit{id}. O \textit{id} é um tipo genérico de objeto, o que permite que qualquer tipo de objeto seja retornado, muito útil em casos que não podemos garantir de antemão qual será o tipo do objeto utilizado. Uma grande porção das classes disponíveis no Foundation Framework utilizam o \textit{id}, tornando o código genérico sem a necessidade de criar diversos métodos polimórficos que preveem o comportamento de cada tipo de dado.
+\paragraph{}A opção de tipagem fraca aparece com o novo tipo chamado \texttt{\textbf{id}}. O \texttt{\textbf{id}} é um tipo genérico de objeto, o que permite que qualquer tipo de objeto seja retornado, muito útil em casos que não podemos garantir de antemão qual será o tipo do objeto utilizado. Uma grande porção das classes disponíveis no Foundation Framework utilizam o \texttt{\textbf{id}}, tornando o código genérico sem a necessidade de criar diversos métodos polimórficos que preveem o comportamento de cada tipo de dado.
 
 \bigskip 
 
@@ -84,7 +84,7 @@
 \paragraph{}Quando criamos uma classe pelo XCode, automaticamente é criado um arquivo *.m para implementação e um *.h para o header, assim como o *.c e o *.h em C, porém em Objective-C eles também servem para diferenciar contéudo público e privado da classe. Tudo que for declarado no *.h será público e visível para todos, e tudo que estiver no *.m será privado, acessível só para membros da classe.\\
 
 \paragraph{}Após vermos como é estruturado o código da classe, é preciso entender que em Objective-C uma classe é também um objeto de si mesma. Mesmo sem instanciar um objeto explicitamente, é possível utilizar a classe como um singleton [*] e enviar mensagens para ela. Isso só é possível graças ao tempo de execução dinâmico, e dessa forma todo objeto é, na verdade, um ponteiro para a sua classe, e é bom lembrar que por ser um ponteiro toda e qualquer declaração de um novo objeto precisa do asterisco. Entender este comportamento das classes é essencial para executarmos algumas práticas úteis nos projetos, como poder garantir que uma classe vai manter uma única instância de si mesma quando isso for conveniente, em classes de lógica ou configuração, por exemplo.
-\paragraph{}Quanto à herança, é permitido que uma classe tenha somente uma única superclasse. Isso pode parecer uma limitação, mas isso simplifica o entendimento e induz a construção de um projeto melhor estruturado. Além disso, o Objective-C introduz alguns componentes muito úteis, como o \textit{Protocol}, que possibilita a comunicação entre duas classes sem ligação, definindo o comportamento para chamada de métodos de uma classe por outra e a passagem de dados entre elas, e o \textit{Property}, que tem a função de encapsular uma variável de classe e construir automaticamente um método setter e um getter, tornando-a global e protegida dentro da classe.
+\paragraph{}Quanto à herança, é permitido que uma classe tenha somente uma única superclasse. Isso pode parecer uma limitação, mas isso simplifica o entendimento e induz a construção de um projeto melhor estruturado. Além disso, o Objective-C introduz alguns componentes muito úteis, como o \texttt{\textbf{Protocol}}, que possibilita a comunicação entre duas classes sem ligação, definindo o comportamento para chamada de métodos de uma classe por outra e a passagem de dados entre elas, e o \texttt{\textbf{Property}}, que tem a função de encapsular uma variável de classe e construir automaticamente um método setter e um getter, tornando-a global e protegida dentro da classe.
 
 \bigskip 
 
@@ -97,7 +97,7 @@
 
 \paragraph{}\textbf{Classes}
 
-\paragraph{}A declaração de classe é feita de forma ligeiramente diferente no header e na implementação. No header tudo que for declarado da classe fica entre \textit{@interface} e \textit{@end}.
+\paragraph{}A declaração de classe é feita de forma ligeiramente diferente no header e na implementação. No header tudo que for declarado da classe fica entre \texttt{\textbf{@interface}} e \texttt{\textbf{@end}}.
 
 \begin{lstlisting}
 @interface NomeDaClasse : SuperClasse
@@ -153,8 +153,8 @@ A ideia de criar um label, além da própria variável, é de tornar intuitiva a
 
 \paragraph{}\textbf{Propriedades}
 
-\paragraph{}Como já citado anteriormente, o Objective-C oferece uma possibilidade de encapsulamento de variáveis de uma classe, a partir de uma \textit{Property}.
-\paragraph{}Uma \textit{Property} define automaticamente métodos setter e getter de uma variável, e também o tempo de duração na memória se for um objeto, de acordo com os parâmetros definidos. É geralmente definido no header da classe.
+\paragraph{}Como já citado anteriormente, o Objective-C oferece uma possibilidade de encapsulamento de variáveis de uma classe, a partir de uma \texttt{\textbf{Property}}.
+\paragraph{}Uma \texttt{\textbf{Property}} define automaticamente métodos setter e getter de uma variável, e também o tempo de duração na memória se for um objeto, de acordo com os parâmetros definidos. É geralmente definido no header da classe.
 \paragraph{}Exemplo:
 
 \begin{lstlisting}
@@ -191,8 +191,8 @@ funcionario.sobrenome = "Silva";
 
 \bigskip
 
-\paragraph{}Esse código mostra que estamos setando as variáveis nome e sobrenome do objeto funcionario do tipo \emph{Pessoa} e usando-as como parâmetros para o método \emph{escreverString:comString:} da própria classe (\textit{self} é o mesmo que \textit{this} em C++ e Java).
-\paragraph{}Se fosse um método do objeto funcionario, o \textit{self} seria trocado por \emph{funcionario}.
+\paragraph{}Esse código mostra que estamos setando as variáveis nome e sobrenome do objeto funcionario do tipo \texttt{\textbf{Pessoa}} e usando-as como parâmetros para o método \emph{escreverString:comString:} da própria classe (\texttt{\textbf{self}} é o mesmo que \texttt{\textbf{this}} em C++ e Java).
+\paragraph{}Se fosse um método do objeto funcionario, o \texttt{\textbf{self}} seria trocado por \texttt{\textbf{funcionario}}.
 
 \bigskip
 
@@ -214,33 +214,33 @@ funcionario.sobrenome = "Silva";
 \subsection{NSObject}
 
 \paragraph{}NSObject é a classe raiz da maioria das classes em Objective-C. Ela cria uma interface para que os objetos possam se comportar como um objeto de Objective-C, definindo algumas propriedades básicas.
-\paragraph{}Ela possui basicamente dois métodos que têm alguma utilidade direta para o programador. O primeiro é o \emph{copy}, que serve para criar uma nova instância com a cópia exata dos parâmetros do objeto em questão. O segundo é o \emph{description}, que tem a função interessante de armazenar uma string com a descrição do objeto, de forma que você possa imprimir uma representação do contéudo do objeto, sendo útil como verificação dos dados na depuração.
+\paragraph{}Ela possui basicamente dois métodos que têm alguma utilidade direta para o programador. O primeiro é o \texttt{\textbf{copy}}, que serve para criar uma nova instância com a cópia exata dos parâmetros do objeto em questão. O segundo é o \texttt{\textbf{description}}, que tem a função interessante de armazenar uma string com a descrição do objeto, de forma que você possa imprimir uma representação do contéudo do objeto, sendo útil como verificação dos dados na depuração.
 
 \bigskip
 
 \subsection{NSArray}
 
-\paragraph{}NSArray é o tipo usado para manipular arrays em Objective-C. Semelhante à biblioteca \emph{vector} do C++, ela traz um conjunto muito completo de métodos para lidar com arrays de forma prática, permitindo operações como comparação, cópia, concatenação, ordenação, contagem, etc.
+\paragraph{}\texttt{\textbf{NSArray}} é o tipo usado para manipular arrays em Objective-C. Semelhante à biblioteca \texttt{\textbf{vector}} do C++, ela traz um conjunto muito completo de métodos para lidar com arrays de forma prática, permitindo operações como comparação, cópia, concatenação, ordenação, contagem, etc.
 
 \bigskip
 
 \subsection{NSString}
 
-\paragraph{}Do mesmo jeito que temos o NSArray para arrays, temos o NSString para strings, semelhante à biblioteca \emph{string} do C++. Esse tipo ambém traz um conjunto imenso de métodos para as mais diversas operações com strings, como as já citadas operações utilizadas em arrays, e particularidades de strings como capitalização, escrita/leitura em arquivo, combinação de mais de uma string, busca, entre outras operações possíveis com caracteres.
+\paragraph{}Do mesmo jeito que temos o \texttt{\textbf{NSArray}} para arrays, temos o NSString para strings, semelhante à biblioteca \texttt{\textbf{string}} do C++. Esse tipo ambém traz um conjunto imenso de métodos para as mais diversas operações com strings, como as já citadas operações utilizadas em arrays, e particularidades de strings como capitalização, escrita/leitura em arquivo, combinação de mais de uma string, busca, entre outras operações possíveis com caracteres.
 
 \bigskip
 
 \subsection{NSDictionary}
 
 \paragraph{}Dicionário é um modo de organização e indexação de dados baseado em chaves únicas, seguindo a ideia de um dicionário comum dividido pelas letras do alfabeto. O uso de chaves únicas permite buscas eficientes em um conjunto de dados grande, tornando o dicionário uma estrutura muito utilizada para organizar e consultar dados de forma eficiente. Dentro de um dicionário podemos inserir basicamente dados em formato de string, array, número, ou outros dicionários.
-\paragraph{}No Objective-C temos o NSDictionary para lidarmos de forma mais simples com estruturas em dicionário. Podemos fazer operações como escrever/ler em arquivo, ler conteúdo de uma chave específica, transferir dados para outras estruturas como array ou string, obter todas as chaves do dicionário em questão, e fazer ordenação.
-\paragraph{}Em conjunto com o NSDictionary, é recomendável também o estudo das \emph{Property Lists}, arquivos no formato *.plist utilizados para guardar estruturas de dicionário em disco.
+\paragraph{}No Objective-C temos o \texttt{\textbf{NSDictionary}} para lidarmos de forma mais simples com estruturas em dicionário. Podemos fazer operações como escrever/ler em arquivo, ler conteúdo de uma chave específica, transferir dados para outras estruturas como array ou string, obter todas as chaves do dicionário em questão, e fazer ordenação.
+\paragraph{}Em conjunto com o \texttt{\textbf{NSDictionary}}, é recomendável também o estudo das \texttt{\textbf{Property Lists}}, arquivos no formato *.plist utilizados para guardar estruturas de dicionário em disco.
 
 \bigskip
 
 \subsection{NSNumber}
 
-\paragraph{}O NSNumber tem a função de simplesmente transformar tipos básicos de número do C (\emph{int}, \emph{float}, e \emph{double}) em objetos. A ideia é que em Objective-C lidemos sempre com objetos, já que o Foundation Framework já tem a base pronta para as operações. Ao utilizarmos números e tipos básicos como objetos, aumentamos o nível de abstração e a responsabilidade passa ser do framework, minimizando o uso incorreto de dados e operações na memória, e evitando interferências nos processos em execução.
+\paragraph{}O \texttt{\textbf{NSNumber}} tem a função de simplesmente transformar tipos básicos de número do C (\texttt{\textbf{int}}, \texttt{\textbf{float}}, e \texttt{\textbf{double}}) em objetos. A ideia é que em Objective-C lidemos sempre com objetos, já que o Foundation Framework já tem a base pronta para as operações. Ao utilizarmos números e tipos básicos como objetos, aumentamos o nível de abstração e a responsabilidade passa ser do framework, minimizando o uso incorreto de dados e operações na memória, e evitando interferências nos processos em execução.
 
 \bigskip
 
@@ -251,10 +251,6 @@ funcionario.sobrenome = "Silva";
 \paragraph{}Essa documentação será de extrema importância ao longo do estudo de desenvolvimento para iOS. O Foundation é muito extenso e rico em possibilidades, já trazendo a implementação de diversas soluções que tomariam um bom tempo e algumas linhas de código a mais no seu projeto.
 \paragraph{}Nunca hesite em procurar na documentação da classe em questão algum método que possa resolver seu problema. Lidar com strings, arrays e dicionários, além de outras diversas estruturas, será muito mais prático a partir de agora.
 \paragraph{}As classes estão muito bem organizadas na documentação, com os métodos divididos de acordo com o tipo de operação. Vale a pena dar uma olhada por cima nas classes citadas para obter uma visão geral do que é possível fazer, alimentando aos poucos o seu repertório na linguagem.
-
-
-\bigskip
-\bigskip
 
 
 \chapter{Design}
@@ -274,8 +270,8 @@ funcionario.sobrenome = "Silva";
 \section{Telas}
 
 \paragraph{}Os elementos gráficos no iOS são conjuntos de objetos que se unem em uma certa hierarquia, formando o que entendemos por User Interface (UI).
-\paragraph{}No topo da hierarquia temos a UIWindow, que serve para dar suporte para desenho na tela. Utilizamos ela uma única vez para indicar qual é a tela inicial do aplicativo, a \emph{Root View Controller}, e não mais interagimos com ela. Abaixo dela vem a UIScreen, que representa a tela em si. Além de fornecer o tamanho em pixels da tela, o \emph{bounds}, também não tem mais utilidade direta para o programador.
-\paragraph{}Onde realmente atuaremos será nos objetos do tipo UIView, ligados diretamente à UIWindows, e nos objetos do tipo UIViewController, que gerenciam a UIView.
+\paragraph{}No topo da hierarquia temos a \texttt{\textbf{UIWindow}}, que serve para dar suporte para desenho na tela. Utilizamos ela uma única vez para indicar qual é a tela inicial do aplicativo, a \texttt{\textbf{RootViewController}}, e não mais interagimos com ela. Abaixo dela vem a \texttt{\textbf{UIScreen}}, que representa a tela em si. Além de fornecer o tamanho em pixels da tela, o \emph{bounds}, também não tem mais utilidade direta para o programador.
+\paragraph{}Onde realmente atuaremos será nos objetos do tipo \texttt{\textbf{UIView}}, ligados diretamente à \texttt{\textbf{UIWindow}}, e nos objetos do tipo \texttt{\textbf{UIViewController}}, que gerenciam a \texttt{\textbf{UIView}}.
 
 \bigskip
 \bigskip
@@ -291,14 +287,14 @@ funcionario.sobrenome = "Silva";
 
 \subsection{UIView x UIViewController}
 
-\paragraph{}Um objeto do tipo UIView, ou apenas \emph{View}, é onde colocamos de fato os elementos visuais. Ela representa uma determinada área onde pode conter objetos como UIButton, UILabel e UITextField, além de outras \emph{Views} inseridas, formando uma hierarquia de objetos que vão se orientar diretamente pelo posicionamento e comportamento da UIView maior.
-\paragraph{}A grande ideia a ser entendida e que diferencia uma \emph{View} de uma \emph{View Controller} é que um objeto de UIView contém estritamente elementros gráficos, sem nenhuma lógica do comportamento. Um objeto de UIView não entende e não deve entender as consequências de suas ações. Um UIButton, por exemplo, sabe como agir quando é clicado mas não sabe qual tipo de ação ou mensagem foi gerada e nem pra onde ela foi a partir do seu clique.
-\paragraph{}Deixando algumas coisas claras, uma tela pode conter uma só \emph{View} tomando todo o espaço ou várias \emph{Views} se divindido, sendo elas totalmente independentes ou aninhadas. Além disso, você pode criar novas classes herdando de UIView para serem estanciadas dentro de uma UIViewController.\\
+\paragraph{}Um objeto do tipo \texttt{\textbf{UIView}}, ou apenas \emph{View}, é onde colocamos de fato os elementos visuais. Ela representa uma determinada área onde pode conter objetos como \texttt{\textbf{UIButton}}, \texttt{\textbf{UILabel}} e \texttt{\textbf{UITextField}}, além de outras \emph{Views} inseridas, formando uma hierarquia de objetos que vão se orientar diretamente pelo posicionamento e comportamento da \texttt{\textbf{UIView}} maior.
+\paragraph{}A grande ideia a ser entendida e que diferencia uma \emph{View} de uma \emph{View Controller} é que um objeto de \texttt{\textbf{UIView}} contém estritamente elementros gráficos, sem nenhuma lógica do comportamento. Um objeto de \texttt{\textbf{UIView}} não entende e não deve entender as consequências de suas ações. Um UIButton, por exemplo, sabe como agir quando é clicado mas não sabe qual tipo de ação ou mensagem foi gerada e nem pra onde ela foi a partir do seu clique.
+\paragraph{}Deixando algumas coisas claras, uma tela pode conter uma só \emph{View} tomando todo o espaço ou várias \emph{Views} se divindido, sendo elas totalmente independentes ou aninhadas. Além disso, você pode criar novas classes herdando de \texttt{\textbf{UIView}} para serem estanciadas dentro de uma \texttt{\textbf{UIViewController}}.\\
 
-\paragraph{}Uma \emph{View Controller} é o que gerencia a lógica e comportamento de um conjunto específico de uma ou mais \emph{Views}, e é responsável por carregar e interagir com as \emph{Views} na hora correta e da forma correta. Um UIButton clicado envia um sinal para a \emph{View Controller}, que tem o papel de entender qual deve ser a resposta para esse evento, que pode ser algo como envio de dados, interação com as \emph{Views}, ou criação de animações.
+\paragraph{}Uma \emph{View Controller} é o que gerencia a lógica e comportamento de um conjunto específico de uma ou mais \emph{Views}, e é responsável por carregar e interagir com as \emph{Views} na hora correta e da forma correta. Um \texttt{\textbf{UIButton}} clicado envia um sinal para a \emph{View Controller}, que tem o papel de entender qual deve ser a resposta para esse evento, que pode ser algo como envio de dados, interação com as \emph{Views}, ou criação de animações.
 \paragraph{}Uma \emph{View Controller} é criada com uma única \emph{View} atrelada. É possível então adicionar mais \emph{Views} dentro da \emph{View} principal ou em conjunto com ela.
-\paragraph{}Sabendo que é possível criar uma classe para uma \emph{View} genérica, sem possuir uma \emph{View Controller} atrelada, como sabemos se criamos uma classe herdando de UIView ou de UIViewController? Essa pergunta pode causar confusão no início, mas fica mais claro após entender exatamente o papel de cada uma.
-\paragraph{}Primeiramente seguimos a regra de que para cada tela completa criamos uma \emph{View Controller} para gerenciá-la, e nessa classe podemos inserir todos os elementos da tela. Porém há os casos em que a ideia é criar uma \emph{View} genérica a ser inserida no contexto de uma tela completa, \emph{View} essa que pode ser desde uma célula customizada para uma tabela até uma tabela completa, aí então devemos pensar se essa mesma \emph{View} terá algum comportamento ou se será unicamente visual. No caso de uma célula customizada, por exemplo, ela será apenas visual e assim deve ser uma simples classe de UIView; já no caso de uma tabela completa, ela vai precisar de um grande conjunto de lógica para o seu comportamento, portanto precisará de uma \emph{View Controller} própria, que no caso de tabelas tem uma classe especial chamada UITableViewController.
+\paragraph{}Sabendo que é possível criar uma classe para uma \emph{View} genérica, sem possuir uma \emph{View Controller} atrelada, como sabemos se criamos uma classe herdando de\texttt{\textbf{UIView}} ou de \texttt{\textbf{UIViewController}}? Essa pergunta pode causar confusão no início, mas fica mais claro após entender exatamente o papel de cada uma.
+\paragraph{}Primeiramente seguimos a regra de que para cada tela completa criamos uma \emph{View Controller} para gerenciá-la, e nessa classe podemos inserir todos os elementos da tela. Porém há os casos em que a ideia é criar uma \emph{View} genérica a ser inserida no contexto de uma tela completa, \emph{View} essa que pode ser desde uma célula customizada para uma tabela até uma tabela completa, aí então devemos pensar se essa mesma \emph{View} terá algum comportamento ou se será unicamente visual. No caso de uma célula customizada, por exemplo, ela será apenas visual e assim deve ser uma simples classe de \texttt{\textbf{UIView}}; já no caso de uma tabela completa, ela vai precisar de um grande conjunto de lógica para o seu comportamento, portanto precisará de uma \emph{View Controller} própria, que no caso de tabelas tem uma classe especial chamada \texttt{\textbf{UITableViewController}}.
 
 \bigskip
 
@@ -316,7 +312,7 @@ funcionario.sobrenome = "Silva";
 \bigskip
 
 \paragraph{}Conforme vamos criando novas telas, precisamos de um modo de chamá-las e de retornar delas para a tela anterior. O iOS permite mais de um tipo de gerenciamento de navegação das telas, mas em quase 100\% dos casos faremos uso do \emph{Navigation Controller}.
-\paragraph{}O \emph{Navigation Controller} funciona como uma pilha de \emph{View Controllers} que tem início sempre na já citada \emph{Root View Controller}, que será a tela inicial do aplicativo. Definimos uma única vez pelo código qual será nossa \emph{Root View Controller}, após isso trabalharemos apenas com métodos de \emph{push} e \emph{pop} para carregar e descarregar as telas. Graficamente, o \emph{Navigation Controller} é a barra superior (que também pode ser inferior) nas telas dos aplicativos e que contém um botão de retorno e outros botões auxiliares.
+\paragraph{}O \emph{Navigation Controller} funciona como uma pilha de \emph{View Controllers} que tem início sempre na já citada \texttt{\textbf{RootNavigationController}}, que será a tela inicial do aplicativo. Definimos uma única vez pelo código qual será nossa \texttt{\textbf{RootNavigationController}}, após isso trabalharemos apenas com métodos de \emph{push} e \emph{pop} para carregar e descarregar as telas. Graficamente, o \emph{Navigation Controller} é a barra superior (que também pode ser inferior) nas telas dos aplicativos e que contém um botão de retorno e outros botões auxiliares.
 \paragraph{}Há um outro tipo de navegação complementar chamado \emph{Tab Bar Controller}, que nada mais é que uma nova tela, que pode inclusive estar contida na pilha do \emph{Navigation Controller}, e que traz duas ou mais telas divididas por abas.
 
 \bigskip
@@ -335,15 +331,15 @@ funcionario.sobrenome = "Silva";
 \section{Interface Builder}
 
 \paragraph{}Para nos auxiliar na construção das telas, utilizeremos o Interface Builder do XCode. Na criação de uma nova \emph{View Controller}, é criado um arquivo *.xib atrelado a essa classe, que ligará automaticamente os objetos criados na interface ao código da classe.
-\paragraph{}O Interface Builder é uma ferramente muito poderosa e o utilizaremos principalmente para definir o posicionamento dos objetos, como as \emph{Views} e seus componentes, e para fazer a ligação dos \emph{outlets} e \emph{actions} ao código.
+\paragraph{}O Interface Builder é uma ferramente muito poderosa e o utilizaremos principalmente para definir o posicionamento dos objetos, como as \emph{Views} e seus componentes, e para fazer a ligação dos \texttt{\textbf{outlets}} e \texttt{\textbf{actions}} ao código.
 \paragraph{}E lembrando que sempre podemos determinar o layout e a criação dos objetos diretamente no código, sendo o Interface Builder apenas um facilitador. Em diversos casos lidar com o código acaba sendo até mais prático.
 
 \bigskip
 
 \subsection{Outlets e Actions}
 
-\paragraph{}\emph{Outlets} representam uma ligação entre um objeto criado na interface pelo Interface Builder, como um botão ou um texto, e uma instância criada no código. Funciona como um ponteiro de um objeto do código para a sua representação gráfica, e assim podemos nos referenciar a esse elemento no código do \emph{View Controller} para definirmos seu comportamento e possíveis mudanças nas suas características.
-\paragraph{}Já uma \emph{action} representa uma mensagem enviada por um objeto na interface. A \emph{action} define o tipo de toque que aciona a mensagem e cria o método que será chamado e conterá o código do programador para definir o comportamento desejado.
+\paragraph{}\texttt{\textbf{Outlets}} representam uma ligação entre um objeto criado na interface pelo Interface Builder, como um botão ou um texto, e uma instância criada no código. Funciona como um ponteiro de um objeto do código para a sua representação gráfica, e assim podemos nos referenciar a esse elemento no código do \emph{View Controller} para definirmos seu comportamento e possíveis mudanças nas suas características.
+\paragraph{}Já uma \texttt{\textbf{action}} representa uma mensagem enviada por um objeto na interface. A \emph{action} define o tipo de toque que aciona a mensagem e cria o método que será chamado e conterá o código do programador para definir o comportamento desejado.
 
 \bigskip
 \bigskip
@@ -421,7 +417,7 @@ funcionario.sobrenome = "Silva";
 
 \bigskip
 
-\paragraph{}Vamos inicialmente adicionar um \emph{UILabel} e um \emph{UIButton} com textos de exemplo à tela.
+\paragraph{}Vamos inicialmente adicionar um \texttt{\textbf{UILabel}} e um \texttt{\textbf{UIButton}} com textos de exemplo à tela.
 
 \begin{figure}[h]
   \centering
@@ -433,7 +429,7 @@ funcionario.sobrenome = "Silva";
 \bigskip
 
 \paragraph{}Com os objetos adicionados, devemos ligá-los ao código. Para isso, basta selecionar o objeto e arratá-lo ao código da classe enquanto segura a tecla Ctrl.
-\paragraph{}No pop-up é possível escolher se é um \emph{outlet} ou uma \emph{action}, mas por enquanto criaremos só os \emph{outlets}. Escolha um nome apropriado ao objeto, que o diferencie mas também deixe claro o seu tipo para facilitar a leitura do código.
+\paragraph{}No pop-up é possível escolher se é um \texttt{\textbf{outlet}} ou uma \texttt{\textbf{action}}, mas por enquanto criaremos só os \emph{outlets}. Escolha um nome apropriado ao objeto, que o diferencie mas também deixe claro o seu tipo para facilitar a leitura do código.
 
 \begin{figure}[h]
   \centering
@@ -467,16 +463,16 @@ funcionario.sobrenome = "Silva";
 }
 \end{lstlisting}
 
-\paragraph{}Nesse arquivo é inicializado a UIWindow e a UIScreen, já citadas aqui. Como foi dito, a UIWindow é a reponsável por chamar a primeira tela do aplicativo. Nesse código é criado a Navigation Controller que utilizaremos para navegar entre as telas do aplicativo, e definimos qual será a primeira tela, chamada \emph{Root View Controller}.
+\paragraph{}Nesse arquivo é inicializado a \texttt{\textbf{UIWindow}} e a \texttt{\textbf{UIScreen}}, já citadas aqui. Como foi dito, a \texttt{\textbf{UIWindow}} é a reponsável por chamar a primeira tela do aplicativo. Nesse código é criado a Navigation Controller que utilizaremos para navegar entre as telas do aplicativo, e definimos qual será a primeira tela, chamada \texttt{\textbf{RootNavigationController}}.
 \paragraph{}E pronto, com a Navigation Controller criadao não mexeremos mais nesse arquivo.\\
 
-\paragraph{}Voltando à classe da primeira tela, podemos agora criar um título para a tela, que aparecerá na barra de navegação. No método \emph{viewDidLoad} adicione a linha:\\
+\paragraph{}Voltando à classe da primeira tela, podemos agora criar um título para a tela, que aparecerá na barra de navegação. No método \texttt{\textbf{viewDidLoad}} adicione a linha:\\
 
 \begin{lstlisting}
 self.navigationItem.title = @"Tela 1";
 \end{lstlisting}
 
-\paragraph{}O método \emph{viewDidLoad} é onde colocaremos tudo que será setado no carregamento da tela, é o método de inicalização. Há um grande número de métodos do UIViewController que podemos sobreescrever de acordo com a nossa necessidade. Eles têm a função de controlar o comportamento da tela durante toda a existência da tela, desde sua inicialização até finalização, podendo prever respostas a ações do usuário.
+\paragraph{}O método \texttt{\textbf{viewDidLoad}} é onde colocaremos tudo que será setado no carregamento da tela, é o método de inicalização. Há um grande número de métodos do \texttt{\textbf{UIViewController}} que podemos sobreescrever de acordo com a nossa necessidade. Eles têm a função de controlar o comportamento da tela durante toda a existência da tela, desde sua inicialização até finalização, podendo prever respostas a ações do usuário.
 \paragraph{}Agora o aplicativo ainda está extremamente cru, mas já podemos executá-lo no \emph{iOS Simulator} para ver sua primeira aparência. Basta apertar o botão Play no canto superior esquerdo.
 
 \begin{figure}[h]
@@ -488,8 +484,8 @@ self.navigationItem.title = @"Tela 1";
 
 \bigskip
 
-\paragraph{}Podemos agora começar a brincar com o código. Vamos criar uma \emph{action} bem simples para testarmos o comportamento do aplicativo com o simulador. Para isso basta arrastar segurando Ctrl do botão para o código e escolher a opção \emph{action}, e criar um nome para ela. A intenção da nossa primeira \emph{action} é que os textos do botão e do label troquem quando clicarmos no botão.
-\paragraph{}Com a \emph{action} criada, veja que no código de implementação da classe (arquivo *.m) já tem o esqueleto do método que será chamado, e nele colocaremos nossa lógica.\\
+\paragraph{}Podemos agora começar a brincar com o código. Vamos criar uma \texttt{\textbf{action}} bem simples para testarmos o comportamento do aplicativo com o simulador. Para isso basta arrastar segurando Ctrl do botão para o código e escolher a opção \texttt{\textbf{action}}, e criar um nome para ela. A intenção da nossa primeira \texttt{\textbf{action}} é que os textos do botão e do label troquem quando clicarmos no botão.
+\paragraph{}Com a \texttt{\textbf{action}} criada, veja que no código de implementação da classe (arquivo *.m) já tem o esqueleto do método que será chamado, e nele colocaremos nossa lógica.\\
 
 \begin{lstlisting}
 - (IBAction)okTouched:(id)sender {
@@ -500,14 +496,14 @@ self.navigationItem.title = @"Tela 1";
 }
 \end{lstlisting}
 
-\paragraph{}O código funciona como um simples swap. Na linha 3 temos inicializamos uma variável local com o texto do label; na linha 4 atribuimos o texto do botão ao texto do label; e na linha 5 chamamos o método da classe UIButton responsável por setar o texto do botão, que no caso será o texto salvo na variável auxiliar.
+\paragraph{}O código funciona como um simples swap. Na linha 3 temos inicializamos uma variável local com o texto do label; na linha 4 atribuimos o texto do botão ao texto do label; e na linha 5 chamamos o método da classe \texttt{\textbf{UIButton}} responsável por setar o texto do botão, que no caso será o texto salvo na variável auxiliar.
 \paragraph{}Rode o aplicativo no simulador para verificar o funcionamento do botão.\\
 
 \bigskip
 
 \subsection{Manipulando o Navigation Controller}
 
-\paragraph{}Pensando agora na próxima tela, vamos preparar o terreno para a transição. Adicionamos um novo botão que servirá de chamada para a segunda tela, e criamos um \emph{outlet} e uma \emph{action} para ele. Colocaremos no método da \emph{action} a chamada para a segunda tela, que será através de um \emph{push} da tela no Navigation Controller.\\
+\paragraph{}Pensando agora na próxima tela, vamos preparar o terreno para a transição. Adicionamos um novo botão que servirá de chamada para a segunda tela, e criamos um \texttt{\textbf{outlet}} e uma \texttt{\textbf{action}} para ele. Colocaremos no método da \texttt{\textbf{action}} a chamada para a segunda tela, que será através de um \emph{push} da tela no Navigation Controller.\\
 
 \begin{lstlisting}
 - (IBAction)secondScreenTouched:(id)sender {
@@ -532,8 +528,8 @@ self.navigationItem.title = @"Tela 1";
 
 \bigskip
 
-\paragraph{}Agora podemos criar a segunda tela. Criamos um novo arquivo em New, definimos a herança da classe, que no caso de uma tela é uma UIViewController, e seu nome, que no exemplo será SecondScreenViewController. É importante que o nome da classe seja exatamente como está no código da criação.
-\paragraph{}Nessa segunda tela vamos colocar uma UIImage, arrastando da mesma forma que os outros objetos, e por enquanto mais um botão que fará a chamada da terceira tela.
+\paragraph{}Agora podemos criar a segunda tela. Criamos um novo arquivo em New, definimos a herança da classe, que no caso de uma tela é uma \texttt{\textbf{UIViewController}}, e seu nome, que no exemplo será SecondScreenViewController. É importante que o nome da classe seja exatamente como está no código da criação.
+\paragraph{}Nessa segunda tela vamos colocar uma \texttt{\textbf{UIImage}}, arrastando da mesma forma que os outros objetos, e por enquanto mais um botão que fará a chamada da terceira tela.
 
 \begin{figure}[h]
   \centering
@@ -544,7 +540,7 @@ self.navigationItem.title = @"Tela 1";
 
 \bigskip
 
-\paragraph{}Devemos agora definir uma imagem para a UIImage, mas antes é preciso adicionar a imagem que queremos na pasta Supporting Files do projeto. Para isso, basta clicar com o botão direito na pasta e adicionar os arquivos em Add Files to "First App".
+\paragraph{}Devemos agora definir uma imagem para a \texttt{\textbf{UIImage}}, mas antes é preciso adicionar a imagem que queremos na pasta Supporting Files do projeto. Para isso, basta clicar com o botão direito na pasta e adicionar os arquivos em Add Files to "First App".
 
 \begin{figure}[h]
   \centering
@@ -555,7 +551,7 @@ self.navigationItem.title = @"Tela 1";
 
 \bigskip
 
-\paragraph{}Adicionamos a imagem LogoDC.png contida neste tutorial. Depois de adicionada, selecionamos a UIImageView e setamos o nome da imagem na barra lateral de opções.
+\paragraph{}Adicionamos a imagem LogoDC.png contida neste tutorial. Depois de adicionada, selecionamos a \texttt{\textbf{UIImage}} e setamos o nome da imagem na barra lateral de opções.
 
 \begin{figure}[h]
   \centering
@@ -580,8 +576,8 @@ self.navigationItem.title = @"Tela 1";
 \subsection{Trocando informação entre telas}
 
 \paragraph{}Ao inicializarmos uma instância de uma \emph{View Controller}, podemos atribuir valores às suas Properties antes de fazer o \emph{push} da tela. Dessa forma bem simples, é possível levar informação de uma tela existente para uma tela nova, podendo exibir ou tratar esses dados convenientemente na \emph{View Controller} da próxima tela. Para exemplificar, vamos criar um campo de texto na segunda tela e exibir o seu conteúdo em um label na terceira tela.
-\paragraph{}Para isso vamos precisar de um campo de texto na segunda tela, de um label na terceira tela, e de uma variável do tipo string na terceira tela, onde vamos armazenar o conteúdo do text field. Além disso, também é preciso criar a \emph{action} para fazer a chamada da terceira tela pelo botão.
-\paragraph{}A Property da string é criada no arquivo de header da classe da terceira tela da seguinte forma:\\
+\paragraph{}Para isso vamos precisar de um campo de texto na segunda tela, de um label na terceira tela, e de uma variável do tipo string na terceira tela, onde vamos armazenar o conteúdo do text field. Além disso, também é preciso criar a \texttt{\textbf{action}} para fazer a chamada da terceira tela pelo botão.
+\paragraph{}A \texttt{\textbf{Property}} da string é criada no arquivo de header da classe da terceira tela da seguinte forma:\\
 
 \begin{lstlisting}
 @property (nonatomic, strong) NSString *textLabel;
@@ -617,7 +613,7 @@ self.navigationItem.title = @"Tela 1";
 \bigskip
 \bigskip
 
-\paragraph{}Além disso, precisamos tratar o conteúdo da variável na classe da terceira tela. Vamos verificar no método \emph{ViewDidLoad} o conteúdo da variável que recebeu o dado da segunda tela.\\
+\paragraph{}Além disso, precisamos tratar o conteúdo da variável na classe da terceira tela. Vamos verificar no método \texttt{\textbf{viewDidLoad}} o conteúdo da variável que recebeu o dado da segunda tela.\\
 
 \begin{lstlisting}
 - (void)viewDidLoad
@@ -650,7 +646,7 @@ self.navigationItem.title = @"Tela 1";
 \begin{figure}[h]
   \centering
   \includegraphics[totalheight=0.4\textheight]{../figuras/ios/2/simulador2_tela2.png}
-  \caption{Tela 2 e suas propriedades}
+  \caption{Tela 2 e os outlets}
   \label{fig:a}
 \end{figure}
 
@@ -659,23 +655,9 @@ self.navigationItem.title = @"Tela 1";
 
 \subsection{O uso do protocolo Delegate}
 
-\thispagestyle{empty}
+\paragraph{}O protocolo \texttt{\textbf{Delegate}} é uma das ferramentas mais importantes do Objective-C. Na execução do código de um objeto, este não tem como ter acesso código do objeto que o instanciou. Com o uso do \texttt{\textbf{Delegate}} um objeto pode enviar dados para um segundo objeto que enxerga o primeiro mas não pode ser enxergado por ele. Assim é possível determinar que a partir de um evento ou uma condição, será enviada uma mensagem, que pode ser uma notificação ou um dado, a partir de um método \texttt{\textbf{Delegate}} que vai saber como e onde encontrar o destino dessa mensagem.
+\paragraph{}Veremos dois exemplos de uso do \texttt{\textbf{Delegate}} no nosso aplicativo. No primeiro usaremos um método já pronto, que será responsável por enviar o aviso para o teclado de que o campo de texto já terminou de ser usado e ele agora deve desaparecer. No segundo vamos implementar um método para enviar uma string da terceira tela para a tela que a chamou, no nosso caso a segunda tela.
 
-\doublespace
-%\onehalfspace
-%\singlespace
-
-\cleardoublepage
-
-\pagestyle{body}
-\pagenumbering{arabic}
-
-
-\begin{singlespace}
-
-\lstinputlisting[float, language=java, label=cod:exemplo, caption={Exemplo ... \citep{muchnick}}]{../../src/android/teste.java}
-
-\end{singlespace}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
