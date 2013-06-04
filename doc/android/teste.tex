@@ -416,11 +416,110 @@ Agora você precisa usar um adaptador para mostrar esse layout customizado em ca
   \label{fig:e}
 \end{figure}
 
+%%% EXPANDABLE LIST %%%
 \section{Listas expandíveis \texttt{(ExpandableListView)}}
+
+Listas expandíveis são úteis para agrupar conjuntos de itens semelhantes, funcionam da mesma maneira que as listas comuns e podem ser customizadas.
+Comece colocando sua lista na \texttt{activity} desejada.
+	
+\begin{listing}[H]
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/exlist.xml}
+\caption{Lista expandível no \texttt{activity\_main.xml}}
+\end{listing}	
+
+O atributo \texttt{android:transcriptMode=''alwaysScroll'}' vai fazer com que a lista sempre role até o final quando você expande ou contrai um grupo.
+ 
+Agora crie 2 novos arquivos XML, um chamado \texttt{list\_item\_parent.xml} e o outro chamado \texttt{list-item-child.xml}
+
+\begin{listing}[H]
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/list-item-parent.xml}
+\caption{Layout \texttt{list\_item\_parent.xml}}
+\end{listing}	
+
+\begin{listing}[H]
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/list-item-child.xml}
+\caption{Layout \texttt{list\_item\_child.xml}}
+\end{listing}	
+
+Agora crie uma classe para o pai dos grupos chamada \emph{Parent}, que será responsável apenas por conter os dados do pai e os objetos filhos.
+
+\begin{listing}[H]
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/parent.java}
+\caption{Classe \texttt{Parent}}
+\end{listing}	
+
+\newpage
+
+Crie uma nova classe, \texttt{CustomAdapter} que será o adaptador da lista expandível para os dados, para esse exemplo estaremos adaptando apenas para o uso de \emph{strings}.
+Essa classe deve extender a classe \texttt{BaseExpandableListAdapter} 
+
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/customadapter.java}
+\captionof{listing}{Classe \texttt{CustomAdapter}}
+
+
+Para finalizar, você deve construir os objetos na classe da \texttt{activity}, nesse exemplo para popular a lista eu coloquei no arquivo de \texttt{strings} alguns fabricantes e modelos de carros, você pode obtê-los no repositório do projeto.
+
+\begin{listing}[H]
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/exlist-main.java}
+\caption{Construindo a lista expandível na \texttt{activity}}
+\end{listing}	
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.475\textwidth]{figuras/design/listaexpandivel.png}
+  \caption{Exemplo de lista expandível}
+  \label{fig:e}
+\end{figure}
+
 \section{Grades \texttt{(GridView)}}
+
+Grades são úteis para mostrar imagens e fotos como uma galeria, ou permitir a seleção de categorias semelhante a uma lista. A idéia é ter elementos lado a lado para mostrar ou para selecionar e mostrar mais detalhes. Basicamente funciona como uma grade bi-dimensional que pode ser arrastada para os lados ou de cima pra baixo. 
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.475\textwidth]{figuras/design/gridview.png}
+  \caption{Esquema de um \texttt{Grid view}}
+  \label{fig:e}
+\end{figure}
+
+\newpage 
+Comece por simplesmente colocando um layout \texttt{grid view} em sua activity.
+
+\begin{listing}[H]
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/gridview.xml}
+\caption{Layout do \texttt{Grid View}}
+\end{listing}	
+\newpage
+Crie uma nova classe que vai ser o adaptador para mostrar a imagem na grade, lembre-se que você pode adaptar qualquer layout para uma grade. Chame essa classe de \texttt{ImageAdapter}
+
+\begin{listing}[H]
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/imageadapter.java}
+\caption{Classe \texttt{ImageAdapter}}
+\end{listing}	
+
+Agora basta criar na grade na sua \texttt{activity}.
+
+\begin{listing}[H]
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/grade-activity.java}
+\caption{Classe \texttt{ImageAdapter}}
+\end{listing}	
+
+Exemplo rodando:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.475\textwidth]{figuras/design/grade-exemplo1.png}
+  \caption{Esquema de um \texttt{Grid view}}
+  \label{fig:e}
+\end{figure}
+
+
+
+
 \section{Abas \texttt{(TabView)}}
 \section{Arrastar \texttt{(Swipe View)}}
 \section{Menu lateral}
+\section{Fragmentos}
 
 \end{singlespace}
 
