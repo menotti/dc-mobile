@@ -471,7 +471,9 @@ Para finalizar, você deve construir os objetos na classe da \texttt{activity}, 
   \label{fig:e}
 \end{figure}
 
-\section{Grades \texttt{(GridView)}}
+%%% GRADES E IMAGENS %%%
+
+\section{Grades \texttt{(GridView)} e imagens \texttt{ImageView}}
 
 Grades são úteis para mostrar imagens e fotos como uma galeria, ou permitir a seleção de categorias semelhante a uma lista. A idéia é ter elementos lado a lado para mostrar ou para selecionar e mostrar mais detalhes. Basicamente funciona como uma grade bi-dimensional que pode ser arrastada para os lados ou de cima pra baixo. 
 
@@ -501,7 +503,7 @@ Agora basta criar na grade na sua \texttt{activity}.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/grade-activity.java}
-\caption{Classe \texttt{ImageAdapter}}
+\caption{\texttt{Activity} com grade}
 \end{listing}	
 
 Exemplo rodando:
@@ -509,17 +511,117 @@ Exemplo rodando:
 \begin{figure}[H]
   \centering
   \includegraphics[width=.475\textwidth]{figuras/design/grade-exemplo1.png}
-  \caption{Esquema de um \texttt{Grid view}}
+  \caption{Demonstração de um \texttt{Grid view}}
   \label{fig:e}
 \end{figure}
 
+Para complementar, você pode fazer com que a imagem abra em tela cheia quando clicada na view, para isso é necessário que você passe o \emph{id} do recurso do \texttt{GridView} para a nova \texttt{activity}.
+Crie um novo XML e chame de \texttt{full\_image.xml}, nele teremos apenas um \texttt{ImageView}.
 
+\begin{listing}[H]
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/full-image.xml}
+\caption{Layout \texttt{full\_image.xml}}
+\end{listing}	
 
+Em seguida, crie uma nova classe chamada \texttt{FullImageActivity}, essa é \texttt{activity} que vai mostrar a imagem em tela cheia. A construção da classe é simples, você deve apenas obter o \emph{id} da imagem passado como \emph{extra} através do \texttt{intent} e então obter essa imagem da classe \texttt{ImageAdapter}.
 
-\section{Abas \texttt{(TabView)}}
-\section{Arrastar \texttt{(Swipe View)}}
-\section{Menu lateral}
+\begin{listing}[H]
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/FullImageActivity.java}
+\caption{Classe \texttt{FullImageActivity}}
+\end{listing}	 	 	
+
+Finalmente, você deve modificar a \texttt{activity} da sua grade para suportar o novo comportamento, para isso é necessário configurar o \texttt{gridview} para tomar algumas ações quando um elemento da tela for clicado. Observe o código que deve ser adicionado da sua \texttt{activity}.
+
+\begin{listing}[H]
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/grid-activity-p2.java}
+\caption{\texttt{Activity} com grade, melhorado}
+\end{listing}	 
+
+Na linha 14 você pode observar a criação de um \emph{listener} para os itens clicados da grade, o método \texttt{onItemClick()} permite obter algumas informações sobre o item clicado e você pode usar essas informações como quiser, nesse caso é colocado dentro de um \texttt{intent} o \emph{id} do item clicado como sendo sua posição nessa grade. Finalmente o método \texttt{startActivity} é chamado e passando o \texttt{intent} criado como parâmetro.   
+
 \section{Fragmentos}
+
+Fragmentos são a solução do Android para criar interfaces de usuário modulares, eles vivem dentro das \texttt{activity} e uma \texttt{activity} pode conter vários fragmentos. Assim como as \texttt{activity} os fragmentos possuem um ciclo de vida %% EXPLICAR MELHOR %%.
+Dentre as vantagens de um fragmento estão:
+\bi
+	\item Modularidade e reuso de código
+	\item Habilidade de construir interfaces com múltiplos painéis
+	\item Facilidade de construir aplicativos para celulares e tablets
+\ei
+
+O primeiro conceito a ser coberto é como construir um fragmento, comece definindo o \emph{layout} do fragmento.
+
+Um layout bem simples, apenas com um botão para efeito de demonstração. Agora crie uma classe \texttt{BasicFragment}
+
+\begin{listing}[H]
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/basicfragment.java}
+\caption{Classe \texttt{BasicFragment}}
+\end{listing}	
+
+Caso você esteja desenvolvendo para API menores que 11 (HoneyComb 3.0) você vai precisar usar a API de retrocompatibilidade que o Google providenciou para essas APIs, você precisa importar a classe de suporte: \mint{java}|import android.support.v4.app.Fragment;|
+
+%% diferença chave? %%
+% One of the key differences between a Fragment and an Activity is that Fragments instantiate their Views inside the onCreateView() callback and Activities instantiate their Views using the setContentView() method inside of the onCreate() callback. Fragments also have to manually instantiate their Views using an instance of LayoutInflater, which is provided to the onCreateView() method for convenience. %%
+
+%% Another difference is that a Fragment is not a subclass of Context. This means that a Fragment can not be launched as a component inside your app and therefore always has to live inside of an Activity. This also means that whenever you need a Context inside of a Fragment, you need to get access to the parent Activity. You can do this by using the getActivity() method as we have done in the Fragment button's OnClickListener callback. You need to watch out because getActivity() can return null depending on where the Fragment is in the Activity's lifecycle. So, you should also include a check to see if the Activity is null before you use it. %%
+
+Agora para incluir o fragmento na \texttt{activity} existem duas opções. A primeira é inlcuir o fragmento no XML da \texttt{activity} como você faria com qualquer \texttt{view}.
+
+\begin{listing}[H]
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/fragment-activity.xml}
+\caption{Layout da \texttt{activity} com um fragmento}
+\end{listing}	
+
+Você pode usar o \texttt{<fragment>} quantas vezes quiser para incluir múltiplos fragmentos.
+Note que você precisa usar um nome qualificado em \texttt{android:name}, veja mais na documentação oficial: \href{http://developer.android.com/guide/topics/manifest/activity-element.html\#nm}{activity-element}\footnote{\href{http://developer.android.com/guide/topics/manifest/activity-element.html\#nm}{http://developer.android.com/guide/topics/manifest/activity-element.html\#nm}}
+
+Novamente, caso esteja desenvolvendo para APIs menores que 11, você vai precisar fazer a \texttt{activity} extender a classe \texttt{FragmentActivity} e importar a classe de suporte: \mint{java}|import android.support.v4.app.FragmentActivity;|
+\mint{java}|public class MainActivity extends FragmentActivity|
+
+
+Simplesmente configurando a \texttt{activity} para usar o fragmento vai fazer com que o fragmento seja adicionado e renderizado na tela, entretanto você deve querer ter mais controle de quando e como seus fragmentos serão adicionados durante o curso do seu aplicativo. Para isso existe uma maneira alternativa de adicionar o fragmento em tempo de execução. A fim de adicionar o fragmento em tempo de execução você precisa fazer uma mudança no layout da \texttt{activity}:
+
+\begin{listing}[H]
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/framelayout.xml}
+\caption{Layout da \texttt{activity} com o \texttt{FrameLayout}}
+\end{listing}	
+
+E uma mudança na \texttt{activity} que vai mostrar o fragmento:
+
+\begin{listing}[H]
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/activity-frag-dyn.java}
+\caption{\texttt{Activity} com adição dinâmica de fragmento}
+\end{listing}	
+
+E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do fragmento, você pode experimentar e fazer com que o botão remova um fragmento e coloca outro diferente no lugar.
+
+%% TABS %%
+
+\section{Abas (\emph{Tabs})}
+	Existem diversas maneiras de criar uma interface com abas no Android, uma delas é usando as interfaces \texttt{TabHost} e \texttt{TabWidget}, outra é imitando o comportamento usando apenas \texttt{Fragments}. 
+
+	%% TABHOST TABWIDGET %%	
+	\subsection{Usando \texttt{TabHost} e \texttt{TabWidget}}
+	
+	Abas usando essas interfaces são suportados pro todas as versões do android	
+	Vamos criar uma interface com abas seguindo esse esquema:
+	
+	\begin{figure}[H]
+	  \centering
+	  \includegraphics[width=.475\textwidth]{figuras/design/tabs1.jpg}
+	  \caption{Esquema da interface com abas}
+	  \label{fig:e}
+	\end{figure}
+	
+	
+	
+	
+	
+	
+	
+\section{Arrastar \texttt{(SwipeView)} com abas}
+\section{Menu lateral}
+
 
 \end{singlespace}
 
