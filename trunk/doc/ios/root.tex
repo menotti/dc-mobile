@@ -790,12 +790,258 @@ self.nameTextField.delegate = self;
 \end{listing}
 
 \bigskip
-\bigskip
 
 
 \section{Manipulando tabelas}
 
-\paragraph{}
+\paragraph{}Entre os tipos de \emph{Views} mais utilizadas no iOS, temos as tabelas. Qualquer tela exibindo informações bem divididas como playlist de músicas, lista contatos, ou informações estruturadas em linhas, é do tipo \texttt{\textbf{UITableView}} se for uma \emph{View}, ou \texttt{\textbf{UITableViewController}} se for uma controladora. Como já explicado, se for preciso apenas exibir informações estáticas sem interação com o usuário, criamos uma classe herdando de \texttt{\textbf{UITableView}}, porém na maioria dos casos vamos precisar de tabelas com dados dinâmicos e possibilidade de interação por toque, então criamos um classe herdando de \texttt{\textbf{UITableViewController}}.
+\paragraph{}A classe \texttt{\textbf{UITableViewController}} possui diversos métodos para gerenciar o comportamento de uma tabela. Desde o básico para defininção do número de seções, linhas por seções e o conteúdo de cada linha, até o ajuste das ações para tipos diferentes de toque, como um toque único ou um \emph{slide} na linha para obter novas opções.
+\paragraph{}Vamos implementar um exemplo simples de uma lista de contatos, exibindo-os em ordem alfabética a partir de um pré-determinado \emph{array} de objetos do tipo \texttt{\textbf{Contato}}, que será a classe modelo que criaremos para contatos com informações como nome completo e número.\\
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.4\textheight]{../figuras/ios/apple_table_view_controller_contatos.png}
+  \caption{Exemplo de tela com lista de contatos que chama tela com lista de atributos}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}É interessante que você acompanhe o tutorial junto com a documentação da Apple sobre \texttt{\textbf{UITableViewController}}, e no final busque novos tipos de interação com o usuário e customização da tabela. Não é a toa que essa estrutura é tão explorada nos aplicativos, há uma gama muito grande de possibilidades para seu uso.\\
+
+\paragraph{}Crie um novo projeto da mesma forma que fizemos com o primeiro aplicativo, e coloque "Table" como nome. Agora abra o arquivo \texttt{\textbf{TableViewController.m}} e na declaração da classe adicione \texttt{\textbf{<UITableViewDataSource,UITableViewDelegate>}}.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@interface TableViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
+\end{minted}
+\end{listing}
+
+\paragraph{}Assim teremos a possibilidade de sobrescrever diversos métodos de \texttt{\textbf{da UITableView}} que já são chamados pela controladora para gerenciar o comportamento e as configurações da tabela.
+\paragraph{}Métodos como esse:
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+\end{minted}
+\end{listing}
+
+\paragraph{}Que retorna o número de linhas por seção. E esse:
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+\end{minted}
+\end{listing}
+
+Que é chamado no carregamento de cada célula da tabela e retorna um objeto \texttt{\textbf{UITableViewCell}} que contém as definições dessa celula, como texto, imagem de fundo, ou uma imagem miniatura. O endereço da célula é obtido pelo parâmetro \texttt{\textbf{indexPath}}, que contém dois valores: a seção (\texttt{\textbf{section}}) e a linha (\texttt{\textbf{row}}).
+\paragraph{}Vamos carregar os dados dos contatos a partir de uma property list chamada \texttt{\textbf{contatos.plis}} já criada e presente no repositório. Adicione este arquivo no projeto e abra-o para entender como os contatos estão estruturados. A ideia é dividir os contatos pela letra inicial, tornando cada letra existente uma chave primária para a estrutura. Dessa forma podemos montar esses dados em um dicionário e facilitar a busca e a ordenação dos contatos.
+\paragraph{}Antes dessa leitura, é preciso criar uma classe modelo para o contato. A classe é simples, vai conter apenas nome, sobrenome, e número. Para isso, basta criar um novo arquivo da mesma que fizemos até agora, herdando simplesment de \texttt{\textbf{NSObject}}. Usaremos o nome \texttt{\textbf{DataContato}}.
+\paragraph{}No arquivo \texttt{\textbf{DataContato.h}} colocaremos apenas as 3 propriedades da classe, e um método construtor.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@interface DataContato : NSObject
+
+@property (nonatomic, retain) NSString *firstName;
+@property (nonatomic, retain) NSString *lastName;
+@property (nonatomic, retain) NSString *numero;
+
+- (id)initWithFirstName:(NSString *)aFirstName
+               lastName:(NSString *)aLastName
+                 numero:(NSString *)aNumero;
+
+@end
+\end{minted}
+\end{listing}
+
+\paragraph{}E no arquivo \texttt{\textbf{DataContato.m}} colocamos a implementação do construtor.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@implementation DataContato
+
+- (id)init
+{
+    return [self initWithFirstName:@"N/A"
+                          lastName:@"N/A"
+                            numero:@"N/A"];
+}
+
+- (id)initWithFirstName:(NSString *)aFirstName
+               lastName:(NSString *)aLastName
+                 numero:(NSString *)aNumero;
+{    
+    self.firstName = aFirstName;
+    self.lastName = aLastName;
+    self.numero = aNumero;
+    
+    return self;
+}
+
+@end
+\end{minted}
+\end{listing}
+
+Com o modelo pronto, podemos montar o arquivo \texttt{\textbf{contato.plist}} em um dicionário de uma forma que os dados tenham sentido. É preciso importar a classe em \texttt{\textbf{TableViewController.h}} e criar as propriedades e métodos que utilizarems para gerenciar a estrutura dos contatos e orderná-los.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+#import "DataContato.h"
+
+@interface TableViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
+
+@property (nonatomic, retain) NSMutableDictionary *dictionary;
+@property (nonatomic, retain) NSMutableArray *keysArray;
+@property (nonatomic, retain) NSMutableArray *contatoObjArray;
+
+- (void) setDictionaryArray;
+- (void) sortObjArray:(NSMutableArray *)arrayObj;
+
+@end
+\end{minted}
+\end{listing}
+
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+
+Agora vamos para o arquivo de implementação. Esse será nosso método \texttt{\textbf{viewDidLoad}}:
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.navigationItem.title = @"Contatos";
+    
+    NSString *filePath = [[NSBundle mainBundle]
+    					pathForResource:@"contatos"
+    					ofType:@"plist"];
+    
+    self.dictionary = [[NSMutableDictionary alloc]
+    				   initWithContentsOfFile:filePath];
+    
+    [self setDictionaryArray];
+}
+\end{minted}
+\end{listing}
+
+Nesse código, primeiro damos à tela o título Contatos, e então vamos montar o endereço do arquivo na variável \texttt{\textbf{filePath}}. Podemos então inicializar a propriedade \texttt{\textbf{dictionary}} com o conteúdo de desse endereço, no caso o nosso arquivo .plist. Por último chamamos o método \texttt{\textbf{setDictionaryArray}}, que será onde montaremos a estrutura dos contatos utilizando as chaves primárias e a classe \texttt{\textbf{DataContato}}.
+\paragraph{}Agora vamos montar o método \texttt{\textbf{setDictionaryArray}} por partes. Vamos primeiro separar as chaves primárias e ordená-las utilizando \texttt{\textbf{NSSortDescriptor}}:
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+NSMutableArray *tmpKey, *tmpContato;
+    NSString *firstNameAux, *lastNameAux, *numeroAux;
+    
+    tmpKey = [[NSMutableArray alloc] init];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:nil ascending:YES];
+    
+    self.keysArray = [[NSMutableArray alloc] init];
+    
+    self.keysArray = [[NSMutableArray alloc] initWithArray:[self.dictionary allKeys]];
+    [self.keysArray sortUsingDescriptors:[NSArray arrayWithObject:sort]];
+    
+    int countKeys = [self.keysArray count];
+
+    NSMutableArray *arrayObj = [[NSMutableArray alloc] init];
+\end{minted}
+\end{listing}
+
+\paragraph{}Agora faremos um laço para separar os contatos de cada letra, utilizando métodos do \texttt{\textbf{NSDictionary}} para obter o conteúdo de cada chave. E dentro mais um laço para separar os dados de cada contato. Assim, podemos criar novas instâncias de \texttt{\textbf{DataContato}} com os dados obtidos da estrutura da propriedade \texttt{\textbf{dictionary}}.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+for (int i=0; i<countKeys; i++)
+    {
+        tmpKey = [NSMutableArray arrayWithArray:[self.dictionary objectForKey:[self.keysArray objectAtIndex:i]]];
+        
+        NSMutableArray *arrayObjAux = [[NSMutableArray alloc] init];
+        
+        for (int j=0; j<[tmpKey count]; j++)
+        {
+            tmpContato = [[NSMutableArray alloc] initWithArray:[tmpKey objectAtIndex:j]];
+
+            firstNameAux = [[NSString alloc] initWithString:[tmpContato objectAtIndex:0]];
+            lastNameAux = [[NSString alloc] initWithString:[tmpContato objectAtIndex:1]];
+            numeroAux = [[NSString alloc] initWithString:[tmpContato objectAtIndex:2]];
+            
+            DataContato *a = [[DataContato alloc] initWithFirstName:firstNameAux
+                                                           lastName:lastNameAux
+                                                             numero:numeroAux];
+            
+            [arrayObjAux addObject:a];            
+        }
+        
+        [arrayObj addObject:arrayObjAux];
+    }
+\end{minted}
+\end{listing}
+
+Finalizando o método, fazemos a chamada do método que vai ordenar o \emph{array} de objetos \texttt{\textbf{DataContato}} produzido, ordenando internamente os contatos de cada chave primária de acordo com nome e sobrenome.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+[self sortObjArray:arrayObj];
+\end{minted}
+\end{listing}
+
+Neste método \texttt{\textbf{sortObjArray}}, faremos um uso mais específico do \texttt{\textbf{NSSortDescriptor}}, que nos permite alguns truques de ordenação. Vamos ordernar primeiro por nome e depois por sobrenome, e precisamos que o contato inteiro seja realocado, e não apenas seus atributos. Dessa forma podemos definir nossas prioridades de ordenação em uma variável, e utilizar um método do \texttt{\textbf{NSArray}} que vai ordernar automaticamente o \emph{array} de contatos de cada letra.\\
+\paragraph{}Vamos criar o método \texttt{\textbf{sortObjArray}} por partes. Primeiro criamos os dois arquivos de ordenação, um pra nome e outro pra sobrenome.
+
+\bigskip
+\bigskip
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+self.contatoObjArray = [[NSMutableArray alloc] init];
+    
+    // ordenar Nomes
+    NSString *LASTNAME = @"lastName";
+    NSString *FIRSTNAME = @"firstName";
+    
+    // Descriptor do sobrenome
+    NSSortDescriptor *lastDescriptor =
+    [[NSSortDescriptor alloc]
+      initWithKey:LASTNAME
+      ascending:YES
+      selector:@selector(localizedCaseInsensitiveCompare:)];
+    
+    // Descriptor do nome
+    NSSortDescriptor *firstDescriptor =
+    [[NSSortDescriptor alloc]
+      initWithKey:FIRSTNAME
+      ascending:YES
+      selector:@selector(localizedCaseInsensitiveCompare:)];
+\end{minted}
+\end{listing}
+
+O \texttt{\textbf{NSSortDescriptor}} é uma biblioteca muito poderosa para ordenação, que vale a pena ser um pouco mais estudada.
+\paragraph{}Finalizamos o método criando um \emph{array} com a nossa prioridade de ordenação, e criamos um laço que vai pegar o \emph{array} de cada letra e ordenar com o método \texttt{\textbf{sortedArrayUsingDescriptors}} que recebe o nosso \emph{array} com a prioridade.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+NSArray * descriptors =
+    [NSArray arrayWithObjects:firstDescriptor, lastDescriptor, nil];
+      
+    for(NSMutableArray* array in arrayObj)
+        [self.contatoObjArray addObject:[array sortedArrayUsingDescriptors:descriptors]];
+\end{minted}
+\end{listing}
+
+\bigskip
+\bigskip
+
+- VISUALIZAÇÃO DA TABELA\\
+- CLIQUE NA TABELA\\
+- BUSCA\\
+- TELA COM DETALHES DO CONTATO\\
+- PERMITIR LIGAÇÃO
+
+\bigskip
+\bigskip
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
