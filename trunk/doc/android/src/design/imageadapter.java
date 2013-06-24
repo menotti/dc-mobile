@@ -3,8 +3,10 @@ public class ImageAdapter extends BaseAdapter {
 	
 	//Mantendo todos os ids num array
 	public Integer[] thumbIds = {
-			R.drawable.foto_1, R.drawable.foto_2,
-			R.drawable.foto_3, R.drawable.foto_4
+		R.drawable.sample_0, R.drawable.sample_1,
+		R.drawable.sample_2, R.drawable.sample_3,
+		R.drawable.sample_4, R.drawable.sample_5,
+		R.drawable.sample_6, R.drawable.sample_7
 	};
 	
 	//Construtor
@@ -34,8 +36,8 @@ public class ImageAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ImageView imageView = new ImageView(mContext);
 		imageView.setImageResource(thumbIds[position]);
+		imageView.setLayoutParams(new GridView.LayoutParams(200,200));
 		imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-		imageView.setLayoutParams(new GridView.LayoutParams(70,70));
 		return imageView;
 	}
 }
