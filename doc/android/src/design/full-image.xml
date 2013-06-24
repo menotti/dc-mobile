@@ -3,8 +3,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
  
-    <ImageView android:id="@+id/full_image_view"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"/>
+    <ImageView
+    	android:id="@+id/full_image_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+     
+     </ImageView>
+    
+    <TextView
+        android:id="@+id/myImageViewText"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/full_image_view"
+        android:layout_alignRight="@+id/full_image_view"
+        android:layout_alignTop="@+id/full_image_view"
+        android:gravity="center"
+        android:background="#55555555"
+        android:textSize="16sp"
+        android:textColor="#FFFFFF" />
  
 </LinearLayout>

@@ -45,6 +45,8 @@
 \begin{longtable}{ll}
 \end{longtable}
 
+\usemintedstyle{perldoc}
+
 \renewcommand\lstlistingname{Algorithm}
 \renewcommand\lstlistlistingname{Algorithms}
 
@@ -52,7 +54,7 @@
 \addcontentsline{toc}{section}{Resumo}
 
 \begin{singlespace}
-Esse material didático oferece ao aluno de graduação uma visão geral de como programar para o sistema móvel Android e utilizar suas APIs nativas na criação de aplicativos. O material tentará cobrir desde o básico como a configuração do ambiente de desenvolvimento, criação de layouts básicos e complexos, estrutura geral de um aplicativo e ir até a programação de aplicativos mais complexos que tentam utilizar uma ou várias APIs em conjunto.
+Esse material didático oferece uma visão geral de como programar para o sistema móvel Android e utilizar suas APIs nativas na criação de aplicativos. O material tentará cobrir desde o básico, como a configuração do ambiente de desenvolvimento, criação de layouts básicos e complexos, estrutura geral de um aplicativo e ir até a programação de aplicativos mais complexos que tentam utilizar uma ou várias APIs em conjunto.
 
 O objetivo é dar apenas uma noção de como utilizar as ferramentas do Android, introduzir ao aluno os conceitos e não entrar em detalhes do sistema operacional ou em conceitos mais aprofundados, mas sim uma visão genérica.
 Após a leitura desse material e realização da prática o aluno deve estar preparado para construir seus próprios aplicativos nativos, e poderá até monetizar seus aplicativos se desejar.
@@ -76,54 +78,121 @@ Após a leitura desse material e realização da prática o aluno deve estar pre
 \cha{introducao}{Introdução}
 %\setcounter{page}{1}
 %7-10p
+O Android hoje está em centenas de milhões de dispositivos móveis ao redor do mundo, e vem crescendo. É uma plataforma para desenvolvimento em dispositivos móveis como \emph{smartphones}, \emph{tablets} e outros. 
 
-\begin{figure}[!htb]
+Construído em uma colaboração \emph{open-source} com a comunidade de Linux, o Android se tornou a plataforma móvel mais utilizada e que mais cresce no mundo. Sua abertura o tornou o favorito de consumidores e desenvolvedores, levando a um rápido crescimento no número de aplicativos e jogos. Está disponível em centenas de dispositivos diferentes e de fabricantes diferentes em versões diferentes.
+
+Atualmente\footnote{Data em que foi escrito: 06/2013} existem 4 principais versões do Android, são elas da mais atual para mais antiga:
+\bi
+\item \emph{Jelly Bean} versão 4.2 e 4.1 que trouxe otimizações de performance, uma nova interface do sistema e outros
+\footnote{\emph{Jelly Bean}: \href{http://developer.android.com/about/versions/jelly-bean.html}{http://developer.android.com/about/versions/jelly-bean.html}}
+\item \emph{Ice Cream Sandwich} versão 4.0 trouxe uma interface refinada e unificada para \emph{smartphones} e \emph{tablets} além de facilidade com multitasking e outros
+\footnote{\emph{Ice Cream Sandwich}: \href{http://developer.android.com/about/versions/android-4.0-highlights.html}{http://developer.android.com/about/versions/android-4.0-highlights.html}}
+\item \emph{Honeycomb} versão 3.0 desenvolvida exclusivamente para \emph{tablets}
+\footnote{\emph{Honeycomb}: \href{http://developer.android.com/about/versions/android-3.0-highlights.html}{http://developer.android.com/about/versions/android-3.0-highlights.html}}
+\item \emph{Gingerbread} versão 2.3 introduziu refinamentos da interface, mais performance e tornou o sistema mais intuitivo
+\footnote{\emph{Gingerbread}: \href{http://developer.android.com/about/versions/android-2.3-highlights.html}{http://developer.android.com/about/versions/android-2.3-highlights.html}}
+\ei
+
+O Google coletou os dados referentes a distribuição das versões do Android:
+\begin{table}[H]
+\centering
+    \begin{tabular}{|l|l|l|l|}
+     \rowcolor{Gray} \hline 
+    Versão        & Codinome           & API & Distribuição \\ \hline
+    1.6           & Donut              & 4   & 0.1\%        \\ \hline
+    2.1           & Eclair             & 7   & 1.5\%        \\ \hline
+    2.2           & Froyo              & 8   & 3.2\%        \\ \hline
+    2.3 - 2.3.2   & Gingerbread        & 9   & 0.1\%        \\ \hline
+    2.3.3 - 2.3.7 & Gingerbread        & 10  & 36.4\%       \\ \hline
+    3.2           & Honeycomb          & 13  & 0.1\%        \\ \hline
+    4.0.3 - 4.0.4 & Ice Cream Sandwich & 15  & 25.6\%       \\ \hline
+    4.1.x         & Jelly Bean         & 16  & 29.0\%       \\ \hline
+    4.2.x         & Jelly Bean         & 17  & 4.0\%        \\ \hline
+    \end{tabular}
+    % REITRADO DE: http://developer.android.com/about/dashboards/index.html
+    \caption{Tabela com as distribuições das versões do Android, todas as versões com menos de 0.1\% de participação foram desconsideradas}
+\end{table}
+
+\begin{figure}[H]
   \centering
-  \includegraphics[width=.5\textwidth]{../figuras/LogoDC.jpg}
-  \caption{Departamento de Computação}
-  \label{fig:dc}
+  \includegraphics[width=.85\textwidth]{figuras/chart.png}
+  \caption{Distribuição das versões do Android}
+  \label{fig:d}
 \end{figure}
 
-**** \emph{Não sei o que escrever na introdução que eu não tenha escrito no resumo} ****
+\newpage
+Esse material irá cobrir alguns tópicos no desenvolvimento de aplicativos para android, tais como:
+\bi
+\item
+Configuracão do ambiente de desenvolvimento: Como configurar o ambiente para começar a desenvolver aplicativos, os primeiros passos para criar seu primeiro aplicativo de maneira simples;
+\item
+Elementos da interface: Como projetar seu aplicativo para usar as principais interfaces. Listas, Listas compostas, Grades, Abas, Menus são as interfaces mais usadas nos diversos aplicativos no mercado; e
+\item
+Elementos de hardware: Como projetar seu aplicativo para usar as APIs de hardware: Bluetooth, GPS, SMS, Chamadas.
+\ei
+
+ Para esse material, algumas convenções serão seguidas: 
+ \bi
+ \item
+Os códigos estarão sempre com a sintaxe colorida para facilitar a leitura;
+\item
+URLs das referências estarão nas notas de rodapé; e
+\item
+ Dicas estarão envoltas por uma caixa para facilitar a visualuzação
+\ei
+
 % http://tug.ctan.org/tex-archive/macros/latex/contrib/minted/
 % http://pygments.org/
 
 \cha{configambiente}{Configuração do Ambiente}
-A instalação e configuração do ambiente de desenvolvimento para Android é simples, o Google fornece um pacote chamado ADT (Android Development Tools) que contém o ambiente Eclipse com o plugin do Android, algumas ferramentas para instalação dos aplicativos nos smartphones, o gerenciador do SDK e as imagens para o emulador do Android. Essas ferramentas são suficientes para o desenvolvimento na plataforma.
+A instalação e configuração do ambiente de desenvolvimento para Android é simples, o Google fornece um pacote chamado ADT \emph{(Android Development Tools)} que contém o ambiente Eclipse com o \emph{plugin} do Android, algumas ferramentas para instalação dos aplicativos nos \emph{smartphones}, o gerenciador do SDK e as imagens para o emulador do Android. Essas ferramentas são suficientes para o desenvolvimento na plataforma.
 O pacote ADT pode ser encontrado em: \href{http://developer.android.com/sdk/}{Android SDK}\footnote{\href{http://developer.android.com/sdk/}{http://developer.android.com/sdk/}}. 
 
 Basta fazer o download do pacote e extrair que tudo já está pré-configurado para iniciar o desenvolvimento, portanto não há muito o que configurar.
 
+Caso opte por utilizar uma instalação já existente do ambiente Eclipse, você pode instalar o plugin do Android automaticamente através da ferramenta de instalação de plugins do ambiente. Após a instalação será necessário abrir o \emph{SDK Manager} e instalar:
+\begin{itemize}[noitemsep, nolistsep]
+\item \emph{Android SDK Tools};
+\item \emph{Android SDK Platform-Tools}; e
+\item Para cada API que você irá utilizar, instalar o \emph{SDK Platform} e opcionalmente o \emph{Documentation for Android SDK} e o \emph{Samples for SDK}.
+\end{itemize}
+
 \cha{intro-android}{Linguagem do Android}
 \section{Linguagem}
-A linguagem usada para programar na plataforma Android é baseada em Java. Então antes de engajar no aprendizado Android é altamente recomendável estudar material Java e principalmente o paradigma de orientação à objetos.
+A linguagem usada para programar na plataforma Android é Java. Então antes de engajar no aprendizado Android é altamente recomendável estudar material Java e principalmente o paradigma de orientação a objetos.
 
-A diferença entre o Java convencional e o Android então se dá na organização e configuração feita através de arquivos XML especificos do Android. Alguns XML servem para configurar o aplicativo, layout de cada tela, outro dá suporte a strings para facilitar o suporte a multiplos idiomas.
-Felizmente o conjunto Eclipse com ADT já cuida disso automaticamente ou então facilita através de interfaces gráficas para os programadores, então para qualquer iniciante nessa área e recomendável a utilizacão do ambiente Eclipse.
+O Android tem algumas particulariedades na organização e configuração que é feita através de arquivos XML específicos do Android. Alguns arquivos XML servem para configurar o aplicativo, layout de cada tela e outros dão suporte a strings para facilitar o suporte a múltiplos idiomas.
+Felizmente o conjunto Eclipse com ADT já cuida disso automaticamente e possui uma serie de facilidades alcançadas por meio de interfaces gráficas para os programadores. Por esse motivo, para qualquer iniciante nessa área e recomendável a utilizacão do ambiente Eclipse.
 
-A criação de layouts dos aplicativos pode ser feita inteiramente através da interface gráfica disponível no ambiente, no melhor estilo \textit{drag and drop}. 
+A criação de layouts dos aplicativos pode ser feita inteiramente através da interface gráfica disponível no ambiente, no estilo \textit{drag and drop}. 
 
-\section{Entendendo os arquivos XML}
-Dentre os diversos arquivos XML existentes na configuração de um aplicativo Android o mais importante é o \texttt{\textcolor{mygreen}{AndroidManifest.xml}} pois é nele que se exprime as configurações gerais do aplicativo, não iremos adentrar muito nos detalhes das configurações, mas apenas deixar claro que é nesse arquivo que se coloca as versões do Android que seu aplicativo será compatível com, as permissões para usar os recursos do aparelho como Internet, GPS, Bluetooth, etc. 
+\section{Entendendo a estrutura de uma aplicação Android}
 
-Dentro da pasta \texttt{\textcolor{mygreen}{res/}} de recursos, encontram-se outros arquivos, estes que são referentes a disposição do layout e a valores de strings. A pasta \texttt{\textcolor{mygreen}{layout/}} junto com as pastas \texttt{\textcolor{mygreen}{drawable-*/}} são para dispor o layout, cada \textit{drawable} é para comportar artefatos para cada tamanho diferente de tela, enquanto que a \textit{layout} é a dispoção geral do layout, nesse arquivo é que se coloca os itens que irão nas telas, como botões, caixas de texto, caixas de seleção, etc.
+Uma aplicação Android consiste de uma ou mais \emph{activities}. Uma \emph{activity} é uma tela com \emph{views} que interagem com o usuário. Como o Android segue o padrão MVC \emph{(Model-View-Control)} as \emph{activities} são os \emph{controllers} e as \emph{views}, \emph{views}. As \emph{activities} são classes do Java, o \emph{layout} e outros recursos são definidos em arquivos XML.
 
-Na pasta \texttt{\textcolor{mygreen}{values/}} o mais importante é o arquivo \texttt{\textcolor{mygreen}{strings.xml}} que se escreve os valores das strings do aplicativo, sempre que quiser referenciar alguma string, essa deverá estar expressa nesse arquivo. Fica fácil dessa forma fazer o aplicativo suportar múltiplos idiomas através da tradução desse conteúdo para outros idiomas. 
+Dentre os diversos arquivos XML existentes na configuração de um aplicativo Android o mais importante é o \texttt{{AndroidManifest.xml}}
+\footnote{Documentação do \texttt{AndroidManifest}: \href{The AndroidManifest.xml File}{http://developer.android.com/guide/topics/manifest/manifest-intro.html}}
+ pois é nele que se exprimem as configurações gerais do aplicativo. Nesse texto não iremos adentrar muito nos detalhes das configurações, mas apenas deixar claro que é nesse arquivo que se colocam as versões do Android que seu aplicativo será compatível com, as permissões para usar os recursos do aparelho como Internet, GPS, Bluetooth, etc. 
 
-Tudo isso será trabalhado a partir de exemplos mais pra frente no material.
+Dentro da pasta \texttt{res/} de recursos, encontram-se outros arquivos, referentes à disposição do layout, valores de strings e imagens que sua aplicação irá utilizar. A pasta \texttt{layout/} junto com as pastas \texttt{drawable-*/} servem para dispor o layout. Cada \textit{drawable} comporta imagens para um tamanho diferente de tela, enquanto que a pasta de \textit{layout} contém a dispoção geral do layout. É nesse arquivo que se colocam os itens \emph{(views)} que irão nas telas, como botões, caixas de texto, caixas de seleção, etc.
 
+Na pasta \texttt{values/} o mais importante é o arquivo \texttt{strings.xml} que contém os valores das strings do aplicativo. Sempre que você quiser referenciar alguma string, a mesma deverá estar expressa nesse arquivo. Fica fácil dessa forma fazer o aplicativo suportar múltiplos idiomas, pois basta traduzir esse único arquivo para alterar todos os textos do aplicativo.
 
+%% FIRST APP %%
 \cha{primeiro-aplicativo}{Criando seu primeiro aplicativo}
-Para exemplificar a criação de um aplicativo, seguiremos o exemplo dado pelo próprio manual do Google sobre o Android (Ver original\footnote{Original em: \href{http://developer.android.com/training/basics/firstapp/creating-project.html}{http://developer.android.com/training/basics/firstapp/creating-project.html}}). Um aplicativo simples do tipo \textit{''Hello World''}.
+Para exemplificar a criação de um aplicativo, seguiremos o exemplo dado pelo próprio manual do Google sobre o Android 
+(Ver original\footnote{Original em: \href{http://developer.android.com/training/basics/firstapp/creating-project.html}{http://developer.android.com/training/basics/firstapp/creating-project.html}}). 
+Trata-se de aplicativo simples do tipo \emph{''Hello World''}.
 
-Iniciaremos criando um novo projeto no Eclipse: \textit{File -> New -> Android Application Project}.
+Iniciaremos criando um novo projeto no Eclipse acessando o menu: \emph{File -> New -> Android Application Project}.
 
 Na janela que apareceu você deve colocar o nome do aplicativo, do projeto e do pacote. O nome do pacote deve seguir a convenção do Java\footnote{Convenção sobre nome dos pacotes: \href{http://docs.oracle.com/javase/tutorial/java/package/namingpkgs.html}{http://docs.oracle.com/javase/tutorial/java/package/namingpkgs.html}}.
-\begin{itemize}
-	\item \textit{Minimum Required SDK:} É a versão mínima do sistema operacional Android que sua aplicação irá suportar, o mais comum é a versão 8 do SDK que se refere ao Android 2.2, alguns tipos de layouts mais complexos não são suportados em versões mais antigas
-	\item \textit{Target SDK:} É a versão principal para qual seu aplicativo está sendo desenvolvido
-	\item \textit{Compile With:} Versão para qual seu aplicativo será compilado
-	\item \textit{Theme:} Cores do layout
+\begin{itemize}[noitemsep]
+	\item \textit{Minimum Required SDK:} É a versão mínima do sistema operacional Android que sua aplicação irá suportar, o mais comum é a versão 8 do SDK que se refere ao Android 2.2. Alguns tipos de layouts mais complexos não são suportados em versões mais antigas;
+	\item \textit{Target SDK:} É a versão principal do Android para qual seu aplicativo está sendo desenvolvido;
+	\item \textit{Compile With:} Versão do Android com qual seu aplicativo será compilado; e
+	\item \textit{Theme:} Cores do layout.
 \end{itemize}
 
 
@@ -132,11 +201,35 @@ Na janela que apareceu você deve colocar o nome do aplicativo, do projeto e do 
   \includegraphics[width=.8\textwidth]{figuras/1-criando-app.jpg}
   \caption{Primeira janela de criação de novo aplicativo}
   \label{fig:d}
-  \includegraphics[width=.8\textwidth]{figuras/2-criando-app.jpg}
+  \includegraphics[width=.8\textwidth]{figuras/2-criando-app-2.png}
   \caption{Segunda janela de criação de novo aplicativo}
   \label{fig:c}
 \end{figure}
+\newpage
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.8\textwidth]{figuras/2-criando-app.jpg}
+  \caption{Terceira janela de criação de novo aplicativo}
+  \label{fig:c}
+   \includegraphics[width=.8\textwidth]{figuras/2-criando-app-4.png}
+  \caption{Quarta janela de criação de novo aplicativo}
+  \label{fig:c}
+ \end{figure}
+ \newpage
+\begin{figure}[H]
+  \centering
+   \includegraphics[width=.8\textwidth]{figuras/2-criando-app-5.png}
+  \caption{Quinta janela de criação de novo aplicativo}
+  \label{fig:c}
+\end{figure}
+\newpage
+Observe na Figura 4.1 a janela de criação de uma nova aplicação Android. Em \emph{Application Name} você deve colocar o nome do aplicativo, em \emph{Project Name}, o nome do projeto e em \emph{Package Name} o nome do pacote. Para esse exemplo utilizaremos como \emph{Minimum Required SDK} a versão API 8, já que nesse exemplo não usaremos nenhum layout que não é suportado em versões mais antigas. Em \emph{Target SDK} e \emph{Compile With} optaremos pela versão mais nova, a API 17. Por final o \emph{Theme} eu optei pelo \emph{Holo Light with Dark Action Bar} que é um tema com fundo branco e barra superior preta, um dos padrões do Android.
 
+\begin{framed}
+\textbf{Dica:} Para obter o máximo de compatibilidade sempre procure utilizar \emph{layouts} compatíveis com versões antigas, observe na figura 1.1 que versões antigas ainda tem uma fatia considerável do mercado.
+\end{framed}
+
+A figura 4.2 mostra a tela de escolha do ícone do aplicativo, nesse caso optei pelo ícone padrão. A figura 4.3 
 
 \begin{singlespace}
 \begin{listing}[H]
@@ -145,7 +238,7 @@ Na janela que apareceu você deve colocar o nome do aplicativo, do projeto e do 
 \caption{Exemplo de configuração de versão do SDK no \texttt{\textcolor{mygreen}{AndroidManifest.xml}} }
 \end{listing}
 
-Primeiro vamos criar um layout para o aplicativo usando a interface gráfica do Eclipse, primeiro abra o arquivo \texttt{\textcolor{mygreen}{res/layout/activity\_main.xml}} , segundo o AndroidManifest, é essa \texttt{activity} que será aberta quando o aplicativo for iniciado, configurado através do \textit{intent-filter}. Cada \texttt{activity} é uma tela do aplicativo e é responsáve primariamente por mostrar as informações, o Android segue o modelo \emph{MVC} \textit{(Model-View-Control)}, e as \texttt{activity} são as \textit{Views} do aplicativo.
+Primeiro vamos criar um layout para o aplicativo usando a interface gráfica do Eclipse, primeiro abra o arquivo \texttt{\textcolor{mygreen}{res/layout/activity\_main.xml}} , segundo o AndroidManifest, é essa \emph{activity} que será aberta quando o aplicativo for iniciado, configurado através do \textit{intent-filter}. Cada \emph{activity} é uma tela do aplicativo e é responsáve primariamente por mostrar as informações, o Android segue o modelo \emph{MVC} \textit{(Model-View-Control)}, e as \emph{activity} são as \textit{Views} do aplicativo.
 \begin{listing}
 \begin{minted}[mathescape,
                linenos,
@@ -161,7 +254,7 @@ Primeiro vamos criar um layout para o aplicativo usando a interface gráfica do 
 \caption{Configuração dos \textit{intent-filters} no \texttt{\textcolor{mygreen}{AndroidManifest.xml}} }
 \end{listing}
 
-Não entraremos em detalhes sobre os \textit{intent-filters} agora. Selecione o ''Hello world'' e delete ele da sua \texttt{activity}
+Não entraremos em detalhes sobre os \textit{intent-filters} agora. Selecione o ''Hello world'' e delete ele da sua \emph{activity}
 
 \begin{figure}[H]
   \centering
@@ -170,16 +263,16 @@ Não entraremos em detalhes sobre os \textit{intent-filters} agora. Selecione o 
   \label{fig:b}
 \end{figure}
 
-Agora arraste um \textit{Text Field -> Plain Text} e um \textit{Form Widgets -> Button} para sua \texttt{activity} 
+Agora arraste um \textit{Text Field -> Plain Text} e um \textit{Form Widgets -> Button} para sua \emph{activity} 
 
 \begin{figure}[H]
   \centering
   \includegraphics{figuras/4-criando-app.png}
-  \caption{\texttt{activity} com os elementos colocados na tela}
+  \caption{\emph{activity} com os elementos colocados na tela}
   \label{fig:a}
 \end{figure}
 
-Ao clicar duas vezes no elemento no modo visual, você sera levado ao correspondente marcador desse elemento no XML correspondente da \texttt{activity}. Clique duas vezes na caixa de texto.
+Ao clicar duas vezes no elemento no modo visual, você sera levado ao correspondente marcador desse elemento no XML correspondente da \emph{activity}. Clique duas vezes na caixa de texto.
 
 \begin{listing}
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/firstapp/1.xml}
@@ -219,45 +312,45 @@ Agora abra a classe \texttt{MainActivity} localizada na pasta \texttt{\textcolor
 \end{listing}
 
 
-Primeiro, crie um novo \texttt{Intent}\footnote{Documentação Intent: \href{http://developer.android.com/reference/android/content/Intent.html}{http://developer.android.com/reference/android/content/Intent.html}}, um \texttt{Intent} é um objeto que providencia uma ligação entre dois componentes separados (tais como duas \textit{activities}). O \texttt{Intent} representa uma ''intenção do aplicativo de fazer algo'', eles podem ser usados para uma variedade de tarefas, mas são principalmente usados para iniciar uma nova \texttt{activity}.
+Primeiro, crie um novo \texttt{Intent}\footnote{Documentação Intent: \href{http://developer.android.com/reference/android/content/Intent.html}{http://developer.android.com/reference/android/content/Intent.html}}, um \texttt{Intent} é um objeto que providencia uma ligação entre dois componentes separados (tais como duas \textit{activities}). O \texttt{Intent} representa uma ''intenção do aplicativo de fazer algo'', eles podem ser usados para uma variedade de tarefas, mas são principalmente usados para iniciar uma nova \emph{activity}.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/firstapp/5.java}
 \caption{Adicionando uma \texttt{Intent}}
 \end{listing}
 
-Agora você precisa obter o texto que está escrito na caixa para fazer algo com ele, no caso iremos enviar para outra \texttt{activity} que irá mostrar esse texto.
+Agora você precisa obter o texto que está escrito na caixa para fazer algo com ele, no caso iremos enviar para outra \emph{activity} que irá mostrar esse texto.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/firstapp/6.java}
-\caption{Obtendo o conteúdo da caixa de texto e enviando para outra \texttt{activity}}
+\caption{Obtendo o conteúdo da caixa de texto e enviando para outra \emph{activity}}
 \end{listing}
 
 O código na linha 3 está obtendo a referência a caixa de texto usando o método \texttt{findViewById()} e o argumento passado é o \textit{id} da caixa de texto, observe que você chama com \texttt{R.id.caixaTextoNome} isso é feito dessa forma porque o android compila automaticamente uma classe R (R de \textit{Resources}) que contém as \textit{id's} e \textit{strings} criadas nos arquivos XML.
 Em seguida usando o método \texttt{getText()} da caixa de texto, obtem-se a string que foi escrita lá.
 
 Por fim, essa string é colocada no \texttt{Intent} com o método \texttt{putExtra()}, uma \texttt{Intent} pode carregar consigo uma coleção de vários tipos de dados como pares chave-valor chamados \textit{extras}, esse método toma a chave como primeiro parâmetro e o valor no segundo parâmetro.
-Para que a próxima \texttt{activity} consiga coletar esse valor, você deve definir uma chave para seu \textit{extra} usando uma constante pública. Para isso adicione a definição de \texttt{EXTRA\_MESSAGE} no topo da sua classe \texttt{MainActivity}.
+Para que a próxima \emph{activity} consiga coletar esse valor, você deve definir uma chave para seu \textit{extra} usando uma constante pública. Para isso adicione a definição de \texttt{EXTRA\_MESSAGE} no topo da sua classe \texttt{MainActivity}.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/firstapp/7.java}
 \caption{Constante como chave para um extra}
 \end{listing}
 
-Agora você deve criar uma nova \texttt{activity}, para isso vá em \textit{File -> New -> Other -> Android Activity} e selecione \textit{Blank Activity}. Preencha a próxima janela dessa maneira, depois clique \textit{Finish}. 
+Agora você deve criar uma nova \emph{activity}, para isso vá em \textit{File -> New -> Other -> Android Activity} e selecione \textit{Blank Activity}. Preencha a próxima janela dessa maneira, depois clique \textit{Finish}. 
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=1\textwidth]{figuras/5-criando-app.png}
-  \caption{Criando uma nova \texttt{activity}}
+  \caption{Criando uma nova \emph{activity}}
   \label{fig:e}
 \end{figure}
 
-A classe já vem com alguns métodos implementados, alguns não serão necessários para esse aplicativo, mas mantenha eles na classe. Todas as classes que são subclasses de \texttt{Activity} precisam implementar o método \texttt{onCreate()}\footnote{\href{http://developer.android.com/reference/android/app/Activity.html\#onCreate(android.os.Bundle)}{http://developer.android.com/reference/android/app/Activity.html\#onCreate(android.os.Bundle)}}.
+A classe já vem com alguns métodos implementados, alguns não serão necessários para esse aplicativo, mas mantenha eles na classe. Todas as classes que são subclasses de \emph{activity} precisam implementar o método \texttt{onCreate()}\footnote{\href{http://developer.android.com/reference/android/app/Activity.html\#onCreate(android.os.Bundle)}{http://developer.android.com/reference/android/app/Activity.html\#onCreate(android.os.Bundle)}}.
 
-Geralmente você precisaria adicionar uma nova string com o nome da classe no XML, e adicionar a \texttt{activity} no \texttt{\textcolor{mygreen}{AndroidManifest.xml}} porém como estamos trabalhando com o Eclipse, você não precisa se preocupar que ele faz isso sozinho.
+Geralmente você precisaria adicionar uma nova string com o nome da classe no XML, e adicionar a \emph{activity} no \texttt{\textcolor{mygreen}{AndroidManifest.xml}} porém como estamos trabalhando com o Eclipse, você não precisa se preocupar que ele faz isso sozinho.
 
-Agora, precisamos extrair os dados enviados a essa \texttt{activity} através do \texttt{intent}, você pode pegar o \texttt{intent} que começou a \texttt{activity} chamando o método \texttt{getIntent()}\footnote{\href{http://developer.android.com/reference/android/app/Activity.html\#getIntent()}{http://developer.android.com/reference/android/app/Activity.html\#getIntent()}}.
+Agora, precisamos extrair os dados enviados a essa \emph{activity} através do \texttt{intent}, você pode pegar o \texttt{intent} que começou a \emph{activity} chamando o método \texttt{getIntent()}\footnote{\href{http://developer.android.com/reference/android/app/Activity.html\#getIntent()}{http://developer.android.com/reference/android/app/Activity.html\#getIntent()}}.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/firstapp/8.java}
@@ -325,6 +418,62 @@ Agora para rodar o aplicativo basta clicar em \emph{Run} na barra de tarefas do 
 %%%%%%% DESIGN %%%%%%%%%%
 \cha{design}{Design}
 
+%%% ACTIVITY %%%
+\section{Activity}
+Enquanto um usuário navega pelas variadas telas de um aplicativo, sai dele e volta depois, as instâncias de uma \emph{activity} transitam dentre diferentes estados em seu ciclo de vida. Quando um aplicativo é iniciado, uma \emph{activity} inicial é criada o sistema invoca métodos específicos que correspondem a criação dessa \emph{activity}. Durante todo o ciclo de vida vários métodos são chamados, e todos eles correspondem a diferentes estágios desse ciclo de vida. 
+
+Observe na imagem abaixo os métodos correspondentes a cada estado da vida de uma \emph{activity}, quando ela é criada o método \texttt{onCreate()} é o responsável pela configuracão inicial. O sistema ao criar uma nova instância de uma \emph{activity}, cada método muda o estado da \emph{activity} um degrau pra cima na pirâmide. 
+
+% COLOCAR FONTE: http://developer.android.com/training/basics/activity-lifecycle/starting.html %
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\textwidth]{figuras/design/basic-lifecycle.png}
+  \caption{Ciclo de vida de uma \emph{activity} }
+  \label{fig:e}
+\end{figure}
+
+Assim que o usuário começa a sair da \emph{activity}, o sistema invoca outros métodos que movem o estado para níveis mais baixos da pirâmide para começar a desmontar a \emph{activity}. Em alguns casos a \emph{activity} irá apenas ir até certo ponto e esperar (por exemplo quando o usuário troca para outro aplicativo) tal que ela possa voltar de onde parou caso o usuário volte. 
+
+ Não são todos métodos que precisam ser implementados pois isso irá depender da complexidade do seu aplicativo. É importante salientar porém que, implementar esses métodos irá garantir que seu aplicativo se comporte de maneira correta, por exemplo você deve garantir que:
+ \bi
+ \item Seu aplicativo não falhe quando o usuário receber uma chamada telefônica ou quando o usuário troca de aplicativo;
+ \item Seu aplicativo não consuma recursos do sistema enquanto não estiver sendo usado;
+ \item Seu aplicativo não perca o progresso do usuário; e
+ \item Seu aplicativo não falhe ou perca o progresso do usuário quando a tela rotaciona entre retrato e paisagem.
+\ei
+
+Apenas três dentre os estados são estáticos, isto é, a \emph{activity} pode ficar nesse estado por um longo período de tempo:
+
+
+Retomado \emph{(Resumed)}
+	
+\hspace*{5mm} Nesse estado a \emph{activity} está em primeiro plano e o usuário pode interagir com ela.
+	
+Pausado \emph{(Paused)}
+	
+\hspace*{5mm} Nesse estado a \emph{activity} está parcialmente obscurecida por outra \emph{activity} - a outra \emph{activity} que está em primeiro plano é semi-transparente ou não ocupa todo espaço da tela. A \emph{activity} quando pausada não consegur interagir com o usuário e não executa nenhum código.
+	
+Parado \emph{(Stopped)}
+	
+\hspace*{5mm} Nesse estado a \emph{activity} está completamente oculto e não está visível para o usuário, está em plano de fundo. Quando está parada, uma instância de uma \emph{activity} e toda informação de seu estado tais como variáveis são mantidos, porém a \emph{activity} não executa nenhum código.
+	
+\section{Especifique a \emph{activity} que inicia seu aplicativo}
+
+Quando um usuário abre um aplicativo, o sistema chama o método \texttt{onCreate()} da \emph{activity} que foi declarada como sendo a iniciadora do aplicativo. Você pode definir qual \emph{activity} que vai iniciar seu aplicativo no arquivo \texttt{AndroidManifest.xml} que está no diretório raíz do seu projeto.
+
+ A \emph{activity} que inicia seu aplicativo deve ser declarada no manifesto com um \texttt{<intent-filter>}\footnote{Documentação \texttt{<intent-filter>}: \href{http://developer.android.com/guide/topics/manifest/intent-filter-element.html}{http://developer.android.com/guide/topics/manifest/intent-filter-element.html}} que inclui a \texttt{<action>} MAIN e a \texttt{<category>} LAUNCHER. Por exemplo:
+ 
+\begin{listing}[H]
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/launcher-manifest.xml}
+\caption{Exemplo de \emph{Launcher activity}}
+\end{listing}
+
+%dica
+\begin{framed}
+\textbf{Dica:} Quando você cria um projeto Android no Eclipse, por padrão é incluida uma classe \emph{activity} que está declarada no manifesto com esse filtro.
+\end{framed}
+
+
 %%% LIST VIEW %%%%
 \section{Listas \texttt{(ListView)}}\footnote{Documentação \texttt{ListView}:\href{http://developer.android.com/reference/android/widget/ListView.html}{http://developer.android.com/reference/android/widget/ListView.html}}
 Listas são uma das formas mais simples e mais poderosas de se mostrar informações ao usuário de forma simples e objetiva, a \texttt{ListView} é altamente customizável através de adaptadores.
@@ -373,12 +522,12 @@ E por final, escrever o código que irá preencher a lista com as \textit{string
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/listactivity.java}
-\caption{Código de uma \texttt{activity} com lista clicável}
+\caption{Código de uma \emph{activity} com lista clicável}
 \end{listing}
 
 Adaptadores são usados para prover dados para o \texttt{ListView}, ele define como cada linha será mostrada. Um adaptador extende a classe \texttt{BaseAdapter}, o Android provê alguns adaptadores padrões, no caso estamos usando o \texttt{ArrayAdapter} que é para manusear dados em \textit{arrays}.
 
-Dentro da interface \texttt{OnItemClickListener} você pode configurar a ação de clicar em um dos itens da lista, nesse exemplo é criado um \texttt{Toast} que mostra uma mensagem com o texto do item na lista porém, qualquer ação pode ser executada incluindo abrir uma nova \texttt{activity} que esteja relacionada a esse item.
+Dentro da interface \texttt{OnItemClickListener} você pode configurar a ação de clicar em um dos itens da lista, nesse exemplo é criado um \texttt{Toast} que mostra uma mensagem com o texto do item na lista porém, qualquer ação pode ser executada incluindo abrir uma nova \emph{activity} que esteja relacionada a esse item.
 
 Você pode também herdar da classe \texttt{ListActivity} para uma forma mais simples de manusear \texttt{ListViews}. Você não precisa atribuir um layout a \texttt{ListActivity} contém uma \texttt{ListView} padrão. Caso voce precise colocar mais \texttt{Views} em seu layout, você \emph{deve} colocar a \texttt{ListView} em seu layout com o id \texttt{''@android:id/list''}.
 
@@ -420,7 +569,7 @@ Agora você precisa usar um adaptador para mostrar esse layout customizado em ca
 \section{Listas expandíveis \texttt{(ExpandableListView)}}
 
 Listas expandíveis são úteis para agrupar conjuntos de itens semelhantes, funcionam da mesma maneira que as listas comuns e podem ser customizadas.
-Comece colocando sua lista na \texttt{activity} desejada.
+Comece colocando sua lista na \emph{activity} desejada.
 	
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/exlist.xml}
@@ -457,11 +606,11 @@ Essa classe deve extender a classe \texttt{BaseExpandableListAdapter}
 \captionof{listing}{Classe \texttt{CustomAdapter}}
 
 
-Para finalizar, você deve construir os objetos na classe da \texttt{activity}, nesse exemplo para popular a lista eu coloquei no arquivo de \texttt{strings} alguns fabricantes e modelos de carros, você pode obtê-los no repositório do projeto.
+Para finalizar, você deve construir os objetos na classe da \emph{activity}, nesse exemplo para popular a lista eu coloquei no arquivo de \texttt{strings} alguns fabricantes e modelos de carros, você pode obtê-los no repositório do projeto.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/exlist-main.java}
-\caption{Construindo a lista expandível na \texttt{activity}}
+\caption{Construindo a lista expandível na \emph{activity}}
 \end{listing}	
 
 \begin{figure}[H]
@@ -499,11 +648,11 @@ Crie uma nova classe que vai ser o adaptador para mostrar a imagem na grade, lem
 \caption{Classe \texttt{ImageAdapter}}
 \end{listing}	
 
-Agora basta criar na grade na sua \texttt{activity}.
+Agora basta criar na grade na sua \emph{activity}.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/grade-activity.java}
-\caption{\texttt{Activity} com grade}
+\caption{\emph{activity} com grade}
 \end{listing}	
 
 Exemplo rodando:
@@ -515,7 +664,7 @@ Exemplo rodando:
   \label{fig:e}
 \end{figure}
 
-Para complementar, você pode fazer com que a imagem abra em tela cheia quando clicada na view, para isso é necessário que você passe o \emph{id} do recurso do \texttt{GridView} para a nova \texttt{activity}.
+Para complementar, você pode fazer com que a imagem abra em tela cheia quando clicada na view, para isso é necessário que você passe o \emph{id} do recurso do \texttt{GridView} para a nova \emph{activity}.
 Crie um novo XML e chame de \texttt{full\_image.xml}, nele teremos apenas um \texttt{ImageView}.
 
 \begin{listing}[H]
@@ -523,25 +672,26 @@ Crie um novo XML e chame de \texttt{full\_image.xml}, nele teremos apenas um \te
 \caption{Layout \texttt{full\_image.xml}}
 \end{listing}	
 
-Em seguida, crie uma nova classe chamada \texttt{FullImageActivity}, essa é \texttt{activity} que vai mostrar a imagem em tela cheia. A construção da classe é simples, você deve apenas obter o \emph{id} da imagem passado como \emph{extra} através do \texttt{intent} e então obter essa imagem da classe \texttt{ImageAdapter}.
+Em seguida, crie uma nova classe chamada \texttt{FullImageActivity}, essa é \emph{activity} que vai mostrar a imagem em tela cheia. A construção da classe é simples, você deve apenas obter o \emph{id} da imagem passado como \emph{extra} através do \texttt{intent} e então obter essa imagem da classe \texttt{ImageAdapter}.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/FullImageActivity.java}
 \caption{Classe \texttt{FullImageActivity}}
 \end{listing}	 	 	
 
-Finalmente, você deve modificar a \texttt{activity} da sua grade para suportar o novo comportamento, para isso é necessário configurar o \texttt{gridview} para tomar algumas ações quando um elemento da tela for clicado. Observe o código que deve ser adicionado da sua \texttt{activity}.
+Finalmente, você deve modificar a \emph{activity} da sua grade para suportar o novo comportamento, para isso é necessário configurar o \texttt{gridview} para tomar algumas ações quando um elemento da tela for clicado. Observe o código que deve ser adicionado da sua \emph{activity}.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/grid-activity-p2.java}
-\caption{\texttt{Activity} com grade, melhorado}
+\caption{\emph{activity} com grade, melhorado}
 \end{listing}	 
 
 Na linha 14 você pode observar a criação de um \emph{listener} para os itens clicados da grade, o método \texttt{onItemClick()} permite obter algumas informações sobre o item clicado e você pode usar essas informações como quiser, nesse caso é colocado dentro de um \texttt{intent} o \emph{id} do item clicado como sendo sua posição nessa grade. Finalmente o método \texttt{startActivity} é chamado e passando o \texttt{intent} criado como parâmetro.   
 
+%% FRAGMENTOS %%
 \section{Fragmentos}
 
-Fragmentos são a solução do Android para criar interfaces de usuário modulares, eles vivem dentro das \texttt{activity} e uma \texttt{activity} pode conter vários fragmentos. Assim como as \texttt{activity} os fragmentos possuem um ciclo de vida %% EXPLICAR MELHOR %%.
+Fragmentos são a solução do Android para criar interfaces de usuário modulares, eles vivem dentro das \emph{activity} e uma \emph{activity} pode conter vários fragmentos. Assim como as \emph{activity} os fragmentos possuem um ciclo de vida %% EXPLICAR MELHOR %%.
 Dentre as vantagens de um fragmento estão:
 \bi
 	\item Modularidade e reuso de código
@@ -565,32 +715,32 @@ Caso você esteja desenvolvendo para API menores que 11 (HoneyComb 3.0) você va
 
 %% Another difference is that a Fragment is not a subclass of Context. This means that a Fragment can not be launched as a component inside your app and therefore always has to live inside of an Activity. This also means that whenever you need a Context inside of a Fragment, you need to get access to the parent Activity. You can do this by using the getActivity() method as we have done in the Fragment button's OnClickListener callback. You need to watch out because getActivity() can return null depending on where the Fragment is in the Activity's lifecycle. So, you should also include a check to see if the Activity is null before you use it. %%
 
-Agora para incluir o fragmento na \texttt{activity} existem duas opções. A primeira é inlcuir o fragmento no XML da \texttt{activity} como você faria com qualquer \texttt{view}.
+Agora para incluir o fragmento na \emph{activity} existem duas opções. A primeira é inlcuir o fragmento no XML da \emph{activity} como você faria com qualquer \texttt{view}.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/fragment-activity.xml}
-\caption{Layout da \texttt{activity} com um fragmento}
+\caption{Layout da \emph{activity} com um fragmento}
 \end{listing}	
 
 Você pode usar o \texttt{<fragment>} quantas vezes quiser para incluir múltiplos fragmentos.
 Note que você precisa usar um nome qualificado em \texttt{android:name}, veja mais na documentação oficial: \href{http://developer.android.com/guide/topics/manifest/activity-element.html\#nm}{activity-element}\footnote{\href{http://developer.android.com/guide/topics/manifest/activity-element.html\#nm}{http://developer.android.com/guide/topics/manifest/activity-element.html\#nm}}
 
-Novamente, caso esteja desenvolvendo para APIs menores que 11, você vai precisar fazer a \texttt{activity} extender a classe \texttt{FragmentActivity} e importar a classe de suporte: \mint{java}|import android.support.v4.app.FragmentActivity;|
+Novamente, caso esteja desenvolvendo para APIs menores que 11, você vai precisar fazer a \emph{activity} extender a classe \texttt{FragmentActivity} e importar a classe de suporte: \mint{java}|import android.support.v4.app.FragmentActivity;|
 \mint{java}|public class MainActivity extends FragmentActivity|
 
 
-Simplesmente configurando a \texttt{activity} para usar o fragmento vai fazer com que o fragmento seja adicionado e renderizado na tela, entretanto você deve querer ter mais controle de quando e como seus fragmentos serão adicionados durante o curso do seu aplicativo. Para isso existe uma maneira alternativa de adicionar o fragmento em tempo de execução. A fim de adicionar o fragmento em tempo de execução você precisa fazer uma mudança no layout da \texttt{activity}:
+Simplesmente configurando a \emph{activity} para usar o fragmento vai fazer com que o fragmento seja adicionado e renderizado na tela, entretanto você deve querer ter mais controle de quando e como seus fragmentos serão adicionados durante o curso do seu aplicativo. Para isso existe uma maneira alternativa de adicionar o fragmento em tempo de execução. A fim de adicionar o fragmento em tempo de execução você precisa fazer uma mudança no layout da \emph{activity}:
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/framelayout.xml}
-\caption{Layout da \texttt{activity} com o \texttt{FrameLayout}}
+\caption{Layout da \emph{activity} com o \texttt{FrameLayout}}
 \end{listing}	
 
-E uma mudança na \texttt{activity} que vai mostrar o fragmento:
+E uma mudança na \emph{activity} que vai mostrar o fragmento:
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/activity-frag-dyn.java}
-\caption{\texttt{Activity} com adição dinâmica de fragmento}
+\caption{\emph{activity} com adição dinâmica de fragmento}
 \end{listing}	
 
 E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do fragmento, você pode experimentar e fazer com que o botão remova um fragmento e coloca outro diferente no lugar.
