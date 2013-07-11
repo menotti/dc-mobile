@@ -139,7 +139,7 @@ Os códigos estarão sempre com a sintaxe colorida para facilitar a leitura;
 \item
 URLs das referências estarão nas notas de rodapé; e
 \item
- Dicas estarão envoltas por uma caixa para facilitar a visualuzação
+ Dicas estarão envoltas por uma caixa para facilitar a visualização
 \ei
 
 % http://tug.ctan.org/tex-archive/macros/latex/contrib/minted/
@@ -174,10 +174,29 @@ Uma aplicação Android consiste de uma ou mais \emph{activities}. Uma \emph{act
 Dentre os diversos arquivos XML existentes na configuração de um aplicativo Android o mais importante é o \texttt{{AndroidManifest.xml}}
 \footnote{Documentação do \texttt{AndroidManifest}: \href{The AndroidManifest.xml File}{http://developer.android.com/guide/topics/manifest/manifest-intro.html}}
  pois é nele que se exprimem as configurações gerais do aplicativo. Nesse texto não iremos adentrar muito nos detalhes das configurações, mas apenas deixar claro que é nesse arquivo que se colocam as versões do Android que seu aplicativo será compatível com, as permissões para usar os recursos do aparelho como Internet, GPS, Bluetooth, etc. 
+ 
+ A pasta \texttt{src/} contém o pacote com as classes do seu aplicativo isto é, o código fonte do seu aplicativo. Tanto \emph{activites} como classes de suporte devem estar dentro do pacote.
 
-Dentro da pasta \texttt{res/} de recursos, encontram-se outros arquivos, referentes à disposição do layout, valores de strings e imagens que sua aplicação irá utilizar. A pasta \texttt{layout/} junto com as pastas \texttt{drawable-*/} servem para dispor o layout. Cada \textit{drawable} comporta imagens para um tamanho diferente de tela, enquanto que a pasta de \textit{layout} contém a dispoção geral do layout. É nesse arquivo que se colocam os itens \emph{(views)} que irão nas telas, como botões, caixas de texto, caixas de seleção, etc.
+Dentro da pasta \texttt{res/} de recursos, encontram-se outros arquivos, referentes à disposição do layout, valores de strings e imagens que sua aplicação irá utilizar. A pasta \texttt{layout/} junto com as pastas \texttt{drawable-*/} servem para dispor o layout. Cada \textit{drawable} comporta imagens para um tamanho diferente de tela, enquanto que a pasta de \textit{layout} contém a dispoção geral do layout. São nesses arquivos que se colocam os itens \emph{(views)} que irão nas telas, como botões, caixas de texto, caixas de seleção, etc.
 
 Na pasta \texttt{values/} o mais importante é o arquivo \texttt{strings.xml} que contém os valores das strings do aplicativo. Sempre que você quiser referenciar alguma string, a mesma deverá estar expressa nesse arquivo. Fica fácil dessa forma fazer o aplicativo suportar múltiplos idiomas, pois basta traduzir esse único arquivo para alterar todos os textos do aplicativo.
+
+A pasta \texttt{menu/} contém os \emph{layouts} do menus do aplicativo, esses são aqueles que podem ser acessados através da \emph{Action Bar}\footnote{\emph{ActionBar}: \href{http://developer.android.com/design/patterns/actionbar.html}{http://developer.android.com/design/patterns/actionbar.html}} ou através dos botões físicos do aparelho.
+
+\newpage
+\textbf{Resumindo:}
+\begin{itemize}[noitemsep, nolistsep]
+\item \texttt{AndroidManifest.xml}: Configurações gerais do aplicativo;
+\item \texttt{src/}: Classes do aplicativo; e
+\item \texttt{res/}: Recursos do aplicativo tais que:
+	\begin{itemize}[nolistsep, noitemsep]
+		\item \texttt{strings/}: Todos os textos da sua aplicação, suporte a múltiplos idiomas;
+		\item \texttt{layout/}: Todos os \emph{layouts} de suas telas \emph{(activites)};
+		\item \texttt{drawable/}: Todas as imagens, separados por tamanho de tela; e
+		\item \texttt{menu/}: \emph{layout} dos menus do aplicativo.
+	\end{itemize}
+\end{itemize}
+
 
 %% FIRST APP %%
 \cha{primeiro-aplicativo}{Criando seu primeiro aplicativo}
@@ -229,7 +248,21 @@ Observe na Figura 4.1 a janela de criação de uma nova aplicação Android. Em 
 \textbf{Dica:} Para obter o máximo de compatibilidade sempre procure utilizar \emph{layouts} compatíveis com versões antigas, observe na figura 1.1 que versões antigas ainda tem uma fatia considerável do mercado.
 \end{framed}
 
-A figura 4.2 mostra a tela de escolha do ícone do aplicativo, nesse caso optei pelo ícone padrão. A figura 4.3 
+A figura 4.2 mostra a segunda janela da configuração inicial do seu aplicativo. Você pode escolher um ícone personalizado se marcar a caixa \emph{Create custom launcher icon} o que te levará para a janela da figura 4.3. Se marcar \emph{Create Activity}  o assistente de criação te levará para a janela da figura 4.4 onde poderá escolher qual \emph{activity} vai ser criada para seu aplicativo. Em todos os exemplos escolheremos a opção \emph{Blank Activity}. Como nosso projeto não e uma biblioteca não marcaremos \emph{Mark this project as a library}. Se marcar \emph{Create Project in Workspace} o assistente irá salvar o projeto na pasta que foi configurada para o \emph{Workspace}, caso contrário ele irá pedir para escolher outro caminho. Como não trabalharemos com \emph{Working Sets} do Eclipse, a opção \emph{Add project to working sets} permanece desmarcada. 
+
+Finalmente a figura 4.5 mostra a janela para nomear a \emph{activity} inicial, nesse exemplo mantive \emph{MainActivity}. O nome do \emph{layout} dessa \emph{activity} mantive como \emph{activity\_main} que é o padrão. Na caixa \emph{Navigation Type} existem algumas opções de \emph{layout} pré-definidas pelo Android. São elas:
+\begin{itemize}[noitemsep, nolistsep]
+\item
+	\emph{None:} O \emph{layout} vem apenas com uma \emph{Action Bar}\footnote{Documentação da \emph{ActionBar}: \href{http://developer.android.com/guide/topics/ui/actionbar.html}{http://developer.android.com/guide/topics/ui/actionbar.html}}
+\item
+	\emph{Fixed Tabs + Swipe:} O \emph{layout} vem com algumas abas e com gesto de arrastar entre as abas \emph{(activities)} pré-programados.
+	\footnote{\emph{Tabs:} \href{http://developer.android.com/design/building-blocks/tabs.html}{http://developer.android.com/design/building-blocks/tabs.html}}
+\item
+	\emph{Scrollable Tabs + Swipe:} O \emph{layout} vem com algumas abas e com gesto de arrastar entre as abas pré-programados, porém nesse o estilo das abas é diferente, em vez de abas fixas, são abas que movem para dar espaço a outras. 
+\item
+	\emph{Dropdown}: O \emph{layout} vem com a troca de \emph{activites} através de um menu na \emph{Action Bar}.  
+\end{itemize}
+
 
 \begin{singlespace}
 \begin{listing}[H]
