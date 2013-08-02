@@ -263,31 +263,20 @@ Finalmente a figura 4.5 mostra a janela para nomear a \emph{activity} inicial, n
 	\emph{Dropdown}: O \emph{layout} vem com a troca de \emph{activites} através de um menu na \emph{Action Bar}.  
 \end{itemize}
 
+Você pode configurar a versão do SDK manualmente modificando os valores no \emph{manifest}. Como mostrado no exemplo abaixo:
 
 \begin{singlespace}
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/firstapp/sdk-manifest.xml}
 \label{AndroidManifest.sdk}
-\caption{Exemplo de configuração de versão do SDK no \texttt{\textcolor{mygreen}{AndroidManifest.xml}} }
+\caption{Exemplo de configuração de versão do SDK no arquivo \texttt{AndroidManifest.xml} }
 \end{listing}
 
-Primeiro vamos criar um layout para o aplicativo usando a interface gráfica do Eclipse, primeiro abra o arquivo \texttt{\textcolor{mygreen}{res/layout/activity\_main.xml}} , segundo o AndroidManifest, é essa \emph{activity} que será aberta quando o aplicativo for iniciado, configurado através do \textit{intent-filter}. Cada \emph{activity} é uma tela do aplicativo e é responsáve primariamente por mostrar as informações, o Android segue o modelo \emph{MVC} \textit{(Model-View-Control)}, e as \emph{activity} são as \textit{Views} do aplicativo.
-\begin{listing}
-\begin{minted}[mathescape,
-               linenos,
-               numbersep=5pt,
-               tabsize=2,
-               frame=lines,
-               framesep=2mm]{xml}
-<intent-filter>
-	<action android:name="android.intent.action.MAIN" />
-	<category android:name="android.intent.category.LAUNCHER"/>
-</intent-filter>
-\end{minted}
-\caption{Configuração dos \textit{intent-filters} no \texttt{\textcolor{mygreen}{AndroidManifest.xml}} }
-\end{listing}
+A tag \texttt{uses-sdk} serve apenas para o compilador saber quais versões do Android você pretende que seu aplicativo suporte. Dessa forma quando seu aplicativo for lançado na loja \emph{Google Play} o aplicativo só será visível para aqueles usuários que possuem a versão mínima do Android indicana no atributo.
 
-Não entraremos em detalhes sobre os \textit{intent-filters} agora. Selecione o ''Hello world'' e delete ele da sua \emph{activity}
+Primeiro vamos criar um \emph{layout} para o aplicativo usando o construtor de interfaces presente no ambiente, primeiro abra o arquivo \texttt{res/layout/activity\_main.xml} , segundo o \emph{manifest}, é essa \emph{activity} que será aberta quando o aplicativo for iniciado, isso é configurado através do \emph{intent-filter}\footnote{Mais informações na seção 5.2}. 
+
+Selecione o ''Hello world'' e o remova da sua \emph{activity}.
 
 \begin{figure}[H]
   \centering
@@ -296,7 +285,7 @@ Não entraremos em detalhes sobre os \textit{intent-filters} agora. Selecione o 
   \label{fig:b}
 \end{figure}
 
-Agora arraste um \textit{Text Field -> Plain Text} e um \textit{Form Widgets -> Button} para sua \emph{activity} 
+A tela deverá ficar parecida com a da figura 4.4. Agora arraste um \textit{Text Field -> Plain Text} e um \textit{Form Widgets -> Button} para sua \emph{activity}.
 
 \begin{figure}[H]
   \centering
@@ -305,64 +294,71 @@ Agora arraste um \textit{Text Field -> Plain Text} e um \textit{Form Widgets -> 
   \label{fig:a}
 \end{figure}
 
-Ao clicar duas vezes no elemento no modo visual, você sera levado ao correspondente marcador desse elemento no XML correspondente da \emph{activity}. Clique duas vezes na caixa de texto.
+Ao clicar duas vezes no elemento no modo visual, você sera levado ao marcador desse elemento no XML correspondente da \emph{activity}. Clique duas vezes na caixa de texto, o seguinte código será exibido:
 
 \begin{listing}
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/firstapp/1.xml}
-\caption{Código da caixa de texto}
+\caption{Código da caixa de texto no arquivo \texttt{activity\_main.xml}}
 \end{listing}
 
-Primeiro, modifique a \textit{id} para um mais intuitivo, por exemplo você pode chama-lo de \textit{caixaTextoNome}. Todo \textit{id} deve ser precedido de \texttt{@+id/} como definido pelo Android. Os outros atributos são para definir o tamanho, alinhamento e margem, todos relativos ao elemento pai desse elemento que no caso é o próprio layout. Depois adicione uma \textit{hint} para essa caixa de texto, uma \textit{hint} é algo que vai estar escrito na caixa de texto quando ela estiver vazia, indicando que tipo de texto você pretende que seja escrito nessa caixa de texto, essa \textit{hint} é uma referência a \texttt{string} chamada \texttt{nome} que está definida no arquivo \texttt{\textcolor{mygreen}{res/values/strings.xml}}.	 No código acima a \textit{hint} já foi colocada na linha 10.
+Primeiro, na linha 2 modifique o \emph{id} do \emph{Text Field} para um nome mais intuitivo, nesse exemplo chamaremos apenas de \emph{nameField}. O Android definiu que todo novo atributo \emph{id} deve ser precedido de \texttt{@+id/}. O símbolo @ diz para o compilador que estamos acessando os recursos do Android, esses recursos são compilados na classe \texttt{R} automaticamente. O símbolo + diz para o compilador que estamos criando um novo recurso. Por fim, \emph{id} diz que estamos especificando um novo identificador para esse recurso e só então damos o nome a esse identificador.
 
-Depois modifique o código do botão, trocando o \textit{id} e as referências ao \textit{id} da caixa de texto, também edite o \texttt{android:text} para fazer uma referência a uma string no arquivo de strings. Por último adicione um atributo \texttt{android:onClick} que é o método que será executado quando o botão for pressionado.
+\begin{framed}
+\textbf{Dica:} Existem vários tipos de recursos, porém é importante salientar os diferentes tipos de \emph{id}. Quando referimos aos recursos podemos usar \texttt{@android:id/} para acessar recursos que já estão definidos no sistema Android. Usamos \texttt{@id/} para acessar recursos que já foram definidos no seu projeto. Para criar um novo recurso, usamos \texttt{@+id/}.
+\end{framed}
+
+Os outros atributos são para definir o tamanho, alinhamento e margem da caixa de texto. O valor \texttt{wrap\_content} dos atributos \texttt{layout\_width} e \texttt{layout\_height} (largura e altura, linhas 3 e 4) força a \emph{view} a mudar de tamanho automaticamente para abrigar seu conteúdo. Os atributos \texttt{layout\_alignParentLeft} e \texttt{layout\_alignParentTop} servem (linhas 5 e 6) para alinhar essa \emph{view} com a \emph{view} pai dela, dessa forma ficará alinhado com a borda esquerda e com a borda superior do pai. Os atributos \texttt{layout\_marginLeft} e \texttt{layout\_marginTop} (linhas 7 e 8) deslocam o elemento colocando uma margem entre a borda e a \emph{view}, esses valores estarão diferentes pois são computados automaticamente quando a \emph{view} é colocada através do construtor de interfaces. Note que isso só acontecerá caso esteja usando \texttt{RelativeLayout}\footnote{Mais informações na seção 5.3} que é o nosso caso. Por útlimo o atributo \texttt{ems} (linha 9) configura o tamanho da fonte através da unidade de medida Em.
+
+Depois adicione uma \textit{hint} para essa caixa de texto, uma \textit{hint} é algo que vai estar escrito na caixa de texto quando ela estiver vazia, indicando que tipo de texto você pretende que seja escrito nessa caixa de texto, Neste exemplo (linha 10) a \textit{hint} é uma referência a \emph{string} chamada \emph{name} que iremos definir depois.
+
+Depois modifique o código do botão que está no mesmo arquivo, troque o \emph{id} do botão (linha 2), também edite o atributo \texttt{text} (linha 8) para fazer uma referência a uma \emph{string} definida no arquivo de \emph{strings} que iremos chamar de \emph{send\_button}. Por último adicione um atributo \texttt{onClick} (linha 9) que define o método que será chamado quando esse botão for pressionado.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/firstapp/2.xml}
 \caption{Código do botão}
 \end{listing}
 
-Adicione as strings ao arquivo de strings, essas strings podem ser referenciadas a qualquer momento tanto na construção do layout como na codificação do aplicativo.
+Agora iremos definir as \emph{strings} usadas anteriormente no arquivo \texttt{res/values/strings.xml}. Abra ele e o modifique para que fique como mostrado no Algoritmo 4.
 
 \begin{listing}
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/firstapp/3.xml}
 \caption{Arquivo de strings com as duas strings adicionadas}
 \end{listing}
 
-Agora abra a classe \texttt{MainActivity} localizada na pasta \texttt{\textcolor{mygreen}{src/}} do seu projeto e adicione um novo método
+Após terminar abra a classe \texttt{MainActivity.java} localizada na pasta \texttt{src/com.example.meuapp/} do seu projeto e adicione um novo método que chamei de \emph{sendMessage}, ele será responsável por obter o conteúdo da caixa de texto e enviar para uma nova \emph{activity} que irá mostrar esse conteúdo.
 
 \begin{listing}
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/firstapp/4.java}
 \caption{Adicionando método à classe MainActivity}
 \end{listing}
 
-\bi
-\item{Isso vai requer você importe a classe View, você pode apertar \texttt{Ctrl+Shit+O} no Eclipse para importar classes que estejam faltando}
-\ei
+\begin{framed}
+\textbf{Dica:} Isso vai requer você importe a classe View, você pode apertar \texttt{Ctrl+Shit+O} no Eclipse para importar classes que estejam faltando
+\end{framed}
 
 \begin{listing}
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/firstapp/4-2.java}
-\caption{Exemplo de import de classe Android}
+\caption{Exemplo de import de uma classe Android}
 \end{listing}
 
-
-Primeiro, crie um novo \texttt{Intent}\footnote{Documentação Intent: \href{http://developer.android.com/reference/android/content/Intent.html}{http://developer.android.com/reference/android/content/Intent.html}}, um \texttt{Intent} é um objeto que providencia uma ligação entre dois componentes separados (tais como duas \textit{activities}). O \texttt{Intent} representa uma ''intenção do aplicativo de fazer algo'', eles podem ser usados para uma variedade de tarefas, mas são principalmente usados para iniciar uma nova \emph{activity}.
+Primeiro, crie um novo \texttt{Intent}\footnote{Documentação Intent: \href{http://developer.android.com/reference/android/content/Intent.html}{http://developer.android.com/reference/android/content/Intent.html}}, um \texttt{Intent} é um objeto que provê uma facilidade para realizar uma ligação entre códigos de diferentes aplicações. O uso mais significante é a inicialização de novas \emph{activities}.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/firstapp/5.java}
 \caption{Adicionando uma \texttt{Intent}}
 \end{listing}
 
-Agora você precisa obter o texto que está escrito na caixa para fazer algo com ele, no caso iremos enviar para outra \emph{activity} que irá mostrar esse texto.
+Agora iremos obter o texto que está escrito na caixa para fazer algo com ele, no caso iremos enviar para outra \emph{activity} que irá mostrar esse texto. Como é feito no algoritmo 8.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/firstapp/6.java}
 \caption{Obtendo o conteúdo da caixa de texto e enviando para outra \emph{activity}}
 \end{listing}
 
-O código na linha 3 está obtendo a referência a caixa de texto usando o método \texttt{findViewById()} e o argumento passado é o \textit{id} da caixa de texto, observe que você chama com \texttt{R.id.caixaTextoNome} isso é feito dessa forma porque o android compila automaticamente uma classe R (R de \textit{Resources}) que contém as \textit{id's} e \textit{strings} criadas nos arquivos XML.
-Em seguida usando o método \texttt{getText()} da caixa de texto, obtem-se a string que foi escrita lá.
+O código na linha 3 está obtendo a referência a caixa de texto usando o método \texttt{findViewById()} passando o \textit{id} da caixa de texto como parâmetro, esse \emph{id} é obtido acessando uma variável estática da classe \texttt{R}  (observe que esse e o mesmo \emph{id} que voce colocou no arquivo xml do layout da \emph{activity}).
+Em seguida usando o método \texttt{getText()} da caixa de texto, obtem-se a \emph{string} que foi escrita pelo usuário.
 
-Por fim, essa string é colocada no \texttt{Intent} com o método \texttt{putExtra()}, uma \texttt{Intent} pode carregar consigo uma coleção de vários tipos de dados como pares chave-valor chamados \textit{extras}, esse método toma a chave como primeiro parâmetro e o valor no segundo parâmetro.
+Por fim, essa \emph{string} é colocada no \texttt{Intent} com o método \texttt{putExtra()}, uma \texttt{Intent} pode carregar consigo uma coleção de vários tipos de dados como pares chave-valor chamados \textit{extras}, esse método toma a chave como primeiro parâmetro e o valor no segundo parâmetro.
 Para que a próxima \emph{activity} consiga coletar esse valor, você deve definir uma chave para seu \textit{extra} usando uma constante pública. Para isso adicione a definição de \texttt{EXTRA\_MESSAGE} no topo da sua classe \texttt{MainActivity}.
 
 \begin{listing}[H]
@@ -370,7 +366,7 @@ Para que a próxima \emph{activity} consiga coletar esse valor, você deve defin
 \caption{Constante como chave para um extra}
 \end{listing}
 
-Agora você deve criar uma nova \emph{activity}, para isso vá em \textit{File -> New -> Other -> Android Activity} e selecione \textit{Blank Activity}. Preencha a próxima janela dessa maneira, depois clique \textit{Finish}. 
+Agora você deve criar uma nova \emph{activity}, para isso vá em \textit{File -> New -> Other -> Android Activity} e selecione \textit{Blank Activity}. Preencha a próxima janela como na figura 4.8, depois clique \textit{Finish}. 
 
 \begin{figure}[H]
   \centering
@@ -379,26 +375,36 @@ Agora você deve criar uma nova \emph{activity}, para isso vá em \textit{File -
   \label{fig:e}
 \end{figure}
 
-A classe já vem com alguns métodos implementados, alguns não serão necessários para esse aplicativo, mas mantenha eles na classe. Todas as classes que são subclasses de \emph{activity} precisam implementar o método \texttt{onCreate()}\footnote{\href{http://developer.android.com/reference/android/app/Activity.html\#onCreate(android.os.Bundle)}{http://developer.android.com/reference/android/app/Activity.html\#onCreate(android.os.Bundle)}}.
+Observe a figura 4.8. Em \emph{Project} você vai especificar o projeto em que a nova \emph{activity} será adicionado. Em \emph{Activity Name} especifique o nome da sua nova \emph{activity}. Em \emph{Layout Name} defina o nome do arquivo XML que contém o \emph{layout} da nova \emph{activity}. A opção \emph{Title} define o título da \emph{activity}, isso pode ser modificado posteriormente no arquivo de \emph{strings} pois o título será definido ali após a criação da \emph{activity}. A opção \emph{Launcher Activity} ficará desmarcada pois essa \emph{activity} não será usada para inicializar o aplicativo. Em \emph{Hierarchical Parent} você vai definir o pai da nova \emph{activity}, isso é usado para o Android implementar corretamente para qual \emph{activity} o botão de voltar irá voltar. Por último \emph{Navigation Type} deixe como \emph{None} pois só queremos o \emph{design} padrão. Clique em \emph{Finish} para criar a nova \emph{activity}.
+ 
+ % nota/dica necessaria?
+\begin{framed}
+\textbf{Dica:} O Eclipse adiciona automaticamente \emph{activities} criadas por esse método no \emph{Manifest}. Observe no \emph{Manifest} como é feito caso você precise adicionar manualmente.
+\end{framed}
 
-Geralmente você precisaria adicionar uma nova string com o nome da classe no XML, e adicionar a \emph{activity} no \texttt{\textcolor{mygreen}{AndroidManifest.xml}} porém como estamos trabalhando com o Eclipse, você não precisa se preocupar que ele faz isso sozinho.
 
-Agora, precisamos extrair os dados enviados a essa \emph{activity} através do \texttt{intent}, você pode pegar o \texttt{intent} que começou a \emph{activity} chamando o método \texttt{getIntent()}\footnote{\href{http://developer.android.com/reference/android/app/Activity.html\#getIntent()}{http://developer.android.com/reference/android/app/Activity.html\#getIntent()}}.
+Abra a nova classe que foi criada junto com a \emph{activity}. A classe já vem com alguns métodos implementados, alguns não serão necessários para esse aplicativo e serão explicados em outras seções, mas mantenha-os na classe. Todas as classes que são subclasses de \emph{Activity} precisam implementar o método \texttt{onCreate()}\footnote{\href{http://developer.android.com/reference/android/app/Activity.html\#onCreate(android.os.Bundle)}{http://developer.android.com/reference/android/app/Activity.html\#onCreate(android.os.Bundle)}} que define o procedimento a ser executado quando a \emph{activity} é criada.
+
+Agora, precisamos extrair os dados enviados a essa \emph{activity} através do \emph{intent}, você pode obter a referência do \emph{intent} que começou a \emph{activity} chamando o método \texttt{getIntent()}\footnote{\href{http://developer.android.com/reference/android/app/Activity.html\#getIntent()}{http://developer.android.com/reference/android/app/Activity.html\#getIntent()}}.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/firstapp/8.java}
-\caption{Obtendo extras passados através do \texttt{Intent}}
+\caption{Obtendo a \emph{string} passada como extra passados através do \texttt{Intent}}
 \end{listing}
 
-Agora para mostrar a mensagem na tela, você precisa criar um \texttt{TextView}\footnote{\href{http://developer.android.com/reference/android/widget/TextView.html}{http://developer.android.com/reference/android/widget/TextView.html}}
+Após obter a referência do \emph{intent} que inicou a \emph{activity}, queremos coletar os extras que foram passado junto com ele. Criamos uma \emph{string} que irá armazenar a mensagem que veio junto do \emph{intent} e chamamos o método \texttt{getStringExtra()} passando como parâmetro a chave desse extra, que definimos na classe \texttt{MainActivity}. 
+Agora para mostrar a mensagem na tela, você precisa criar um \texttt{TextView}\footnote{\href{http://developer.android.com/reference/android/widget/TextView.html}{http://developer.android.com/reference/android/widget/TextView.html}}, essa \emph{view} serve para mostrar texto. 
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/firstapp/9.java}
-\caption{Método \texttt{onCreate()} recebendo um \texttt{Intent} e mostrando a mensagem}
+\caption{Método \texttt{onCreate()} recebendo um \emph{Intent} e mostrando a mensagem}
 \end{listing}
 
-Agora que o aplicativo está pronto, é necessário testar, caso tenha um smartphone Android você pode conectá-lo no seu computador e rodar diretamente, senão você deverá rodar em um emulador.
+As linhas 3, 5 e 6 foram colocadas automaticamente na criação da \emph{activity}, a linha 3 faz uma chamada ao método da superclasse, a linha 6 é um método que inicializa a \emph{Action Bar}, que nesse aplicativo é a barra superior com o nome da \emph{activity} e um menu de opções que já vem pré-programado. Deixamos isso como está.
 
+O algoritmo 10 foi colocado nas linhas 9 e 10 para obter a referência ao \emph{Intent}. Nas linhas 12-15 criamos um novo \texttt{TextView}, configuramos o tamanho da fonte e atribuímos o texto que será mostrado na tela a \emph{view}, respectivamente. 
+
+Agora que o aplicativo está pronto, é necessário testar, caso tenha um smartphone Android você pode conectá-lo no seu computador e rodar diretamente, senão você deverá rodar em um emulador. Lembrando que para ambos os casos é necessária a instalação do SDK primeiro, acesse \emph{Android SDK Manager} e faça o download do SDK desejado.
 
 Para rodar diretamente no smartphone:
 \be
@@ -407,9 +413,14 @@ Para rodar diretamente no smartphone:
 	\bi
 	\item Para Android 3.2 ou mais antigos, a opção deve estar em \textit{Configurações -> Aplicativos	 -> Desenvolvimento}
 	\item Para Android 4.0 e 4.1, a opção está em \textit{Configurações -> Opções do desenvolvedor}
-	\item Para Andoird 4.2 e mais novos, a opção está escondida por padrão, para mostrar a opção você deve entrar em \textit{Sobre o telefone} e clicar em \textit{Número da versão} 7 vezes, ao retornar para tela anterior deverá aparecer \textit{Opções do desenvolvedor}
+	\item Para Android 4.2 e mais novos, a opção está escondida por padrão, para mostrar a opção você deve entrar em \textit{Sobre o telefone} e clicar em \textit{Número da versão} 7 vezes, ao retornar para tela anterior deverá aparecer \textit{Opções do desenvolvedor}
 	\ei
 \ee
+
+\begin{framed}
+\textbf{Dica:} Caso ocorra o erro \emph{Launch error: adb rejected command: device not found}. Verifique se o aparelho está conectado e se os drivers estão instalados corretamente. Na área de notificações do aparelho deve ter uma notificação escrita: \emph{Android debugging enabled}. 
+\end{framed}
+
 
 \newpage 
 Para rodar no emulador:
@@ -417,20 +428,21 @@ Para rodar no emulador:
 \item Abra o \textit{SDK Manager} através do Eclipse em: \textit{Window -> Android SDK Manager}
 \item Verifique se, para Android 4.2.2 (API 17) ou outro desejado os seguintes pacotes estejam instalados
 	\bi
-	\item \textit{SDK Platform}
-	\item \textit{ARM EABI v7a System Image} ou
+	\item \textit{SDK Platform} e;
+	\item \textit{ARM EABI v7a System Image} ou;
 	\item \textit{Intel x86 Atom System Image}
 	\ei
-\item Verifique também se em \textit{Tools}, os pacotes \textit{Android SDK Tools} e \textit{Android SDK Platform-tools} estão instalado
-\item Agora é necessário criar um AVD (Android Virtual Device\footnote{\href{http://developer.android.com/tools/devices/index.html}{http://developer.android.com/tools/devices/index.html}}), no Eclipse vá em \textit{Window -> Android Virtual Device Manager} 
+\item Verifique também se na aba \textit{Tools}, os pacotes \textit{Android SDK Tools} e \textit{Android SDK Platform-tools} estão instalados
+\item Agora é necessário criar um AVD (Android Virtual Device\footnote{\href{http://developer.android.com/tools/devices/index.html}{http://developer.android.com/tools/devices/index.html}}). No Eclipse acesse o menu \textit{Window -> Android Virtual Device Manager} 
 \item No AVD Manager clique em \emph{New}
-\item Complete as informações do AVD, dê um nome, plataforma, espaço de armazenamento, quantidade de memória RAM
+\item Complete as informações do AVD, especificando um aparelho, nome, plataforma, espaço de armazenamento, quantidade de memória RAM. Em \emph{Device} haverá opções pré-configuradas de aparelhos do google, os \emph{Nexus}, e opções genéricas de acordo com tamanho de tela. Em \emph{Target} você deverá escolher a versão do sistema Android que deseja. Em alguns casos você poderá decidir pela CPU caso deseje ARM ou Intel Atom x86. A quantidade de RAM no Windows fica limitada a 768MB, mais que isso pode acarretar em erros no sistema.
+
 \item Clique \emph{Create AVD}
-\item Selecione o novo AVD no \textit{Android Virtual Device Manager} e clique \emph{Start}
-\item Quando o emulador terminar de carregar, destrave a tela do emulador
+\item Ainda na janela \emph{Android Virtual Device Manager} selecione o novo AVD e clique \emph{Start}
+\item Quando o emulador terminar de carregar, destrave a tela do emulador, usando o mouse.
 \ee
 
-Agora para rodar o aplicativo basta clicar em \emph{Run} na barra de tarefas do Eclipse e selecionar \textit{Android Application} na janela \emph{Run as}. O Eclipse irá instalar o APK e abrir o aplicativo automaticamente.
+Agora para rodar o aplicativo basta clicar em \emph{Run} na barra de tarefas do Eclipse e selecionar \textit{Android Application} na janela \emph{Run as}. O Eclipse irá instalar o APK e abrir o aplicativo automaticamente, no dispositivo ou no emulador. As figuras 4.6, 4.7 e 4.8 mostram a execução do aplicativo.
 
 \begin{figure}[H]
   \centering
