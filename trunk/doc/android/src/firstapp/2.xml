@@ -1,9 +1,9 @@
 <Button
-	android:id="@+id/botaoEnviar"
+	android:id="@+id/sendButton"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
-	android:layout_alignRight="@+id/caixaTextoNome"
-	android:layout_below="@+id/caixaTextoNome"
+	android:layout_alignRight="@id/nameField"
+	android:layout_below="@id/nameField"
 	android:layout_marginTop="48dp"
-	android:text="@string/botao_enviar"
-	android:onClick="enviarMensagem" />
+	android:text="@string/send_button"
+	android:onClick="sendMessage" />

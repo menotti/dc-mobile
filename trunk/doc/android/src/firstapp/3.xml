@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MeuApp</string>
     <string name="action_settings">Settings</string>
-    <string name="botao_enviar">Enviar</string>
-    <string name="nome">Nome</string>
+    <string name="send_button">Enviar</string>
+    <string name="name">Nome</string>
 </resources>
