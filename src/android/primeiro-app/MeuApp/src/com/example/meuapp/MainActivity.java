@@ -23,11 +23,11 @@ public class MainActivity extends Activity {
 		return true;
 	}
 	
-	public void enviarMensagem(View view){
+	public void sendMessage(View view){
 		Intent intent = new Intent(this, DisplayMessageActivity.class);
-		EditText caixaTexto = (EditText) findViewById(R.id.caixaTexto);
-		String mensagem = caixaTexto.getText().toString();
-		intent.putExtra(EXTRA_MESSAGE, mensagem);
+		EditText textBox = (EditText) findViewById(R.id.nameField);
+		String message = textBox.getText().toString();
+		intent.putExtra(EXTRA_MESSAGE, message);
 		startActivity(intent);
 	}
 }

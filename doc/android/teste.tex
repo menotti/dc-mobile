@@ -190,7 +190,7 @@ A pasta \texttt{menu/} contém os \emph{layouts} do menus do aplicativo, esses s
 \item \texttt{src/}: Classes do aplicativo; e
 \item \texttt{res/}: Recursos do aplicativo tais que:
 	\begin{itemize}[nolistsep, noitemsep]
-		\item \texttt{strings/}: Todos os textos da sua aplicação, suporte a múltiplos idiomas;
+		\item \texttt{strings/}: Todos os textos da sua aplicação, suporte a múltiplos idiomas;	
 		\item \texttt{layout/}: Todos os \emph{layouts} de suas telas \emph{(activites)};
 		\item \texttt{drawable/}: Todas as imagens, separados por tamanho de tela; e
 		\item \texttt{menu/}: \emph{layout} dos menus do aplicativo.
@@ -518,14 +518,82 @@ Quando um usuário abre um aplicativo, o sistema chama o método \texttt{onCreat
 \textbf{Dica:} Quando você cria um projeto Android no Eclipse, por padrão é incluida uma classe \emph{activity} que está declarada no manifesto com esse filtro.
 \end{framed}
 
+%%% Tipos de Layout %%%
+\section{Tipos de \emph{Layout}}
+Uma \emph{Activity} contém \emph{Views} e \emph{ViewGroups}. Uma \emph{view} é um elemento que têm presença na tela do dispositivo tais como botões, textos, imagens e etc. Um \emph{ViewGroup} por sua vez é um elemento agrupador de \emph{views} que provê um \emph{layout} na qual você pode ajustar a ordem e aparição das \emph{views}. 
 
-%%% LIST VIEW %%%%
-\section{Listas \texttt{(ListView)}}\footnote{Documentação \texttt{ListView}:\href{http://developer.android.com/reference/android/widget/ListView.html}{http://developer.android.com/reference/android/widget/ListView.html}}
-Listas são uma das formas mais simples e mais poderosas de se mostrar informações ao usuário de forma simples e objetiva, a \texttt{ListView} é altamente customizável através de adaptadores.
+\subsection{LinearLayout}
+
+O \texttt{LinearLayout} arranja \emph{views} em uma única coluna ou uma única linha, desse modo as \emph{views} podem ser arranjadas verticalmente ou horizontalmente. Como mostrado na figura 5.2:
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=.15\textwidth]{figuras/design/listview-scheme.png}
+  \includegraphics[width=.45\textwidth]{figuras/design/linearlayout.jpg}
+  \caption{\texttt{LinearLayout} vertical (à esquerda) e horizontal (à direita)}
+  \label{fig:e}
+\end{figure}
+
+\emph{ViewGroups} também podem ser agrupados entre para a criação de layouts mais complexos, por exemplo é possível agrupar um \texttt{LinearLayout} horizontal dentro de um vertical dessa forma é possível colocar \emph{views} lado a lado em uma camadas do \texttt{LinearLayout} vertical, representada na figura 5.3.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.25\textwidth]{figuras/design/linearlayout-composto.jpg}
+  \caption{\texttt{LinearLayout} composto}
+  \label{fig:e}
+\end{figure}
+
+\subsection{RelativeLayout}
+
+O \texttt{RelativeLayout} permite especificar como as \emph{views} são posicionadas uma em relação a outra. Cada \emph{view} embutida no interior de um \texttt{RelativeLayout} tem atributos que permitem o seu alinhamento com outras \emph{views}. Esses atributos podem ser encontrados na \href{http://developer.android.com/reference/android/widget/RelativeLayout.LayoutParams.html}{documentação}\footnote{ \href{http://developer.android.com/reference/android/widget/RelativeLayout.LayoutParams.html}{http://developer.android.com/reference/android/widget/RelativeLayout.LayoutParams.html}}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.25\textwidth]{figuras/design/relativelayout.jpg}
+  \caption{Exemplo de \texttt{RelativeLayout}}
+  \label{fig:e}
+\end{figure}
+
+Novamente cabe comentar que é possível aninhar diferentes \emph{ViewGroups} para formar um \emph{layout} com maior complexidade.
+
+\subsection{FrameLayout}
+
+O \texttt{FrameLayout} é o mais simples e eficiente tipo de \emph{layout}, pode ser usado apenas para mostrar uma \emph{view} ou \emph{views} que se sobrepõem. Geralmente é usado como um recipiente para os \texttt{Fragments}\footnote{Mais informações na seção XXXXXX}.
+
+Uma \emph{view} definida em um \texttt{FrameLayout} sempre será colocado no canto superior esquerdo da tela do dispositivo ou do \emph{ViewGroup} a que pertence o \texttt{FrameLayout}. Se mais de uma \emph{view} foi definida elas serão empilhadas uma em cima da outra. Isso significa que a primeira \emph{view} adicionada ao \texttt{FrameLayout} será mostrada na base da pilha, e a última adicionada será mostrada no topo.
+
+Você pode fazer com que as \emph{views} não sobreponham as outras usando o atributo \texttt{layout\_gravity}\footnote{\href{http://developer.android.com/reference/android/widget/FrameLayout.LayoutParams.html}{http://developer.android.com/reference/android/widget/FrameLayout.LayoutParams.html}}, dessa forma uma \emph{view} pode ficar posicionada na borda inferior e outra na borda superior e não ficarem sobrepostas.
+
+É possível posicionar as \emph{views} dentro de um \texttt{FrameLayout} usando parâmetros diferentes no \texttt{layout\_gravity}, no exemplo da figura 5.5 existe um \texttt{FrameLayout} com 3 elementos e cada um com parâmetros diferentes. É possivel combinar os parâmetros utilizando a barra reta '|'.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.25\textwidth]{figuras/design/framelayout_gravity.jpg}
+  \caption{\texttt{FrameLayout} com exemplo de posicionamento usando \texttt{layout\_gravity}}
+  \label{fig:e}
+\end{figure}
+
+\subsection{TableLayout}
+
+\texttt{TableLayouts} podem ser usadas para apresentar dados tabulados ou alinhar conteúdo como tabelas HTML em uma página web. Um \texttt{TableLayout} é composto de \texttt{TableRows}, uma cada para linha da tabela. Os conteúdos das \texttt{TableRows} são as \emph{views} que vão em cada célula da tabela. Cada linha terá zero ou mais células e cada célula pode conter uma \emph{view}. 
+
+O aspecto da \texttt{TableLayout} vai depender de alguns fatores. Primeiro, o número de colunas da tabela inteira vai depender do número de colunas da linha que contém mais colunas. Segundo, a largura de cada coluna é definida como a largura do conteúdo mais largo da coluna. Você pode combinar colunas para formar uma célula maior, mas não pode combinar linhas. Leia mais na \href{http://developer.android.com/reference/android/widget/TableLayout.html}{documentação}\footnote{\href{http://developer.android.com/reference/android/widget/TableLayout.html}{http://developer.android.com/reference/android/widget/TableLayout.html}}
+
+Embora \texttt{TableLayouts} possam ser usados para projetar interfaces, geralmente não é a melhor opção já que são derivadas de \texttt{LinearLayouts}. Se você tem dados que já estão em formato de tabela, como planilhas, então pode ser uma boa opção.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.25\textwidth]{figuras/design/tablelayout.jpg}
+  \caption{Exemplo de \texttt{TableLayout}}
+  \label{fig:e}
+\end{figure}
+
+%%% LIST VIEW %%%%
+\section{Listas \texttt{(ListView)}}\footnote{Documentação \texttt{ListView}:\href{http://developer.android.com/reference/android/widget/ListView.html}{http://developer.android.com/reference/android/widget/ListView.html}}
+Listas são uma das formas mais simples e poderosas de se mostrar informações ao usuário de forma objetiva. A \texttt{ListView} é capaz de aprensentar uma lista rolável de itens. 
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.25\textwidth]{figuras/design/listview-scheme.png}
   \caption{Esquema de uma lista}
   \label{fig:e}
 \end{figure}
@@ -535,46 +603,58 @@ Um item individual da lista pode ser selecionado, essa seleção pode acionar um
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=.35\textwidth]{figuras/design/listview-scheme2.png}
+  \includegraphics[width=.45\textwidth]{figuras/design/listview-scheme2.png}
   \caption{Detalhes de um elemento da lista}
   \label{fig:e}
 \end{figure}
 
-\newpage
+\subsection{Adaptadores}
+	Adaptadores são usados para providenciar dados a \emph{views}. O adaptador também define como item da \emph{view} será mostrada. Para \texttt{ListViews} o adaptador define como cada linha será mostrada.
+	
+	Um adaptador deve extender a classe base \texttt{BaseAdapter}. O Android já tem alguns adaptadores padrão, os mais importantes são o \texttt{ArrayAdapter} e o \texttt{CursorAdapter}. 
+	
+	O \texttt{ArrayAdapter} é usado para manipular dados em \emph{arrays} ou listas (\texttt{java.util.List}). Já o \texttt{SimpleCursorAdapter} consegue manipular dados em banco de dados.
 
-A construção é simples, você pode começar mudando o layout de \texttt{RelativeLayout} para \texttt{LinearLayout}, a diferença entre eles é que o \texttt{RelativeLayout} do exemplo passado permite você posicionar elementos uns relativos aos outros enquanto que o \texttt{LinearLayout} segue uma estrutura, vertical ou horizontal. Ambas podem ser aninhadas uma dentro de outra.
+\subsection{Construção}
+
+A construção desse tipo de design é simples. No arquivo de \emph{layout} da \emph{activity} use o \texttt{LinearLayout} para conter a \texttt{ListView}.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/layout_linear.xml}
-\caption{Layout \textit{Linear} no \texttt{activity\_main.xml}}
+\caption{\texttt{LinearLayout} no arquivo de \emph{layout}}
 \end{listing}
 
-Agora, você pode arrastar um \texttt{ListView} para o layout ou criar um manualmente com o seguinte código XML
+Se estiver usando o construtor de interface gráfica, pode arrastar uma \texttt{ListView} para dentro do \emph{layout}. Caso contrário pode construir manualmente no arquivo XML do \emph{layout} da \emph{activity}. 
 
+Você deve colocar o \texttt{LinearLayout} como raíz do arquivo XML, o elemento raíz sempre deve conter o atributo \texttt{xmlns:android} como mostrado na linha 2 do algoritmo 13, não entraremos em detalhes sobre os outros atributos. 
+
+Adicione uma \texttt{ListView}, escreva o código abaixo dentro do \texttt{LinearLayout}. 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/listview.xml}
-\caption{Código XML de um \texttt{ListView}}
+\caption{Código de uma \texttt{ListView}}
 \end{listing}
 
-Agora para popular a lista, você precisa criar um \texttt{string-array} no arquivo \texttt{\textcolor{mygreen}{strings.xml}} com os elementos que deseja colocar na lista.
+Você precisa popular a lista, para isso você pode criar um \texttt{string-array} no arquivo \texttt{strings.xml} com os elementos que deseja colocar na lista. Nesse exemplo do algoritmo 15 foi criado uma lista com nome \texttt{listString} e 4 itens que serão mostrados em forma de lista pela \texttt{ListView}.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/string-array.xml}
 \caption{\texttt{string-array} populada com elementos}
 \end{listing}
 
-E por final, escrever o código que irá preencher a lista com as \textit{strings} desse \textit{array}.
+Finalmente, você deve escrever o código que irá preencher a lista com as \emph{strings}. Como é feito no algoritmo 16 abaixo.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/listactivity.java}
 \caption{Código de uma \emph{activity} com lista clicável}
 \end{listing}
 
-Adaptadores são usados para prover dados para o \texttt{ListView}, ele define como cada linha será mostrada. Um adaptador extende a classe \texttt{BaseAdapter}, o Android provê alguns adaptadores padrões, no caso estamos usando o \texttt{ArrayAdapter} que é para manusear dados em \textit{arrays}.
+Primeiro, na linha 2, foi criada uma variável do tipo \texttt{ListView} para guardar um ponteiro para a \emph{view} já definida no \emph{layout}.
 
-Dentro da interface \texttt{OnItemClickListener} você pode configurar a ação de clicar em um dos itens da lista, nesse exemplo é criado um \texttt{Toast} que mostra uma mensagem com o texto do item na lista porém, qualquer ação pode ser executada incluindo abrir uma nova \emph{activity} que esteja relacionada a esse item.
+No método \texttt{onCreate()} você precisa criar e inicializar a lista na sua \emph{activity}. Na linha 10 obtemos as \emph{strings} do \texttt{string-array} e o guardamos na variável \texttt{listStr}. Usamos o método \texttt{getResources()} para poder adquirir o ponteiro para os recursos do aplicativo. Na linha 13 conseguimos o ponteiro pra lista e o guardamos na variável criada.
 
-Você pode também herdar da classe \texttt{ListActivity} para uma forma mais simples de manusear \texttt{ListViews}. Você não precisa atribuir um layout a \texttt{ListActivity} contém uma \texttt{ListView} padrão. Caso voce precise colocar mais \texttt{Views} em seu layout, você \emph{deve} colocar a \texttt{ListView} em seu layout com o id \texttt{''@android:id/list''}.
+Usamos o adaptador ao chamar o método \texttt{ListView.setAdapter()} nas linhas 16-17  e passamos como parâmetro a criação de um novo adaptador do tipo \texttt{ArrayAdapter}. Para o construtor\footnote{\href{http://developer.android.com/reference/android/widget/ArrayAdapter.html}{http://developer.android.com/reference/android/widget/ArrayAdapter.html}} desse adaptador está sendo passado o contexto atual da \emph{activity}, um \emph{layout} pré-definido do sistema, o \texttt{simple\_list\_item\_1}, e os dados na forma de \emph{array}.
+
+Na linha 22 usamos o método \texttt{ListView.setOnItemClickListener} para configurar uma ação a ser executada quando um item da lista for clicado. Neste exemplo é criado um \texttt{Toast}, o \texttt{Toast} mostra uma mensagem em uma caixa de texto na parte inferior da tela por um curto período de tempo, nesse caso irá mostrar o mesmo texto do item da lista que foi clicado. Uma das aplicações mais comuns é fazer com que ao se clicar em um item da lista, uma nova \emph{activity} seja aberta com detalhes do item.
 
 \begin{figure}[H]
   \centering
@@ -583,25 +663,31 @@ Você pode também herdar da classe \texttt{ListActivity} para uma forma mais si
   \label{fig:e}
 \end{figure}
 
-Obs.: O \texttt{Toast} é esse pequeno retângulo preto com uma mensagem, ele aparece e desaparece rapidamente apenas para mostrar uma mensagem ao usuário.
+A figura 5.9 mostra como ficou o exemplo ao ser executado em um \emph{smartphone}, o item ''Menu 2'' foi clicado e um \texttt{Toast} foi mostrado no momento do clique.
 
 %%% LIST ADAPTER %%%
 \section{Listas Compostas}
-É possível compor um item da lista colocando mais elementos no mesmo além de um texto. Para isso você precisa criar um novo arquivo XML que irá definir a customização de cada linha de uma \texttt{ListView}, defina um arquivo chamado \texttt{\textcolor{mygreen}{item.xml}}.
+É possível compor um item da lista colocando mais elementos além de um texto. Para isso você precisa criar um novo arquivo XML que irá definir a customização de cada linha da \texttt{ListView}, nesse exemplo iremos definir um arquivo chamado \texttt{item.xml}, mostrado abaixo.
 
-\newpage
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/item.xml}
-\caption{Código do arquivo \texttt{\textcolor{mygreen}{item.xml}}}
+\caption{Código do arquivo \texttt{item.xml}}
 \end{listing}	
 
-Agora você precisa usar um adaptador para mostrar esse layout customizado em cada linha da lista, uma maneira fácil é usando a classe \texttt{SimpleAdapter}.
+O algoritmo 17 mostra como você pode fazer a customização de um item da lista. Nesse exemplo há uma pequena imagem à esquerda e dois textos de cores e tamanhos diferentes. 
+Para isso primeiro criamos um \texttt{LinearLayout} que irá conter uma \texttt{ImageView} para mostrar a imagem e outro \texttt{LinearLayout} para colocar os dois textos. As cores do textos são configuradas com o atributo \texttt{textColor} e usa o padrão HTML de cores.
+
+Agora você precisa usar um adaptador para mostrar esse layout customizado em cada linha da lista, usaremos a classe \texttt{SimpleAdapter}\footnote{\href{http://developer.android.com/reference/android/widget/SimpleAdapter.html}{http://developer.android.com/reference/android/widget/SimpleAdapter.html}}. Essa classe faz a adaptação de um \texttt{ArrayList} de \texttt{Maps} para um \emph{layout} definido. 
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/customlist.java}
 \caption{Código da lista customizada}
 \end{listing}	
+
+Observando o algoritmo 18. Na linha 13 criamos um \texttt{ArrayList} de \texttt{Maps}. Na linha 14 e 19 criamos um \texttt{HashMap} onde a chave é uma \emph{string} que identifica o conteúdo, essas chaves serão \emph{userIcon}, \emph{userName} e \emph{userText} respectivamente. Em \emph{userIcon} colocamos uma imagem, essa imagem deve ser colocada nas subpastas da pasta \texttt{drawable} e é acessada através da classe \texttt{R}. Em \emph{userName} colocamos um nome de usuário, por exemplo. Em \emph{userText} poderia ser colocada uma descrição, ou uma frase customizada do usuário mas nesse exemplo foi colocado uma sentença qualquer. Nas linhas 18 e 23 adicionamos o \texttt{Map} criado no \texttt{ArrayList}.
+
+Criamos o \texttt{SimpleAdapter} nas linhas 26-29. Para o construtor passamos o \texttt{ArrayList} de \texttt{Maps} que contém os dados, passamos também o \emph{layout} que definimos anteriormente \texttt{R.layout.item}. Passamos um \emph{array} de \emph{strings} que contém as chaves que serão usadas para obter os dados e por último um \emph{array} de inteiros que contém os \emph{ids} das \emph{views} em que os conteúdos dos \texttt{Maps} serão colocados.
 
 \begin{figure}[H]
   \centering
@@ -610,46 +696,68 @@ Agora você precisa usar um adaptador para mostrar esse layout customizado em ca
   \label{fig:e}
 \end{figure}
 
-%%% EXPANDABLE LIST %%%
-\section{Listas expandíveis \texttt{(ExpandableListView)}}
+A figura 5.10 mostra como ficou o exemplo acima ao ser executado em um \emph{smartphone}. 
 
-Listas expandíveis são úteis para agrupar conjuntos de itens semelhantes, funcionam da mesma maneira que as listas comuns e podem ser customizadas.
-Comece colocando sua lista na \emph{activity} desejada.
+%%% EXPANDABLE LIST %%%
+\section{Listas expansíveis \texttt{(ExpandableListView)}}
+
+Listas expansíveis são úteis para agrupar conjuntos de itens semelhantes, funcionam da mesma maneira que as listas comuns e podem ser customizadas.
+Comece colocando sua lista no \emph{layout} da \emph{activity} desejada.
 	
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/exlist.xml}
-\caption{Lista expandível no \texttt{activity\_main.xml}}
+\caption{Código XML de uma Lista expansível}
 \end{listing}	
 
-O atributo \texttt{android:transcriptMode=''alwaysScroll'}' vai fazer com que a lista sempre role até o final quando você expande ou contrai um grupo.
- 
-Agora crie 2 novos arquivos XML, um chamado \texttt{list\_item\_parent.xml} e o outro chamado \texttt{list-item-child.xml}
+\begin{framed}
+\textbf{Dica:} O atributo \texttt{transcriptMode=''alwaysScroll''} vai fazer com que a lista sempre role até o final quando você expande ou contrai um grupo.
+O atrbuto \texttt{listSelector} colore o item da lista quando este é clicado.
+\end{framed}
+
+Agora crie 2 novos arquivos XML, um chamado \texttt{list\_item\_parent.xml} e o outro chamado \texttt{list\_item\_child.xml} dentro da pasta \texttt{res/layout}.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/list-item-parent.xml}
 \caption{Layout \texttt{list\_item\_parent.xml}}
 \end{listing}	
 
+Nesses dois \emph{layouts} teremos apenas uma \texttt{TextView} para abrigar um texto.
+
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/list-item-child.xml}
 \caption{Layout \texttt{list\_item\_child.xml}}
 \end{listing}	
 
-Agora crie uma classe para o pai dos grupos chamada \emph{Parent}, que será responsável apenas por conter os dados do pai e os objetos filhos.
+Em seguida precisamos crare uma classe que irá abrigar os dados dos elementos pai, elementos estes que serão expandidos quando clicados. Nesse exemplo criamos uma classe \emph{Parent}, como mostrado no algoritmo 22.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/parent.java}
 \caption{Classe \texttt{Parent}}
 \end{listing}	
 
-\newpage
+Essa classe contém o texto do item, que será guardado na \emph{string} \texttt{mTitle} e um \texttt{ArrayList} que irá comportar os sub-itens desse item. Os métodos \emph{get} e \emph{set} são simples.
 
-Crie uma nova classe, \texttt{CustomAdapter} que será o adaptador da lista expandível para os dados, para esse exemplo estaremos adaptando apenas para o uso de \emph{strings}.
-Essa classe deve extender a classe \texttt{BaseExpandableListAdapter} 
+Em seguida, crie uma nova classe, \texttt{CustomAdapter} que será o adaptador da lista expansível para os dados, para esse exemplo estaremos adaptando apenas para o uso de texto. Essa classe deve extender a classe \texttt{BaseExpandableListAdapter}.
 
+\newenvironment{code}{\captionsetup{type=listing}}{}
+
+\begin{code}
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/customadapter.java}
-\captionof{listing}{Classe \texttt{CustomAdapter}}
+\caption{Classe \texttt{CustomAdapter}}
+\end{code}
 
+% problema com paragrafo
+\parskip 1pt 
+
+Primeiro precisamos de um \texttt{LayoutInflater}\footnote{\href{http://developer.android.com/reference/android/view/LayoutInflater.html}{http://developer.android.com/reference/android/view/LayoutInflater.html}} que irá instanciar o \emph{layout} XML nas \emph{views} correspondentes, e um \emph{array} da classe \texttt{Parents} que criamos anteriormente, esses serão os itens principais da lista.
+
+Na linha 7 no construtor da calsse, usamos o método \texttt{LayoutInflater.from()} para obter o \emph{inflater} do contexto da \emph{activity}. 
+
+Ao extender a classe \texttt{BaseExpandableListAdapter} temos que programar alguns métodos. O método \texttt{getChild()} deve adquirir o ponteiro para um subitem de um item na lista. O método \texttt{getChildId()} deve obter o \emph{id} de um subitem, porém nesse exemplo não temos nada configurado então usamos a própria posição desse subitem como \emph{id} e retornamos \texttt{childPosition}. 
+
+O método \texttt{getChildView} na linha 24 vai atribuir o \emph{layout} dos subitens na linha 28. Na linha 32 obtemos o \texttt{TextView} desse subitem e com o método \texttt{TextView.setText()} atribuimos seu respectivo texto. Esse texto está guardado no \emph{array} chamado \texttt{mArrayChildren} da classe \texttt{Parent}, então a fim de obter esse texto devemos obter o \texttt{Parent} correto. Quando você clica em um item da lista, o Android guarda qual item você clicou no parâmetro \texttt{groupPosition}. Em seguida se obtem o texto de cada subitem pelo parâmetro \texttt{childPosition}.
+
+Outro método importante é o \texttt{getGroupView}, funciona da mesma maneira que \texttt{getChildView} mas configurando os \emph{views} dos itens pai em vez dos subitens.
 
 Para finalizar, você deve construir os objetos na classe da \emph{activity}, nesse exemplo para popular a lista eu coloquei no arquivo de \texttt{strings} alguns fabricantes e modelos de carros, você pode obtê-los no repositório do projeto.
 
@@ -658,15 +766,21 @@ Para finalizar, você deve construir os objetos na classe da \emph{activity}, ne
 \caption{Construindo a lista expandível na \emph{activity}}
 \end{listing}	
 
+\newpage
+
+O algoritmo 24 é a construção da lista expansível na \emph{activity}, na linha 9-10 obtemos a \emph{view} usando \texttt{findViewById()}. A linha 30-31 são um pouco mais complicadas, primeiro é preciso obter o \emph{id} do \texttt{string-array} que e subitem do item atual no laço de repetição. Para isso usamos \texttt{getResources().getIdentifier()} para obter o \emph{id} do subitem a partir do nome do item pai. Em seguida podemos acessar o \texttt{string-array} normalmente como é feito na linha 31.
+
+ Na linha 41 usamos o \texttt{CustomAdapter} que criamos anteriormente.
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=.475\textwidth]{figuras/design/listaexpandivel.png}
-  \caption{Exemplo de lista expandível}
+  \caption{Exemplo de lista expansível rodando em um \emph{smartphone}}
   \label{fig:e}
 \end{figure}
 
 %%% GRADES E IMAGENS %%%
-
+\newpage
 \section{Grades \texttt{(GridView)} e imagens \texttt{ImageView}}
 
 Grades são úteis para mostrar imagens e fotos como uma galeria, ou permitir a seleção de categorias semelhante a uma lista. A idéia é ter elementos lado a lado para mostrar ou para selecionar e mostrar mais detalhes. Basicamente funciona como uma grade bi-dimensional que pode ser arrastada para os lados ou de cima pra baixo. 
@@ -678,14 +792,13 @@ Grades são úteis para mostrar imagens e fotos como uma galeria, ou permitir a 
   \label{fig:e}
 \end{figure}
 
-\newpage 
 Comece por simplesmente colocando um layout \texttt{grid view} em sua activity.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/gridview.xml}
 \caption{Layout do \texttt{Grid View}}
 \end{listing}	
-\newpage
+
 Crie uma nova classe que vai ser o adaptador para mostrar a imagem na grade, lembre-se que você pode adaptar qualquer layout para uma grade. Chame essa classe de \texttt{ImageAdapter}
 
 \begin{listing}[H]
