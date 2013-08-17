@@ -533,7 +533,7 @@ O \texttt{LinearLayout} arranja \emph{views} em uma única coluna ou uma única 
   \label{fig:e}
 \end{figure}
 
-\emph{ViewGroups} também podem ser agrupados entre para a criação de layouts mais complexos, por exemplo é possível agrupar um \texttt{LinearLayout} horizontal dentro de um vertical dessa forma é possível colocar \emph{views} lado a lado em uma camadas do \texttt{LinearLayout} vertical, representada na figura 5.3.
+\emph{ViewGroups} também podem ser agrupados entre si para a criação de layouts mais complexos, por exemplo é possível agrupar um \texttt{LinearLayout} horizontal dentro de um vertical dessa forma é possível colocar \emph{views} lado a lado em uma camadas do \texttt{LinearLayout} vertical, representada na figura 5.3.
 
 \begin{figure}[H]
   \centering
@@ -768,7 +768,7 @@ Para finalizar, você deve construir os objetos na classe da \emph{activity}, ne
 
 \newpage
 
-O algoritmo 24 é a construção da lista expansível na \emph{activity}, na linha 9-10 obtemos a \emph{view} usando \texttt{findViewById()}. A linha 30-31 são um pouco mais complicadas, primeiro é preciso obter o \emph{id} do \texttt{string-array} que e subitem do item atual no laço de repetição. Para isso usamos \texttt{getResources().getIdentifier()} para obter o \emph{id} do subitem a partir do nome do item pai. Em seguida podemos acessar o \texttt{string-array} normalmente como é feito na linha 31.
+O algoritmo 24 é a construção da lista expansível na \emph{activity}, na linha 9-10 obtemos a \emph{view} usando \texttt{findViewById()}. A linha 30-31 são um pouco mais complicadas, primeiro é preciso obter o \emph{id} do \texttt{string-array} que é subitem do item atual no laço de repetição. Para isso usamos \texttt{getResources().getIdentifier()} para obter o \emph{id} do subitem a partir do nome do item pai. Em seguida podemos acessar o \texttt{string-array} normalmente como é feito na linha 31.
 
  Na linha 41 usamos o \texttt{CustomAdapter} que criamos anteriormente.
 
@@ -788,32 +788,38 @@ Grades são úteis para mostrar imagens e fotos como uma galeria, ou permitir a 
 \begin{figure}[H]
   \centering
   \includegraphics[width=.475\textwidth]{figuras/design/gridview.png}
-  \caption{Esquema de um \texttt{Grid view}}
+  \caption{Esquema de um \texttt{GridView}}
   \label{fig:e}
 \end{figure}
 
-Comece por simplesmente colocando um layout \texttt{grid view} em sua activity.
+Comece colocando um \texttt{GridView}\footnote{\href{http://developer.android.com/reference/android/widget/GridView.html}{http://developer.android.com/reference/android/widget/GridView.html}} no \emph{layout} de sua \emph{activity}.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/gridview.xml}
-\caption{Layout do \texttt{Grid View}}
+\caption{Layout do \texttt{GridView}}
 \end{listing}	
 
-Crie uma nova classe que vai ser o adaptador para mostrar a imagem na grade, lembre-se que você pode adaptar qualquer layout para uma grade. Chame essa classe de \texttt{ImageAdapter}
+Vamos criar uma nova classe que será o adaptador de imagens para o \texttt{GridView}, chamemos a classe de \texttt{ImageAdapter}, ela é mostrada no algoritmo 26.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/imageadapter.java}
 \caption{Classe \texttt{ImageAdapter}}
 \end{listing}	
 
-Agora basta criar na grade na sua \emph{activity}.
+A classe \texttt{ImageAdapter} deve ser subclasse da classe \texttt{BaseAdapter}\footnote{\href{http://developer.android.com/reference/android/widget/BaseAdapter.html}{http://developer.android.com/reference/android/widget/BaseAdapter.html}}. Temos, como variável pública, um \emph{array} das imagens que queremos colocar na grade. Como todo \emph{id} de um recurso da classe \texttt{R} é um inteiro, criamos um \emph{array} de inteiros. Note que estamos considerando que todas as imagens já foram devidamente colocadas na pasta \texttt{drawable}.
+
+O método mais importante é o método \texttt{getView()}. Nele criamos uma nova \texttt{ImageView}\footnote{\href{http://developer.android.com/reference/android/widget/ImageView.html}{http://developer.android.com/reference/android/widget/ImageView.html}} para abrigar a imagem que queremos colocar na grade. Em seguida configuramos alguns parâmetros desse \texttt{ImageView}, o método \texttt{ImageView.setImageResource()} é responsável por estabelecer um \texttt{drawable} como conteúdo do \texttt{ImageView}. Já o método \texttt{View.setLayoutParams()} configura os parâmetros de \emph{layout} associados com essa \emph{view}, note que para esse método passamos parâmetros de \emph{layout} de uma \texttt{GridView}, que por sua vez recebe \texttt{(200,200)} como largura e altura de um elemento da grade.
+
+  \texttt{ImageView.setScaleType} controla como a imagem deve ser redimensionada para condizer com o tamanho do \texttt{ImageView}, \texttt{ImageView.ScaleType}\footnote{\href{http://developer.android.com/reference/android/widget/ImageView.ScaleType.html}{http://developer.android.com/reference/android/widget/ImageView.ScaleType.html}} são as formas disponíveis para escalar a imagem.
+
+Agora basta criar a grade em sua \emph{activity}.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/grade-activity.java}
 \caption{\emph{activity} com grade}
 \end{listing}	
 
-Exemplo rodando:
+Exemplo acima rodando em um \emph{smartphone} na figura 5.13:
 
 \begin{figure}[H]
   \centering
@@ -822,34 +828,42 @@ Exemplo rodando:
   \label{fig:e}
 \end{figure}
 
-Para complementar, você pode fazer com que a imagem abra em tela cheia quando clicada na view, para isso é necessário que você passe o \emph{id} do recurso do \texttt{GridView} para a nova \emph{activity}.
-Crie um novo XML e chame de \texttt{full\_image.xml}, nele teremos apenas um \texttt{ImageView}.
+Para complementar, você pode fazer com que a imagem abra em tela cheia quando clicada na view, para isso é necessário que você passe o \emph{id} do recurso do \texttt{GridView} para uma nova \emph{activity} que irá mostrar a imagem em tela cheia.
+Para isso precisamos criar um novo \emph{layout} XML, a qual chamaremos de \texttt{full\_image.xml}, nele teremos apenas uma \texttt{ImageView} e um \texttt{TextView} que será uma pequena legenda da imagem.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/full-image.xml}
 \caption{Layout \texttt{full\_image.xml}}
 \end{listing}	
 
-Em seguida, crie uma nova classe chamada \texttt{FullImageActivity}, essa é \emph{activity} que vai mostrar a imagem em tela cheia. A construção da classe é simples, você deve apenas obter o \emph{id} da imagem passado como \emph{extra} através do \texttt{intent} e então obter essa imagem da classe \texttt{ImageAdapter}.
+Note que para o \texttt{TextView} usaremos o atributo \texttt{layout\_width} como \texttt{fill\_parent} e \texttt{layout\_height} como \texttt{40dp}, dessa forma criamos um pequeno retângulo de altura fixa mas de forma que a largura preecha a tela completamente. O atributo \texttt{background} com o valor \texttt{\#55555555} faz com que a cor do retângulo seja cinza com transparência, já que o parâmetro \emph{alfa} também tem valor 0x55. Também deixamos o texto com cor branca com o atributo \texttt{textColor}.
+
+Em seguida, crie uma nova classe chamada \texttt{FullImageActivity}, essa é a \emph{activity} que vai mostrar a imagem em tela cheia. A construção da classe é simples, você deve apenas obter o \emph{id} da imagem passado como \emph{extra} através do \texttt{intent} e então obter essa imagem da classe \texttt{ImageAdapter}.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/FullImageActivity.java}
 \caption{Classe \texttt{FullImageActivity}}
 \end{listing}	 	 	
 
-Finalmente, você deve modificar a \emph{activity} da sua grade para suportar o novo comportamento, para isso é necessário configurar o \texttt{gridview} para tomar algumas ações quando um elemento da tela for clicado. Observe o código que deve ser adicionado da sua \emph{activity}.
-
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/grid-activity-p2.java}
-\caption{\emph{activity} com grade, melhorado}
+\caption{Código da \emph{activity} após as modificações}
 \end{listing}	 
 
-Na linha 14 você pode observar a criação de um \emph{listener} para os itens clicados da grade, o método \texttt{onItemClick()} permite obter algumas informações sobre o item clicado e você pode usar essas informações como quiser, nesse caso é colocado dentro de um \texttt{intent} o \emph{id} do item clicado como sendo sua posição nessa grade. Finalmente o método \texttt{startActivity} é chamado e passando o \texttt{intent} criado como parâmetro.   
+No algoritmo 30, configuramos um \texttt{View.setOnItemClickListener()} de forma que quando uma imagem da grade for clicada, um \texttt{Intent} seja enviado a uma nova \emph{activity} que por sua vez ficará encarregada de mostrar a imagem em tela cheia.  Quando um item é clicado conseguimos obter a posição dele na grade com o parâmetro \texttt{pos} da função \texttt{onItemClick()}, essa posição é equivalente ao \emph{id} da imagem no \emph{array} criado na classe \texttt{ImageAdapter}.  A \texttt{FullImageActivity} por sua vez recebe esse \texttt{Intent} que possui o \emph{id} da imagem que deve ser mostrada e configura o \texttt{ImageView} de acordo. 
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.80\textwidth]{figuras/design/grid-fullimage.jpg}
+  \caption{Exemplo \texttt{GridView} com imagem em tela cheia}
+  \label{fig:e}
+\end{figure}
 
 %% FRAGMENTOS %%
 \section{Fragmentos}
 
-Fragmentos são a solução do Android para criar interfaces de usuário modulares, eles vivem dentro das \emph{activity} e uma \emph{activity} pode conter vários fragmentos. Assim como as \emph{activity} os fragmentos possuem um ciclo de vida %% EXPLICAR MELHOR %%.
+Fragmentos são a solução do Android para criar interfaces de usuário modulares, eles vivem dentro das \emph{activity} e uma \emph{activity} pode conter vários fragmentos. Assim como as \emph{activity} os fragmentos possuem um ciclo de vida. %% EXPLICAR MELHOR %%.
+
 Dentre as vantagens de um fragmento estão:
 \bi
 	\item Modularidade e reuso de código
@@ -911,20 +925,103 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	%% TABHOST TABWIDGET %%	
 	\subsection{Usando \texttt{TabHost} e \texttt{TabWidget}}
 	
-	Abas usando essas interfaces são suportados pro todas as versões do android	
+	Abas usando essas interfaces são suportados por todas as versões do android	
 	Vamos criar uma interface com abas seguindo esse esquema:
 	
 	\begin{figure}[H]
 	  \centering
-	  \includegraphics[width=.475\textwidth]{figuras/design/tabs1.jpg}
+	  \includegraphics[width=.275\textwidth]{figuras/design/tabs1.jpg}
 	  \caption{Esquema da interface com abas}
 	  \label{fig:e}
 	\end{figure}
 	
+	Primeiro precisamos criar uma \emph{activity} que servirá como recipiente para as abas e seu conteúdo. O \texttt{TabWidget}\footnote{\href{http://developer.android.com/reference/android/widget/TabWidget.html}{http://developer.android.com/reference/android/widget/TabWidget.html}} é o controle de seleção das abas. Todo conteúdo das abas ficará contido dentro do \texttt{FrameLayout}, é nele que as respectivas \emph{activities} serão mostradas. O \texttt{TabHost}\footnote{\href{http://developer.android.com/reference/android/widget/TabHost.html}{http://developer.android.com/reference/android/widget/TabHost.html}} por sua vez serve como um recipiente para o \texttt{TabWidget} e o \texttt{FrameLayout}.
 	
+	Crie uma nova \emph{activity}, a chamaremos de \texttt{TabLayoutActivity}. No XML que define o \emph{layout} da \emph{activity}, insira o \texttt{TabHost}, o \texttt{TabWidget} e \texttt{FrameLayout} como mostrado no algoritmo abaixo.
 	
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/activity-tab-host.xml}
+	\caption{\emph{Layout} da \emph{activity} \texttt{TabHostLayout}}
+	\end{listing}
 	
+	Agora precisamos definir o \emph{layout} dos fragmentos, isto é, o \emph{layout} de cada aba. Para simplificar o exemplo, as abas só terão um fundo colorido, de cores diferentes. Para isso usa-se o atributo \texttt{background}.
 	
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/tab-fragment.xml}
+	\caption{\emph{Layout} do fragmento da aba.}
+	\end{listing}
+	
+	Precisamos definir as classes de cada fragmento de aba. Cada classe deverá extender a classe \texttt{Fragment} e inflar seu \emph{layout} correspondente. Depois cada fragmeneto será instanciado pela nossa \emph{activity} principal, \texttt{TabLayoutActivity} usando o \emph{fragment manager}. No algoritmo 37 está definido a classe \texttt{Tab1Fragment} (as classes \texttt{Tab2Fragment} e \texttt{Tab3Fragment}) são exatamente iguais, exceto que elas inflam seus respectivos \emph{layouts}).
+	
+	\dica{Você deve importar a classe \texttt{android.support.v4.app.Fragment} para suportar versões mais antigas do Android!}
+	
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/tab1-frag.java}
+	\caption{Classe \texttt{Tab1Fragment}}
+	\end{listing}
+	
+	Na classe \texttt{TabLayoutActivity}, note que estamos extendendo a classe \texttt{FragmentActivity} para poder usufruir das funcionalidades dos fragmentos. É necessário configurar o método \texttt{onCreate()}, esse é o ponto de início da nossa \emph{activity}. O primeiro passo é inflar o \emph{layout} com abas definido no algoritmo 35. O segundo passo é inicializar as abas, para isso invocamos o método \texttt{TabHost.setup()}, adicionar as abas e suas informações em um mapa e determinar a primeira aba como ativa.
+	
+	Primeiro criaremos uma classe que servirá de suporte para guardar as informações relevantes sobre as nossas abas.
+	
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/tabinfo.java}
+	\caption{Classe \texttt{TabInfo}}
+	\end{listing}
+	
+	Em seguida, começaremos a escrever nossa classe \texttt{TabLayoutActivity}.
+	
+ 	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/tab-activity1.java}
+	\caption{Primeira parte da classe \texttt{TabLayoutActivity}}
+	\end{listing}
+	
+	Antes de criar o método \texttt{initialiseTabHost()} precisamos criar outra classe suporte, essa classe é necessária para criar o conteúdo de uma aba sob demanda. Crie uma classe que chamaremos de \texttt{TabFactory} e ela deve implementar a interface \texttt{TabContentFactory}\footnote{\href{http://developer.android.com/reference/android/widget/TabHost.TabContentFactory.html}{http://developer.android.com/reference/android/widget/TabHost.TabContentFactory.html}}.
+	
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/tab-factory.java}
+	\caption{Classe \texttt{TabFactory}}
+	\end{listing}
+	
+	O parâmetro \emph{tag} do método \texttt{createTabContent()} é que define qual aba foi selecionada. O método retorna uma \emph{view} para mostrar os elementos da aba selecionada.
+	
+	Na classe \texttt{TabLayoutActivity} precisamos criar o método \texttt{initialiseTabHost()}. Siga o algoritmo 41 abaixo. Note o uso do método \texttt{onTabChanged()}. Precisamos implementar esse método em seguida através da interface \texttt{TabHost.OnTabChangeListener}.
+	
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/intialiseTabHost.java}
+	\caption{Método \texttt{initialiseTabHost()}}
+	\end{listing}
+	
+	Primeiro obtemos a \emph{view} \texttt{TabHost} usando o método \texttt{findViewById()}. Observe que estamos pegando um recurso já existente do sistema Android, já que estamos chamando a classe \texttt{R} do sistema, e não do nosso aplicativo. Em seguida chamamos o método \texttt{setup()}, a documentação diz que é necessário invocar esse método antes de adicionar abas se carregamos o \texttt{TabHost} usando \texttt{findViewById()}.
+	
+	Criamos um \texttt{TabInfo} e um \texttt{TabSpec} para nos auxiliar na adição das abas. Para adicionar as abas, primeiro chamamos o método \texttt{TabHost.newTabSpec()} para obtermos um novo \texttt{TabSpec} associado a esse \texttt{TabHost}, colocamos a \emph{tag} \texttt{''Tab1''} nele, como pode ser observado na linha 9. Em seguida determinados um indicador (que será mostrado ao usuário) a essa aba usando \texttt{TabSpec.setIndicator()}, na linha 10. Criamos um novo \texttt{TabInfo} e passamos a \emph{tag} criada, a classe com o conteúdo da aba e uma série de argumentos que podem ser passados entre \emph{activities}. Na linha 12 usamos o método \texttt{addTab()} criado anteriormente. Na linha 13 adicionamos a \emph{tag} e um ponteiro para o recém-criado \texttt{TabInfo} no \texttt{HashMap}.
+	
+	Repetimos o mesmo procedimento para as abas 2 e 3, porém mudando os valores da \emph{tag}, do indicador e da classe. Por último definimos a primeira aba como \emph{default} e determinamos o argumento \emph{this} para o método \texttt{setOnTabChangedListener()} pois iremos implementar o método \texttt{onTabChanged} em seguida.
+	
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/ontabchanged.java}
+	\caption{Método \texttt{onTabChanged()}}
+	\end{listing}
+	
+	Primeiro obtemos as informações da aba que queremos do mapa com \texttt{mapTabInfo.get(tag)}, usamos a \emph{tag} para obter o objeto que queremos. Em seguida testamos para saber se a aba selecionada é a mesma que a anterior, pois não faria sentido recarregar a mesma aba. Na linha 9 testado para saber se a última aba não é nula, isso deve ser feito para evitar uma falha do aplicativo, testamos também se o fragmento é nulo para então usar \texttt{detach()} para retirar esse fragmento do \emph{layout}. 
+	
+	Fazemos o mesmo com a nova aba, caso o fragmento seja nulo isso quer dizer que ele não foi instanciado ainda, isto é, é a primeira vez que o usuário seleciona essa aba nesse ciclo de vida do aplicativo. Caso isso ocorra, então usamos \texttt{instantiate()} para instânciar esse novo fragmento e \texttt{add} para adiciona-lo ao \emph{layout}. Caso ele já tenha sido instânciado, então apenas usamos \texttt{attach()} para coloca-lo de volta no \emph{layout}.
+	
+	Por final é preciso salvar a aba que estavamos caso o aplicativo fique em segundo plano. O método \texttt{onSaveInstanceState} fica encarregado disso.
+	
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/onsavetab.java}
+	\caption{Método \texttt{onSaveInstanceState()}}
+	\end{listing}
+	
+	A figura abaixo mostra o resultado.
+	
+	\begin{figure}[H]
+	  \centering
+	  \includegraphics[width=1\textwidth]{figuras/design/tabs-rgb.jpg}
+	  \caption{Figura mostrando as 3 abas criadas no exemplo}
+	  \label{fig:e}
+	\end{figure}
 	
 	
 \section{Arrastar \texttt{(SwipeView)} com abas}

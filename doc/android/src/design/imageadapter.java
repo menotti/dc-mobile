@@ -33,7 +33,8 @@ public class ImageAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(int position, View convertView,
+	ViewGroup parent) {
 		ImageView imageView = new ImageView(mContext);
 		imageView.setImageResource(thumbIds[position]);
 		imageView.setLayoutParams(new GridView.LayoutParams(200,200));
