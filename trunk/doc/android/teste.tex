@@ -1024,10 +1024,174 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	\end{figure}
 	
 	
-\section{Arrastar \texttt{(SwipeView)} com abas}
-\section{Menu lateral}
+\section{Trocar de página com gesto de arrastar usando \texttt{ViewPager}}
+
+	É possível trocar entre fragmentos usando o gesto de arrastar, isto é, arrastando a tela de um lado para o outro acionará a troca entre os fragmentos. 
+	
+	Primeiro iremos definir o \emph{layout} do \texttt{ViewPager}\footnote{\href{http://developer.android.com/reference/android/support/v4/view/ViewPager.html}{http://developer.android.com/reference/android/support/v4/view/ViewPager.html}}. Depois iremos definir o \texttt{PagerAdapter}\footnote{\href{http://developer.android.com/reference/android/support/v4/view/PagerAdapter.html}{http://developer.android.com/reference/android/support/v4/view/PagerAdapter.html}}. Por último precisamos definir a \emph{activity} que irá conter o visualizador de páginas. 
+	
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/viewpager.xml}
+	\caption{\emph{layout} do \texttt{ViewPager}}
+	\end{listing}
+	
+	Agora defina uma nova classe chamada \texttt{PagerAdapter} que irá extender a classe \texttt{FragmentPagerAdapter}. Primeiro crie uma lista que irá conter os fragmentos, isto é, as páginas que serão exibidas. Ao extender essa classe precisamos implementar dois métodos: \texttt{getItem()} e \texttt{getCount()}. O método \texttt{getItem()}, na linha 10 do algoritmo 45, deve retornar o item que será selecionado pelo parâmetro \texttt{position}. O método \texttt{getCount()}, na linha 15, deve retornar a quantidade de páginas. Depois crie o construtor como mostrado nas linhas 4-7. 
+
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/pageradapter.java}
+	\caption{Classe \texttt{PagerAdapter}}
+	\end{listing}
+	
+	Por último devemos construir a \emph{activity} que irá conter o \texttt{PagerAdapter} e será reponsável por mostrar as páginas. Neste exemplo iremos reutilizar os fragmentos que fizemos na seção anterior quando trabalhamos com abas.
+	
+	\dica{Você pode importar as classes e os arquivos de \emph{layout}. No \emph{PackageExplorer} na IDE Eclipse, clique com o botão direito sobre a pasta que quer importar os arquivos, depois clique em \emph{Import} e selecione \emph{General -> File System}. Agora selecione o caminho da pasta que contém os arquivos no campo \emph{From directory}. Selecione os arquivos que deseja importar e clique em \emph{Finish}.
+	
+	Note que ao importar classes Java será necessário trocar o pacote a que a classe pertence.
+	
+	Outra opção é usar o \texttt{import} do java para importar as classes sem ter elas no pacote.}
+	
+	Essa \emph{activity}, como mostrada no algoritmo 46 abaixo, apenas precisa instanciar os fragmentos (linhas 10,11 e 12), criar e determinar o adaptador, linhas 14, 16 e 17.
+	
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/viewpager-activity.java}
+	\caption{\emph{Activity} com \texttt{PagerAdapter}}
+	\end{listing}
+
+\section{Abas com gesto de arrastar}
+
+	Ao juntar os dois conceitos, o de \emph{layout} com abas e o gesto de arrastar, podemos fazer o controle das abas arrastando a tela. Esse tipo de \emph{design} é comum em muitos aplicativos pela facilidade e rapidez com o que o usuário pode visualizar vários conteúdos. 
+	Nesse exemplo iremos re-utilizar o código dos exemplos anteriores com algumas modificações. Serão reutilizadas classes: \texttt{TabInfo}, \texttt{TabFactory}, \texttt{PagerAdapter}, \texttt{Tab1Fragment}, \texttt{Tab2Fragment}, \texttt{Tab3Fragment}.
+	
+	Primeiro modificaremos o \emph{layout} das abas adicionando o \texttt{ViewPager} após \texttt{FrameLayout}. Note que esse é o mesmo \emph{layout} do algoritmo 35, por isso o algoritmo 47 não está completo.
+	
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/swipetabs-layout.xml}
+	\caption{\emph{Layout} das abas com adição do \texttt{ViewPager}}
+	\end{listing}
+	
+	Agora iremos usar a classe \texttt{TabLayoutActivity} do exemplo anterior e fazer algumas alterações.  Nesse exemplo irei mudar o nome da classe para \texttt{SwipeTabActivity}. A primeira alteração é a adição de algumas variáveis para serem usadas na classe, adicione uma variável \texttt{PageAdapter} e uma \texttt{ViewPager}. Depois devemos alterar o método \texttt{onCreate()}, adicione uma chamada ao método \texttt{initialiseViewPager()}. A implementação é a mesma do método \texttt{onCreate()} do exemplo anterior com a adição da chamada ao método \texttt{setOnPageChangeListener()}. Devemos também implementar a interface \texttt{OnPageChangeListener}. No método \texttt{initialiseTabHost()} você precisa remover a linha \texttt{onTabChanged(''Tab1'');}.
+	
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/initialiseviewpager.java}
+	\caption{Método \texttt{initialiseViewPager()}}
+	\end{listing}
+	
+	Em seguida precisamos alterar o método \texttt{onTabChanged()}, não necessitamos mais fazer verificações já que o próprio \emph{design} irá limitar as falhas que poderiam ocorrer. Precisamos apenas determinar para o \texttt{ViewPager} o item atual. 
+	
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/ontabchanged-swipe.java}
+	\caption{Método \texttt{onTabChanged()} alterado}
+	\end{listing}
+	
+	Por fim, devemos implementar os métodos da interface \texttt{ViewPager.OnPageChangeListener}, somente o método \texttt{onPageSelected()} será usado, para selecionar a aba correspondente à pagina atual.
+	
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/vpinterface.java}
+	\caption{Métodos da interface \texttt{ViewPager.OnPageChangeListener}}
+	\end{listing}
+		
+	
+	\dica{Pela dificuldade em acompanhar passo a passo a construção desse \emph{design}, é recomendável obter o código do projeto no repositório. Está sob o nome \emph{SwipeableTabs}.}
 
 
+\section{Menu lateral deslizante \emph{(Sliding Menu)}}
+
+	O \emph{Sliding Menu} não é padrão no SDK do Android, mas é um tipo de \emph{design} que está sendo usado por muitos aplicativos famosos hoje em dia, tais como: Facebook, Linkedin, Foursquare, e outros. Consiste de um menu que fica escondido na lateral esquerda da tela e que pode ser acessado utilizando um gesto ''puxando'' o menu ou com um botão instalado na \emph{ActionBar}.
+	
+	Existe um projeto \emph{Open Source} que é bem conhecido, acessado por esse link no \href{https://github.com/jfeinstein10/SlidingMenu}{GitHub}\footnote{\href{https://github.com/jfeinstein10/SlidingMenu}{https://github.com/jfeinstein10/SlidingMenu}}.
+	
+	A imagem abaixo mostra o menu sendo usado no aplicativo do Facebook.
+	
+	\begin{figure}[H]
+	  \centering
+	  \includegraphics[width=.3\textwidth]{figuras/design/sidemenu.png}
+	  \caption{Exemplo de \emph{Sliding Menu}}
+	  \label{fig:e}
+	\end{figure}
+	
+\section{\emph{ActionBar}}
+
+	A \emph{ActionBar} é aquela barra presente em em todos os aplicativos que fizemos de exemplo até agora. Ela pode mostrar o nome da \emph{activity}, ícones, ações que podem ser acionadas, outras \emph{views} ou botões interativos. Também pode ser usada para navegar entre as \emph{actvities} do seu aplicativo.
+	
+	Dispositivos Android mais antigos possuem um botão físico chamado \emph{Option} que abre um menu na parte inferior do aplicativo. A \emph{ActionBar} é melhor que esse menu pois está claramente visível para o usuário, enquanto que o menu antigo era escondido e o usuário pode não reconhecer que as opções estão disponíveis.
+	
+	\begin{figure}[H]
+	  \centering
+	  \includegraphics[width=.8\textwidth]{figuras/design/actionbar-ex.jpg}
+	  \caption{Exemplo de \emph{ActionBar} no aplicativo Calendário}
+	  \label{fig:e}
+	\end{figure}
+	
+	A figura 5.18 mostra o uso da \emph{ActionBar} no aplicativo Calendário, padrão dos aparelhos Android mais atuais. É possivel observar três principais componentes. O primeiro é um menu \emph{drop-down} que permite ao usuário mudar o modo de vizualização do calendário. O segundo é um botão com o dia atual, 19, que ao ser pressionado faz com que o calendário posicione um cursor no dia e hora atuais. O terceiro é um outro menu \emph{drop-down} com algumas opções que podem ser interessantes ao usuário.
+	
+	\subsection{Implementando a \emph{ActionBar}}
+	
+		A \emph{activity} popula a \emph{ActionBar} em seu método \texttt{onCreateOptionsMenu()}. Entradas na \emph{ActionBar} são chamadas de ações (\emph{actions}). 
+		
+		As ações para a \emph{ActionBar} são definidas em arquivos XML posicionados na pasta \texttt{menu/}. O algoritmo abaixo mostra o menu padrão dos exemplos que construímos até agora. Ele só contem um item \emph{''Settings''} que está no \emph{dropdown} menu que pode ser acessado através da \emph{ActionBar}, à direita. O fato dele estar escondido se deve ao atributo \texttt{showAsAction} estar com valor \emph{never}, ao ser mudado para \emph{always} o acesso ao \emph{Settings} será diretamente através da \emph{ActionBar}. Existe também o valor \emph{ifRoom} que irá mostrar apenas se houver espaço disponível.
+		
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/actionbar-menupadrao.xml}
+		\caption{Menu padrão dos exemplos}
+		\end{listing}
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/oncreateoptionsmenu-padrao.java}
+		\caption{Método padrão \texttt{onCreateOptionsMenu()}}
+		\end{listing}
+		
+		Se uma ação e selecionada, o método \texttt{onOptionsItemSelected()} é chamado. Ele recebe a ação selecionada como parâmetro \texttt{MenuItem}. Baseando-se nessa informação você pode decidir o que fazer. Nesse exemplo iremos abrir uma nova \emph{activity} que seria a tela de configuração do aplicativo.
+		
+		No seu projeto, crie uma nova \emph{Activity} do tipo \emph{Settings Activity}. 
+		
+		\dica{Para criar uma nova \emph{activity}, clique com o botão direito sob o projeto selecione \emph{New -> Other} (ou pressione \emph{Ctrl+N}). Selecione \emph{Android Activity} e selecione o tipo desejado.}
+		
+		Agora você deve fazer com que o método \texttt{OnCreateOptionsMenu()} abra essa nova \emph{activity}.
+		
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/onoptionsitemselected.java}
+		\caption{Método \texttt{OnOptionsItemSelected()}}
+		\end{listing}
+
+		Para melhorar nossa \emph{ActionBar} vamos adicionar um campo para pesquisa. Você pode adicionar \emph{views} em sua \emph{ActionBar}. Para isso você deve usar o método \texttt{setCustomView()}  da classe \texttt{ActionBar} e passar uma \emph{view} como parâmetro. Você também precisa ativar a exibição de \emph{views} com o método \texttt{setDisplayOptions()} e passar a \emph{flag} \texttt{ActionBar.DISPLAY\_SHOW\_CUSTOM}.
+		
+		Primeiro vamos adicionar um ícone de busca na nossa \emph{ActionBar}, voltando ao arquivo do \emph{layout} da \emph{ActionBar}, adicione um novo item acima do primeiro como mostrado no algoritmo abaixo.
+		
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/newitem.xml}
+		\caption{Adicionando novo item na \emph{ActionBar}}
+		\end{listing}
+		
+		Observe o atributo \texttt{android:icon}, estamos obtendo um \emph{drawable} que já existe no sistema Android, e se chama \emph{ic\_menu\_search}. Esse é o ícone da busca, a lupa. Depois vamos adicionar uma ação a ser executada quando esse ícone for clicado. Iremos criar nesse exemplo, uma caixa de texto de forma programática, isto é, em vez de defini-la no XML iremos cria-la com código na \emph{Activity}. 
+		
+		No método \texttt{onCreate()} você precisa configurar a \emph{ActionBar} para mostrar \emph{views}. Use o método \texttt{getActionBar()} para obter uma referência da \emph{ActionBar} e \texttt{setDisplayOptions()} para configura-la. Depois, no método \texttt{onOptionsItemSelected()} você vai programar a ação do novo botão. Inicialmente cria-se uma nova \emph{view} do tipo \texttt{EditText}, colocamos algumas configurações e a adicionamos na \emph{ActionBar}. Por não termos uma busca devidamente implementada, vamos mostrar um \texttt{Toast} com o conteúdo da busca, a fim de demonstração.
+		
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/actionbar-oncreate.java}
+		\caption{Configurando \emph{ActionBar} no método \texttt{onCreate()}}
+		\end{listing}
+		
+		No algoritmo 56, abaixo, criamos um \texttt{EditText} e o configuramos caso o botão com o ícone de busca seja pressionado. Na linha 5-6 criamos um \texttt{LayoutParams} que configura o tamanho da \emph{view}. Na linha 8 o método \texttt{EditText.setImeOptions()} é responsável por configurar o teclado para uma busca, junto com a linha 9 que diz para o \texttt{EditText} que a entrada será texto, essa combinação faz com que o teclado mostre o ícone da lupa no lugar da tecla \emph{Enter}. A linha 10 configura a cor do texto para branca. Adicionamos a \emph{view} na \emph{ActionBar} com o método \texttt{ActionBar.setCustomView()} e passamos como parâmetro a \emph{view} criada e os parâmetros de \emph{layout} criados. O método \texttt{EditText.requestFocus()} faz com que o foco seja dado à nova caixa de texto, para que possamos edita-la. Precisamos ainda fazer com que o teclado abra para que possamos editar a caixa de texto, é isso que as linhas 13-14 e 15 estão fazendo. O método \texttt{getSystemService()} obtem a referência de um serviço do Android, e nesse caso estamos pedindo pelo serviço de método de entrada, o teclado. O método \texttt{InputMethodManager.showSoftInput()} abre o \emph{Soft Input}, ou seja, o teclado virtual para edição da \emph{view}. 
+		
+		Finalmente fazemos com que ao botão de busca no teclado ser clicado, um \texttt{Toast} mostre para o usuário o conteúdo da caixa de texto. É isso que a interface \texttt{onEditorActionListener} faz com o método \texttt{onEditorAction()}.
+		
+		A intenção desse exemplo é mostrar como você pode adicionar novas \emph{views} na \emph{ActionBar} de forma dinâmica.
+		 
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/actionbar-acao.java}
+		\caption{Criando a caixa de busca na \emph{ActionBar}}
+		\end{listing}
+		
+		
+	\begin{figure}[H]
+	  \centering
+	  \includegraphics[width=.3\textwidth]{figuras/design/actionbar-search.png}
+	  \caption{Exemplo de busca na \emph{ActionBar}}
+	  \label{fig:e}
+	\end{figure}
+		
+		
+			 
 \end{singlespace}
 
 
