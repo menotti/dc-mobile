@@ -1,6 +1,8 @@
-public class TabLayoutActivity extends Activity {
+public class TabLayoutActivity extends Activity
+						implements TabHost.OnTabChangeListener {
 	private TabHost mTabHost;
-	private HashMap mapTabInfo = new HashMap();
+	private HashMap<String, TabInfo> mapTabInfo =
+									new HashMap<String, TabInfo>();
 	private TabInfo mLastTab = null;
 		
 	@Override

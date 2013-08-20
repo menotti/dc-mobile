@@ -1,10 +1,10 @@
 @Override
 public void onTabChanged(String tag) {
-	TabInfo newTab = (TabInfo) mapTabInfo.get(tag);
+	TabInfo newTab = mapTabInfo.get(tag);
 	
 	if(mLastTab != newTab){
 		FragmentTransaction ft = 
-			this.getSupportFragmentManager().beginTransaction();
+			getSupportFragmentManager().beginTransaction();
 			
 		if(mLastTab != null){
 			if(mLastTab.fragment != null){
@@ -23,7 +23,7 @@ public void onTabChanged(String tag) {
 		}
 		mLastTab = newTab;
 		ft.commit();
-		this.getSupportFragmentManager().
+		getSupportFragmentManager().
 				executePendingTransactions();
 	}
 }

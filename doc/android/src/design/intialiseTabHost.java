@@ -10,13 +10,13 @@ private void initialiseTabHost(Bundle args) {
 	tabSpec.setContent(new TabFactory(this));
 	tag = tabSpec.getTag();
 	tabInfo = new TabInfo("Tab1", Tab1Fragment.class, args);
-	tabInfo.fragment = this.getSupportFragmentManager().
+	tabInfo.fragment = getSupportFragmentManager().
 									findFragmentByTag(tag);
 	mTabHost.addTab(tabSpec);
 	mapTabInfo.put(tabInfo.tag, tabInfo);
 	/* Repete para Tab2 e Tab3 */
 	
 	//Ajusta primeira aba como default
-	this.onTabChanged("Tab1");
+	onTabChanged("Tab1");
 	mTabHost.setOnTabChangedListener(this);
 }
