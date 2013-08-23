@@ -36,7 +36,7 @@
 \clearpage % se o verso ficar em branco...% VAI
 \thispagestyle{empty}
 
-\lstlistoflistings
+\listoflistings
 \addcontentsline{toc}{section}{Lista de Algoritmos}
 \clearpage % se o verso ficar em branco...% VAI
 \thispagestyle{empty}
@@ -48,8 +48,6 @@
 
 \usemintedstyle{perldoc}
 
-\renewcommand\lstlistingname{Algorithm}
-\renewcommand\lstlistlistingname{Algorithms}
 
 \chapter*{Resumo}
 \addcontentsline{toc}{section}{Resumo}
@@ -319,11 +317,12 @@ Depois modifique o código do botão que está no mesmo arquivo, troque o \emph{
 \caption{Código do botão}
 \end{listing}
 
-Agora iremos definir as \emph{strings} usadas anteriormente no arquivo \texttt{res/values/strings.xml}. Abra ele e o modifique para que fique como mostrado no Algoritmo 4.
+Agora iremos definir as \emph{strings} usadas anteriormente no arquivo \texttt{res/values/strings.xml}. Abra ele e o modifique para que fique como mostrado no Algoritmo \ref{code:arquivo-strings}.
 
 \begin{listing}
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/firstapp/3.xml}
 \caption{Arquivo de strings com as duas strings adicionadas}
+\label{code:arquivo-strings}
 \end{listing}
 
 Após terminar abra a classe \texttt{MainActivity.java} localizada na pasta \texttt{src/com.example.meuapp/} do seu projeto e adicione um novo método que chamei de \emph{sendMessage}, ele será responsável por obter o conteúdo da caixa de texto e enviar para uma nova \emph{activity} que irá mostrar esse conteúdo.
@@ -347,9 +346,10 @@ Primeiro, crie um novo \texttt{Intent}\footnote{Documentação Intent: \href{htt
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/firstapp/5.java}
 \caption{Adicionando uma \texttt{Intent}}
+\label{code:obtendo-intent}
 \end{listing}
 
-Agora iremos obter o texto que está escrito na caixa para fazer algo com ele, no caso iremos enviar para outra \emph{activity} que irá mostrar esse texto. Como é feito no algoritmo 8.
+Agora iremos obter o texto que está escrito na caixa para fazer algo com ele, no caso iremos enviar para outra \emph{activity} que irá mostrar esse texto. Como é feito no algoritmo \ref{code:obtendo-intent}.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/firstapp/6.java}
@@ -391,6 +391,7 @@ Agora, precisamos extrair os dados enviados a essa \emph{activity} através do \
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/firstapp/8.java}
 \caption{Obtendo a \emph{string} passada como extra passados através do \texttt{Intent}}
+\label{code:obtendo-string-intent}
 \end{listing}
 
 Após obter a referência do \emph{intent} que inicou a \emph{activity}, queremos coletar os extras que foram passado junto com ele. Criamos uma \emph{string} que irá armazenar a mensagem que veio junto do \emph{intent} e chamamos o método \texttt{getStringExtra()} passando como parâmetro a chave desse extra, que definimos na classe \texttt{MainActivity}. 
@@ -403,7 +404,7 @@ Agora para mostrar a mensagem na tela, você precisa criar um \texttt{TextView}\
 
 As linhas 3, 5 e 6 foram colocadas automaticamente na criação da \emph{activity}, a linha 3 faz uma chamada ao método da superclasse, a linha 6 é um método que inicializa a \emph{Action Bar}, que nesse aplicativo é a barra superior com o nome da \emph{activity} e um menu de opções que já vem pré-programado. Deixamos isso como está.
 
-O algoritmo 10 foi colocado nas linhas 9 e 10 para obter a referência ao \emph{Intent}. Nas linhas 12-15 criamos um novo \texttt{TextView}, configuramos o tamanho da fonte e atribuímos o texto que será mostrado na tela a \emph{view}, respectivamente. 
+O algoritmo \ref{code:obtendo-string-intent} foi colocado nas linhas 9 e 10 para obter a referência ao \emph{Intent}. Nas linhas 12-15 criamos um novo \texttt{TextView}, configuramos o tamanho da fonte e atribuímos o texto que será mostrado na tela a \emph{view}, respectivamente. 
 
 Agora que o aplicativo está pronto, é necessário testar, caso tenha um smartphone Android você pode conectá-lo no seu computador e rodar diretamente, senão você deverá rodar em um emulador. Lembrando que para ambos os casos é necessária a instalação do SDK primeiro, acesse \emph{Android SDK Manager} e faça o download do SDK desejado.
 
@@ -623,11 +624,12 @@ A construção desse tipo de design é simples. No arquivo de \emph{layout} da \
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/layout_linear.xml}
 \caption{\texttt{LinearLayout} no arquivo de \emph{layout}}
+\label{code:linearlayout}
 \end{listing}
 
 Se estiver usando o construtor de interface gráfica, pode arrastar uma \texttt{ListView} para dentro do \emph{layout}. Caso contrário pode construir manualmente no arquivo XML do \emph{layout} da \emph{activity}. 
 
-Você deve colocar o \texttt{LinearLayout} como raíz do arquivo XML, o elemento raíz sempre deve conter o atributo \texttt{xmlns:android} como mostrado na linha 2 do algoritmo 13, não entraremos em detalhes sobre os outros atributos. 
+Você deve colocar o \texttt{LinearLayout} como raíz do arquivo XML, o elemento raíz sempre deve conter o atributo \texttt{xmlns:android} como mostrado na linha 2 do algoritmo \ref{code:linearlayout}, não entraremos em detalhes sobre os outros atributos. 
 
 Adicione uma \texttt{ListView}, escreva o código abaixo dentro do \texttt{LinearLayout}. 
 \begin{listing}[H]
@@ -635,18 +637,20 @@ Adicione uma \texttt{ListView}, escreva o código abaixo dentro do \texttt{Linea
 \caption{Código de uma \texttt{ListView}}
 \end{listing}
 
-Você precisa popular a lista, para isso você pode criar um \texttt{string-array} no arquivo \texttt{strings.xml} com os elementos que deseja colocar na lista. Nesse exemplo do algoritmo 15 foi criado uma lista com nome \texttt{listString} e 4 itens que serão mostrados em forma de lista pela \texttt{ListView}.
+Você precisa popular a lista, para isso você pode criar um \texttt{string-array} no arquivo \texttt{strings.xml} com os elementos que deseja colocar na lista. Nesse exemplo do algoritmo \ref{code:string-array} foi criado uma lista com nome \texttt{listString} e 4 itens que serão mostrados em forma de lista pela \texttt{ListView}.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/string-array.xml}
 \caption{\texttt{string-array} populada com elementos}
+\label{code:string-array}
 \end{listing}
 
-Finalmente, você deve escrever o código que irá preencher a lista com as \emph{strings}. Como é feito no algoritmo 16 abaixo.
+Finalmente, você deve escrever o código que irá preencher a lista com as \emph{strings}. Como é feito no algoritmo \ref{code:activity-lista} abaixo.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/listactivity.java}
 \caption{Código de uma \emph{activity} com lista clicável}
+\label{code:activity-lista}
 \end{listing}
 
 Primeiro, na linha 2, foi criada uma variável do tipo \texttt{ListView} para guardar um ponteiro para a \emph{view} já definida no \emph{layout}.
@@ -674,9 +678,10 @@ A figura 5.9 mostra como ficou o exemplo ao ser executado em um \emph{smartphone
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/item.xml}
 \caption{Código do arquivo \texttt{item.xml}}
+\label{code:itemxml}
 \end{listing}	
 
-O algoritmo 17 mostra como você pode fazer a customização de um item da lista. Nesse exemplo há uma pequena imagem à esquerda e dois textos de cores e tamanhos diferentes. 
+O algoritmo \ref{code:itemxml} mostra como você pode fazer a customização de um item da lista. Nesse exemplo há uma pequena imagem à esquerda e dois textos de cores e tamanhos diferentes. 
 Para isso primeiro criamos um \texttt{LinearLayout} que irá conter uma \texttt{ImageView} para mostrar a imagem e outro \texttt{LinearLayout} para colocar os dois textos. As cores do textos são configuradas com o atributo \texttt{textColor} e usa o padrão HTML de cores.
 
 Agora você precisa usar um adaptador para mostrar esse layout customizado em cada linha da lista, usaremos a classe \texttt{SimpleAdapter}\footnote{\href{http://developer.android.com/reference/android/widget/SimpleAdapter.html}{http://developer.android.com/reference/android/widget/SimpleAdapter.html}}. Essa classe faz a adaptação de um \texttt{ArrayList} de \texttt{Maps} para um \emph{layout} definido. 
@@ -684,9 +689,10 @@ Agora você precisa usar um adaptador para mostrar esse layout customizado em ca
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/customlist.java}
 \caption{Código da lista customizada}
+\label{code:custom-list}
 \end{listing}	
 
-Observando o algoritmo 18. Na linha 13 criamos um \texttt{ArrayList} de \texttt{Maps}. Na linha 14 e 19 criamos um \texttt{HashMap} onde a chave é uma \emph{string} que identifica o conteúdo, essas chaves serão \emph{userIcon}, \emph{userName} e \emph{userText} respectivamente. Em \emph{userIcon} colocamos uma imagem, essa imagem deve ser colocada nas subpastas da pasta \texttt{drawable} e é acessada através da classe \texttt{R}. Em \emph{userName} colocamos um nome de usuário, por exemplo. Em \emph{userText} poderia ser colocada uma descrição, ou uma frase customizada do usuário mas nesse exemplo foi colocado uma sentença qualquer. Nas linhas 18 e 23 adicionamos o \texttt{Map} criado no \texttt{ArrayList}.
+Observando o algoritmo \ref{code:custom-list}. Na linha 13 criamos um \texttt{ArrayList} de \texttt{Maps}. Na linha 14 e 19 criamos um \texttt{HashMap} onde a chave é uma \emph{string} que identifica o conteúdo, essas chaves serão \emph{userIcon}, \emph{userName} e \emph{userText} respectivamente. Em \emph{userIcon} colocamos uma imagem, essa imagem deve ser colocada nas subpastas da pasta \texttt{drawable} e é acessada através da classe \texttt{R}. Em \emph{userName} colocamos um nome de usuário, por exemplo. Em \emph{userText} poderia ser colocada uma descrição, ou uma frase customizada do usuário mas nesse exemplo foi colocado uma sentença qualquer. Nas linhas 18 e 23 adicionamos o \texttt{Map} criado no \texttt{ArrayList}.
 
 Criamos o \texttt{SimpleAdapter} nas linhas 26-29. Para o construtor passamos o \texttt{ArrayList} de \texttt{Maps} que contém os dados, passamos também o \emph{layout} que definimos anteriormente \texttt{R.layout.item}. Passamos um \emph{array} de \emph{strings} que contém as chaves que serão usadas para obter os dados e por último um \emph{array} de inteiros que contém os \emph{ids} das \emph{views} em que os conteúdos dos \texttt{Maps} serão colocados.
 
@@ -729,11 +735,12 @@ Nesses dois \emph{layouts} teremos apenas uma \texttt{TextView} para abrigar um 
 \caption{Layout \texttt{list\_item\_child.xml}}
 \end{listing}	
 
-Em seguida precisamos crare uma classe que irá abrigar os dados dos elementos pai, elementos estes que serão expandidos quando clicados. Nesse exemplo criamos uma classe \emph{Parent}, como mostrado no algoritmo 22.
+Em seguida precisamos crare uma classe que irá abrigar os dados dos elementos pai, elementos estes que serão expandidos quando clicados. Nesse exemplo criamos uma classe \emph{Parent}, como mostrado no algoritmo \ref{code:parent}
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/parent.java}
 \caption{Classe \texttt{Parent}}
+\label{code:parent}
 \end{listing}	
 
 Essa classe contém o texto do item, que será guardado na \emph{string} \texttt{mTitle} e um \texttt{ArrayList} que irá comportar os sub-itens desse item. Os métodos \emph{get} e \emph{set} são simples.
@@ -765,11 +772,12 @@ Para finalizar, você deve construir os objetos na classe da \emph{activity}, ne
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/exlist-main.java}
 \caption{Construindo a lista expandível na \emph{activity}}
+\label{code:listaexp-ac}
 \end{listing}	
 
 \newpage
 
-O algoritmo 24 é a construção da lista expansível na \emph{activity}, na linha 9-10 obtemos a \emph{view} usando \texttt{findViewById()}. A linha 30-31 são um pouco mais complicadas, primeiro é preciso obter o \emph{id} do \texttt{string-array} que é subitem do item atual no laço de repetição. Para isso usamos \texttt{getResources().getIdentifier()} para obter o \emph{id} do subitem a partir do nome do item pai. Em seguida podemos acessar o \texttt{string-array} normalmente como é feito na linha 31.
+O algoritmo \ref{code:listaexp-ac} é a construção da lista expansível na \emph{activity}, na linha 9-10 obtemos a \emph{view} usando \texttt{findViewById()}. A linha 30-31 são um pouco mais complicadas, primeiro é preciso obter o \emph{id} do \texttt{string-array} que é subitem do item atual no laço de repetição. Para isso usamos \texttt{getResources().getIdentifier()} para obter o \emph{id} do subitem a partir do nome do item pai. Em seguida podemos acessar o \texttt{string-array} normalmente como é feito na linha 31.
 
  Na linha 41 usamos o \texttt{CustomAdapter} que criamos anteriormente.
 
@@ -800,14 +808,15 @@ Comece colocando um \texttt{GridView}\footnote{\href{http://developer.android.co
 \caption{Layout do \texttt{GridView}}
 \end{listing}	
 
-Vamos criar uma nova classe que será o adaptador de imagens para o \texttt{GridView}, chamemos a classe de \texttt{ImageAdapter}, ela é mostrada no algoritmo 26.
+Vamos criar uma nova classe que será o adaptador de imagens para o \texttt{GridView}, chamemos a classe de \texttt{ImageAdapter}, ela é mostrada no algoritmo \ref{code:image-adapter}.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/imageadapter.java}
 \caption{Classe \texttt{ImageAdapter}}
+\label{code:image-adapter}
 \end{listing}	
 
-A classe \texttt{ImageAdapter} deve ser subclasse da classe \texttt{BaseAdapter}\footnote{\href{http://developer.android.com/reference/android/widget/BaseAdapter.html}{http://developer.android.com/reference/android/widget/BaseAdapter.html}}. Temos, como variável pública, um \emph{array} das imagens que queremos colocar na grade. Como todo \emph{id} de um recurso da classe \texttt{R} é um inteiro, criamos um \emph{array} de inteiros. Note que estamos considerando que todas as imagens já foram devidamente colocadas na pasta \texttt{drawable}.
+A classe \texttt{ImageAdapter} deve ser subclasse da classe \texttt{BaseAdapter}\footnote{\href{http://developer.android.com/reference/android/widget/BaseAdaptfer.html}{http://developer.android.com/reference/android/widget/BaseAdapter.html}}. Temos, como variável pública, um \emph{array} das imagens que queremos colocar na grade. Como todo \emph{id} de um recurso da classe \texttt{R} é um inteiro, criamos um \emph{array} de inteiros. Note que estamos considerando que todas as imagens já foram devidamente colocadas na pasta \texttt{drawable}.
 
 O método mais importante é o método \texttt{getView()}. Nele criamos uma nova \texttt{ImageView}\footnote{\href{http://developer.android.com/reference/android/widget/ImageView.html}{http://developer.android.com/reference/android/widget/ImageView.html}} para abrigar a imagem que queremos colocar na grade. Em seguida configuramos alguns parâmetros desse \texttt{ImageView}, o método \texttt{ImageView.setImageResource()} é responsável por estabelecer um \texttt{drawable} como conteúdo do \texttt{ImageView}. Já o método \texttt{View.setLayoutParams()} configura os parâmetros de \emph{layout} associados com essa \emph{view}, note que para esse método passamos parâmetros de \emph{layout} de uma \texttt{GridView}, que por sua vez recebe \texttt{(200,200)} como largura e altura de um elemento da grade.
 
@@ -849,9 +858,10 @@ Em seguida, crie uma nova classe chamada \texttt{FullImageActivity}, essa é a \
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/grid-activity-p2.java}
 \caption{Código da \emph{activity} após as modificações}
+\label{code:act-fullimage}
 \end{listing}	 
 
-No algoritmo 30, configuramos um \texttt{View.setOnItemClickListener()} de forma que quando uma imagem da grade for clicada, um \texttt{Intent} seja enviado a uma nova \emph{activity} que por sua vez ficará encarregada de mostrar a imagem em tela cheia.  Quando um item é clicado conseguimos obter a posição dele na grade com o parâmetro \texttt{pos} da função \texttt{onItemClick()}, essa posição é equivalente ao \emph{id} da imagem no \emph{array} criado na classe \texttt{ImageAdapter}.  A \texttt{FullImageActivity} por sua vez recebe esse \texttt{Intent} que possui o \emph{id} da imagem que deve ser mostrada e configura o \texttt{ImageView} de acordo. 
+No algoritmo \ref{code:act-fullimage}, configuramos um \texttt{View.setOnItemClickListener()} de forma que quando uma imagem da grade for clicada, um \texttt{Intent} seja enviado a uma nova \emph{activity} que por sua vez ficará encarregada de mostrar a imagem em tela cheia.  Quando um item é clicado conseguimos obter a posição dele na grade com o parâmetro \texttt{pos} da função \texttt{onItemClick()}, essa posição é equivalente ao \emph{id} da imagem no \emph{array} criado na classe \texttt{ImageAdapter}.  A \texttt{FullImageActivity} por sua vez recebe esse \texttt{Intent} que possui o \emph{id} da imagem que deve ser mostrada e configura o \texttt{ImageView} de acordo. 
 
 \begin{figure}[H]
   \centering
@@ -943,6 +953,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/activity-tab-host.xml}
 	\caption{\emph{Layout} da \emph{activity} \texttt{TabHostLayout}}
+	\label{code:layout-tabhost}
 	\end{listing}
 	
 	Agora precisamos definir o \emph{layout} dos fragmentos, isto é, o \emph{layout} de cada aba. Para simplificar o exemplo, as abas só terão um fundo colorido, de cores diferentes. Para isso usa-se o atributo \texttt{background}.
@@ -952,16 +963,17 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	\caption{\emph{Layout} do fragmento da aba.}
 	\end{listing}
 	
-	Precisamos definir as classes de cada fragmento de aba. Cada classe deverá extender a classe \texttt{Fragment} e inflar seu \emph{layout} correspondente. Depois cada fragmeneto será instanciado pela nossa \emph{activity} principal, \texttt{TabLayoutActivity} usando o \emph{fragment manager}. No algoritmo 37 está definido a classe \texttt{Tab1Fragment} (as classes \texttt{Tab2Fragment} e \texttt{Tab3Fragment}) são exatamente iguais, exceto que elas inflam seus respectivos \emph{layouts}).
+	Precisamos definir as classes de cada fragmento de aba. Cada classe deverá extender a classe \texttt{Fragment} e inflar seu \emph{layout} correspondente. Depois cada fragmeneto será instanciado pela nossa \emph{activity} principal, \texttt{TabLayoutActivity} usando o \emph{fragment manager}. No algoritmo \ref{code:tab1frag} está definido a classe \texttt{Tab1Fragment} (as classes \texttt{Tab2Fragment} e \texttt{Tab3Fragment}) são exatamente iguais, exceto que elas inflam seus respectivos \emph{layouts}).
 	
 	\dica{Você deve importar a classe \texttt{android.support.v4.app.Fragment} para suportar versões mais antigas do Android!}
 	
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/tab1-frag.java}
 	\caption{Classe \texttt{Tab1Fragment}}
+	\label{code:tab1frag}
 	\end{listing}
 	
-	Na classe \texttt{TabLayoutActivity}, note que estamos extendendo a classe \texttt{FragmentActivity} para poder usufruir das funcionalidades dos fragmentos. É necessário configurar o método \texttt{onCreate()}, esse é o ponto de início da nossa \emph{activity}. O primeiro passo é inflar o \emph{layout} com abas definido no algoritmo 35. O segundo passo é inicializar as abas, para isso invocamos o método \texttt{TabHost.setup()}, adicionar as abas e suas informações em um mapa e determinar a primeira aba como ativa.
+	Na classe \texttt{TabLayoutActivity}, note que estamos extendendo a classe \texttt{FragmentActivity} para poder usufruir das funcionalidades dos fragmentos. É necessário configurar o método \texttt{onCreate()}, esse é o ponto de início da nossa \emph{activity}. O primeiro passo é inflar o \emph{layout} com abas definido no algoritmo \ref{code:layout-tabhost}. O segundo passo é inicializar as abas, para isso invocamos o método \texttt{TabHost.setup()}, adicionar as abas e suas informações em um mapa e determinar a primeira aba como ativa.
 	
 	Primeiro criaremos uma classe que servirá de suporte para guardar as informações relevantes sobre as nossas abas.
 	
@@ -986,11 +998,12 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	
 	O parâmetro \emph{tag} do método \texttt{createTabContent()} é que define qual aba foi selecionada. O método retorna uma \emph{view} para mostrar os elementos da aba selecionada.
 	
-	Na classe \texttt{TabLayoutActivity} precisamos criar o método \texttt{initialiseTabHost()}. Siga o algoritmo 41 abaixo. Note o uso do método \texttt{onTabChanged()}. Precisamos implementar esse método em seguida através da interface \texttt{TabHost.OnTabChangeListener}.
+	Na classe \texttt{TabLayoutActivity} precisamos criar o método \texttt{initialiseTabHost()}. Siga o algoritmo \ref{code:inittab} abaixo. Note o uso do método \texttt{onTabChanged()}. Precisamos implementar esse método em seguida através da interface \texttt{TabHost.OnTabChangeListener}.
 	
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/intialiseTabHost.java}
 	\caption{Método \texttt{initialiseTabHost()}}
+	\label{code:inittab}
 	\end{listing}
 	
 	Primeiro obtemos a \emph{view} \texttt{TabHost} usando o método \texttt{findViewById()}. Observe que estamos pegando um recurso já existente do sistema Android, já que estamos chamando a classe \texttt{R} do sistema, e não do nosso aplicativo. Em seguida chamamos o método \texttt{setup()}, a documentação diz que é necessário invocar esse método antes de adicionar abas se carregamos o \texttt{TabHost} usando \texttt{findViewById()}.
@@ -1036,11 +1049,12 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	\caption{\emph{layout} do \texttt{ViewPager}}
 	\end{listing}
 	
-	Agora defina uma nova classe chamada \texttt{PagerAdapter} que irá extender a classe \texttt{FragmentPagerAdapter}. Primeiro crie uma lista que irá conter os fragmentos, isto é, as páginas que serão exibidas. Ao extender essa classe precisamos implementar dois métodos: \texttt{getItem()} e \texttt{getCount()}. O método \texttt{getItem()}, na linha 10 do algoritmo 45, deve retornar o item que será selecionado pelo parâmetro \texttt{position}. O método \texttt{getCount()}, na linha 15, deve retornar a quantidade de páginas. Depois crie o construtor como mostrado nas linhas 4-7. 
+	Agora defina uma nova classe chamada \texttt{PagerAdapter} que irá extender a classe \texttt{FragmentPagerAdapter}. Primeiro crie uma lista que irá conter os fragmentos, isto é, as páginas que serão exibidas. Ao extender essa classe precisamos implementar dois métodos: \texttt{getItem()} e \texttt{getCount()}. O método \texttt{getItem()}, na linha 10 do algoritmo \ref{code:pageadap}, deve retornar o item que será selecionado pelo parâmetro \texttt{position}. O método \texttt{getCount()}, na linha 15, deve retornar a quantidade de páginas. Depois crie o construtor como mostrado nas linhas 4-7. 
 
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/pageradapter.java}
 	\caption{Classe \texttt{PagerAdapter}}
+	\label{code:pageadap}
 	\end{listing}
 	
 	Por último devemos construir a \emph{activity} que irá conter o \texttt{PagerAdapter} e será reponsável por mostrar as páginas. Neste exemplo iremos reutilizar os fragmentos que fizemos na seção anterior quando trabalhamos com abas.
@@ -1051,11 +1065,12 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	
 	Outra opção é usar o \texttt{import} do java para importar as classes sem ter elas no pacote.}
 	
-	Essa \emph{activity}, como mostrada no algoritmo 46 abaixo, apenas precisa instanciar os fragmentos (linhas 10,11 e 12), criar e determinar o adaptador, linhas 14, 16 e 17.
+	Essa \emph{activity}, como mostrada no algoritmo \ref{code:act-pager} abaixo, apenas precisa instanciar os fragmentos (linhas 10,11 e 12), criar e determinar o adaptador, linhas 14, 16 e 17.
 	
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/viewpager-activity.java}
 	\caption{\emph{Activity} com \texttt{PagerAdapter}}
+	\label{code:act-pager}
 	\end{listing}
 
 \section{Abas com gesto de arrastar}
@@ -1063,11 +1078,12 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	Ao juntar os dois conceitos, o de \emph{layout} com abas e o gesto de arrastar, podemos fazer o controle das abas arrastando a tela. Esse tipo de \emph{design} é comum em muitos aplicativos pela facilidade e rapidez com o que o usuário pode visualizar vários conteúdos. 
 	Nesse exemplo iremos re-utilizar o código dos exemplos anteriores com algumas modificações. Serão reutilizadas classes: \texttt{TabInfo}, \texttt{TabFactory}, \texttt{PagerAdapter}, \texttt{Tab1Fragment}, \texttt{Tab2Fragment}, \texttt{Tab3Fragment}.
 	
-	Primeiro modificaremos o \emph{layout} das abas adicionando o \texttt{ViewPager} após \texttt{FrameLayout}. Note que esse é o mesmo \emph{layout} do algoritmo 35, por isso o algoritmo 47 não está completo.
+	Primeiro modificaremos o \emph{layout} das abas adicionando o \texttt{ViewPager} após \texttt{FrameLayout}. Note que esse é o mesmo \emph{layout} do algoritmo \ref{code:layout-tabhost}, por isso o algoritmo \ref{code:layout-viewpager} não está completo.
 	
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/swipetabs-layout.xml}
 	\caption{\emph{Layout} das abas com adição do \texttt{ViewPager}}
+	\label{code:layout-viewpager}
 	\end{listing}
 	
 	Agora iremos usar a classe \texttt{TabLayoutActivity} do exemplo anterior e fazer algumas alterações.  Nesse exemplo irei mudar o nome da classe para \texttt{SwipeTabActivity}. A primeira alteração é a adição de algumas variáveis para serem usadas na classe, adicione uma variável \texttt{PageAdapter} e uma \texttt{ViewPager}. Depois devemos alterar o método \texttt{onCreate()}, adicione uma chamada ao método \texttt{initialiseViewPager()}. A implementação é a mesma do método \texttt{onCreate()} do exemplo anterior com a adição da chamada ao método \texttt{setOnPageChangeListener()}. Devemos também implementar a interface \texttt{OnPageChangeListener}. No método \texttt{initialiseTabHost()} você precisa remover a linha \texttt{onTabChanged(''Tab1'');}.
@@ -1172,7 +1188,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\caption{Configurando \emph{ActionBar} no método \texttt{onCreate()}}
 		\end{listing}
 		
-		No algoritmo 56, abaixo, criamos um \texttt{EditText} e o configuramos caso o botão com o ícone de busca seja pressionado. Na linha 5-6 criamos um \texttt{LayoutParams} que configura o tamanho da \emph{view}. Na linha 8 o método \texttt{EditText.setImeOptions()} é responsável por configurar o teclado para uma busca, junto com a linha 9 que diz para o \texttt{EditText} que a entrada será texto, essa combinação faz com que o teclado mostre o ícone da lupa no lugar da tecla \emph{Enter}. A linha 10 configura a cor do texto para branca. Adicionamos a \emph{view} na \emph{ActionBar} com o método \texttt{ActionBar.setCustomView()} e passamos como parâmetro a \emph{view} criada e os parâmetros de \emph{layout} criados. O método \texttt{EditText.requestFocus()} faz com que o foco seja dado à nova caixa de texto, para que possamos edita-la. Precisamos ainda fazer com que o teclado abra para que possamos editar a caixa de texto, é isso que as linhas 13-14 e 15 estão fazendo. O método \texttt{getSystemService()} obtem a referência de um serviço do Android, e nesse caso estamos pedindo pelo serviço de método de entrada, o teclado. O método \texttt{InputMethodManager.showSoftInput()} abre o \emph{Soft Input}, ou seja, o teclado virtual para edição da \emph{view}. 
+		No algoritmo \ref{code:actionbar-seach}, abaixo, criamos um \texttt{EditText} e o configuramos caso o botão com o ícone de busca seja pressionado. Na linha 5-6 criamos um \texttt{LayoutParams} que configura o tamanho da \emph{view}. Na linha 8 o método \texttt{EditText.setImeOptions()} é responsável por configurar o teclado para uma busca, junto com a linha 9 que diz para o \texttt{EditText} que a entrada será texto, essa combinação faz com que o teclado mostre o ícone da lupa no lugar da tecla \emph{Enter}. A linha 10 configura a cor do texto para branca. Adicionamos a \emph{view} na \emph{ActionBar} com o método \texttt{ActionBar.setCustomView()} e passamos como parâmetro a \emph{view} criada e os parâmetros de \emph{layout} criados. O método \texttt{EditText.requestFocus()} faz com que o foco seja dado à nova caixa de texto, para que possamos edita-la. Precisamos ainda fazer com que o teclado abra para que possamos editar a caixa de texto, é isso que as linhas 13-14 e 15 estão fazendo. O método \texttt{getSystemService()} obtem a referência de um serviço do Android, e nesse caso estamos pedindo pelo serviço de método de entrada, o teclado. O método \texttt{InputMethodManager.showSoftInput()} abre o \emph{Soft Input}, ou seja, o teclado virtual para edição da \emph{view}. 
 		
 		Finalmente fazemos com que ao botão de busca no teclado ser clicado, um \texttt{Toast} mostre para o usuário o conteúdo da caixa de texto. É isso que a interface \texttt{onEditorActionListener} faz com o método \texttt{onEditorAction()}.
 		
@@ -1181,6 +1197,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/actionbar-acao.java}
 		\caption{Criando a caixa de busca na \emph{ActionBar}}
+		\label{code:actionbar-seach}
 		\end{listing}
 		
 		
