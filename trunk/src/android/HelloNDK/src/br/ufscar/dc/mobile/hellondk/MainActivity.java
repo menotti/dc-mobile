@@ -1,4 +1,4 @@
-package com.example.hellondk;
+package br.ufscar.dc.mobile.hellondk;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -12,7 +12,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		
 		Button button = (Button) findViewById(R.id.button1);
 		button.setOnClickListener(new View.OnClickListener() {
 		    public void onClick(View v) {
@@ -28,10 +28,11 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
+
 	private native void OlaLog(String log);  
 
 	static {
 		System.loadLibrary("hello-ndk");
 	}
+
 }
