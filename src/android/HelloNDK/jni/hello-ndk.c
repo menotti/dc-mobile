@@ -4,7 +4,7 @@
 
 #define DEBUG_TAG "Hello_NDK"
 
-void Java_com_example_hellondk_MainActivity_OlaLog(JNIEnv * env, jobject this, jstring log)
+void Java_br_ufscar_dc_mobile_hellondk_MainActivity_OlaLog(JNIEnv * env, jobject this, jstring log)
 {
     jboolean copy;
     const char * cstring = (*env)->GetStringUTFChars(env, log, &copy);
