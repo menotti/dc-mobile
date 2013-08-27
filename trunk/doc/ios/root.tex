@@ -1,0 +1,1470 @@
+\documentclass[a4paper,12pt,brazil,doubleside]{book}
+
+% tentei incluir o da pasta comum mas não funcionou
+% \include{../comum/header}
+\input{../comum/header.tex}
+
+\title{Título}
+
+\begin{document}
+\selectlanguage{brazil}
+
+\include{capa}
+
+\cleardoublepage
+
+\onehalfspace
+
+\pagestyle{plain}
+\pagenumbering{arabic}
+
+\setcounter{tocdepth}{1} % 0 capítulos, 1 seções, 2 subseções
+\tableofcontents
+\clearpage % se o verso ficar em branco...% VAI
+
+\lstset{language=[Objective]C}
+
+\listoffigures
+\addcontentsline{toc}{section}{Lista de Figuras}
+\clearpage % se o verso ficar em branco...% VAI
+\thispagestyle{empty}
+
+\lstlistoflistings
+\addcontentsline{toc}{section}{Lista de Códigos}
+\clearpage % se o verso ficar em branco...% VAI
+\thispagestyle{empty}
+
+\chapter{Introdução}
+
+\paragraph{}Este material tem a intenção de auxiliar qualquer programador, de estudante a profissional, no desenvolvimento de aplicativos para a plataforma iOS. Passaremos do básico da plataforma de desenvolvimento, com a teoria da linguagem e a configuração do ambiente, até a parte prática com integração entre hardware e software, voltado tanto para projetos pequenos como projetos maiores em equipe.
+\paragraph{}Antes de mais nada, uma boa noção de Orientação a Objeto é pré-requisito para o entendimento adequado dos conceitos que serão passados. Trataremos do assunto ao longo de todo o material, então esteja com o vocabulário na ponta da língua. Alguma experiência com C ou Java também é desejável devivo à proximidade com Objective-C.
+\paragraph{}O documento parte de uma forte base teórica sobre a linguagem e os frameworks utilizados na montagem das estruturas de dados e do visual de um aplicativo. Em seguida passa a abordar a construção do aplicativo na prática, integrando os elementos citados nas teoria e aos poucos introduzindo novas opções de layout, com aplicação direta nos aplicativos de exemplo. Com a estrutura bem definida, o foco passar a ser em APIs e bibliotecas específicas para integração com elementos de hardware, como GPS e acelerômetro, e com elementos externos ao dispositivo, como serviço web e plataformas embarcadas.
+\paragraph{}O objetivo do texto é passar a ideia principal de cada tópico, e não pode ser tomado como uma referência completa para o assunto. A construção dos aplicativos de exemplo é feita passo a passo, com cada trecho de código repassado e cada novo elemento explicado, mas não deixe de ir atrás de mais informação na documentação oficial e em sites colaborativos como \emph{StackOverflow}.
+
+\bigskip
+\bigskip
+
+\section{Configuração do Ambiente: XCode}
+
+\paragraph{}O ambiente que utilizaremos é o XCode, da própria Apple. A instalação e configuração dele e do SDK é simples e automática, basta procurar por XCode na App Store ou no site da Apple para desenvolvedores (\texttt{developer.apple.com}).
+\paragraph{}Será feito o download do ambiente, de todas as bibliotecas necessárias e do simulador para a última versão do iOS para testar seus aplicativos. É possível, posteriormente, baixar pelo próprio XCode os simuladores de versões anteriores do iOS para garantir a compatibilidade do seu projeto com mais versões do sistema.\\
+
+\paragraph{}\textit{\textbf{\underline{Dica}}: Para entender melhor as funcionalidades da ferramenta, dê uma olhada na extensa documentação que a Apple disponibiliza em 
+XCode User Guide.\\
+\(developer.apple.com/library/ios/\#documentation/ToolsLanguages/Conceptual/Xcode_User_Guide\)}
+
+\chapter{Introdução à linguagem}
+
+\paragraph{}Objective-C é a linguagem de programação utilizada no ecossistema de produtos da Apple. É uma linguagem orientada a objetos baseada em C que surgiu no início dos anos 80, e acabou se popularizando ao ser utilizada a partir de 1988 pela NeXT, empresa de tecnologia criada por Steve Jobs. Após a compra da NeXT pela Apple, em 1996, Objective-C e suas principais APIs, NextSTEP, foram usados para a construção do Mac OS X e assim se tonaram padrão na empresa.
+\paragraph{}Para o desenvolvimento de aplicativos para iOS, utiliza-se o Objective-C em conjunto com a Cocoa Touch, API derivada da Cocoa (usado nos OS X), que por sua vez é derivada do NextSTEP e OpenStep, e que é formada por um grupo de frameworks que possibilitam a construção dos aplicativos. Nesse capítulo teremos uma visão geral de Objective-C em si, com o básico da sintaxe e os extras que a linguagem agrega ao C em termos de Orientação a Objetos, e também uma pincelada no primeiro framework do conjunto, o Foundation Framework, passando pelas principais classes, métodos e possibilidades que esse poderoso framework oferece para o ambiente de desenvolvimento.
+
+\bigskip 
+\bigskip
+
+
+\section{Objective-C}
+
+\paragraph{}Veremos as alterações e adições do Objective-C em relação ao C puro, destacando as características mais notáveis e as explicando em seguida.
+
+\bigskip 
+\bigskip
+
+\subsection{Tempo de execução dinâmico}
+
+\paragraph{}O Objective-C tem tempo de execução dinâmico, o que significa que diversas decisões em chamadas de métodos e envio de mensagens serão feitas durante a execução, não tendo algo definido na compilação. Isso permite uma série de possibilidades extras em relação ao C, como instanciação dinâmica de objetos, uso de tipagem fraca quando necessário, e vantagens no polimorfismo de métodos.
+\paragraph{}A opção de tipagem fraca aparece com o novo tipo chamado \texttt{\textbf{id}}. O \texttt{\textbf{id}} é um tipo genérico de objeto, o que permite que qualquer tipo de objeto seja atribuído, muito útil em casos que não podemos garantir de antemão qual será o tipo do objeto utilizado.
+
+\bigskip 
+
+\subsection{Classes}
+
+\paragraph{}Quando criamos uma classe pelo XCode, automaticamente é criado um arquivo *.m para implementação e um *.h para o header, assim como o .c e o .h em C. Porém, em Objective-C eles também servem para diferenciar contéudo público e privado da classe, sendo tudo que for declarado no .h público e visível para todos, e tudo que estiver no .m privado e acessível somente para membros da classe. Sendo assim, não existe o conceito de atributo \emph{protected} existente em C++ e Java. Um atributo de classe é chamado de \texttt{\textbf{Property}}, e tem a funcionalidade de construir automaticamente um método setter e um getter, tornando-a global e protegida dentro da classe. Veremos o seu uso com mais detalhes mais pra frente.
+
+\paragraph{}É preciso entender que em Objective-C todas os objetos são criados em tempo de execução, sendo tudo alocado dinamicamente, funcionando como um ponteiro. Ou seja, todos os objetos em Objective-C são alocados na Heap, e consequentemente você é responsável por desalocá-los da memória. No iOS 5 foi disponibilizado um mecanismo chamado \emph{ARC} (Automatic Release Counting), responsável por desalocar automaticamente os objetos da memória, portanto não se preocupe com isso. Porém, até então o programador era responsável por desalocar manualmente cada objeto instanciado, o que acabava causando problemas quando algum objeto era esquecido.
+\paragraph{}Uma classe permite  somente uma única superclasse. Isso pode parecer uma limitação, mas isso simplifica o entendimento e induz a construção de um projeto melhor estruturado. Além disso, o Objective-C introduz alguns o \texttt{\textbf{Protocol}}, que possibilita a comunicação entre duas classes sem ligação, definindo o comportamento para chamada de métodos de uma classe por outra e a passagem de dados entre elas.
+
+\bigskip 
+
+\subsection{Sintaxe}
+
+\paragraph{}As adições de sintaxe do Objective-C são basicamente para declaração de classes e métodos, e para expressões de chamada e envio de mensagens para os objetos. Esta nova sintaxe pode parecer um pouco estranha no início, mas ela se mostra bastante intuitiva e de fácil aprendizado logo que começamos a trabalhar com o código.
+\paragraph{}Começando pelas declarações:
+
+\bigskip 
+
+\paragraph{}\textbf{Classes}
+
+\paragraph{}A declaração de classe é feita de forma ligeiramente diferente no header e na implementação. No header tudo que for declarado da classe fica entre \texttt{\textbf{@interface}} e \texttt{\textbf{@end}}.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@interface NomeDaClasse : SuperClasse
+
+@end
+\end{minted}
+\end{listing}
+
+\paragraph{}E na implementação fica entre \texttt{@implementation
+} e \texttt{@end}, sem colocar a superclasse.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@implementation NomeDaClasse
+
+@end
+\end{minted}
+\end{listing}
+
+\paragraph{}\textbf{Métodos}
+
+\paragraph{}A declaração de métodos tem algumas mudanças fundamentais em relação ao C++. Temos o uso de (-) e (+) para definir se é método de instância ou método de classe (metódo estático), e nos parâmetros declaramos um rótulo para o parâmetro, como nos modelos a seguir.
+
+\paragraph{}Sem parâmetros:\\
+\emph{<method type> (<return type>) <method name>;}
+
+\paragraph{}Com um parâmetro:\\
+\emph{<method type> (<return type>) <method name>: (<argument type>)} <argument name>;
+
+\paragraph{}Com mais de um parâmetro:\\
+\emph{<method type> (<return type>) <method name>: (<argument type>) <argument name> <argument 2 label>: (<argument 2 type>) <argument 2 name>;}
+
+\paragraph{}Exemplo:
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+-(void) escreverStringOk {
+	NSLog(@"Ok");
+}
+
+-(void) escreverString:(NSString*)string {
+	NSLog(@"%@",string);
+}
+
+-(NSString*) escreverString:(NSString*)stringA
+                  comString:(NSString*)stringB {
+	NSLog(@"%@ %@",stringA,stringB);
+}
+\end{minted}
+\end{listing}
+
+A ideia de criar um label, além da própria variável, é de tornar intuitiva a leitura do método. No caso do último exemplo, o método seria lido como \emph{escreverString:comString:}.\\
+
+\paragraph{}\textbf{Propriedades}
+
+\paragraph{}Como já citado anteriormente, o Objective-C oferece uma possibilidade de encapsulamento de atributos de uma classe, a partir de uma \texttt{\textbf{Property}}.
+\paragraph{}Uma \texttt{\textbf{Property}} define automaticamente métodos setter e getter de uma variável, e também o tempo de duração na memória se for um objeto, de acordo com os parâmetros definidos. É geralmente definido no header da classe.
+\paragraph{}Exemplo:
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@property (nonatomic, strong) NSString *nome;
+@property BOOL existe;
+\end{minted}
+\end{listing}
+
+No exemplo anterior, temos os parâmetros \texttt{\textbf{nonatomic}} e \texttt{\textbf{strong}}. O primeiro é para proteger a variável em ambiente multi-thread, forçando uma cópia do valor da variável caso o getter e setter sejam usados ao mesmo tempo em duas threads. O segundo é voltado apenas para objetos (variáveis do tipo BOOL ou int não se enquadram, por exemplo), e define o tempo de permanência do objeto na memória, que é definida como \texttt{\textbf{strong}} ou \texttt{\textbf{weak}}. A primeira é a que usamos na maioria dos casos e garante que o objeto permanecerá na memória até o fim da execução; a segunda é para quando queremos que o objeto exista apenas enquanto outro objeto apontar para ele. O único caso em que usaremos texttt{\textbf{weak}} é na criação de texttt{\textbf{outlets}} ligados a interface, que veremos mais a frente.
+
+\paragraph{}Agora veremos como acessamos métodos e atributos de um objeto:
+
+\paragraph{}Sem parâmetros:\\
+\emph{[<objeto> <método>];}
+
+\paragraph{}A ideia é da notação é indicar que o método é uma mensagem sendo enviada a um receptor, que é o objeto dono do método.
+
+\paragraph{}Com parâmetros:\\
+\emph{[<objeto> <método>:<parâmetro 1> <rótulo 2>:<parâmetro 2];}
+
+\pagebreak
+
+\paragraph{}Exemplo:
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+Pessoa *funcionario;
+[...]
+funcionario.nome = "Joao";
+funcionario.sobrenome = "Silva";
+
+[self escreverString:funcionario.nome comString:funcionario.sobrenome];
+\end{minted}
+\end{listing}
+
+\paragraph{}Esse código mostra que estamos setando as variáveis nome e sobrenome do objeto funcionario do tipo \texttt{\textbf{Pessoa}} e usando-as como parâmetros para o método \emph{escreverString:comString:} da própria classe (\texttt{\textbf{self}} é o mesmo que \texttt{\textbf{this}} em C++ e Java).
+\paragraph{}Se fosse um método do objeto funcionario, o \texttt{\textbf{self}} seria trocado por \texttt{\textbf{funcionario}}.
+
+\bigskip
+
+\paragraph{}\textit{\textbf{\underline{Dica}}: A Apple disponibiliza uma extensa documentação sobre a\\linguagem em Programming with Objective-C\\ \(https://developer.apple.com/library/ios/\#documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html \)\\
+Um estudo desse material será de grande ajuda para entender exatamente o que a linguagem permite.}
+
+\bigskip
+\bigskip
+
+
+\section{Foundation Framework}
+
+\paragraph{}O Foundation Framework é o que dá a base para a linguagem. É um conjunto bastante completo de bibliotecas que auxiliam na manipulação de dados, com estruturas como arrays, dicionários, e strings, entre outras diversas possibilidades como uso de notificações, animações, alertas, etc.
+\paragraph{}A seguir, veremos uma introdução às classes que utilizaremos em Objective-C, presentes no Foundation.
+
+\bigskip
+
+\begin{description}
+\item{\textbf{NSObject:} é a classe raiz de todas as classes em Objective-C. Ela cria uma interface para que os objetos possam se comportar como um objeto de Objective-C, definindo algumas propriedades básicas.
+\paragraph{}Ela possui basicamente dois métodos que têm alguma utilidade direta para o programador. O primeiro é o \texttt{\textbf{copy}}, que serve para criar uma nova instância com a cópia exata dos atributos do objeto em questão. O segundo é o \texttt{\textbf{description}}, que tem a função interessante de gerar uma string com a descrição do objeto, de forma que você possa imprimir uma representação do contéudo do objeto, sendo útil como verificação dos dados na depuração.}
+
+\item{\textbf{NSArray:} é o tipo usado para manipular arrays em Objective-C. Semelhante à biblioteca \texttt{\textbf{vector}} do C++, ela traz um conjunto muito completo de métodos para lidar com arrays de forma prática, permitindo operações como comparação, cópia, concatenação, ordenação, contagem, etc.}
+
+\item{\textbf{NSString:} do mesmo jeito que temos o \texttt{\textbf{NSArray}} para arrays, temos o NSString para strings, semelhante à biblioteca \texttt{\textbf{string}} do C++. Esse tipo também traz um conjunto de métodos para diversas operações com strings, como as já citadas operações utilizadas em arrays, e particularidades de strings, como capitalização, escrita/leitura em arquivo, combinação de mais de uma string, busca, entre outras operações possíveis com caracteres.}
+
+\item{\textbf{NSDictionary:} dicionário é um modo de organização e indexação de dados baseado em chaves únicas, seguindo a ideia de um dicionário comum dividido pelas letras do alfabeto. O uso de chaves únicas permite buscas eficientes em um conjunto de dados grande, tornando o dicionário uma estrutura muito utilizada para organizar e consultar dados de forma eficiente. Dentro de um dicionário podemos inserir basicamente dados em formato de string, array, número, ou outros dicionários.\\
+No Objective-C temos o \texttt{\textbf{NSDictionary}} para lidarmos de forma mais simples com estruturas em dicionário. Podemos fazer operações como escrever/ler em arquivo, ler conteúdo de uma chave específica, transferir dados para outras estruturas como array ou string, obter todas as chaves do dicionário em questão, e fazer ordenação.\\
+Em conjunto com o \texttt{\textbf{NSDictionary}}, é recomendável também o estudo das \texttt{\textbf{Property Lists}}, arquivos no formato *.plist utilizados para guardar estruturas de dicionário em disco.}
+
+\item{\textbf{NSNumber:} tem a função de simplesmente transformar tipos básicos de número do C (\texttt{\textbf{int}}, \texttt{\textbf{float}}, e \texttt{\textbf{double}}) em objetos. A ideia é que em Objective-C lidemos sempre com objetos, já que o Foundation Framework já tem a base pronta para as operações. Ao utilizarmos números e tipos básicos como objetos, aumentamos o nível de abstração e a responsabilidade passa ser do framework, minimizando o uso incorreto de dados e operações na memória, e evitando interferências nos processos em execução.}
+\end{description}
+
+\subsection{Documentação}
+
+\paragraph{}A Apple disponibilizada a documentação completa das classes do Foundation em
+\emph{Foundation Framework Reference\\ \(http://developer.apple.com/library/ios/\#documentation/Cocoa/Reference/Foundation/ObjC_classic/_index.html\)}.
+\paragraph{}Essa documentação será importante ao longo do estudo de desenvolvimento para iOS. O Foundation é muito extenso e rico em possibilidades, já trazendo a implementação de diversas soluções que tomariam um bom tempo e algumas linhas de código a mais no seu projeto.
+\paragraph{}\textit{\textbf{\underline{Dica}}: Nunca hesite em procurar na documentação da classe em questão algum método que possa resolver seu problema. Lidar com strings, arrays e dicionários, além de outras diversas estruturas, será muito mais prático a partir de agora.}
+\paragraph{}As classes estão muito bem organizadas na documentação, com os métodos divididos de acordo com o tipo de operação. Vale a pena dar uma olhada por cima nas classes citadas para obter uma visão geral do que é possível fazer, alimentando aos poucos o seu repertório na linguagem, antes de seguir adiante com o tutorial.
+
+
+\chapter{Design}
+
+\paragraph{}Neste capítulo começaremos a ver como é feita a criação de telas no iOS. Utilizaremos um framework voltado especificamente para a construção da UI (User Interface), chamado UIKit Framework, em conjunto com a interface gráfica do XCode que auxilia a criação do layout.
+\paragraph{}Temos um conjunto de elementos gráficos já prontos, como botões, barras de ferramenta, rótulos, campos de texto, tabelas, telas com rolagem horizantal ou vertical, entre outros elementos que os usuário de iOS já estão familiarizados. Além disso, temos também disponíveis diversas ações e interações a serem relacionadas com esses elementos, como tipo e permissão de toque, tipo de rolagem, controle automático de animações, e controle dos elementos e das ações através do código, com métodos extremamente flexíveis que permitem uma ótima customização da interface e da lógica de eventos pelo programador.
+
+\paragraph{}\textit{\textbf{\underline{Dica}}: A documentação completa das classes do UIKit está em 
+UIKit Framework Reference\\ \(http://developer.apple.com/library/ios/\#documentation/uikit/reference/UIKit_Framework/_index.html\).}
+
+\paragraph{}Começaremos explicando como funcionam os diferentes componentes responsáveis pelos elementos gráficos no iOS.
+
+\bigskip
+\bigskip
+
+
+\section{Telas}
+
+\paragraph{}Os elementos gráficos no iOS são conjuntos de objetos que se unem em uma certa hierarquia, formando o que entendemos por \texttt{User Interface} (UI).
+\paragraph{}No topo da hierarquia temos a \texttt{\textbf{UIWindow}}, que serve para dar suporte para desenho na tela. Utilizamos ela uma única vez para indicar qual é a tela inicial, a \texttt{\textbf{RootViewController}}, e não mais interagimos com ela. Abaixo dela vem a \texttt{\textbf{UIScreen}}, que representa a tela em si. Além de fornecer o tamanho em pixels da tela, o atributo \emph{bounds}, dificilmente terá mais utilidade direta para o programador.
+\paragraph{}Onde realmente atuaremos será nos objetos do tipo \texttt{\textbf{UIView}}, ligados diretamente à \texttt{\textbf{UIWindow}}, e nos objetos do tipo \texttt{\textbf{UIViewController}}, que gerenciam a \texttt{\textbf{UIView}}.
+
+\bigskip
+\bigskip
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.35\textheight]{figuras/apple_window_view_controller_screen.png}
+  \caption{Esquema relacionando os elementos da UI}
+  \label{fig:a}
+\end{figure}
+
+\bigskip
+
+\paragraph{}Esta figura representa as ligações entre os elementos de interface no iOS. A \texttt{\textbf{UIWindow}} aponta para a \texttt{\textbf{UIScreen}}, que representa a tela e seus limites, e aponta para \texttt{\textbf{UIViewController}} inicial do aplicativo, que recebe o nome especial de \texttt{\textbf{RootViewController}}. A \texttt{\textbf{UIView}}, que representa os elementos gráficos da tela, e é controlada pela \texttt{\textbf{UIViewController}} inicial, é então adicionada à \texttt{\textbf{UIWindow}}, e assim temos a referência à controladora inicial e sua tela. Veremos a seguir a relação entre uma \texttt{\textbf{UIViewController}} e uma texttt{\textbf{UIView}} com mais detalhes a seguir.
+
+\bigskip
+
+\subsection{UIView x UIViewController}
+
+\paragraph{}Um objeto do tipo \texttt{\textbf{UIView}}, ou apenas \emph{View}, é onde colocamos de fato os elementos visuais. Ela representa uma determinada área que pode conter objetos como \texttt{\textbf{UIButton}}, \texttt{\textbf{UILabel}} e \texttt{\textbf{UITextField}}, além de outras \emph{Views} inseridas, formando uma hierarquia de objetos que vão se orientar diretamente pelo posicionamento e comportamento da \texttt{\textbf{UIView}} maior.
+\paragraph{}A grande ideia a ser entendida e que diferencia uma \emph{View} de uma \emph{View Controller} é que um objeto de \texttt{\textbf{UIView}} contém estritamente elementos gráficos, sem nenhuma lógica do comportamento. Um objeto de \texttt{\textbf{UIView}} não entende e não deve entender as consequências de suas ações. Um \texttt{\textbf{UIButton}}, por exemplo, sabe como reagir quando é acionado mas não sabe qual tipo de ação ou mensagem foi gerada e nem pra onde ela foi enviada a partir do seu toque. Essa reação pode ser chamar um alerta, uma nova tela, uma animação, ou um acesso a \emph{web service}, mas o que acionou a ação não é responsábilidade do componente.
+\paragraph{}\textit{\textbf{\underline{Dica}}: Deixando algumas coisas claras, uma tela pode conter uma só \emph{View} tomando todo o espaço ou várias \emph{Views} se dividindo, sendo elas totalmente independentes ou aninhadas. Além disso, você pode criar novas classes herdando de \texttt{\textbf{UIView}} para serem estanciadas dentro de uma \texttt{\textbf{UIViewController}}.}
+\paragraph{}Uma \emph{View Controller} é o que gerencia a lógica e comportamento de um conjunto específico de uma ou mais \emph{Views}, e é responsável por carregar e interagir com as \emph{Views} no momento certo e da forma correta. Um \texttt{\textbf{UIButton}} acionado envia um sinal para a \emph{View Controller}, que tem o papel de entender qual deve ser a resposta para esse evento, que pode ser algo como envio de dados, interação com as \emph{Views}, ou criação de animações.
+\paragraph{}Uma \emph{View Controller} é criada com uma única \emph{View} atrelada, e dentro dela podemos inserir mais elementos visuais, como até mais mais \emph{Views}.
+
+\pagebreak
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.55\textheight]{figuras/screen_hierarchy.png}
+  \caption{Hierarquia dos componentes da tela}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Sabendo que é possível criar uma classe para uma \emph{View} genérica, sem possuir uma \emph{View Controller} atrelada, como sabemos se criamos uma classe herdando de \texttt{\textbf{UIView}} ou de \texttt{\textbf{UIView Controller}}? Essa pergunta pode causar confusão no início, mas fica mais claro após entender exatamente o papel de cada uma.
+\paragraph{}Primeiramente seguimos a regra de que para cada tela completa criamos uma \emph{View Controller} para gerenciá-la, e nessa classe podemos inserir todos os elementos da tela. Porém há os casos em que a ideia é criar uma \emph{View} genérica a ser inserida no contexto de uma tela completa, \emph{View} essa que pode ser desde uma célula customizada para uma tabela até uma tabela completa, aí então devemos pensar se essa mesma \emph{View} terá algum comportamento ou se será unicamente visual. No caso de uma célula customizada, por exemplo, ela será apenas visual e assim deve ser uma simples classe de \texttt{\textbf{UIView}}; já no caso de uma tabela completa, ela vai precisar de um grande conjunto de lógica para o seu comportamento, portanto precisará de uma \emph{View Controller} própria, que no caso de tabelas tem uma classe especial chamada \texttt{\textbf{UITableViewController}}.
+
+\subsection{Navegação entre telas}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.35\textheight]{figuras/apple_navigation_interface.png}
+  \caption{Esquema do funcionamento do Navigation Controller}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Conforme vamos criando novas telas, precisamos de um modo de chamá-las e de retornar delas para a tela anterior. O iOS permite mais de um tipo de gerenciamento de navegação das telas, mas na maioria dos casos faremos uso do \emph{Navigation Controller}.
+\paragraph{}O \emph{Navigation Controller} funciona como uma pilha de \emph{View Controllers} que tem início sempre na já citada \texttt{\textbf{RootNavigationController}}, que será a tela inicial do aplicativo. Nós definimos uma única vez pelo código qual será nossa \texttt{\textbf{RootNavigationController}}, após isso trabalharemos apenas com métodos de \emph{push} e \emph{pop} para carregar e descarregar as telas. Graficamente, o \emph{Navigation Controller} é a barra superior (que também pode ser inferior) nas telas dos aplicativos e que contém um botão de retorno e outros botões auxiliares.
+\paragraph{}Há um outro tipo de navegação complementar chamado \emph{Tab Bar Controller}, que nada mais é que uma nova tela, que pode inclusive estar contida na pilha do \emph{Navigation Controller}, e que traz duas ou mais telas divididas por abas.
+
+\pagebreak
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.4\textheight]{figuras/apple_tabbar_interface.png}
+  \caption{Esquema do funcionamento do Tab Bar Controller}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Esta imagem é um modelo do funcionamento de uma \emph{Tab Bar Controller}. Diferente da \emph{Navigation Controller}, que funciona como uma pilha de telas, a \emph{Tab Bar Controller} aponta para todas as telas diretamente, e disponibiliza a escolha das telas astravés das abas. Na figura vemos a distinção do que consiste cada elemento graficamente.
+
+\bigskip
+
+
+\section{Interface Builder}
+
+\paragraph{}Para nos auxiliar na construção das telas, utilizeremos o Interface Builder do XCode. Na criação de uma nova \emph{View Controller}, é criado um arquivo .xib atrelado a essa classe, que ligará automaticamente os objetos criados na interface ao código da classe.
+\paragraph{}O Interface Builder é uma ferramente muito poderosa e o utilizaremos principalmente para definir o posicionamento dos objetos, como as \emph{Views} e seus componentes, e para fazer a ligação dos \texttt{\textbf{outlets}} e \texttt{\textbf{actions}} ao código.
+\paragraph{}\textit{\textbf{\underline{Dica}}: Lembrando que sempre podemos determinar o layout e a criação dos objetos diretamente no código, sendo o Interface Builder apenas um facilitador. Em diversos casos lidar com o código acaba sendo até mais prático.}
+
+\bigskip
+
+\subsection{Outlets e Actions}
+
+\paragraph{}\texttt{\textbf{Outlets}} representam uma ligação entre um objeto criado na interface pelo Interface Builder, como um botão ou um texto, e uma instância criada no código. Funciona como um ponteiro de um objeto do código para a sua representação gráfica, e assim podemos nos referenciar a esse elemento no código do \emph{View Controller} para definirmos seu comportamento e possíveis mudanças nas suas características.
+\paragraph{}Já uma \texttt{\textbf{action}} representa uma mensagem enviada por um objeto da interface. A \texttt{\textbf{action}} define o método que será chamado e que conterá o código com o comportamento desejado.
+
+\bigskip
+\bigskip
+
+
+\section{Seu primeiro aplicativo}
+
+\paragraph{}Agora vamos enfim colocar a mão na massa e colocar em prática tudo que foi falado até agora.
+\paragraph{}Abra o XCode e escolha a opção de criar um novo projeto. Na nova janela aberta, escolha a opção \emph{Single View Application} e siga em frente.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.4\textheight]{figuras/1/novo_projeto1.png}
+  \caption{Criação do novo projeto}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Na próxima tela você pode escolher os detalhes do aplicativo. Tenha certeza que a opção \emph{Use Automatic Reference Counting} está marcada. Este componente, como já explicado, é reponsável pelo gerenciamento automático dos objetos alocados na memória.
+
+\pagebreak
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.4\textheight]{figuras/1/novo_projeto2.png}
+  \caption{Criação do novo projeto}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Conclua a criação do projeto, com a opção \emph{Create an .xib file} marcada. Podemos agora visualizar a classe mãe do projeto, que será responsável pela tela inicial do aplicativo.
+\paragraph{}\textit{\textbf{Dica:} Para melhor visualizar os arquivos do projeto, use os ícones acima de Editor no canto superior direito para escolher a forma da exibição do código.}
+
+\pagebreak
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.3\textheight]{figuras/1/codigo_classe_mh.png}
+  \caption{Tela dividida com os dois arquivos de código da classe}
+  \label{fig:a}
+\end{figure}
+
+\bigskip
+
+\subsection{Primeira tela}
+
+\paragraph{}No lado esquerdo está o navegador dos arquivos do projeto. Selecione o arquivo .xib da classe para abrir o Interface Builder.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.35\textheight]{figuras/1/xib.png}
+  \caption{Arquivo xib da primeira tela}
+  \label{fig:a}
+\end{figure}
+
+\bigskip
+
+\paragraph{}No canto superior direito temos 3 conjuntos de ícones. No conjunto \emph{View}, clique no ícone da direita para abrir a seção de opções do Interface Builder. Nessa parte poderemos ver e editar as características de qualquer objeto selecionado da tela, desde um botão a uma View, e alternar as opções entre as abas.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.4\textheight]{figuras/1/xib_opcoes.png}
+  \caption{Barra lateral de opções do Interface Builder}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}No canto inferior esquerdo está presente a seção de Objetos, os quais podem ser selecionados selecionar e arrastados à tela.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.25\textheight]{figuras/1/xib_objetos.png}
+  \caption{Objetos disponíveis no Interface Builder}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Vamos inicialmente adicionar um \texttt{\textbf{UILabel}} e um \texttt{\textbf{UIButton}} com textos de exemplo à tela. Arraste os objetos de forma a obter um layout parecido com o mostrado na figura abaixo.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.3\textheight]{figuras/1/xib_tela1.png}
+  \caption{Interface com os primeiros objetos criados}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Com os objetos adicionados, devemos ligá-los ao código. Para isso, basta selecionar o objeto e arrastá-lo ao código da classe enquanto segura a tecla Control.
+\paragraph{}No pop-up é possível escolher se é um \texttt{\textbf{outlet}} ou uma \texttt{\textbf{action}}, mas por enquanto criaremos só os \texttt{\textbf{outlets}}. Escolha um nome apropriado ao objeto, que o diferencie mas também deixe claro o seu tipo para facilitar a leitura do código, como \texttt{\textbf{okButton}}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.3\textheight]{figuras/1/link_outlet_button.png}
+  \caption{Outlets: ligação dos objetos com o código}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Agora precisamos definir o funcionamento da \emph{Navigation Controller}, responsável pela navegação entre as telas do aplicativo. Abra o arquivo FirstAppAppDelegate.h e adicione a seguinte propriedade:
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@property (strong, nonatomic) UINavigationController
+									   *navController;
+\end{minted}
+\end{listing}
+
+Esta propriedade representa a \emph{Navigation Controller} em si.
+
+\paragraph{}No arquivo FirstAppAppDelegate.m, deixaremos o primeiro método deste jeito:
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (BOOL)application:(UIApplication *)application
+didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    self.window = [[UIWindow alloc] initWithFrame:
+                  [[UIScreen mainScreen] bounds]];
+    
+    self.viewController = [[FirstAppViewController alloc]
+                initWithNibName:@"FirstAppViewController"
+                bundle:nil];
+    self.navController = [[UINavigationController alloc]
+                initWithRootViewController:self.viewController];
+   
+    self.window.rootViewController = self.navController;
+    [self.window makeKeyAndVisible];
+    
+    return YES;
+}
+\end{minted}
+\end{listing}
+
+\paragraph{}Nesse arquivo é inicializado a \texttt{\textbf{UIWindow}} sendo apontada para \texttt{\textbf{UIScreen}} na linha 4. Como foi dito, a \texttt{\textbf{UIWindow}} é a reponsável por chamar a primeira tela do aplicativo. Nesse código é criado a Navigation Controller que utilizaremos para navegar entre as telas do aplicativo, e definimos qual será a primeira tela, chamada \texttt{\textbf{RootNavigationController}}. Na linha 7 é inicializada a \texttt{\textbf{UIViewController}} inicial, e na linha 9 a definimos como a primeira tela da \emph{Navigation Controller}. Na linha 12 fazemos o apontamento final da \texttt{\textbf{UIWindow}} à \emph{Navigation Controller}, que a partir de então será a responsável por todo o gerenciamento das telas do aplicativo.
+\paragraph{}E pronto, com a \emph{Navigation Controller} criada não modificaremos mais esse arquivo.\\
+
+\paragraph{}Voltando à classe da primeira tela, podemos agora criar um título para a tela, que aparecerá na barra de navegação. No método \texttt{\textbf{viewDidLoad}} adicione a linha:
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (void)viewDidLoad
+{
+	self.navigationItem.title = @"Tela 1";
+}
+\end{minted}
+\end{listing}
+
+\paragraph{}O método \texttt{\textbf{viewDidLoad}} é onde colocaremos tudo que será definido no carregamento da tela, pois este é o método de inicialização gráfica. Há um grande número de métodos do \texttt{\textbf{UIViewController}} que podemos sobrescrever de acordo com a nossa necessidade. Eles têm a função de controlar o comportamento da tela durante toda a sua existência, desde sua inicialização até finalização, podendo prever respostas a qualquer ação do usuário.
+\paragraph{}Agora o aplicativo ainda está extremamente cru, mas já podemos executá-lo no \emph{iOS Simulator} para ver sua primeira aparência. Basta apertar o botão Play no canto superior esquerdo. A figura abaixo mostra a tela do simulador com o aplicativo rodando.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.5\textheight]{figuras/1/simulador1_tela1.png}
+  \caption{Aplicativo executando no iOS Simulator}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Podemos agora começar a adicionar funcionalidades com o código. Vamos criar uma \texttt{\textbf{action}} bem simples para testar o comportamento do aplicativo com o simulador. Para isso basta arrastar o botão para o código segurando Control, e escolher a opção \texttt{\textbf{action}}, e criar um nome para ela, como \texttt{\textbf{okTouched}}. A intenção da nossa primeira \texttt{\textbf{action}} é que os textos do botão e do rótulo troquem quando clicarmos no botão.
+\paragraph{}Com a \texttt{\textbf{action}} criada, veja que no código de implementação da classe (arquivo .m) já será criado o esqueleto do método que será chamado, onde colocaremos nossa lógica.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (IBAction)okTouched:(id)sender {
+    
+    NSString *aux = [[NSString alloc] initWithString:
+                    self.exemploLabel.text];
+    self.exemploLabel.text = self.okButton.currentTitle;
+    [self.okButton setTitle:aux forState:UIControlStateNormal];
+}
+\end{minted}
+\end{listing}
+
+\paragraph{}O código funciona como uma troca simples. Na linha 3 inicializamos uma variável local com o texto do label; na linha 4 atribuimos o texto do botão ao texto do rótulo; e na linha 5 chamamos o método da classe \texttt{\textbf{UIButton}} responsável por modificar o texto do botão, que no caso será o texto salvo na variável auxiliar.
+\paragraph{}Rode o aplicativo no simulador para verificar o funcionamento do botão.\\
+
+\bigskip
+
+\subsection{Manipulando a Navigation Controller}
+
+\paragraph{}Pensando agora na próxima tela, vamos preparar o código para a transição. Adicionamos um novo botão que servirá de chamada para a segunda tela, e criamos um \texttt{\textbf{outlet}} e uma \texttt{\textbf{action}} para ele. Colocaremos no método da \texttt{\textbf{action}} a chamada para a segunda tela, que será através de um \emph{push} da tela na Navigation Controller.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (IBAction)secondScreenTouched:(id)sender {
+    
+    self.secondScreen = [[SecondScreenViewController alloc]
+                        initWithNibName:
+                        @"SecondScreenViewController"
+                        bundle:nil];
+    
+    [self.navigationController pushViewController:
+    							 self.secondScreen
+                                         animated:YES];
+}
+\end{minted}
+\end{listing}
+
+\paragraph{}Para chamar uma nova tela é preciso criar uma instância da \emph{View Controller} a ser chamada, no caso da SecondScreenViewController (que ainda não criamos), para então jogá-la na pilha com o método de \emph{push}, que recebe como parâmetro a instância criada.
+\paragraph{}Na linha 3 inicializamos a \emph{View Controller} e na linha 7 adicionamos a \emph{View Controller} à pilha da \emph{Navigation Controller}.
+\paragraph{}Com a adição de mais um botão, a nossa tela deve estar parecida com essa:
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.4\textheight]{figuras/1/simulador3_tela1.png}
+  \caption{Primeira tela com o botão de chamada da segunda tela}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Agora podemos criar a segunda tela. Criamos um novo arquivo através do menu File->New->File..., e definimos a classe como sendo do tipo \texttt{\textbf{UIViewController}}, e com o nome SecondScreenViewController, assim como criamos no código em que instanciamos a tela.
+\paragraph{}Nessa segunda tela vamos colocar uma \texttt{\textbf{UIImage}}, arrastando da mesma forma que os outros objetos, e por enquanto mais um botão que fará a chamada de uma terceira tela.
+
+\pagebreak
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.35\textheight]{figuras/2/xib_tela2.png}
+  \caption{Tela 2 com UIImage ainda sem imagem definida}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Devemos agora definir uma imagem para a \texttt{\textbf{UIImage}}, mas antes devemos adicionar a imagem que queremos na pasta \emph{Supporting Files} do projeto. Para isso, basta clicar com o botão direito na pasta e selecionar a opção \emph{Add Files to "First App"...}, sendo \emph{"First App"} o nome dado ao projeto.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.3\textheight]{figuras/2/add_files.png}
+  \caption{Adicionando arquivos ao projeto}
+  \label{fig:a}
+\end{figure}
+
+\pagebreak
+
+\paragraph{}Adicionamos a imagem LogoDC.jpg contida no repositório deste turorial. Depois de adicionada, selecionamos a \texttt{\textbf{UIImage}} e digitamos o nome da imagem na barra lateral de opções.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.12\textheight]{figuras/2/image_path.png}
+  \caption{Definindo a imagem}
+  \label{fig:a}
+\end{figure}
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[totalheight=0.25\textheight]{figuras/2/xib2_tela2.png}
+  \caption{Imagem aparecendo na tela}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Para dar funcionalidade ao botão, crie a terceira tela com o nome ThirdScreenViewController, seguindo o exemplo, e faça a chamada da mesma forma que foi feito na primeira tela. Faça os testes e verifique o funcionamento. É possível retornar às telas anteriores, pois a \emph{Navigation Controller} cria um botão de retorno automaticamente.
+
+\bigskip
+
+\subsection{Trocando informação entre telas}
+
+\paragraph{}Ao inicializarmos uma instância de uma \emph{View Controller}, podemos atribuir valores às suas Properties antes de fazer o \emph{push} da tela. Dessa forma bem simples, é possível levar informação de uma tela existente para uma tela nova, podendo exibir ou tratar esses dados convenientemente na \emph{View Controller} da próxima tela. Para exemplificar, vamos criar um campo de texto na segunda tela e exibir o seu conteúdo em um rótulo na terceira tela.
+\paragraph{}Para isso vamos precisar de um campo de texto na segunda tela, de um rótulo na terceira tela, e de uma variável do tipo string na terceira tela (ThirdScreenViewController.h), onde vamos armazenar o conteúdo do campo de texto. Além disso, também é preciso criar a \texttt{\textbf{action}} para fazer a chamada da terceira tela pelo botão.
+\paragraph{}A \texttt{\textbf{Property}} da string é criada no arquivo de header da classe da terceira tela da seguinte forma:
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@property (nonatomic, strong) NSString *textLabel;
+\end{minted}
+\end{listing}
+
+\paragraph{}A segunda tela e suas propriedades devem estar assim:
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.35\textheight]{figuras/2/xib_tela2_header.png}
+  \caption{Tela 2 e seus atributos. Repare nos pontos que definem as ligações dos outlets com a interface.}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}E o método com a chamada da terceira tela será semelhante, apenas com a adição da passagem da variável na linha 7 do código a seguir.
+
+\pagebreak
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (IBAction)thirdScreen:(id)sender {
+    
+    self.thirdScreen = [[ThirdScreenViewController alloc]
+                initWithNibName:@"ThirdScreenViewController"
+                         bundle:nil];
+    
+    self.thirdScreen.textLabel = self.nameTextField.text;
+    
+    [self.navigationController pushViewController:
+                                 self.thirdScreen
+                                         animated:YES];
+}
+\end{minted}
+\end{listing}
+
+\paragraph{}Além disso, precisamos tratar o conteúdo da variável na classe da terceira tela. Vamos verificar no método \texttt{\textbf{viewDidLoad}} o conteúdo da variável que recebeu o dado da segunda tela.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    if (![self.textLabel isEqualToString:@""]) {
+        self.nameLabel.text = self.textLabel;
+    } else {
+        self.nameLabel.text = @"Sem nome";
+    }
+    
+    self.messageTextField.delegate = self;
+}
+\end{minted}
+\end{listing}
+
+\bigskip
+
+\paragraph{}De uma forma bem simples, verificamos o conteúdo da string recebida na linha 5 e a atribuimos para o conteúdo do rótulo na linha 6 ou 8, de acordo com a condição.
+\paragraph{}Note que há ainda um problema gráfico: após a edição do campo de texto na segunda tela, o teclado sobre mas não abaixa automaticamente, mas deixaremos assim por enquanto. Tente posicionar o campo de texto e o botão de forma que o teclado não os cubra, apenas para verificar o funcionamento do código. Resolveremos o problema do teclado mais a frente.
+
+\pagebreak
+
+\paragraph{}A imagem abaixo mostra a segunda tela no simulador.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.5\textheight]{figuras/2/simulador2_tela2.png}
+  \caption{Tela 2 completa}
+  \label{fig:a}
+\end{figure}
+
+\bigskip
+
+\subsection{O uso do protocolo Delegate}
+
+\paragraph{}O protocolo \texttt{\textbf{Delegate}} é uma das ferramentas mais importantes do Objective-C. Na execução do código de um objeto, este não tem como ter acesso ao código do objeto que o instanciou. Com o uso do \texttt{\textbf{Delegate}} um objeto pode enviar dados para um segundo objeto que enxerga o primeiro mas não pode ser enxergado por ele. Assim é possível determinar que a partir de um evento ou uma condição, será enviada uma mensagem, que pode ser uma notificação ou um dado, a partir de um método \texttt{\textbf{Delegate}} que vai saber como e onde encontrar o destino dessa mensagem.
+\paragraph{}Veremos dois exemplos de uso do \texttt{\textbf{Delegate}} no nosso aplicativo. No primeiro usaremos um método já pronto, que será responsável por enviar o aviso para o teclado de que o campo de texto já terminou de ser usado e ele agora deve desaparecer. No segundo vamos implementar um método para enviar uma string da terceira tela para a tela que a chamou, no nosso caso a segunda tela.
+
+\paragraph{}Utilizar o \texttt{\textbf{Delegate}} já implementado do \texttt{\textbf{UITextField}} é bem simples. Fazemos uma referência no header (arquivos .h) de todas as classes em que utilizamos o teclado em um \texttt{\textbf{UITextField}}, no caso a segunda e terceira tela (SecondScreenViewController e ThirdScreenViewController. Fazemos dessa forma:
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@interface SecondScreenViewController :
+           UIViewController <UITextFieldDelegate>
+\end{minted}
+\end{listing}
+
+\paragraph{}A referência a um \texttt{\textbf{Delegate}} vem sempre entre os símbolos < e > na declaração da classe, separando por vírgula dentro da chave se houver mais de um. Após isso, precisamos apenas atribuir o \texttt{\textbf{Delegate}} à classe no \texttt{\textbf{viewDidLoad}} das classes em que utilizaremos o\\ \texttt{\textbf{UITextFieldDelegate}}.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+self.nameTextField.delegate = self;
+\end{minted}
+\end{listing}
+
+\paragraph{}Pronto, agora é possível que o objeto \texttt{\textbf{UITextField}}, que foi instanciado na classe da tela e consequentemente não enxerga os elementos dessa classe, como o teclado, envie informações à mesma. No caso, queremos que o teclado seja dispensado no momento que terminarmos de editar o campo de texto, e quando isso ocorre há um método a ser chamado. Vamos implementar este método com a lógica que queremos no arquivo de implementação da classe.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    if (textField == self.nameTextField) {
+        [textField resignFirstResponder];
+    }
+    
+    return YES;
+}
+\end{minted}
+\end{listing}
+
+\paragraph{}Este código verifica na linha 3 se o objeto \texttt{\textbf{UITextField}} que chamou o método é o mesmo objeto instanciado na classe, no caso o \texttt{\textbf{nameTextField}}. Assim, quando há mais de um \texttt{\textbf{UITextField}}, podemos definir comportamentos diferentes para cada um apenas fazendo essa verificação.
+\paragraph{}Execute o projeto e faça o teste, agora o teclado deve sumir quando o campo de texto não está selecionado.
+
+\paragraph{}No exemplo anterior, fizemos o uso de um texttt{\textbf{Delegate}} existente. Agora vamos implementar um novo \texttt{\textbf{Delegate}} a partir do zero para determinar o envio de informações de uma tela para a tela que a chamou. Vamos definir o \texttt{\textbf{Delegate}} na classe da terceira tela, e usar o método na segunda. Criamos um \texttt{\textbf{Protocol}} no header da classe, e dentro inserimos os métodos do \texttt{\textbf{Delegate}}, que no caso será apenas um, que terá a função de enviar como parâmetro o conteúdo de um campo de texto da terceira tela. Ficará assim:
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@protocol MessageDelegate <NSObject>
+
+-(void)sendMessageFromTextField:(NSString*)message;
+
+@end
+\end{minted}
+\end{listing}
+
+Esta é a declaração de um protocolo \texttt{\textbf{Delegate}}. O título é declarado entre \texttt{\textbf{@protocol}} e \texttt{\textbf{<NSObject>}}, e entre a declaração do título e \texttt{\textbf{@end}} é feita a declaração de todos os métodos desse \texttt{\textbf{Delegate}}.
+
+\paragraph{}Então criamos uma propriedade no header para o \texttt{\textbf{Delegate}} que criamos, que tem o nome \texttt{\textbf{MessageDelegate}}.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@property (assign, nonatomic) id <MessageDelegate> delegate;
+\end{minted}
+\end{listing}
+
+\paragraph{}O que fizemos aqui foi criar a declaração de um \texttt{\textbf{Delegate}}, como fazemos com uma classe, e então instanciamos um objeto do tipo do \texttt{\textbf{Delegate}} que criamos. Este objeto servirá de referência para que outras classes possam implementar e utilizar os métodos criados pelo \texttt{\textbf{Delegate}}.
+
+\paragraph{}Definimos o \texttt{\textbf{Delegate}} e seu método, agora basta definir onde será a chamada do método. Criaremos um botão na terceira tela, e ligado a ela uma \emph{action} chamada \texttt{\textbf{sendMessage}}, e nesta \emph{action} ficará a chamada para o método do delegate.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (IBAction)sendMessage:(id)sender {
+    
+    [self.delegate sendMessageFromTextField:
+                   self.messageTextField.text];
+}
+\end{minted}
+\end{listing}
+
+Este é o método da \texttt{\textbf{action}} que criamos, e é acionado quando o botão "Enviar Mensagem" é tocado. Dentro dele fazemos a chamada do método \texttt{\textbf{sendMessageFromTextField}} definido no \texttt{\textbf{MessageDelegate}}, que vai buscar a implementação do método em qualquer classe que tenha referenciado o \texttt{\textbf{MessageDelegate}}.
+
+\pagebreak
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.4\textheight]{figuras/3/simulador3_tela3.png}
+  \caption{Tela 3 com o botão para enviar mensagem}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Isso determina que ao apertarmos o botão da tela 3, o método do \texttt{\textbf{Delegate}} que criamos será chamado recebendo o conteúdo do campo como parâmetro. Para receber esse conteúdo na segunda tela, faremos como no caso do teclado, implementando o método criado no \texttt{\textbf{Delegate}} com o comportamento que for desejado.
+
+\paragraph{}Na segunda tela, faremos o mesmo processo que fizemos com o \texttt{\textbf{Delegate}} do \texttt{\textbf{UITextField}}. Adicionamos a referência ao nosso \texttt{\textbf{Delegate}} ao header (SecondScreenViewController.h).\\
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@interface SecondScreenViewController : UIViewController
+           <UITextFieldDelegate, MessageDelegate>
+\end{minted}
+\end{listing}
+
+\paragraph{}No método em que é chamada a terceira tela, atribuímos o nosso \texttt{\textbf{Delegate}} à classe da segunda tela, logo após a instanciação.
+
+\pagebreak
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (IBAction)thirdScreen:(id)sender {
+    
+    self.thirdScreen = [[ThirdScreenViewController alloc]
+                  initWithNibName:@"ThirdScreenViewController"
+                           bundle:nil];
+    
+    self.thirdScreen.textLabel = self.nameTextField.text;
+    
+    self.thirdScreen.delegate = self;
+    
+    [self.navigationController pushViewController:
+                                      self.thirdScreen
+                                         animated:YES];
+}
+\end{minted}
+\end{listing}
+
+Na linha 7 temos a adição da referência da instância do \texttt{\textbf{MessageDelegate}} da tela 3 para a tela 2.
+
+\paragraph{}Tudo pronto, agora basta implementar o método. Nossa intenção é que a segunda tela retorne exibindo o texto recebido da terceira tela no campo de texto, ou seja, precisamos chamar a terceira tela e atribuir o texto recebido por parâmetro ao campo de texto \texttt{\textbf{nameTextField}}. Deve ficar assim:
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+-(void)sendMessageFromTextField:(NSString *)message {
+    
+    [self.navigationController popToViewController:self
+                                          animated:YES];
+    
+    self.nameTextField.text = message;
+}
+\end{minted}
+\end{listing}
+
+Na linha 3 chamamos a tela 3 para a \emph{Navigation Controller}, e na linha 5 salvamos a mensagem que escrevemos como conteúdo do campo de texto criado na tela 3.
+
+\bigskip
+
+
+\section{Criando uma agenda}
+
+\paragraph{}Entre os tipos de \emph{Views} mais utilizadas no iOS, temos as tabelas. Qualquer tela exibindo informações bem divididas como playlist de músicas, lista contatos, ou informações estruturadas em linhas, é do tipo \texttt{\textbf{UITableView}} se for uma \emph{View}, ou \texttt{\textbf{UITableViewController}} se for uma controladora. Como já explicado, se for preciso apenas exibir informações estáticas sem interação com o usuário, criamos uma classe herdando de \texttt{\textbf{UITableView}}, porém na maioria dos casos vamos precisar de tabelas com dados dinâmicos e possibilidade de interação por toque, então criamos um classe herdando de \texttt{\textbf{UITableViewController}}.
+\paragraph{}A classe \texttt{\textbf{UITableViewController}} possui diversos métodos para gerenciar o comportamento de uma tabela. Desde o básico para defininção do número de seções, linhas por seções e o conteúdo de cada linha, até o ajuste das ações para tipos diferentes de toque, como um toque único ou um \emph{slide} na linha para obter novas opções.
+\paragraph{}Vamos implementar um exemplo simples de uma lista de contatos, exibindo-os em ordem alfabética a partir de um pré-determinado \emph{array} de objetos do tipo \texttt{\textbf{Contato}}, que será a classe modelo que criaremos para contatos com informações como nome completo e número.\\
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.5\textheight]{figuras/apple_table_view_controller_contatos.png}
+  \caption{Exemplo de tela com lista de contatos que chama tela com lista de atributos}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}É interessante que você acompanhe o tutorial junto com a documentação da Apple sobre \texttt{\textbf{UITableViewController}}, e no final busque novos tipos de interação com o usuário e customização da tabela. Não é a toa que essa estrutura é tão explorada nos aplicativos, há uma gama muito grande de possibilidades para seu uso.\\
+
+\pagebreak
+
+\paragraph{}Crie um novo projeto da mesma forma que fizemos com o primeiro aplicativo, e coloque "Table" como nome. Agora abra o arquivo \texttt{\textbf{TableViewController.m}} e na declaração da classe adicione \texttt{\textbf{<UITableViewDataSource,UITableViewDelegate>}}.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@interface TableViewController : UIViewController
+             <UITableViewDataSource,UITableViewDelegate>
+\end{minted}
+\end{listing}
+
+\paragraph{}Assim teremos a possibilidade de sobrescrever diversos métodos de \texttt{\textbf{da UITableView}} que já são chamados pela controladora para gerenciar o comportamento e as configurações da tabela.
+\paragraph{}Métodos como esse:
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section
+\end{minted}
+\end{listing}
+
+\paragraph{}Que retorna o número de linhas por seção. E esse:
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+\end{minted}
+\end{listing}
+
+Que é chamado no carregamento de cada célula da tabela e retorna um objeto \texttt{\textbf{UITableViewCell}} que contém as definições dessa celula, como texto, imagem de fundo, ou uma imagem miniatura. O endereço da célula é obtido pelo parâmetro \texttt{\textbf{indexPath}}, que contém dois valores: a seção (\texttt{\textbf{section}}) e a linha (\texttt{\textbf{row}}).
+\paragraph{}Vamos carregar os dados dos contatos a partir de uma property list chamada \texttt{\textbf{contatos.plist}} já criada e presente no repositório. Adicione este arquivo no projeto e abra-o para entender como os contatos estão estruturados. A ideia é dividir os contatos pela letra inicial, tornando cada letra existente uma chave primária para a estrutura. Dessa forma podemos montar esses dados em um dicionário e facilitar a busca e a ordenação dos contatos.
+
+\pagebreak
+
+\subsection{Classe de modelo dos contatos}
+
+\paragraph{}Antes dessa leitura, é preciso criar uma classe modelo para o contato. A classe é simples, vai conter apenas nome, sobrenome, e número. Para isso, basta criar um novo arquivo da mesma que fizemos até agora, herdando simplesment de \texttt{\textbf{NSObject}}. Usaremos o nome \texttt{\textbf{DataContato}}.
+\paragraph{}No arquivo \texttt{\textbf{DataContato.h}} colocaremos apenas as 3 propriedades da classe, e um método construtor.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@interface DataContato : NSObject
+
+@property (nonatomic, retain) NSString *firstName;
+@property (nonatomic, retain) NSString *lastName;
+@property (nonatomic, retain) NSString *numero;
+
+- (id)initWithFirstName:(NSString *)aFirstName
+               lastName:(NSString *)aLastName
+                 numero:(NSString *)aNumero;
+
+@end
+\end{minted}
+\end{listing}
+
+\pagebreak
+
+\paragraph{}E no arquivo \texttt{\textbf{DataContato.m}} colocamos a implementação do construtor.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@implementation DataContato
+
+- (id)init
+{
+    return [self initWithFirstName:@"N/A"
+                          lastName:@"N/A"
+                            numero:@"N/A"];
+}
+
+- (id)initWithFirstName:(NSString *)aFirstName
+               lastName:(NSString *)aLastName
+                 numero:(NSString *)aNumero;
+{    
+    self.firstName = aFirstName;
+    self.lastName = aLastName;
+    self.numero = aNumero;
+    
+    return self;
+}
+
+@end
+\end{minted}
+\end{listing}
+
+\pagebreak
+
+\subsection{Organização da estrutura}
+
+\paragraph{}Com o modelo pronto, podemos montar o arquivo \texttt{\textbf{contato.plist}} em um dicionário de uma forma que os dados tenham sentido. É preciso importar a classe em \texttt{\textbf{TableViewController.h}} e criar as propriedades e métodos que utilizaremos para gerenciar a estrutura dos contatos e orderná-los.
+\paragraph{}Em um projeto maior, o mais correto seria implementar o gerenciamento e lógica da estrutura de dados em uma classe separada, para manter o código organizado. Mas por enquanto vamos colocar a lógica na \texttt{\textbf{TableViewController}} para deixar mais simples o entendimento.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+#import "DataContato.h"
+
+@interface TableViewController : UIViewController 
+           <UITableViewDataSource,UITableViewDelegate>
+
+@property (nonatomic, retain) NSMutableDictionary *dictionary;
+@property (nonatomic, retain) NSMutableArray *keysArray;
+@property (nonatomic, retain) NSMutableArray *contatoObjArray;
+
+- (void) setDictionaryArray;
+- (void) sortObjArray:(NSMutableArray *)arrayObj;
+
+@end
+\end{minted}
+\end{listing}
+
+A propriedade \texttt{\textbf{dicionary}} vai ser o nosso dicionário, contendo todos os dados do arquivo \texttt{\textbf{contatos.plist}}, desordenados e sem significado. Em \texttt{\textbf{keysArray}} salvaremos um \emph{array} com as primeiras letras dos contatos, assim podemos buscar os dados em \texttt{\textbf{dictionary}} para enfim transformá-los em objetos \texttt{\textbf{DataContato}}, e salvá-los em \texttt{\textbf{ContatoObjArray}}, divididos entre as letras.
+\paragraph{}Agora vamos para o arquivo de implementação definir nosso método \texttt{\textbf{viewDidLoad}}.
+
+\pagebreak
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.navigationItem.title = @"Contatos";
+    
+    NSString *filePath = [[NSBundle mainBundle]
+    					pathForResource:@"contatos"
+    					ofType:@"plist"];
+    
+    self.dictionary = [[NSMutableDictionary alloc]
+    				   initWithContentsOfFile:filePath];
+    
+    [self setDictionaryArray];
+}
+\end{minted}
+\end{listing}
+
+Nesse código, primeiro damos à tela o título \emph{Contatos}, e então vamos montar o endereço do arquivo \texttt{\textbf{contatos.plist}} na variável \texttt{\textbf{filePath}}. Podemos então inicializar a propriedade \texttt{\textbf{dictionary}} com o conteúdo desse endereço. Por último chamamos o método \texttt{\textbf{setDictionaryArray}}, que será onde montaremos a estrutura dos contatos utilizando as chaves primárias e a classe \texttt{\textbf{DataContato}}.
+\paragraph{}Agora vamos montar o método \texttt{\textbf{setDictionaryArray}} por partes. Vamos primeiro separar as chaves primárias e ordená-las utilizando um objeto \texttt{\textbf{NSSortDescriptor}}:
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+NSMutableArray *tmpKey, *tmpContato;
+    NSString *firstNameAux, *lastNameAux, *numeroAux;
+    
+    NSSortDescriptor *sort = [NSSortDescriptor
+                              sortDescriptorWithKey:nil
+                                          ascending:YES];
+    
+    self.keysArray = [[NSMutableArray alloc] initWithArray:
+                                    [self.dictionary allKeys]];
+    [self.keysArray sortUsingDescriptors:
+                               [NSArray arrayWithObject:sort]];
+    
+    int countKeys = [self.keysArray count];
+
+    NSMutableArray *arrayObj = [[NSMutableArray alloc] init];
+\end{minted}
+\end{listing}
+
+\paragraph{}Este código mostra um modo mais simples de ordenação de um \texttt{\textbf{NSArray}} com um \texttt{\textbf{NSSortDescriptor}}. Criamos o objeto \texttt{\textbf{sort}} e setamos que a ordenação vai ser ascendente, então salvamos em \texttt{\textbf{keysArray}} todas as chaves de \texttt{\textbf{dictionary}} utilizando o método \texttt{\textbf{allKeys}} de \texttt{\textbf{NSDictionary}}. Por fim fazemos a ordenação de \texttt{\textbf{keysArray}} com o método \texttt{\textbf{sortUsingDescriptors}}, onde mandamos como parâmetro um \texttt{\textbf{NSArray}} criado com o \texttt{\textbf{sort}}.
+\paragraph{}Sempre que vamos fazer uma ordenação de um \texttt{\textbf{NSArray}}, devemos criar um ou mais objeto \texttt{\textbf{NSSortDescriptor}} (podemos ter mais de um fato de ordenação, como veremos mais a frente) e criamos um novo\texttt{\textbf{NSArray}} contendo esses objetos. Com o \texttt{\textbf{NSArray}} a ser ordenado e o \texttt{\textbf{NSArray}} de ordenação, já temos tudo que é preciso para o método resolver o problema.
+\paragraph{}Agora continuamos com o método, e faremos um laço para separar os contatos de cada letra, utilizando métodos do \texttt{\textbf{NSDictionary}} para obter o conteúdo de cada chave. E dentro mais um laço para separar os dados de cada contato. Assim, podemos criar novas instâncias de \texttt{\textbf{DataContato}} com os dados obtidos da estrutura de \texttt{\textbf{dictionary}}.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+for (int i=0; i<countKeys; i++)
+    {
+	 tmpKey = [[NSMutableArray alloc] init];
+        tmpKey = [NSMutableArray arrayWithArray:
+                  [self.dictionary objectForKey:
+                          [self.keysArray objectAtIndex:i]]];
+        
+        NSMutableArray *arrayObjAux = [[NSMutableArray alloc] init];
+        
+        for (int j=0; j<[tmpKey count]; j++)
+        {
+            tmpContato = [[NSMutableArray alloc] initWithArray:
+                                     [tmpKey objectAtIndex:j]];
+
+            firstNameAux = [[NSString alloc] initWithString:
+                              [tmpContato objectAtIndex:0]];
+            lastNameAux = [[NSString alloc] initWithString:
+                             [tmpContato objectAtIndex:1]];
+            numeroAux = [[NSString alloc] initWithString:
+                           [tmpContato objectAtIndex:2]];
+            
+            DataContato *a = [[DataContato alloc] 
+                     initWithFirstName:firstNameAux
+                              lastName:lastNameAux
+                                numero:numeroAux];
+            
+            [arrayObjAux addObject:a];            
+        }
+        
+        [arrayObj addObject:arrayObjAux];
+    }
+\end{minted}
+\end{listing}
+
+\pagebreak
+
+\paragraph{}Finalizando o método, fazemos a chamada do método que vai ordenar o \emph{array} de objetos \texttt{\textbf{DataContato}} produzido, ordenando internamente os contatos de cada chave primária de acordo com nome e sobrenome.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+[self sortObjArray:arrayObj];
+\end{minted}
+\end{listing}
+
+Neste método \texttt{\textbf{sortObjArray}}, faremos um uso mais específico do \texttt{\textbf{NSSortDescriptor}}, que nos permite alguns truques de ordenação. Vamos ordernar primeiro por nome e depois por sobrenome, e realocar o contato inteiro e não cada atributo separado. Assim como fizemos no método anterior, vamos definir nossas prioridades de ordenação em um \texttt{\textbf{NSArray}}, e utilizar um método parecido de \texttt{\textbf{NSArray}} para ordernar automaticamente o \emph{array} de contatos de cada letra.\\
+\paragraph{}Vamos criar o método \texttt{\textbf{sortObjArray}} por partes. Primeiro criamos os dois arquivos de ordenação, um pra nome e outro pra sobrenome.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+self.contatoObjArray = [[NSMutableArray alloc] init];
+    
+    // ordenar Nomes
+    NSString *LASTNAME = @"lastName";
+    NSString *FIRSTNAME = @"firstName";
+    
+    // Descriptor do sobrenome
+    NSSortDescriptor *lastDescriptor =
+    [[NSSortDescriptor alloc]
+      initWithKey:LASTNAME
+      ascending:YES
+      selector:@selector(localizedCaseInsensitiveCompare:)];
+    
+    // Descriptor do nome
+    NSSortDescriptor *firstDescriptor =
+    [[NSSortDescriptor alloc]
+      initWithKey:FIRSTNAME
+      ascending:YES
+      selector:@selector(localizedCaseInsensitiveCompare:)];
+\end{minted}
+\end{listing}
+
+Cada \emph{descriptor} vai ser responsável pela ordenação de um atributo do objeto \texttt{\textbf{DataContato}}. Definimos qual vai ser o atributo nos parâmetros, e utilizamos um \emph{selector} que não vai diferenciar letras maiúsculas e minúsculas.
+
+\paragraph{}O \texttt{\textbf{NSSortDescriptor}} é uma biblioteca muito poderosa para ordenação, que vale a pena ser um pouco mais estudada.
+
+\pagebreak
+
+\paragraph{}Finalizamos o método criando um \emph{array} com a nossa prioridade de ordenação, e criamos um laço que vai pegar o \emph{array} de cada letra e ordenar com o método \texttt{\textbf{sortedArrayUsingDescriptors}} que recebe o nosso \emph{array} com a prioridade.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+NSArray * descriptors =
+    [NSArray arrayWithObjects:firstDescriptor, lastDescriptor, nil];
+      
+    for(NSMutableArray* array in arrayObj)
+        [self.contatoObjArray addObject:[array sortedArrayUsingDescriptors:descriptors]];
+\end{minted}
+\end{listing}
+
+\bigskip
+
+\subsection{A lista de contatos}
+
+\paragraph{}Com a nossa estrutura de dados pronta, podemos enfim criar um objeto \texttt{\textbf{UITableView}} em \texttt{\textbf{UITableViewController}} para começarmos a lidar com os dados na tela.
+\paragraph{}Adicione a tabela pelo \emph{Interface Builder} da mesma forma que já fizemos. Apague tudo que já existir na tela, selecione \texttt{\textbf{Table View}} entre os objetos e arraste para a tela. Então selecione a tabela adicionada e arraste-a com o Ctrl apertado para o código do \emph{header} ao lado para criar um \emph{outlet}. Crie-o com o nome \texttt{\textbf{table}}. Além disso, é preciso fazer a ligação com o \emph{File's Owner} para indicar que as alterações feitas no código da \texttt{\textbf{UITableViewController}} terão efeito na tabela. Para isso, basta selecionar a tabela e arrastar com o Ctrl apertado até o quadrado amarelo no lado esquerdo. Selecione \texttt{\textbf{dataSource}}, e faça mais uma vez para selecionar \texttt{\textbf{delegate}}.
+\paragraph{}Agora temos nossa tabela pronta para uso, devemos então customizá-la sobrescrevendo seus métodos. Para definir características de exibição da tabela, utilizaremos por enquanto 5 métodos básicos: número de seções (total de letras), número de linhas por seção (total de contatos por letra), título de cada seção (cada letra), o índice de seções na lateral (o \emph{array} de letras), e o que será exibido em cada célula (cada contato). Vamos passar devagar por cada um dos métodos.
+
+\pagebreak
+
+\paragraph{}Os métodos de contagem são bem simples, retornando simplesmente o total de cada \texttt{\textbf{NSArray}}.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (NSInteger)numberOfSectionsInTableView:
+                          (UITableView *)tableView
+{
+    return [self.keysArray count];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section
+{
+    return [[self.dictionary objectForKey:
+                 [self.keysArray objectAtIndex:section]] count];
+}
+\end{minted}
+\end{listing}
+
+No primeiro método, retornamos o total de elementos de \texttt{\textbf{keysArray}}. O segundo método tem a mesma ideia, mas é necessário utilizar o parâmetro \texttt{\textbf{section}} para buscar o total de contatos de acordo com a letra, já que esse valor é variável.
+\paragraph{}O método \texttt{\textbf{objectForKey}} de \texttt{\textbf{NSDictionary}} retorna o conteúdo de uma dada chave do dicionário, e o método \texttt{\textbf{objectAtIndex}} de \texttt{\textbf{NSArray}} retorna o conteúdo de uma dada posição do \emph{array}.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (NSString *)tableView:(UITableView *)tableView
+             titleForHeaderInSection:(NSInteger)section
+{
+    return [self.keysArray objectAtIndex:section];
+}
+
+- (NSArray *)sectionIndexTitlesForTableView:
+                          (UITableView *)tableView
+{    
+    return [self.keysArray];
+}
+\end{minted}
+\end{listing}
+
+Seguindo a mesma ideia dos métodos anteriores, neste primeiro método retornamos a letra contida na posição correspondente ao valor de \texttt{\textbf{section}} em \texttt{\textbf{keysArray}}. No segundo método, definimos um índice para a lista de contatos retornando o próprio \texttt{\textbf{keysArray}} que contém todas as letras ordenadas.
+\paragraph{}Por enquanto já temos definido a organização das seções e linhas da tabela, faltando apenas determinar o que cada célula vai exibir. Vamos definir a construção e conteúdo das celulas método a seguir.
+
+\pagebreak
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (UITableViewCell *) tableView:(UITableView *)tableView
+               cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *MyIdentifier = @"MyIdentifier";
+    
+    UITableViewCell *cell = [tableView 
+              dequeueReusableCellWithIdentifier:MyIdentifier];
+    if(cell == nil) {
+        cell = [[UITableViewCell alloc] 
+                     initWithStyle:UITableViewCellStyleDefault
+                   reuseIdentifier:MyIdentifier];
+    }
+
+    DataContato *a = [[self.contatoObjArray
+                   objectAtIndex:indexPath.section]
+                   objectAtIndex:indexPath.row];
+
+    NSString *texto = a.firstName;
+    cell.textLabel.text = texto;
+        
+    UIImage *cellImage = [UIImage imageNamed:@"apple.png"];
+        
+    cell.imageView.image = cellImage;
+    
+    return cell;
+}
+\end{minted}
+\end{listing}
+
+A primeira parte do método é um código padrão que serve para reutilizar células, e criar apenas o número de células exibidas na tela, atualizando o conteúdo de acordo com a rolagem feita pelo usuário. O processo de criação das células é custoso, sendo desnescessário criar uma célula para cada linha que será exibida, bastando apenas criar um número fixo e reutilizar. Não é preciso entender exatamente o que esse trecho faz, apenas copie-o.
+\paragraph{}Na segunda parte temos a criação do conteúdo de fato, utilizando o parâmetro \texttt{\textbf{indexPath}}. Como dito anteriormente, o \texttt{\textbf{indexPath}} possui os atributos \texttt{\textbf{section}}, com o número da seção, e \texttt{\textbf{row}}, com o número da linha. Ele funciona como o posicionamento de uma matriz, e graças a ela podemos definir conteúdo variável nas células.
+\paragraph{}Este método é chamado na criação de cada célula da tabela, e retorna o objeto \texttt{\textbf{cell}} do tipo \texttt{\textbf{UITableViewCell}}, que nada mais é que o pacote de conteúdo e características de uma célula, com diversos atributos que definem a célula.
+\paragraph{}Vamos então instanciar um objeto \texttt{\textbf{DataContato}} de acordo com os valores de \texttt{\textbf{section}} e \texttt{\textbf{row}}, que darão a posição do objeto em \texttt{\textbf{contatoObjArray}}. Então salvamos apenas a \emph{string} do primeiro nome em \texttt{\textbf{cell.textLabel.text}}, onde \texttt{\textbf{textLabel}} é um atributo do tipo \texttt{\textbf{UILabel}} que determina o texto que é exibido na célula e suas características.
+\paragraph{}Além disso, vamos determinar uma imagem a ser exibida na célula. No caso utilizei uma imagem bem simples, contida no repositório, com o logo da Apple, mas você pode colocar outra imagem em .png se quiser, bastando colocar o nome da imagem no parâmetro correspondente. Essa imagem será então salva em \texttt{\textbf{cell.imageView.image}}. Note que, se cada contato tiver uma imagem customizada, é possível determinar um \texttt{\textbf{NSArray}} com o nome da imagem correspondente a cada contato, e utilizar o \texttt{\textbf{indexPath}} da mesma forma que o utilizamos para determinar o texto da célula.
+
+\bigskip
+
+\subsection{Tela de detalhes}
+
+\paragraph{}Pronto, já temos a exibição dos contatos funcionando. O próximo passo é criar uma tela de exibição dos detalhes do contato, que também usará uma \texttt{\textbf{UITableView}} e que será chamada quando a célula de um contato for clicado.
+\paragraph{}Crie uma nova tela herdando de \texttt{\textbf{UIViewController}} chamada \texttt{\textbf{Detail}}. Assim como fizemos na \texttt{\textbf{TableViewController}}, adicione uma \texttt{\textbf{UITableView}} na tela (que chamei de \texttt{\textbf{tableDetail}}), crie o \texttt{\textbf{outlet}}, faça as ligações com o \texttt{\textbf{File's Owner}}, e por fim mude a declaração da classe no arquivo header \texttt{\textbf{Detail.h}}.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@interface Detail : UIViewController
+         <UITableViewDataSource,UITableViewDelegate>
+\end{minted}
+\end{listing}
+
+Por último, faremos uma alteração no \emph{layout} da tabela. No \emph{Interface Builder}, abra o menu \emph{Utilities} à direita, selecione a tabela e vá em \emph{Attributes Inspector}, e lá mude o atributo \emph{Style} de \emph{Plain} para \emph{Grouped}. Como teremos uma lista pequena com apenas uma \texttt{\textbf{section}}, esse layout parece mais adequado.
+\paragraph{}Além da tabela, vamos criar mais uma única propriedade que será uma instância de\\
+\texttt{\textbf{DataContato}}, que chamaremos simplesmente de \texttt{\textbf{contato}}. A ideia é que quando uma célula de \texttt{\textbf{TableViewController}} for tocada, a tela \texttt{\textbf{Detail}} será chamada e o contato correspondente à celula será salvo em \texttt{\textbf{contato}} para que todos seus atributos sejam exbidos na tabela.
+
+\pagebreak
+
+\paragraph{}A classe em \texttt{\textbf{Detail.h}} deve ficar assim:
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@interface Detail : UIViewController
+           <UITableViewDataSource,UITableViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableDetail;
+
+@property (nonatomic, retain) DataContato *contato;
+
+@end
+\end{minted}
+\end{listing}
+
+Partiremos agora para a implementação. O código nessa tela é bem mais simples que em \texttt{\textbf{TableViewController}}, já que o tamanho da tabela é fixo e o conteúdo a ser exibido virá sempre de \texttt{\textbf{contato}}.
+\paragraph{}Os métodos de contagem vão retornar valores fixos, sendo 1 seção com 2 linhas.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (NSInteger)numberOfSectionsInTableView:
+                               (UITableView *)tableView
+{        
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section
+{
+    return 2;
+}
+\end{minted}
+\end{listing}
+
+As duas células servirão para exibir, respectivamente, o nome completo e o número de telefone do contato. Para isso, vamos ler o nome e número do atributo \texttt{\textbf{DataContato}} da tela, salvá-los em um array, e assim definir qual deles será exibido de acordo com a posição da linha da tabela.
+
+\pagebreak
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (UITableViewCell *) tableView:(UITableView *)tableView
+               cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    // Set the text of the cell to the row index.
+    NSString *fullname = [[NSString alloc] init];
+    fullname = [contato.firstName stringByAppendingFormat:
+                                    @" %@",contato.lastName];
+    
+    NSString *fullnumber = [[NSString alloc] init];
+    fullnumber = [@"(" stringByAppendingFormat:
+                  @"%@) %@",[contato.numero substringToIndex:2],
+                         [contato.numero substringFromIndex:2]];
+    
+    NSMutableArray *textoArray = [[NSMutableArray alloc]
+                  initWithObjects:fullname, fullnumber, nil];
+
+    cell.textLabel.text = [textoArray objectAtIndex:
+                                               indexPath.row];
+    
+    return cell;
+}
+\end{minted}
+\end{listing}
+
+Como o nome está dividido em \texttt{\textbf{firstName}} e \texttt{\textbf{lastName}}, utilizamos o método\\
+\texttt{\textbf{stringByAppendingFormat}} de \texttt{\textbf{NSString}} para unirmos as duas strings e uma só. Utilizamos o mesmo método também para formatar o número, colocando o DDD entre parênteses.
+\paragraph{}E por último, determinamos o comportamento do toque na célula do número. Aqui vamos fazer o uso de dois novos componentes: o \texttt{\textbf{UIApplication}} para efetuar uma chamada no iPhone, e o \texttt{\textbf{UIAlertView}} para exibir um popup de alerta caso o dispositivo não seja um iPhone, e consequentemente não possa efetuar chamadas (e que também será o caso do iOS Simulator).
+
+\pagebreak
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=4,numbersep=3pt]{objective-c}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:
+                  (NSIndexPath *)indexPath {
+    if (indexPath.row == 1) {
+        if ([[[UIDevice currentDevice] model] isEqualToString:
+                                                   @"iPhone"]) {
+            NSString *phoneString = [[NSString alloc] 
+             initWithFormat:@"tel:%@",
+                                  (NSString *)contato.numero];
+            [[UIApplication sharedApplication] openURL:
+                    [NSURL URLWithString:phoneString]];
+        }
+
+        else {
+                   initWithTitle:@"Atenção"
+                         message:@"Seu dispositivo não permite
+                                 realizar ligações telefônicas."
+                        delegate:nil
+               cancelButtonTitle:@"OK"
+               otherButtonTitles:nil];
+               
+            [alert show];
+        }
+    }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+\end{minted}
+\end{listing}
+
+\paragraph{}Repare que são métodos bem intuitivos. O \texttt{\textbf{UIApplication}} é referenciado a partir de uma instância única, e o método para efetuar chamadas recebe um único parâmetro: uma string com o número a ser chamado. O \texttt{\textbf{UIAlert}} é instanciado com o texto do título, o texto do botão que vai fazer o alerta sumir, e um array de botões extras se for necessário, mas que não usaremos pra este caso.
+\paragraph{}O método da \texttt{\textbf{UITableView}} chamado por último serve apenas para que a célula não permaneça selecionada após o toque, é um detalhe puramente visual.
+
+\bigskip
+\bigskip
+
+\paragraph{}A essa altura já temos o aplicativo funcionando do jeito planejado, visualizando de forma organizada quaisquer contatos contidos na nossa \emph{Property List}. A última funcionalidade a ser implementada no aplicativo será a busca dos contatos.
+\paragraph{}O primeiro passo para implementar a busca, é adicionar uma \texttt{\textbf{SearchDisplayController}} através do Interface Builder na classe \texttt{\textbf{TableViewController}}. Selecione o elemento em \emph{Objects} no Interface Builder, e posicione-o dentro da \texttt{\textbf{View}}, acima da \texttt{\textbf{UITableView}}. Com a barra de busca posicionada, pressione a tecla Control e arraste-a até o cubo laranja (File's Owner), assim como fez com a tabela no início, e clique em \texttt{\textbf{delegate}}. Faça o mesmo processo novamente, mas arrastando para o arquivo .h, e salve o \emph{outlet} como \texttt{\textbf{searchBar}}.
+\paragraph{}Agora podemos partir para o código de implementação da classe \texttt{\textbf{TableViewController}} para determinar a lógica da busca com os métodos o \texttt{\textbf{Delegate}} da \texttt{\textbf{UISearchDisplayController}}. Vamos implementar apenas 3 métodos do \texttt{\textbf{Delegate}}. Eles serão responsáveis pelo comportamento de busca automática, bastando que o usuário comece a digitar para exibir os resultados na tela.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    
+    [self filterContentForSearchText:searchString];
+    
+    // Return YES to cause the search result table view to be reloaded.
+    return YES;
+}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
+    
+    [self filterContentForSearchText:[self.searchDisplayController.searchBar text]];
+    
+    // Return YES to cause the search result table view to be reloaded.
+    return YES;
+}
+\end{minted}
+\end{listing}
+
+O primeiro método é chamado se adicionarmos um botão junto da \texttt{\textbf{UISearchDisplayController}}, o que não é o caso, mas é bom já deixar o método implementado. O segundo método é o verdadeiro responsável pela mágica que queremos, e que vai forçar a atualização da tabela sempre que o texto na barra de busca for alterado. Os dois métodos chamam um terceiro método, que é onde vai a lógica da busca.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (void)filterContentForSearchText:(NSString*)searchText {
+    
+    [self searchTable];
+}
+
+- (void) searchTable {
+    
+    NSString *searchText = _searchBar.text;
+    NSMutableArray *searchArray = [[NSMutableArray alloc] init];
+    self.searchList = [[NSMutableArray alloc] init];
+    
+    // cópia dos nomes em searchArray
+    for (NSArray *array in self.contatoObjArray)
+        for (DataContato *contato in array)
+            [searchArray addObject:contato];
+    
+    // Range para buscar texto digitado nos nomes
+    for (DataContato *contato in searchArray)
+    {
+        NSRange range = [contato.firstName rangeOfString:searchText options:NSCaseInsensitiveSearch];
+        
+        // encontrou algo
+        if (range.length > 0)
+            [self.searchList addObject:contato];
+    }
+    
+}
+\end{minted}
+\end{listing}
+
+Coloquei a lógica em um método separado, que é chamado dentro de \texttt{\textbf{filterContentForSearchText}}, apenas para deixar mais claro onde está o mecanismo da busca em si.
+A ideia é passar todos contatos, que estão divididos em arrays de acordo com as iniciais, para um array único. Este array será então percorrido e o primeiro nome de cada contato será comparado com a string inserida pelo usuário na barra de busca. Todo contato que tiver em seu nome uma substring igual à string da busca será adicionado a um array com o resultado final da busca.
+\paragraph{}Para começar, crie uma nova propriedade do tipo \texttt{\textbf{NSArray}} chamada \texttt{\textbf{searchList}}, que será nosso array contendo o resultado final. Este array de busca será percorrido pela \texttt{\textbf{UITableView}} para exibir os resultados nas suas células, mas chegamos nisso daqui a pouco.
+\paragraph{}Agora percorremos os arrays de contatos de cada inicial, contidos em \texttt{\textbf{contatoObjArray}}, para adicionar todos os contatos a um array único que chamei de \texttt{\textbf{searchArray}}. Podemos então percorrer esse array único de objetos \texttt{\textbf{DataContato}}, e comparar a string \texttt{\textbf{firstName}} com a string obtida em \texttt{\textbf{self.searchBar.text}} (self também pode ser trocado por \_) e salva em \texttt{\textbf{searchText}}. Essa comparação é feita com o método \texttt{\textbf{rangeOfString:options:}} de \texttt{\textbf{NSString}}, onde fazemos a referência da string onde buscaremos a substring, e passamos como parâmetro a substring em questão e o tipo da busca, que no caso será feita sem diferenciar letras maiúsculas e minúsculas. Este método retorna um objeto do tipo \texttt{\textbf{NSRange}}, o qual será útil pelo seu atributo \texttt{\textbf{length}}. Se \texttt{\textbf{length}} for maior que zero, sabemos que a busca encontrou algo na string, e assim o objeto \texttt{\textbf{DataContato}} é adicionado ao array de resultados.
+
+\bigskip
+\bigskip
+
+Okay, temos o array de busca sendo preenchido, mas como exibiremos o resultado na tabela? Como a tabela que exibirá os resultados da busca é a mesma que exibe os contatos, devemos criar uma condição nos métodos da tabela para verificar se a barra de busca está em uso, sendo necessário exibir o array de resultados da busca. Essa condição é bem simples, e será necessária nos métodos de contagem dos elementos da tabela, no método de exibição do contéudo da célula, e no método que determina o comportamento caso a célula seja selecionada.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    if ([tableView
+         isEqual:self.searchDisplayController.searchResultsTableView])
+        return 1;
+    else
+        return [self.keysArray count];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section
+{
+    if ([tableView
+         isEqual:self.searchDisplayController.searchResultsTableView])
+        return [self.searchList count];
+    else
+        return [[self.dictionary objectForKey:[self.keysArray objectAtIndex:section]] count];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    
+    if ([tableView
+         isEqual:self.searchDisplayController.searchResultsTableView])
+        return @"Resultados";
+    else
+        return [self.keysArray objectAtIndex:section];
+}
+\end{minted}
+\end{listing}
+
+A condição será a mesma sempre. Verificamos se a \texttt{\textbf{UITableView}} recebida por parâmetro é a tabela criada pela \texttt{\textbf{UISearchDisplayController}}, e se for a tabela terá uma única seção com o título "Resultados" e o número de células será o tamanho do array \texttt{\textbf{searchList}}.
+\paragraph{}No método que define o que será exibido na célula, adicionamos a condição, e instanciamos o objeto \texttt{\textbf{DataContato}} a partir de \texttt{\textbf{searchList}} e retornamos o \texttt{\textbf{firstName}} da mesma forma.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+if ([tableView isEqual:self.searchDisplayController.searchResultsTableView])
+    {
+        [self.table reloadData];
+        DataContato *contato = [self.searchList objectAtIndex:indexPath.row];
+        cell.textLabel.text = contato.firstName;
+    }
+    
+    else
+    {
+        // Set the text of the cell to the row index.
+        NSString *texto;
+        DataContato *a;
+        a = [[self.contatoObjArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        texto = a.firstName;
+        cell.textLabel.text = texto;
+        
+        UIImage *cellImage = [UIImage imageNamed:@"apple.png"];
+        
+        cell.imageView.image = cellImage;
+    }
+\end{minted}
+\end{listing}
+
+Dessa forma, resta apenas adicionar a condição no método que define o resultado do toque na célula. O resultado continua o mesmo, mas temos que ter o cuidado de enviar o contato salvo em \texttt{\textbf{searchList}}, e não de \texttt{\textbf{contatoObjArray}}.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    Detail *detailView = [[Detail alloc] initWithNibName:@"Detail" bundle:nil];
+    
+    if ([tableView
+         isEqual:self.searchDisplayController.searchResultsTableView])
+    {
+        DataContato *a = [self.searchList objectAtIndex:indexPath.row];
+        detailView.contato = a;
+    }
+
+    else
+    {
+        DataContato *a = [[self.contatoObjArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        detailView.contato = a;
+    }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    [self.navigationController pushViewController:detailView animated:YES];
+    
+}
+\end{minted}
+\end{listing}
+
+Pronto, temos uma funcionalidade de busca prática e eficaz para a nossa agenda!
+\paragraph{}Agora que temos o aplicativo do jeito que definimos, aproveite para revisar o funcionamento de todos os métodos que utilizamos até aqui. Estude o que pode ser feito com \texttt{\textbf{NSArray}}, \texttt{\textbf{NSString}} e \texttt{\textbf{NSDictionary}} e como seus métodos facilitaram as estruturas. Além disso, revise os métodos da \texttt{\textbf{UITableView}} e entenda melhor o que foi feito. Como desafio, implemente a adição de contatos, desde a tela de adição até a reorganização das estruturas e gravação no arquivo da \emph{Property List}.
+
+\bigskip
+\bigskip
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\singlespace
+\selectlanguage{brazil}
+\cleardoublepage
+\thispagestyle{empty}
+\phantomsection
+\addcontentsline{toc}{chapter}{Referências Bibliográficas}
+\bibliography{../comum/biblio}
+\bibliographystyle{apalike}
+\doublespace
+
+
+\appendix
+\addtocontents{toc}{\protect\setcounter{tocdepth}{0}} % as seções do apêndice não aparecem do sumário com este comando...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ape{apen}{Especificação blá, blá, blá}
+
+Isto é um apêndice...
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+
+\end{document}
