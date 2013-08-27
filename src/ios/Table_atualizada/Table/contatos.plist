@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>R</key>
+	<array>
+		<array>
+			<string>Régis</string>
+			<string>Zangirolami</string>
+			<string>34343464</string>
+		</array>
+	</array>
+	<key>M</key>
+	<array>
+		<array>
+			<string>Marina</string>
+			<string>Moraes</string>
+			<string>23434545</string>
+		</array>
+	</array>
+	<key>F</key>
+	<array>
+		<array>
+			<string>Fabiana</string>
+			<string>Soares</string>
+			<string>53344545</string>
+		</array>
+	</array>
+	<key>D</key>
+	<array>
+		<array>
+			<string>Diego</string>
+			<string>Souza</string>
+			<string>13453434</string>
+		</array>
+	</array>
+	<key>A</key>
+	<array>
+		<array>
+			<string>Amanda</string>
+			<string>Garcia</string>
+			<string>24343465</string>
+		</array>
+		<array>
+			<string>Arthur</string>
+			<string>Albuquerque</string>
+			<string>23202938</string>
+		</array>
+	</array>
+</dict>
+</plist>
