@@ -53,7 +53,7 @@
 XCode User Guide.\\
 \(developer.apple.com/library/ios/\#documentation/ToolsLanguages/Conceptual/Xcode_User_Guide\)}
 
-\chapter{Introdução à linguagem}
+\chapter{Conhecendo a linguagem}
 
 \paragraph{}Objective-C é a linguagem de programação utilizada no ecossistema de produtos da Apple. É uma linguagem orientada a objetos baseada em C que surgiu no início dos anos 80, e acabou se popularizando ao ser utilizada a partir de 1988 pela NeXT, empresa de tecnologia criada por Steve Jobs. Após a compra da NeXT pela Apple, em 1996, Objective-C e suas principais APIs, NextSTEP, foram usados para a construção do Mac OS X e assim se tonaram padrão na empresa.
 \paragraph{}Para o desenvolvimento de aplicativos para iOS, utiliza-se o Objective-C em conjunto com a Cocoa Touch, API derivada da Cocoa (usado nos OS X), que por sua vez é derivada do NextSTEP e OpenStep, e que é formada por um grupo de frameworks que possibilitam a construção dos aplicativos. Nesse capítulo teremos uma visão geral de Objective-C em si, com o básico da sintaxe e os extras que a linguagem agrega ao C em termos de Orientação a Objetos, e também uma pincelada no primeiro framework do conjunto, o Foundation Framework, passando pelas principais classes, métodos e possibilidades que esse poderoso framework oferece para o ambiente de desenvolvimento.
@@ -1067,8 +1067,25 @@ NSArray * descriptors =
 \subsection{A lista de contatos}
 
 \paragraph{}Com a nossa estrutura de dados pronta, podemos enfim criar um objeto \texttt{\textbf{UITableView}} em \texttt{\textbf{UITableViewController}} para começarmos a lidar com os dados na tela.
-\paragraph{}Adicione a tabela pelo \emph{Interface Builder} da mesma forma que já fizemos. Apague tudo que já existir na tela, selecione \texttt{\textbf{Table View}} entre os objetos e arraste para a tela. Então selecione a tabela adicionada e arraste-a com o Ctrl apertado para o código do \emph{header} ao lado para criar um \emph{outlet}. Crie-o com o nome \texttt{\textbf{table}}. Além disso, é preciso fazer a ligação com o \emph{File's Owner} para indicar que as alterações feitas no código da \texttt{\textbf{UITableViewController}} terão efeito na tabela. Para isso, basta selecionar a tabela e arrastar com o Ctrl apertado até o quadrado amarelo no lado esquerdo. Selecione \texttt{\textbf{dataSource}}, e faça mais uma vez para selecionar \texttt{\textbf{delegate}}.
-\paragraph{}Agora temos nossa tabela pronta para uso, devemos então customizá-la sobrescrevendo seus métodos. Para definir características de exibição da tabela, utilizaremos por enquanto 5 métodos básicos: número de seções (total de letras), número de linhas por seção (total de contatos por letra), título de cada seção (cada letra), o índice de seções na lateral (o \emph{array} de letras), e o que será exibido em cada célula (cada contato). Vamos passar devagar por cada um dos métodos.
+\paragraph{}Adicione a tabela pelo \emph{Interface Builder} da mesma forma que já fizemos. Apague tudo que já existir na tela, selecione \texttt{\textbf{Table View}} entre os objetos e arraste para a tela. Então selecione a tabela adicionada e arraste-a com o Control apertado para o código do \emph{header} ao lado para criar um \emph{outlet}. Crie-o com o nome \texttt{\textbf{table}}. Além disso, é preciso fazer a ligação com o \emph{File's Owner} para indicar que as alterações feitas no código da \texttt{\textbf{UITableViewController}} terão efeito na tabela. Para isso, basta selecionar a tabela e arrastar com o Ctrl apertado até o quadrado amarelo no lado esquerdo. Selecione \texttt{\textbf{dataSource}}, e faça mais uma vez para selecionar \texttt{\textbf{delegate}}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.2\textheight]{figuras/table/table8.png}
+  \caption{UITableViewController nos Objetos}
+  \label{fig:a}
+\end{figure}
+
+\pagebreak
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.5\textheight]{figuras/table/table9.png}
+  \caption{UITableViewController dentro da View principal}
+  \label{fig:a}
+\end{figure}
+
+Agora temos nossa tabela pronta para uso, devemos então customizá-la sobrescrevendo seus métodos. Para definir características de exibição da tabela, utilizaremos por enquanto 5 métodos básicos: número de seções (total de letras), número de linhas por seção (total de contatos por letra), título de cada seção (cada letra), o índice de seções na lateral (o \emph{array} de letras), e o que será exibido em cada célula (cada contato). Vamos passar devagar por cada um dos métodos.
 
 \pagebreak
 
@@ -1152,7 +1169,14 @@ A primeira parte do método é um código padrão que serve para reutilizar cél
 \paragraph{}Vamos então instanciar um objeto \texttt{\textbf{DataContato}} de acordo com os valores de \texttt{\textbf{section}} e \texttt{\textbf{row}}, que darão a posição do objeto em \texttt{\textbf{contatoObjArray}}. Então salvamos apenas a \emph{string} do primeiro nome em \texttt{\textbf{cell.textLabel.text}}, onde \texttt{\textbf{textLabel}} é um atributo do tipo \texttt{\textbf{UILabel}} que determina o texto que é exibido na célula e suas características.
 \paragraph{}Além disso, vamos determinar uma imagem a ser exibida na célula. No caso utilizei uma imagem bem simples, contida no repositório, com o logo da Apple, mas você pode colocar outra imagem em .png se quiser, bastando colocar o nome da imagem no parâmetro correspondente. Essa imagem será então salva em \texttt{\textbf{cell.imageView.image}}. Note que, se cada contato tiver uma imagem customizada, é possível determinar um \texttt{\textbf{NSArray}} com o nome da imagem correspondente a cada contato, e utilizar o \texttt{\textbf{indexPath}} da mesma forma que o utilizamos para determinar o texto da célula.
 
-\bigskip
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.4\textheight]{figuras/table/table3.png}
+  \caption{Lista de contatos no simulador}
+  \label{fig:a}
+\end{figure}
+
+\pagebreak
 
 \subsection{Tela de detalhes}
 
@@ -1170,8 +1194,6 @@ Por último, faremos uma alteração no \emph{layout} da tabela. No \emph{Interf
 \paragraph{}Além da tabela, vamos criar mais uma única propriedade que será uma instância de\\
 \texttt{\textbf{DataContato}}, que chamaremos simplesmente de \texttt{\textbf{contato}}. A ideia é que quando uma célula de \texttt{\textbf{TableViewController}} for tocada, a tela \texttt{\textbf{Detail}} será chamada e o contato correspondente à celula será salvo em \texttt{\textbf{contato}} para que todos seus atributos sejam exbidos na tabela.
 
-\pagebreak
-
 \paragraph{}A classe em \texttt{\textbf{Detail.h}} deve ficar assim:
 
 \begin{listing}
@@ -1188,6 +1210,9 @@ Por último, faremos uma alteração no \emph{layout} da tabela. No \emph{Interf
 \end{listing}
 
 Partiremos agora para a implementação. O código nessa tela é bem mais simples que em \texttt{\textbf{TableViewController}}, já que o tamanho da tabela é fixo e o conteúdo a ser exibido virá sempre de \texttt{\textbf{contato}}.
+
+\pagebreak
+
 \paragraph{}Os métodos de contagem vão retornar valores fixos, sendo 1 seção com 2 linhas.
 
 \begin{listing}
@@ -1207,8 +1232,6 @@ Partiremos agora para a implementação. O código nessa tela é bem mais simple
 \end{listing}
 
 As duas células servirão para exibir, respectivamente, o nome completo e o número de telefone do contato. Para isso, vamos ler o nome e número do atributo \texttt{\textbf{DataContato}} da tela, salvá-los em um array, e assim definir qual deles será exibido de acordo com a posição da linha da tabela.
-
-\pagebreak
 
 \begin{listing}
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
@@ -1237,11 +1260,11 @@ As duas células servirão para exibir, respectivamente, o nome completo e o nú
 \end{minted}
 \end{listing}
 
+\pagebreak
+
 Como o nome está dividido em \texttt{\textbf{firstName}} e \texttt{\textbf{lastName}}, utilizamos o método\\
 \texttt{\textbf{stringByAppendingFormat}} de \texttt{\textbf{NSString}} para unirmos as duas strings e uma só. Utilizamos o mesmo método também para formatar o número, colocando o DDD entre parênteses.
-\paragraph{}E por último, determinamos o comportamento do toque na célula do número. Aqui vamos fazer o uso de dois novos componentes: o \texttt{\textbf{UIApplication}} para efetuar uma chamada no iPhone, e o \texttt{\textbf{UIAlertView}} para exibir um popup de alerta caso o dispositivo não seja um iPhone, e consequentemente não possa efetuar chamadas (e que também será o caso do iOS Simulator).
-
-\pagebreak
+\paragraph{}E por último, determinamos o comportamento do toque na célula do número. Aqui vamos fazer o uso do componente \texttt{\textbf{UIApplication}} para efetuar uma chamada no iPhone.
 
 \begin{listing}
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=4,numbersep=3pt]{objective-c}
@@ -1256,17 +1279,6 @@ Como o nome está dividido em \texttt{\textbf{firstName}} e \texttt{\textbf{last
             [[UIApplication sharedApplication] openURL:
                     [NSURL URLWithString:phoneString]];
         }
-
-        else {
-                   initWithTitle:@"Atenção"
-                         message:@"Seu dispositivo não permite
-                                 realizar ligações telefônicas."
-                        delegate:nil
-               cancelButtonTitle:@"OK"
-               otherButtonTitles:nil];
-               
-            [alert show];
-        }
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -1274,107 +1286,161 @@ Como o nome está dividido em \texttt{\textbf{firstName}} e \texttt{\textbf{last
 \end{minted}
 \end{listing}
 
-\paragraph{}Repare que são métodos bem intuitivos. O \texttt{\textbf{UIApplication}} é referenciado a partir de uma instância única, e o método para efetuar chamadas recebe um único parâmetro: uma string com o número a ser chamado. O \texttt{\textbf{UIAlert}} é instanciado com o texto do título, o texto do botão que vai fazer o alerta sumir, e um array de botões extras se for necessário, mas que não usaremos pra este caso.
+Na linha 4 colocamos a condição de que o dispositivo é um iPhone, pois iPad, iPod, e o próprio simulador não possuem discador. Fazemos essa verificação comparando o retorno do método \texttt{\textbf{currentDevice}} de \texttt{\textbf{UIDevice}}. Na linha 9 o \texttt{\textbf{UIApplication}} é referenciado e o método para efetuar chamadas recebe um único parâmetro: uma string com o número a ser chamado. O método só terá efeito em um iPhone, que possui o discador, não fazendo nada em dispositivos como iPod, iPad e o próprio simulador.
 \paragraph{}O método da \texttt{\textbf{UITableView}} chamado por último serve apenas para que a célula não permaneça selecionada após o toque, é um detalhe puramente visual.
 
-\bigskip
-\bigskip
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.2\textheight]{figuras/table/table5.png}
+  \caption{Tela de detalhes no simulador}
+  \label{fig:a}
+\end{figure}
+
+\pagebreak
 
 \subsection{Busca dos contatos}
 
 \paragraph{}A essa altura já temos o aplicativo funcionando do jeito planejado, visualizando de forma organizada quaisquer contatos contidos na nossa \emph{Property List}. A última funcionalidade a ser implementada no aplicativo será a busca dos contatos.
-\paragraph{}O primeiro passo para implementar a busca, é adicionar uma \texttt{\textbf{SearchDisplayController}} através do Interface Builder na classe \texttt{\textbf{TableViewController}}. Selecione o elemento em \emph{Objects} no Interface Builder, e posicione-o dentro da \texttt{\textbf{View}}, acima da \texttt{\textbf{UITableView}}. Com a barra de busca posicionada, pressione a tecla Control e arraste-a até o cubo laranja (File's Owner), assim como fez com a tabela no início, e clique em \texttt{\textbf{delegate}}. Faça o mesmo processo novamente, mas arrastando para o arquivo .h, e salve o \emph{outlet} como \texttt{\textbf{searchBar}}.
-\paragraph{}Agora podemos partir para o código de implementação da classe \texttt{\textbf{TableViewController}} para determinar a lógica da busca com os métodos o \texttt{\textbf{Delegate}} da \texttt{\textbf{UISearchDisplayController}}. Vamos implementar apenas 3 métodos do \texttt{\textbf{Delegate}}. Eles serão responsáveis pelo comportamento de busca automática, bastando que o usuário comece a digitar para exibir os resultados na tela.
+\paragraph{}O primeiro passo para a busca é adicionar uma \texttt{\textbf{SearchDisplayController}} através do Interface Builder na classe \texttt{\textbf{TableViewController}}. Selecione o elemento em \emph{Objects} no Interface Builder, e posicione-o dentro da \texttt{\textbf{View}}, acima da \texttt{\textbf{UITableView}}. Com a barra de busca posicionada, pressione a tecla Control e arraste-a até o cubo laranja (File's Owner), assim como fez com a tabela no início, e clique em \texttt{\textbf{delegate}}. Faça o mesmo processo novamente, mas arrastando para o arquivo .h, e salve o \emph{outlet} como \texttt{\textbf{searchBar}}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.2\textheight]{figuras/table/table2.png}
+  \caption{UISearchDisplayController nos Objetos}
+  \label{fig:a}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.35\textheight]{figuras/table/table1.png}
+  \caption{UISearchDisplayController junto da lista de contatos na View}
+  \label{fig:a}
+\end{figure}
+
+\pagebreak
+
+\paragraph{}Agora podemos partir para o código de implementação da classe \texttt{\textbf{TableViewController}} para determinar a lógica da busca com os métodos o \texttt{\textbf{Delegate}} da\\
+\texttt{\textbf{UISearchDisplayController}}. Vamos implementar apenas 3 métodos do \texttt{\textbf{Delegate}}, os quais serão responsáveis pelo comportamento de busca automática, bastando que o usuário comece a digitar para exibir os resultados na tela.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[totalheight=0.2\textheight]{figuras/table/table7.png}
+  \caption{Busca automática por substring}
+  \label{fig:a}
+\end{figure}
 
 \begin{listing}
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+- (BOOL)searchDisplayController:(UISearchDisplayController *)
+   controller shouldReloadTableForSearchString:(NSString *)
+   searchString
+{
     
     [self filterContentForSearchText:searchString];
-    
-    // Return YES to cause the search result table view to be reloaded.
-    return YES;
-}
 
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
-    
-    [self filterContentForSearchText:[self.searchDisplayController.searchBar text]];
-    
-    // Return YES to cause the search result table view to be reloaded.
     return YES;
 }
 \end{minted}
 \end{listing}
 
-O primeiro método é chamado se adicionarmos um botão junto da \texttt{\textbf{UISearchDisplayController}}, o que não é o caso, mas é bom já deixar o método implementado. O segundo método é o verdadeiro responsável pela mágica que queremos, e que vai forçar a atualização da tabela sempre que o texto na barra de busca for alterado. Os dois métodos chamam um terceiro método, que é onde vai a lógica da busca.
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (BOOL)searchDisplayController:(UISearchDisplayController *)
+   controller shouldReloadTableForSearchScope:(NSInteger)
+   searchOption
+{
+    
+    [self filterContentForSearchText:
+          [self.searchDisplayController.searchBar text]];
+    
+    return YES;
+}
+\end{minted}
+\end{listing}
+
+\pagebreak
+
+O primeiro método é chamado se adicionarmos um botão junto da\\
+\texttt{\textbf{UISearchDisplayController}}, o que não é o caso, mas é bom já deixar o método implementado. O segundo método é o verdadeiro responsável pela mágica que queremos, e que vai forçar a atualização da tabela sempre que o texto na barra de busca for alterado. Os dois métodos chamam um terceiro método, que é onde vai a lógica da busca.
 
 \begin{listing}
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
-- (void)filterContentForSearchText:(NSString*)searchText {
-    
+- (void)filterContentForSearchText:(NSString*)searchText
+{
     [self searchTable];
 }
 
-- (void) searchTable {
-    
-    NSString *searchText = _searchBar.text;
-    NSMutableArray *searchArray = [[NSMutableArray alloc] init];
+- (void) searchTable
+{
+    NSString *searchText = self.searchBar.text;
+    NSMutableArray *searchArray =
+              [[NSMutableArray alloc] init];
     self.searchList = [[NSMutableArray alloc] init];
     
-    // cópia dos nomes em searchArray
     for (NSArray *array in self.contatoObjArray)
         for (DataContato *contato in array)
             [searchArray addObject:contato];
     
-    // Range para buscar texto digitado nos nomes
     for (DataContato *contato in searchArray)
     {
-        NSRange range = [contato.firstName rangeOfString:searchText options:NSCaseInsensitiveSearch];
+        NSRange range = [contato.firstName
+                         rangeOfString:searchText
+                         options:NSCaseInsensitiveSearch];
         
-        // encontrou algo
         if (range.length > 0)
             [self.searchList addObject:contato];
     }
-    
 }
 \end{minted}
 \end{listing}
 
-Coloquei a lógica em um método separado, que é chamado dentro de \texttt{\textbf{filterContentForSearchText}}, apenas para deixar mais claro onde está o mecanismo da busca em si.
-A ideia é passar todos contatos, que estão divididos em arrays de acordo com as iniciais, para um array único. Este array será então percorrido e o primeiro nome de cada contato será comparado com a string inserida pelo usuário na barra de busca. Todo contato que tiver em seu nome uma substring igual à string da busca será adicionado a um array com o resultado final da busca.
-\paragraph{}Para começar, crie uma nova propriedade do tipo \texttt{\textbf{NSArray}} chamada \texttt{\textbf{searchList}}, que será nosso array contendo o resultado final. Este array de busca será percorrido pela \texttt{\textbf{UITableView}} para exibir os resultados nas suas células, mas chegamos nisso daqui a pouco.
-\paragraph{}Agora percorremos os arrays de contatos de cada inicial, contidos em \texttt{\textbf{contatoObjArray}}, para adicionar todos os contatos a um array único que chamei de \texttt{\textbf{searchArray}}. Podemos então percorrer esse array único de objetos \texttt{\textbf{DataContato}}, e comparar a string \texttt{\textbf{firstName}} com a string obtida em \texttt{\textbf{self.searchBar.text}} (self também pode ser trocado por \_) e salva em \texttt{\textbf{searchText}}. Essa comparação é feita com o método \texttt{\textbf{rangeOfString:options:}} de \texttt{\textbf{NSString}}, onde fazemos a referência da string onde buscaremos a substring, e passamos como parâmetro a substring em questão e o tipo da busca, que no caso será feita sem diferenciar letras maiúsculas e minúsculas. Este método retorna um objeto do tipo \texttt{\textbf{NSRange}}, o qual será útil pelo seu atributo \texttt{\textbf{length}}. Se \texttt{\textbf{length}} for maior que zero, sabemos que a busca encontrou algo na string, e assim o objeto \texttt{\textbf{DataContato}} é adicionado ao array de resultados.
-
-\bigskip
-\bigskip
-
-Okay, temos o array de busca sendo preenchido, mas como exibiremos o resultado na tabela? Como a tabela que exibirá os resultados da busca é a mesma que exibe os contatos, devemos criar uma condição nos métodos da tabela para verificar se a barra de busca está em uso, sendo necessário exibir o array de resultados da busca. Essa condição é bem simples, e será necessária nos métodos de contagem dos elementos da tabela, no método de exibição do contéudo da célula, e no método que determina o comportamento caso a célula seja selecionada.
+Coloquei a lógica em um método separado, que é chamado dentro de\\
+\texttt{\textbf{filterContentForSearchText}}, apenas para deixar mais claro onde está o mecanismo da busca em si. A ideia é passar todos contatos, que estão divididos em arrays de acordo com as iniciais, para um array único. Este array será então percorrido e o primeiro nome de cada contato será comparado com a string inserida pelo usuário na barra de busca. Todo contato que tiver em seu nome uma substring igual à string da busca será adicionado a um array com o resultado final da busca.
+\paragraph{}Para começar, crie uma nova propriedade do tipo \texttt{\textbf{NSArray}} chamada \texttt{\textbf{searchList}}, que será nosso array contendo o resultado final. Este array de busca será percorrido pela\\
+\texttt{\textbf{UITableView}} para exibir os resultados nas suas células, mas chegamos nisso daqui a pouco.
+\paragraph{}Agora percorremos os arrays de contatos de cada inicial, contidos em \texttt{\textbf{contatoObjArray}}, para adicionar todos os contatos a um array único que chamei de \texttt{\textbf{searchArray}}. Podemos então percorrer esse array único de objetos \texttt{\textbf{DataContato}}, e comparar a string \texttt{\textbf{firstName}} com a string obtida em \texttt{\textbf{self.searchBar.text}} (self também pode ser trocado por \_) e salva em \texttt{\textbf{searchText}}. Essa comparação é feita com o método\\
+\texttt{\textbf{rangeOfString:options:}} de \texttt{\textbf{NSString}}, onde fazemos a referência da string onde buscaremos a substring, e passamos como parâmetro a substring em questão e o tipo da busca, que no caso será feita sem diferenciar letras maiúsculas e minúsculas. Este método retorna um objeto do tipo \texttt{\textbf{NSRange}}, o qual será útil pelo seu atributo \texttt{\textbf{length}}. Se \texttt{\textbf{length}} for maior que zero, sabemos que a busca encontrou algo na string, e assim o objeto \texttt{\textbf{DataContato}} é adicionado ao array de resultados.
+\paragraph{}Certo, temos o array de busca sendo preenchido, mas como exibiremos o resultado na tabela? Como a tabela que exibirá os resultados da busca é a mesma que exibe os contatos, devemos criar uma condição nos métodos da tabela para verificar se a barra de busca está em uso, sendo necessário exibir o array de resultados da busca. Essa condição é bem simples, e será necessária nos métodos de contagem dos elementos da tabela, no método de exibição do contéudo da célula, e no método que determina o comportamento caso a célula seja selecionada.
 
 \begin{listing}
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
-    if ([tableView
-         isEqual:self.searchDisplayController.searchResultsTableView])
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)
+   tableView
+{
+    if ([tableView isEqual:
+        self.searchDisplayController.searchResultsTableView])
         return 1;
     else
         return [self.keysArray count];
 }
+\end{minted}
+\end{listing}
 
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 - (NSInteger)tableView:(UITableView *)tableView
- numberOfRowsInSection:(NSInteger)section
+   numberOfRowsInSection:(NSInteger)section
 {
-    if ([tableView
-         isEqual:self.searchDisplayController.searchResultsTableView])
+    if ([tableView isEqual:
+        self.searchDisplayController.searchResultsTableView])
         return [self.searchList count];
     else
-        return [[self.dictionary objectForKey:[self.keysArray objectAtIndex:section]] count];
+        return [[self.dictionary objectForKey:
+                [self.keysArray objectAtIndex:section]] count];
 }
+\end{minted}
+\end{listing}
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+\pagebreak
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (NSString *)tableView:(UITableView *)tableView
+   titleForHeaderInSection:(NSInteger)section
+{
     
-    if ([tableView
-         isEqual:self.searchDisplayController.searchResultsTableView])
+    if ([tableView isEqual:
+        self.searchDisplayController.searchResultsTableView])
         return @"Resultados";
     else
         return [self.keysArray objectAtIndex:section];
@@ -1387,19 +1453,21 @@ A condição será a mesma sempre. Verificamos se a \texttt{\textbf{UITableView}
 
 \begin{listing}
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
-if ([tableView isEqual:self.searchDisplayController.searchResultsTableView])
+if ([tableView isEqual:
+    self.searchDisplayController.searchResultsTableView])
     {
         [self.table reloadData];
-        DataContato *contato = [self.searchList objectAtIndex:indexPath.row];
+        DataContato *contato =
+        [self.searchList objectAtIndex:indexPath.row];
         cell.textLabel.text = contato.firstName;
     }
     
     else
     {
-        // Set the text of the cell to the row index.
         NSString *texto;
         DataContato *a;
-        a = [[self.contatoObjArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        a = [[self.contatoObjArray objectAtIndex:
+             indexPath.section] objectAtIndex:indexPath.row];
         texto = a.firstName;
         cell.textLabel.text = texto;
         
@@ -1414,33 +1482,40 @@ Dessa forma, resta apenas adicionar a condição no método que define o resulta
 
 \begin{listing}
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:
+   (NSIndexPath *)indexPath
+{
 
-    Detail *detailView = [[Detail alloc] initWithNibName:@"Detail" bundle:nil];
+    Detail *detailView = [[Detail alloc]
+                     initWithNibName:@"Detail" bundle:nil];
     
-    if ([tableView
-         isEqual:self.searchDisplayController.searchResultsTableView])
+    if ([tableView isEqual:
+        self.searchDisplayController.searchResultsTableView])
     {
-        DataContato *a = [self.searchList objectAtIndex:indexPath.row];
+        DataContato *a =
+        [self.searchList objectAtIndex:indexPath.row];
         detailView.contato = a;
     }
 
     else
     {
-        DataContato *a = [[self.contatoObjArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        DataContato *a =
+        [[self.contatoObjArray objectAtIndex:
+         indexPath.section] objectAtIndex:indexPath.row];
         detailView.contato = a;
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    [self.navigationController pushViewController:detailView animated:YES];
+    [self.navigationController pushViewController:
+                                  detailView animated:YES];
     
 }
 \end{minted}
 \end{listing}
 
 Pronto, temos uma funcionalidade de busca prática e eficaz para a nossa agenda!
-\paragraph{}Agora que temos o aplicativo do jeito que definimos, aproveite para revisar o funcionamento de todos os métodos que utilizamos até aqui. Estude o que pode ser feito com \texttt{\textbf{NSArray}}, \texttt{\textbf{NSString}} e \texttt{\textbf{NSDictionary}} e como seus métodos facilitaram as estruturas. Além disso, revise os métodos da \texttt{\textbf{UITableView}} e entenda melhor o que foi feito. Como desafio, implemente a adição de contatos, desde a tela de adição até a reorganização das estruturas e gravação no arquivo da \emph{Property List}.
+\paragraph{}\textit{\textbf{\underline{Dica}}: Agora que o aplicativo está do jeito que definimos, aproveite para revisar o funcionamento de todos os métodos que utilizamos até aqui. Estude o que pode ser feito com \texttt{\textbf{NSArray}}, \texttt{\textbf{NSString}} e \texttt{\textbf{NSDictionary}} e como seus métodos facilitaram as estruturas. Além disso, revise os métodos da \texttt{\textbf{UITableView}} e entenda melhor o que foi feito. Como desafio, implemente a adição de contatos, desde a tela de adição até a reorganização das estruturas e gravação no arquivo da \emph{Property List}.}
 
 \bigskip
 \bigskip
@@ -1457,16 +1532,5 @@ Pronto, temos uma funcionalidade de busca prática e eficaz para a nossa agenda!
 \bibliography{../comum/biblio}
 \bibliographystyle{apalike}
 \doublespace
-
-
-\appendix
-\addtocontents{toc}{\protect\setcounter{tocdepth}{0}} % as seções do apêndice não aparecem do sumário com este comando...
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\ape{apen}{Especificação blá, blá, blá}
-
-Isto é um apêndice...
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
 
 \end{document}
