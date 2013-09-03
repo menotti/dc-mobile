@@ -11,12 +11,27 @@
 \usepackage{bookman}                        %%% Fonte de Letras
 \usepackage{enumerate}
 \usepackage{lettrine}
-\usepackage{minted}	
-\usepackage{caption}
+
+	
 \usepackage{framed}
 \usepackage{enumitem}
 \usepackage[htt]{hyphenat}
 
+\usepackage{hyperref}
+\hypersetup{
+%  backref, %omitir na versão final
+  pdfsubject =	{...},
+  pdftitle =	{...},
+  pdfkeywords = {...},
+  pdfauthor =	{Ricardo Menotti, Daniel Lucrédio, ...},
+  colorlinks =	{true}, %true na versão final
+  linkcolor =	{black!50!blue},
+  citecolor =	{black!50!blue},
+  urlcolor =	{black!50!blue},
+}
+
+\usepackage[chapter]{minted}
+\usepackage{caption}
 
 %\usepackage{listings}
 %\lstset{
@@ -71,6 +86,11 @@
 \renewcommand\listingscaption{Algoritmo}
 \renewcommand\listoflistingscaption{Lista de Algoritmos}
 
+\renewcommand{\listoflistings}{%
+  \cleardoublepage
+  \addcontentsline{toc}{chapter}{\listoflistingscaption}%
+  \listof{listing}{\listoflistingscaption}%
+}
 
 \usepackage[english,brazil]{babel}
 \usepackage[utf8]{inputenc}
@@ -87,18 +107,6 @@
 \usepackage[sort]{natbib}
 \usepackage[a4paper,top=30mm,bottom=20mm,left=30mm,right=20mm]{geometry}
 
-\usepackage{hyperref}
-\hypersetup{
-%  backref, %omitir na versão final
-  pdfsubject =	{...},
-  pdftitle =	{...},
-  pdfkeywords = {...},
-  pdfauthor =	{Ricardo Menotti, Daniel Lucrédio, ...},
-  colorlinks =	{true}, %true na versão final
-  linkcolor =	{black!50!blue},
-  citecolor =	{black!50!blue},
-  urlcolor =	{black!50!blue},
-}
 
 \exhyphenpenalty = 10000
 
