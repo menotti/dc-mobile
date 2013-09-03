@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt,brazil]{book}
+		\documentclass[a4paper,12pt,brazil]{book}
 
 % tentei incluir o da pasta comum mas não funcionou
 % \include{../comum/header}
@@ -1038,6 +1038,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	\end{figure}
 	
 	
+% SWIPE %
 \section{Trocar de página com gesto de arrastar usando \texttt{ViewPager}}
 
 	É possível trocar entre fragmentos usando o gesto de arrastar, isto é, arrastando a tela de um lado para o outro acionará a troca entre os fragmentos. 
@@ -1073,6 +1074,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	\label{code:act-pager}
 	\end{listing}
 
+% SWIPEABLE TABS %
 \section{Abas com gesto de arrastar}
 
 	Ao juntar os dois conceitos, o de \emph{layout} com abas e o gesto de arrastar, podemos fazer o controle das abas arrastando a tela. Esse tipo de \emph{design} é comum em muitos aplicativos pela facilidade e rapidez com o que o usuário pode visualizar vários conteúdos. 
@@ -1111,7 +1113,8 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	\dica{Pela dificuldade em acompanhar passo a passo a construção desse \emph{design}, é recomendável obter o código do projeto no repositório. Está sob o nome \emph{SwipeableTabs}.}
 
 
-\section{Menu lateral deslizante \emph{(Sliding Menu)}}
+% NAV DRAWER
+\section{Menu lateral \emph{(Navigation Drawer)}}
 
 	O \emph{Sliding Menu} não é padrão no SDK do Android, mas é um tipo de \emph{design} que está sendo usado por muitos aplicativos famosos hoje em dia, tais como: Facebook, Linkedin, Foursquare, e outros. Consiste de um menu que fica escondido na lateral esquerda da tela e que pode ser acessado utilizando um gesto ''puxando'' o menu ou com um botão instalado na \emph{ActionBar}.
 	
@@ -1207,7 +1210,154 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	  \caption{Exemplo de busca na \emph{ActionBar}}
 	  \label{fig:e}
 	\end{figure}
+
+
+\chapter{Comunicação}
+
+	Agora iremos explorar as funcionalidades de comunicação dos aparelhos Android como acesso a \emph{Internet} no caso de \emph{Tables} e \emph{Smartphones} e envio de SMS e chamadas de voz com os os \emph{Smartphones}. 
+
+\section{\emph{Internet}}
+
+	Antes de iniciar sua aplicação que faz acesso à \emph{Internet}, devemos dar permissão ao aplicativo através do arquivo de \emph{Manifest}. Logo antes da tag \texttt{uses-sdk} você deve adicionar a tag \texttt{uses-permission}, como mostrado abaixo:
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/comm/permission-internet.xml}
+		\caption{Atribuindo permissão de acesso à \emph{Internet} no \emph{Manifest}}
+		\label{code:permission-internet}
+		\end{listing}
+
+		Nesta seção, veremos como se faz requisições HTTP para obter páginas HTML, saídas de um \emph{script server-side} como PHP ou ASP.NET e \emph{parsing} de respostas JSON ou XML.		 
+
+		\subsection{HTTP GET}
+
+		Para fazer uma requisição HTTP GET usaremos as classes da biblioteca \emph{Apache}, tais como \emph{HttpClient}, \emph{HttpGet} e \emph{HttpResponse}. Primeiros crie uma classe que iremos chamar de \texttt{RequestTask} e ela deve extender a classe \texttt{AsyncTask}\footnote{\href{http://developer.android.com/reference/android/os/AsyncTask.html}{http://developer.android.com/reference/android/os/AsyncTask.html}}, ela vai permitir que façamos a requisição na \emph{thread} da interface do usuário sem precisar criar e manipular uma \emph{thread} diferente.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/comm/asynctask.java}
+		\caption{Classe \texttt{RequestTask}}
+		\label{code:requesttask}
+		\end{listing}
+
+		O método \texttt{doInBackground()} é o responsável por realizar a operação sem o usuário perceber. Existem outros dois métodos da classe \texttt{AsyncTask} que podem ser utilizados: \texttt{onProgressUpdate()}, caso queira mostrar o progresso de um \emph{download} para o usuário e \texttt{onPostExecute()} para executar alguma ação após o termino do \emph{download}.
+
+		Observe o algoritmo \ref{code:requesttask}, na linha 5-7 criamos um novo \texttt{HttpClient}, \texttt{HttpResponse} e uma \emph{string} para armazenar a resposta do servidor. Depois, envolto por um bloco \texttt{try-catch} temos uma chamada ao método \texttt{HttpClient.execute()} e é passado para ele um novo \texttt{HttpGet} com o parâmetro \texttt{uri[0]}, \texttt{uri} é um dos parâmetros do método e contém uma URI\footnote{\href{http://developer.android.com/reference/java/net/URI.html}{http://developer.android.com/reference/java/net/URI.html}} que identifica o destino da requisição.
+
+		Na linha 11 foi criado um novo \texttt{StatusLine}\footnote{\href{http://developer.android.com/reference/org/apache/http/StatusLine.html}{http://developer.android.com/reference/org/apache/http/StatusLine.html}} para guardar a resposta da requisição HTTP que obtemos com o método \texttt{HttpResponse.getStatusLine()}. Depois comparamos o código do \emph{status} com \texttt{HttpStatus.SC\_OK} (equivalente ao código 200), o \emph{status} \texttt{OK} significa que a requisição e a resposta ocorreram como esperado e temos a resposta correta vindo do servidor. 
+
+		Em seguita criamos um novo \texttt{ByteArrayOutputStream} que é responsável por guardar a resposta do servidor na chamada ao método \texttt{HttpResponse.getEntity().writeTo()}. Por último convertemos o \emph{byte stream} em uma string usando o método \texttt{toString()} e a retornamos.
+
+		Agora precisamos de uma \emph{Activity} para mostrar a resposta, nesse exemplo obteremos o código HTML da página do DC UFSCar: \href{http://www.dc.ufscar.br}{http://www.dc.ufscar.br}. Mostraremos o código HTML como uma página \emph{Web} usando o \texttt{WebView}.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/comm/httpget.java}
+		\caption{Classe \texttt{RequestTask}}
+		\label{code:requestactivity}
+		\end{listing}		
+
+		Primeiro criamos uma nova variável \texttt{task} do tipo \texttt{AsyncTask} nos moldes da classe que criamos, dentro de um bloco \texttt{try-catch} criamos uma nova \texttt{URI} e atribuímos a ela o endereço da página do DC UFSCar. Em seguida iniciamos a variável \texttt{task} criando uma nova \texttt{RequestTask} e chamamos o método \texttt{execute()}, que ao ser chamado irá executar o método \texttt{doInBackground()}. 
 		
+		Por fim, criamos uma nova \texttt{WebView}\footnote{\href{http://developer.android.com/reference/android/webkit/WebView.html}{http://developer.android.com/reference/android/webkit/WebView.html}} e carregamos o conteúdo da \emph{string} \texttt{response} nela usando o método \texttt{WebView.loadData()}. A página é mostrada sem estilo pois não estamos puxando as folhas de estilo junto, somente o código HTML.
+		
+		 \dica{Usamos a \texttt{WebView} para mostrar o código HTML como página apenas para demonstração. Caso queira carregar uma página corretamente deve fornecer a \emph{URL} da página diretamente para a \texttt{WebView}.}
+
+		\subsection{HTTP POST}
+		Diferentemente do \emph{GET}, onde os parâmetros para o servidor vão codificados na \emph{URL}, no \emph{POST} os parâmetros vão codificados no final do cabeçalho HTTP. Para enviar uma requisição do tipo \emph{POST}, usaremos a classe \texttt{HttpPost}. O algoritmo abaixo é reaproveitado da classe \texttt{RequestTask} e do método \texttt{doInBackgrond()}, onde mudaremos apenas algumas linhas. Agora estaremos enviando a requisição para essa página: \href{http://httpbin.org/post}{http://httpbin.org/post}, ela só aceita requisições do tipo \emph{POST}, se tentar com \emph{GET} irá receber uma mensagem de erro.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/comm/httppost.java}
+		\caption{Modificando o método para requsições \emph{POST}}
+		\label{code:httppost}
+		\end{listing} 
+
+		Criamos um novo \texttt{HttpPost}\footnote{\href{http://developer.android.com/reference/org/apache/http/client/methods/HttpPost.html}{http://developer.android.com/reference/org/apache/http/client/methods/HttpPost.html}} passando a \texttt{URI} como parâmetro. Criamos uma lista de tuplas chave-valor que representa a variável e seu valor no cabeçalho HTTP e adicionamos dois valores. Em seguida chamamos o método \texttt{HttpPost.setEntity()} e passamos um objeto do tipo \texttt{UrlEncodedFormEntity}\footnote{\href{http://developer.android.com/reference/org/apache/http/client/entity/UrlEncodedFormEntity.html}{http://developer.android.com/reference/org/apache/http/client/entity/UrlEncodedFormEntity.html}} que recebe a lista como parâmetro, esse objeto irá codificar a lista em variáveis aceitas pelo padrão de uma requisição \emph{POST}.
+
+		Por final, executamos a requisição como feito anteriormente. O resto do código é igual.
+
+ 		Note que se colocar a resposta dessa requisição em uma \texttt{WebView} ou \texttt{TextView} irá observar que está codificado no formato JSON\footnote{O que é JSON: \href{http://www.json.org/}{http://www.json.org/}}. 
+
+		\subsection{Decodificando JSON}
+		
+		Vamos obter dados do objeto JSON retornado pelo exemplo anterior. Se você observar a \emph{string} na tela, irá perceber os dados que foram enviado via \emph{POST} dentro de um objeto JSON chamado \emph{form}. Queremos obter esses dados, para isso precisamos criar uma classe que será responsável por obter especificamente esses dados do \emph{form}.
+		
+		\dica{Em JSON, \{ representa um objeto JSON e [ representa um \emph{array} dentro de um objeto JSON}
+
+		Crie uma classe \texttt{JSONParser}, como mostrado abaixo.
+		
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/comm/jsonparser.java}
+		\caption{Classe \texttt{JSONParser}}
+		\label{code:jsonparser}
+		\end{listing} 
+
+		Para obter dados do \emph{form}, criamos um método \texttt{getFormData()}. Primeiro obtemos o objeto JSON dado pela \emph{string} retornada pela requisição \emph{POST} do exemplo anterior ao criar um novo \texttt{JSONObject} e passando a \emph{string} como parâmetro. Em seguida queremos obter outro objeto JSON, aquele cujo nome é \emph{form}, para isso chamamos o método \texttt{JSONObject.getJSONObject()} passando o nome do objeto junto. Após obter o objeto desejado, usamos o método \texttt{JSONObject.getString()} e passamos o nome do valor para obter o valor. Então ao passar \emph{"testing"} e \emph{"user"} esperamos como retorno \emph{POST} e \emph{You}, respectivamente. 
+
+		\subsection{Codificando JSON}
+
+		Podemos também codificar objetos JSON, e é simples. Basta criar um \texttt{JSONObject} ou \texttt{JSONArray} e usar o método \texttt{toString()}. Por exemplo:
+	
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/comm/writejson.java}
+		\caption{Criando JSON}
+		\label{code:jsonparser}
+		\end{listing} 
+
+
+	\section{Telefone}
+		
+		É possível fazer uma chamada telefônica, porém você terá que usar o discador padrão do Android uma vez que ele não provê uma API pública para fazer chamadas diretamente pelo seu aplicativo. A única forma é através do interemediador \texttt{ACTION\_CALL}. O Exemplo abaixo mostra como fazer uma chamada usando esse intermediador.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/comm/phonecall.java}
+		\caption{Fazendo uma chamada telefônica}
+		\label{code:phonecall}
+		\end{listing} 
+
+		Para esse exemplo, foi criado uma caixa de texto e um botão, o número de telefone é colocado na caixa de texto e o botão \emph{Call} inicia a \emph{activity} responsável por realizar a chamada. Observe que é necessário fazer um \emph{parse} do número de telefone para uma \emph{URI} com formato \texttt{tel:0123456789}. Cria-se uma \texttt{Intent} para o \texttt{ACTION\_CALL}, coloca-se os dados na \texttt{Intent} e chama o método \texttt{startActivity()} para fazer a chamada telefônica. É preciso dar permissão ao aplicativo para fazer chamadas adicionando essa linha ao \emph{Manifest}.
+	
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/comm/phonecall-perm.xml}
+		\caption{Permissão para fazer chamadas telefônicas}
+		\label{code:phonecall-perm}
+		\end{listing} 		
+
+		Usando a classe \texttt{TelephonyManager}\footnote{\href{http://developer.android.com/reference/android/telephony/TelephonyManager.html}{http://developer.android.com/reference/android/telephony/TelephonyManager.html}}, no entanto, o Android nos dá a possibilidade obter dados do \emph{Sim Card} e também um \emph{listener} para saber o status atual do telefone, se ele está fazendo uma ligação ou não.
+
+		Você pode usar os métodos \texttt{getDeviceId()} para obter o número IMEI do aparelho, \texttt{getSimSerialNumber()} para obter o número de série do \emph{Sim Card}, \texttt{isNetworkRoaming()} para saber se está em modo \emph{roaming}, etc.
+
+	\section{\emph{Short Message Service (SMS)}}
+
+		O Android provê uma API pública para mandar mensagens SMS, através da classe \texttt{SMSManager}\footnote{\href{http://developer.android.com/reference/android/telephony/SmsManager.html}{http://developer.android.com/reference/android/telephony/SmsManager.html}}. Assim como fazer ligações, enviar SMS também precisa configurar a permissão no \emph{Manifest}.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/comm/sms-perm.xml}
+		\caption{Permissão para enviar mensagens SMS}
+		\label{code:sms-perm}
+		\end{listing} 	
+
+		Agora vamos criar um aplicativo simples que chama a classe \texttt{SMSManager} para enviar uma mensagem para um número de telefone. Teremos duas \texttt{EditText} \emph{views} para abrigar a mensagem e o número, e um botão para enviar. Inicialmente crie um método \texttt{sendSMS()}.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/comm/sendsms.java}
+		\caption{Método \texttt{sendSMS()}}
+		\label{code:sendsms}
+		\end{listing} 	
+	
+		Dentro de um bloco \texttt{try-catch} crie um novo \texttt{SMSManager} como mostrado na linha 3 do algoritmo \ref{code:sendsms}, use o método \texttt{SmsManager.sendTextMessage()} para enviar uma mensagem. O primeiro parâmetro é o número de telefone para qual a mensagem será enviada, o segundo é o telefone de origem, colocando \texttt{null} o valor será o número do próprio aparelho ou serviço, o terceiro parâmetro é o texto da mensagem.
+		
+		Completanto, com um algoritmo simples para chamar o método quando o botão for pressionado.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/comm/sendsms-oncreate.java}
+		\caption{Chamando método \texttt{sendSMS()}}
+		\label{code:sendsms}
+		\end{listing} 	
+
+	
+		
+
+		
+
+ 
 		
 			 
 \end{singlespace}
