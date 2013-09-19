@@ -1352,10 +1352,99 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:sendsms}
 		\end{listing} 	
 
-	
-		
+\chapter{Armazenamento}
 
+	O Android provê algumas opções para que você possa salvar dados persistentes de sua aplicação. A escolha da opção de armazenamento vai depender das necessidades da sua aplicação, isto é, se os dados vão ser visíveis somente pela aplicação ou se o usuário terá acesso a eles, quanto de espaço será necessario, que tipo de dados você pretende salvar.
+	As opções são: 
+	\bi
+		\item \emph{Shared Preferences}: Usada principalmente para salvar preferências do usuário, esse método guarda primitivas em duplas chave-valor;
+		\item Armazenamento Interno: Salva dados privados na memória do dispositivo;
+		\item Armazenamento Externo: Salva dados públicos na memória externa compartilhada;
+		\item Bancos de Dado \emph{SQLite}: Salva dados estruturados em um banco de dados privado.
+		\item Conexão com a rede: Salva dados na \emph{web} em seu próprio servidor na rede.
+	\ei
+			
+	\section{\emph{Shared Preferences:}}
 		
+		A classe \texttt{SharedPreferences}\footnote{\href{http://developer.android.com/reference/android/content/SharedPreferences.html}{http://developer.android.com/reference/android/content/SharedPreferences.html}} fornece um framework que te permite salvar e recuperar dados primitivos persistentes no formato chave-valor. Você pode salvar qualquer tipo de dado primitivo: \emph{booleans}, \emph{floats}, inteiros, \emph{longs} e \emph{strings}.
+ 
+		Você pode usar essa classe para armazenar dados durante o ciclo de vida de uma \emph{activity}. Isto é, antes da \emph{activity} ser destruída na função \texttt{onDestroy()}, os dados podem ser salvos durante a execução de \texttt{onStop()} e recuperados na execução de \texttt{onCreate()}.
+
+		Para usar a \texttt{SharedPreferences} na sua aplicação você deve chamar \texttt{getSharedPreferences()} se precisar de vários arquivos de preferencias que serão identificados pelo nome ou \texttt{getPreferences()} se precisar de apenas um arquivo para sua \emph{activity}, esse não necessita de nome pois será único para a \emph{activity}. Em seguida para escrever valores você deve chamar o método \texttt{edit()} para obter um \texttt{SharedPreferences.Editor}, e usar os métodos como \texttt{putString()} para adicionar novos valores. Por último \texttt{commit()} deve ser chamado para salvar os valores. Para ler os valores, você deve chamar métodos como \texttt{getBoolean()} ou \texttt{getString()}.
+
+		O exemplo abaixo salva os dados de uma caixa de texto, uma barra de progresso e uma chave em uma \texttt{SharedPreferences} e depois os lê quando o aplicativo é aberto novamente.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/storage/sharedpref.java}
+		\caption{Utilizando \texttt{SharedPreferences} para salvar dados primitivos}
+		\label{code:sharedpref}
+		\end{listing} 	
+		
+		Observe no algoritmo \ref{code:sharedpref} a utilização da classe \texttt{SharedPreferences}, no método \texttt{onStop()} chamamos o método \texttt{getPreferences(MODE\_PRIVATE)} para obter uma instância da classe no modo privado, isto é, os dados somente são acessíveis por esta \emph{activity} deste aplicativo. Na linha 30 obtemos o \texttt{SharedPreferences.Editor} ao chamar o método \texttt{SharedPreferences.edit()}.
+		
+		O \texttt{Editor} é usado então para adicionar os valores que obtemos das \emph{views}. Na linha 32 usamos \texttt{putString()} para guardar o conteúdo da caixa de texto,
+\texttt{putInt()} para guardar a posição da \texttt{SeekBar} e \texttt{putBoolean()} para guardar o estado da chave. Finalmente invocamos \texttt{commit()} para salvar os dados.
+
+		No método \texttt{onCreate()} usamos os métodos \texttt{get} para obter os dados que foram salvos. Esses métodos requerem a passagem de um valor \emph{default} para quando não há dados previamente salvos. Observe então nas linhas 16-18 que para a caixa de texto usamos uma \emph{string} vazia, para a \texttt{SeekBar} o valor 0 e a chave desligada.
+
+
+		\section{Armazenamento interno}
+
+		Você pode salvar arquivos diretamente na memória interna do dispositivo. Por padrão os arquivos salvos no armazenamento interno são privados a seu aplicativo e não podem ser acessados por outros aplicativos. 
+
+		Para criar um novo arquivo você deve invocar o método \texttt{openFileOutput()} passando o nome do arquivo e o modo de operação. Esse método irá retornar um \texttt{FileOutputStream}. Você poderá escrever nesse arquivo chamando o método \texttt{FileOutputStream.write()} e \texttt{FileOutputStream.close()} para fechar o arquivo.
+
+		Para exemplificar, faremos um aplicativo do tipo bloco de notas. Será composto de dois botões, um para abrir um arquivo e outro para salvar um arquivo, e uma caixa de texto para escrever. Tudo será feito no método \texttt{onCreate()}, primeiro  usamos \texttt{findViewById()} para obter as \emph{views}. O botão de salvar irá abrir um dialogo perguntando o nome do arquivo, e o botão de abrir mostrará um dialogo permitindo ao usuário escolher dentre os arquivos já salvos anteriormente.
+
+		No código abaixo criamos o \emph{listener} do botão de salvar, dentro dele criamos um dialogo e precisamos de um \emph{listener} para confirmar e um para cancelar.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/storage/internal1.java}
+		\caption{Passos iniciais do \emph{listener}, criando um dialogo.}
+		\label{code:internal1}
+		\end{listing} 	
+
+		Com o \texttt{AlertDialog.Builder} começamos a construir um novo diálogo. Usamos o \texttt{LayoutInflater} para carregar o \emph{layout} com uma \texttt{EditText}.
+		Chamamos \texttt{setPositivoButton()} para criar um \emph{listener} que irá salvar o arquivo quando o botão for clicado.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/storage/internal2.java}
+		\caption{Salvando um arquivo e mostrando um \texttt{Toast}}
+		\label{code:internal2}
+		\end{listing} 	
+
+		Vamos analisar o algoritmo \ref{code:internal2}. Na linha 5 queremos a referência ao \texttt{EditText} contido no diálogo, para isso precisamos usar a variável \texttt{fnameEntry} criada ao chamar o método \texttt{LayoutInflater.inflate()}. Depois, na linha 7-8 certificamos que o nome do arquivo não será vazio (se for vazio, o arquivo não é salvo), para isso atribuimos o nome \emph{untitled} a ele. Obtemos também o texto escrito na caixa de texto da \emph{activity} na linha 9.
+
+		Agora que já temos o nome e os dados do arquivo, precisamos efetivamente salvá-lo no armazenamento interno. Com o método \texttt{openFileOutput()} teremos um \texttt{FileOutputStream} que servirá para escrever os dados no arquivo. Isso é feito nas linhas 13-14 com o método \texttt{write()} e em seguida o método \texttt{close()}.
+		Para certificar ao usuário que o arquivo foi salvo, mostramos um \texttt{Toast} com a mensagem que o arquivo foi salvo.
+
+		Se o usuário clicar em \emph{cancel} no diálogo, precisamos fechá-lo, basta invocar \texttt{dialog.close()} no \emph{listener}.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/storage/internal3.java}
+		\caption{Fechando o dialogo ao clicar em \emph{close}}
+		\label{code:internal3}
+		\end{listing} 	
+
+		Depois chame \texttt{builder.create().show()} no \texttt{listener} do botão \emph{Save} para mostrar o diálogo.
+ 
+		Para o botão \emph{Open} iremos mostrar um dialogo com os nomes dos arquivos salvos anteriormente, quando um desses for clicado o arquivo se abrirá preenchendo a caixa de texto.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/storage/internal4.java}
+		\caption{Criando um diálogo com os arquivos salvos}
+		\label{code:internal4}
+		\end{listing} 	
+	
+		Dessa vez usamos o método \texttt{builder.setItems()} para construir uma lista no diálogo. O método \texttt{fileList()} retorna um \texttt{array} de nomes de arquivo que foram armazenados internalmente no aplicativo. 
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/storage/internal5.java}
+		\caption{Criando um diálogo com os arquivos salvos}
+		\label{code:internal5}
+		\end{listing} 	
+		
+		Na linha 7 do algoritmo \ref{code:internal5} queremos obter a referência do arquivo selecionado. Chamando o método \texttt{getFilesDir()} nos é fornecido o diretório contendo os arquivos, com \texttt{listFiles()} temos um \emph{array} de \texttt{Files} e o selecionamos com a variável \texttt{which}, que é a posição clicada na lista do diálogo. Para ler os dados desse arquivo, usamos a classe \texttt{BufferedReader} e guardamos as linhas sendo lidas em um objeto do tipo \texttt{StringBuilder}. Nas linhas 13-16 lemos cada linha do arquivo em um loop \emph{while} e usamos o método \texttt{append()} duas vezes, uma para adicionar a linha lida na \emph{string} e outra para adicionar o separador de linha (comummente \textbackslash n). Ao fim invocamos \texttt{close()} para fechar o \texttt{BufferedReader}. E colocamos o texto lido de volta na caixa de texto.
 
  
 		
