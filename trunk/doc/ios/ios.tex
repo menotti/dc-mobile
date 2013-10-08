@@ -51,7 +51,7 @@
 
 \paragraph{}\textit{\textbf{\underline{Dica}}: Para entender melhor as funcionalidades da ferramenta, dê uma olhada na extensa documentação que a Apple disponibiliza em 
 XCode User Guide.\\
-\(developer.apple.com/library/ios/\#documentation/ToolsLanguages/Conceptual/Xcode_User_Guide\)}
+\(developer.apple.com/library/ios/\#documentation/ToolsLanguages/Conceptual/\\Xcode_User_Guide\)}
 
 \chapter{Conhecendo a linguagem}
 
@@ -152,7 +152,7 @@ A ideia de criar um label, além da própria variável, é de tornar intuitiva a
 \paragraph{}\textbf{Propriedades}
 
 \paragraph{}Como já citado anteriormente, o Objective-C oferece uma possibilidade de encapsulamento de atributos de uma classe, a partir de uma \texttt{\textbf{Property}}.
-\paragraph{}Uma \texttt{\textbf{Property}} define automaticamente métodos setter e getter de uma variável, e também o tempo de duração na memória se for um objeto, de acordo com os parâmetros definidos. É geralmente definido no header da classe.
+\paragraph{}Uma \texttt{\textbf{Property}} define automaticamente métodos \texttt{setter} e \texttt{getter} de uma variável, e também o tempo de duração na memória se for um objeto, de acordo com os parâmetros definidos. É geralmente definido no header da classe.
 \paragraph{}Exemplo:
 
 \begin{listing}
@@ -162,7 +162,7 @@ A ideia de criar um label, além da própria variável, é de tornar intuitiva a
 \end{minted}
 \end{listing}
 
-No exemplo anterior, temos os parâmetros \texttt{\textbf{nonatomic}} e \texttt{\textbf{strong}}. O primeiro é para proteger a variável em ambiente multi-thread, forçando uma cópia do valor da variável caso o getter e setter sejam usados ao mesmo tempo em duas threads. O segundo é voltado apenas para objetos (variáveis do tipo BOOL ou int não se enquadram, por exemplo), e define o tempo de permanência do objeto na memória, que é definida como \texttt{\textbf{strong}} ou \texttt{\textbf{weak}}. A primeira é a que usamos na maioria dos casos e garante que o objeto permanecerá na memória até o fim da execução; a segunda é para quando queremos que o objeto exista apenas enquanto outro objeto apontar para ele. O único caso em que usaremos texttt{\textbf{weak}} é na criação de texttt{\textbf{outlets}} ligados a interface, que veremos mais a frente.
+No exemplo anterior, temos os parâmetros \texttt{\textbf{nonatomic}} e \texttt{\textbf{strong}}. O primeiro é para proteger a variável em ambiente multi-thread, forçando uma cópia do valor da variável caso o getter e setter sejam usados ao mesmo tempo em duas threads. O segundo é voltado apenas para objetos (variáveis do tipo BOOL ou int não se enquadram, por exemplo), e define o tempo de permanência do objeto na memória, que é definida como \texttt{\textbf{strong}} ou \texttt{\textbf{weak}}. A primeira é a que usamos na maioria dos casos e garante que o objeto permanecerá na memória até o fim da execução; a segunda é para quando queremos que o objeto exista apenas enquanto outro objeto apontar para ele. O único caso em que usaremos \texttt{\textbf{weak}} é na criação de \texttt{\textbf{outlets}} ligados a interface, que veremos mais a frente.
 
 \paragraph{}Agora veremos como acessamos métodos e atributos de um objeto:
 
@@ -194,7 +194,7 @@ funcionario.sobrenome = "Silva";
 
 \bigskip
 
-\paragraph{}\textit{\textbf{\underline{Dica}}: A Apple disponibiliza uma extensa documentação sobre a\\linguagem em Programming with Objective-C\\ \(https://developer.apple.com/library/ios/\#documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html \)\\
+\paragraph{}\textit{\textbf{\underline{Dica}}: A Apple disponibiliza uma extensa documentação sobre a\\linguagem em Programming with Objective-C\\ \(https://developer.apple.com/library/ios/\#documentation/Cocoa/Conceptual/\\ProgrammingWithObjectiveC/Introduction/Introduction.html \)\\
 Um estudo desse material será de grande ajuda para entender exatamente o que a linguagem permite.}
 
 \bigskip
@@ -226,7 +226,7 @@ Em conjunto com o \texttt{\textbf{NSDictionary}}, é recomendável também o est
 \subsection{Documentação}
 
 \paragraph{}A Apple disponibilizada a documentação completa das classes do Foundation em
-\emph{Foundation Framework Reference\\ \(http://developer.apple.com/library/ios/\#documentation/Cocoa/Reference/Foundation/ObjC_classic/_index.html\)}.
+\emph{Foundation Framework Reference\\ \(http://developer.apple.com/library/ios/\#documentation/Cocoa/Reference/Foundation/\\ObjC_classic/_index.html\)}.
 \paragraph{}Essa documentação será importante ao longo do estudo de desenvolvimento para iOS. O Foundation é muito extenso e rico em possibilidades, já trazendo a implementação de diversas soluções que tomariam um bom tempo e algumas linhas de código a mais no seu projeto.
 \paragraph{}\textit{\textbf{\underline{Dica}}: Nunca hesite em procurar na documentação da classe em questão algum método que possa resolver seu problema. Lidar com strings, arrays e dicionários, além de outras diversas estruturas, será muito mais prático a partir de agora.}
 \paragraph{}As classes estão muito bem organizadas na documentação, com os métodos divididos de acordo com o tipo de operação. Vale a pena dar uma olhada por cima nas classes citadas para obter uma visão geral do que é possível fazer, alimentando aos poucos o seu repertório na linguagem, antes de seguir adiante com o tutorial.
@@ -238,7 +238,7 @@ Em conjunto com o \texttt{\textbf{NSDictionary}}, é recomendável também o est
 \paragraph{}Temos um conjunto de elementos gráficos já prontos, como botões, barras de ferramenta, rótulos, campos de texto, tabelas, telas com rolagem horizantal ou vertical, entre outros elementos que os usuário de iOS já estão familiarizados. Além disso, temos também disponíveis diversas ações e interações a serem relacionadas com esses elementos, como tipo e permissão de toque, tipo de rolagem, controle automático de animações, e controle dos elementos e das ações através do código, com métodos extremamente flexíveis que permitem uma ótima customização da interface e da lógica de eventos pelo programador.
 
 \paragraph{}\textit{\textbf{\underline{Dica}}: A documentação completa das classes do UIKit está em 
-UIKit Framework Reference\\ \(http://developer.apple.com/library/ios/\#documentation/uikit/reference/UIKit_Framework/_index.html\).}
+UIKit Framework Reference\\ \(http://developer.apple.com/library/ios/\#documentation/uikit/reference/\\UIKit_Framework/_index.html\).}
 
 \paragraph{}Começaremos explicando como funcionam os diferentes componentes responsáveis pelos elementos gráficos no iOS.
 
@@ -1519,6 +1519,198 @@ Pronto, temos uma funcionalidade de busca prática e eficaz para a nossa agenda!
 
 \bigskip
 \bigskip
+
+
+\chapter{APIs e bibliotecas especiais}
+
+\section{Armazenamento em cache}
+
+\paragraph{}Existem muitos casos em que precisamos guardar informação em um cache e recuperá-la em outro momento, mesmo após fechar o aplicativo. Podemos ter um formulário não finalizado, ou então dados que devem ser enviados a um web service mas não há conexão no momento. Para estes e diversos outros casos o iOS nos oferece uma estrutura chamada \texttt{\textbf{NSUserDefaults}}.
+\paragraph{}O \texttt{\textbf{NSUserDefaults}} funciona exatamente como um \texttt{\textbf{NSDictionary}}, seguindo a lógica de valores associados a chaves, porém só aceita dados básicos, como strings, arrays, valores núméricos, além de outros dicionários. Os dados dessa estrutura permanecem salvos e acessíveis a qualquer aplicativo, bastante buscar a informação de acordo com a chave determinada.
+\paragraph{}Salvar e recuperar informação da estrutura \texttt{\textbf{NSUserDefaults}} é algo bem simples e direto, e lidamos com seus dados de forma parecida com um \texttt{\textbf{NSDictionary}}. Primeiro criamos uma variável de ponteiro para a estrutura.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+NSUserDefaults *userDefaults =
+               [NSUserDefaults standardUserDefaults];
+\end{minted}
+\end{listing}
+
+Para salvar temos um método de setter para objetos, e um método para cada tipo de valor númerico. O método para objetos aceita strings, arrays e dicionários.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+[userDefaults setObject:@"Texto" forKey:@"StringTeste"];
+
+[userDefaults setInteger:10 forKey:@"InteiroTeste"];
+\end{minted}
+\end{listing}
+
+A sincronização com a estrutura é feita automaticamente, mas não exatamente em tempo real. Prevendo qualquer tipo de travamento no aplicativo, é possível forçar a sincronização após inserir os dados.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+[userDefaults synchronize];
+\end{minted}
+\end{listing}
+
+Para recuperar é o mesmo esquema, com a diferença que temos métodos de getter específicos para arrays, strings, e dicionários, além dos métodos para cada tipo de valor.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+NSString *string = [userDefaults stringForKey:@"StringTeste"];
+
+NSArray *array = [userDefaults arrayForKey:@"ArrayTeste"];
+
+NSDictionary *dictionary = [userDefaults dictionaryForKey:
+                                         @"DictionaryTeste"];
+
+NSInteger int = [userDefaults integerForKey:@"InteiroTeste"];
+\end{minted}
+\end{listing}
+
+\paragraph{}\textit{\textbf{\underline{Dica}}: Documentação oficial da Apple para a estrutura \texttt{\textbf{NSUserDefaults}}:\\
+\(https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/\\Classes/nsuserdefaults_Class/Reference/Reference.html
+\)}
+
+\bigskip
+
+
+\section{Chamadas}
+
+\paragraph{}O código para efetuar uma chamada no iOS é bem simples. Já utilizamos este recurso na tela de detalhes do aplicativo de Agenda, mas falaremos desta ação rapidamente por aqui.
+Dentro do método chamado como action de um \texttt{\textbf{UIButton}} criado para efetuar a chamada, execute o seguinte método:
+
+\pagebreak
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+NSString *string = [userDefaults stringForKey:@"StringTeste"];
+NSString *numero = @"tel:0123456789";
+[[UIApplication sharedApplication] openURL:
+                                [NSURL URLWithString:numero]];
+\end{minted}
+\end{listing}
+
+Basta substituir o número do exemplo pelo número real e manter o padrão na string. Lembrando que este método não terá efeito no iOS Simulator ou em um iPad, sendo que o único dispositivo iOS que efetua ligações é o iPhone.
+
+\paragraph{}\textit{\textbf{\underline{Dica}}: Este método também funciona para abrir uma URL no Safari. Basta colocar no lugar da string "numero" uma string com a URL em questão, utilizando o formato "http://www.url.com".}
+
+\bigskip
+
+
+\section{SMS}
+
+\paragraph{}Para mandar um SMS, temos uma classe nativa do iOS que facilita nosso trabalho chamada \texttt{\textbf{MFMessageComposeViewController}}. Utilizamos um método pronto do seu Delegate para determinar o corpo da mensagem e o destinatário, e então chamar a \texttt{Controller} responsável pelo envio do SMS.
+Comece importando a classe no código.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+#import <MessageUI/MFMessageComposeViewController.h>
+\end{minted}
+\end{listing}
+
+E então declare o seu \texttt{\textbf{Delegate}} na declaração da classe no seu arquivo header.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@interface SendSMSViewController : UIViewController
+                     <MFMessageComposeViewControllerDelegate>
+{
+	
+}
+\end{minted}
+\end{listing}
+
+Utilizaremos dois métodos, sendo que o primeiro será chamado pelo \texttt{\textbf{UIButton}} para determinar os dados do SMS e seu envio.
+
+\pagebreak
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (void)sendSMS:(NSString *)bodyOfMessage recipientList:
+                                         (NSArray *)recipients
+{
+  MFMessageComposeViewController *controller =
+                 [[MFMessageComposeViewController alloc] init];
+
+  if([MFMessageComposeViewController canSendText])
+  {
+    controller.body = bodyOfMessage;    
+    controller.recipients = recipients;
+    controller.messageComposeDelegate = self;
+    [self presentModalViewController:controller animated:YES];
+  }    
+}
+\end{minted}
+\end{listing}
+
+Este método recebe como parâmetros uma string correspondente ao corpo da mensagem que será enviada, e um array contendo strings com os números que servirão de destinatários. Dentro do método, será criada uma instância de MFMessageComposeViewController, a Controller que abriremos para enviar o SMS.
+\paragraph{}A condição seguinte serve para garantir que é possível enviar um SMS com o dispositivo em questão. Lembre-se que só é possível enviar SMS a partir de um iPhone, seguindo o exemplo das ligações. Passada a condição, determinamos o corpo da mensagem e os destinatários a partir dos parâmetros recebidos no método, direcionamos o Delegate da classe para self, e fazemos a execução da Controller a partir de um \texttt{\textbf{ModalViewController}}.
+\paragraph{}Um ModalViewController é, na maioria dos casos, utilizado quando fazemos um desvio no fluxo de uma \texttt{Navigation Controller}. Um Modal abre de uma forma diferente, dando ao usuário justamente a ideia de que essa tela é temporária.
+\paragraph{}Para finalizar, utilizaremos o seguinte método:
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (void)messageComposeViewController:
+        (MFMessageComposeViewController *)controller
+        didFinishWithResult:(MessageComposeResult)result
+{
+  [self dismissViewControllerAnimated:YES completion:nil];  
+}
+\end{minted}
+\end{listing}
+
+Este método é chamado quando confirmaos ou cancelamos o envio da mensagem. Com ele podemos utilizar o método \texttt{\textbf{dismissViewControllerAnimated:completion:}} para que o Modal desapareça e retornemos à tela anterior, de forma similar com que fazemos quando voltamos de uma tela em uma Navigation Controller, utilizando o método popToViewController. Além de fechar o Modal, podemos utilizar este método para retornar mensagens ao usuário, notificando o sucesso ou cancelamento do envio do SMS.
+
+\paragraph{}\textit{\textbf{\underline{Dica}}: Para complementar as possibilidades da \texttt{\textbf{MFMessageComposeViewController}}, não deixe de estudar a documentação oficial da Apple:\\
+\(https://developer.apple.com/library/ios/documentation/MessageUI/Reference/\\MFMessageComposeViewController_class/Reference/Reference.html\)}
+
+\bigskip
+
+
+\section{Requisições HTTP com JSON}
+
+\paragraph{}O iOS permite nativamente a comunicação com \texttt{web services} a partir requisições HTTP do tipo GET e POST, e existem diversas APIs externas que extendem essas classes de forma a complementar a ferramenta e facilitar o seu uso. Para lidar com recebimento e envio de dados básicos (do tipo string, inteiro, ou booleano), utiliza-se principalmente arquivos no modelo JSON.
+\paragraph{}Um arquivo JSON define uma hierarquia de dados isolados e sem significado agregado, permitindo uma comunicação HTTP eficiente pela simplicidade da sua estrutura. Dessa forma é necessário apenas saber previamente a estrutura dos dados a serem recebidos, para então fazer o parsing local dos dados de acordo com a necessidade.
+
+\bigskip
+
+\paragraph{}\textit{\textbf{\underline{Dica}}: Se não estiver familiarizado com o formato dos dados utilizados em um JSON, recomendo a leitura deste resumo:\\
+\(http://www.w3schools.com/json/json_syntax.asp\)}
+
+\bigskip
+
+\paragraph{}Para efetuarmos requisições HTTP com arquivos JSON utilizaremos uma API externa muito utilizada chamada \texttt{\textbf{AFNetworking}}. Ela nos permite fazer requisições de forma simples e reutilizável em todo o projeto, lidando com o envio de estruturas do tipo \texttt{\textbf{NSDictionary}} e \texttt{\textbf{NSArray}} com conversão automática para JSON, e o recebimento de um arquivo JSON com conversão automática para um objeto \texttt{\textbf{NSDictionary}}.
+\paragraph{}Será feita uma abordagem simplificada da criação dos métodos de requisição e do uso deles na prática, adaptando o aplicativo de Agenda para que ele receba os dados a partir de um JSON na web ao invés da \texttt{Property List} local, mantendo a mesma estrutura de dados.
+\paragraph{}Na página da AFNetworking no github (\textit{https://github.com/AFNetworking/AFNetworking}) temos o código completo disponível, junto da documentação e de um guia simples de como inserir as classes no seu projeto no XCode.
+
+\bigskip
+
+\subsection{Uso de blocks}
+
+\paragraph{}Os métodos da \texttt{\textbf{AFNetworking}} utilizam um elemento muito utilizado em Objective-C chamado \texttt{\textbf{block}}. Um \texttt{\textbf{block}} consiste em um trecho de código passado como parâmetro para métodos como se fosse uma variável única. Este trecho de código possui seus próprios parâmetros, funcionando como um método \texttt{void} separado, que roda em uma thread separada da principal. Com block podemos esperar o término de uma ação enquanto a \texttt{thread} principal continua executando as ações normais do aplicativo, para então tratar seus resultados sem alterar o fluxo. No caso de uma requisição HTTP, precisamos esperar o tempo de resposta do web service e tratar se a requisição obteve sucesso e os valores recebidos, e neste caso o uso de block é exatamente o que precisamos.
+
+\bigskip
+
+\paragraph{}\textit{\textbf{\underline{Dica}}: Para entender melhor o uso de blocks e seu funcionamento detalhado, estude este artigo contido na documentação da Apple:\\
+\(https://developer.apple.com/library/ios/documentation/cocoa/conceptual/\\ProgrammingWithObjectiveC/WorkingwithBlocks/WorkingwithBlocks.html\)}
+
+
+
+\chapter{Um pouco de MVC}
+
+\paragraph{}O MVC, ou \texttt{Model-View-Controller}, é um tipo de estrutura muito utilizada no desenvolvimento de software com interface. Nele temos uma divisão clara entre a informação vista pelo usuário e os dados em si, utilizando uma controladora para gerenciar todo o processo. O conceito de MVC é primordial para que o desenvolvimento de projetos para plataformas móveis seja bem estruturado e livre de conflitos.
+\paragraph{}Vamos definir os três componentes do MVC dentro do contexto de plataforma móvel:
+\begin{itemize}
+\item Model: é onde ficam os dados em si, junto da lógica do sistema e das regras de negócios, representando uma estrutura de dados que dão sentido a algo. Um exemplo é uma classe que define um contato da agenda, que contém dados como nome e número de telefone, e além disso pode ser categorizado de acordo com condições como tipo de telefone ou profissão do contato.
+\item View: é literalmente o que é exibido para o usuário. Como já explicado neste documento, os elementos de uma tela não sabem quem chamou eles e o que vai acontecer em caso de interação. Tudo que um botão sabe, por exemplo, é que se for tocado ele deve enviar uma mensagem a outro objeto, mas o que essa mensagem causará não é responsabilidade dele.
+\item Controller: é o responsável por gerenciar todas as ações e determinar o que deve acontecer. É o elemento que faz a ligação entre o \texttt{Model} e a \texttt{View}, lendo e definindo dados de acordo com as regras de negócio do \texttt{Model}, e interagindo com o usuário enviando notificações e recebendo ações de toque na \texttt{View}.
+\end{itemize}
+\paragraph{}Esta divisão se tornou necessária a partir do aumento da complexidade as aplicações, em que é necessário lidar com estruturas de dados ao mesmo tempo que o usuário interage com a aplicação. Seria impraticável se fosse preciso alterar o layout para modificar a consequência do toque em um botão, por exemplo. Determinar uma abstração para dados e uma para elementos visuais possibilitou que os dois se mantivessem separados e sem consciência um do outro, dando o poder da interação a um terceiro componente que não recebe interações e nem agrega informação, mas sabe como ligar um ao outro sem causar conflitos.
+
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
