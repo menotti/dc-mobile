@@ -1485,7 +1485,170 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 		\section{Banco de dados}
 
-				 
+		O Android fornece suporte à bancos de dados \texttt{SQLite}. Qualquer banco que você criar será acessível apenas pela sua aplicação e não fora dela.
+
+		A maneira recomendada de criar um banco de dados é criando uma subclasse da classe \texttt{SQLiteOpenHelper} e sobrescrever o método \texttt{onCreate()}. Para ler e escrever no banco, chame os métodos \texttt{getReadableDatabase()} e \texttt{getWritableDatabase()}. Ambas retornam um objeto do tipo \texttt{SQLiteDatabase} que fornece métodos para operar sobre o banco.
+
+		Usando o método \texttt{SQLiteDatabase.query()}  podemos realizar uma consulta, o método aceita vários parâmetros, tais como: tabela, seleção, colunas, agrupamento e etc. Para consultas mais complexas você pode usar a classe \texttt{SQLiteQueryBuilder} que contém vários métodos para construir consultas.
+
+		Toda consulta vai retornar um \texttt{Cursor} que aponta para as tuplas do resultado da consulta. Você deverá usá-lo para navegar através dos resultados.
+
+		Para exemplificar, vamos fazer um mecanismo simples de busca. O banco será populado com fabricantes de carros e alguns de seus modelos. Para o \emph{design} desse exemplo, optei por ter dois \emph{Spinners} (equivalente ao \emph{Combo Box}) e um botão. Os \emph{Spinners} serão populados com os dados do Banco de Dados de forma que o primeiro contenha todos os fabricantes de carros e o segundo todos os anos de fabricação de seus modelos, esses dados serão obtidos através de consultas ao banco.
+
+		Para começar, devemos  criar o BD e isso é feito com uma classe que iremos criar que irá ser subclasse de \texttt{SQLiteOpenHelper}
+\footnote{\href{http://developer.android.com/reference/android/database/sqlite/SQLiteOpenHelper.html}{http://developer.android.com/reference/android/database/sqlite/SQLiteOpenHelper.html}}.
+ Chamaremos de \texttt{CarOpenHelper}. Essa classe tem algumas funções básicas, como criar e popular o BD, configurar a ação a ser tomada quando o BD é atualizado ou desatualizado.
+
+		O código \ref	{code:db1} abaixo demonstra a criação do BD usado no exemplo:
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/storage/db1.java}
+		\caption{Classe \texttt{CarOpenHelper} do SQLite}
+		\label{code:db1}
+		\end{listing} 	
+
+		Primeiro criamos algumas \emph{Strings} para ajudar na criação do banco. Em seguida, criamos o construtor da classe, os argumentos passados são: o contexto da \emph{activity} que instanciou a classe, o nome do banco, um \texttt{CursorFactory} caso esteja usando (não é o caso), e a versão do banco que começa de 1 e deve incrementar a medida que você o atualiza.
+		
+		O método \texttt{onCreate()} do banco é responsável pela criação do banco de o popular. Fazemos isso executando consultas SQL diretamente ao banco com o método \texttt{execSQL()}. No código \ref{code:db1} você pode observar a chamada de \texttt{execSQL()} duas vezes. Não se confunda com a segunda consulta, que adiciona as tuplas ao banco, é só uma maneira de inserir várias tuplas em uma única consulta.
+
+		Agora na nossa \emph{activity} precisamos realizar as consultas para popular os \emph{Spinners}. No método \texttt{onCreate()} faça: 
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/storage/db2.java}
+		\caption{Usando o \texttt{CarOpenHelper} na \emph{activity}}
+		\label{code:db2}
+		\end{listing} 	
+
+		Estou "pulando" a parte de obter as referências dos \emph{spinners} e botões e partindo para o que interessa no código \ref{code:db2}. Na linha 5 instanciamos o \texttt{CarOpenHelper} na variável \texttt{mDatabase}. Na linha 6 criamos um \emph{array} que contém as colunas que iremos fazer consulta, isto é necessário para o método \texttt{query} na linha 10.
+
+		Ao chamar \texttt{mDatabase.getReadableDatabase()} obtemos um objeto do tipo \texttt{SQLiteDatabase}
+\footnote{\href{http://developer.android.com/reference/android/database/sqlite/SQLiteDatabase.html}{http://developer.android.com/reference/android/database/sqlite/SQLiteDatabase.html}}
+ mas que só permite a leitura. Já o método \texttt{query} retorna um \texttt{Cursor} que é usado para iterar sobre os resultados. Na linha 10 observe os parâmetros que usamos para fazer a consulta: A tabela que vamos fazer a consulta, um \emph{array} de \emph{strings} com as colunas que queremos obter,  uma cláusula \texttt{WHERE} (observe que passar \textbf{null} aqui implica em retornar todas as tuplas da coluna), argumentos da seleção (para aqueles que conhecem \emph{prepared statements} onde "?" é substituido pelos valores, uma cláusula \texttt{GROUP BY} (\textbf{null} significa não agrupar), uma cláusula \texttt{HAVING}, uma cláusula \texttt{ORDER BY} e uma cláusula \texttt{LIMIT}.
+
+	Em seguida criamos dois \texttt{Set} para armazenar os resultados e omitir os repetidos (poderia ter feito duas consultados e usado \texttt{DISTINCT}, claramente um banco mal projetado).  Usamos o \texttt{Cursor} para iterar sobre o resultado e adiciona-los aos conjuntos. O \texttt{set1} contém os fabricantes e o \texttt{set2} contém os anos de fabricação. Usamos \texttt{Cursor.getString(int index)} para obter o elemento do resultado que está naquele índice, nesse caso o índice 0 é a coluna de fabricantes e o índice 1 é a coluna de anos de fabricação. Com esses dois conjuntos em mão podemos criar duas \texttt{ArrayList} para serem usadas com o \texttt{ArrayAdapter} que irá popular os \emph{Spinners}.
+
+	Depois é necessário criar dois \emph{listeners} para os elementos dos \emph{Spinners} que guarda numa variável o fabricante e o ano de fabricação selecionados (aqui irei omitir código, mas pode ser obtido no repositório). E um \emph{listener} para o botão que irá chamar o método \texttt{openCarList()}.
+
+	\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/storage/db3.java}
+		\caption{Método \texttt{openCarList()}}
+		\label{code:db3}
+	\end{listing} 	
+
+	Esse método é responsável por obter a lista de carros da seleção feita nos \emph{Spinners} e mandar essa lista para outra \emph{activity}. O método \texttt{fetchCarList()} é que irá fazer a chamada ao BD, da mesma forma com que foi feito anteriormente, mas dessa vez estamos obtendo a coluna \emph{Model} do banco com \texttt{WHERE} sendo os parâmetros obtidos. 
+
+	\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/storage/db4.java}
+		\caption{Método \texttt{fetchCarList()}}
+		\label{code:db4}
+	\end{listing} 	
+
+	O resultado de \texttt{fetchCarList()} é enviado para outra \emph{activity} que irá mostrar os modelos em forma de uma lista. 
+
+	Nesse capítulo podemos aprender apenas o básico de acesso ao banco de dados SQLite, é um assunto que tem muito mais o que aprender e recomendo olhar a documentação para futuras consultas. 
+
+\chapter{Câmera}
+	
+	O Android fornece um \emph{framework} para acesso às diferentes cameras e funcionalidades dessas cameras disponíveis no dispositivo. É possível tirar fotos e gravar vídeos nos aplicativos. Há duas formas de acessar a camera, a primeira sendo pela API e a segunda pelo \emph{intent} da camera. 
+	Nesse capítulo iremos discutir brevemente sobre como usar a API e um exemplo de chamar o aplicativo padrão da camera através de um \emph{intent}.
+
+	\section{Usando a API}
+		Para usar a API da camera, primeiro devemos requisitar a permissão de usar a camera no \emph{Manifest}.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/camera/permission.xml}
+		\caption{Requisitando permissão de usar a camera}
+		\label{code:camera-permission}
+		\end{listing} 	
+
+		Você pode ainda requisitar outras funcionalidades como \emph{flash}, foco automático, usar a camera da frente ao requisitar outras \emph{features} usando \texttt{<uses-feature>}. A lista das funcionalidades está presente na \href{http://developer.android.com/guide/topics/manifest/uses-feature-element.html\#hw-features}{documentação}\footnote{\href{http://developer.android.com/guide/topics/manifest/uses-feature-element.html\#hw-features}{http://developer.android.com/guide/topics/manifest/uses-feature-element.html\#hw-features}}.
+		
+		Se você for guardar as fotos no armazenamento externo, precisa requisitar a permissão de escrita:
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/camera/permission2.xml}
+		\caption{Requisitando permissão de gravar no armazenamento externo}
+		\label{code:write-external-permission}
+		\end{listing} 	
+
+		Se for gravar áudio quando estiver gravando vídeo, precisa requisitar a permissão de gravar áudio:
+
+		
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/camera/permission3.xml}
+		\caption{Requisitando permissão de gravar áudio}
+		\label{code:audio-permission}
+		\end{listing} 	
+		
+		Segundo a \href{http://developer.android.com/guide/topics/media/camera.html}{documentação}\footnote{\href{http://developer.android.com/guide/topics/media/camera.html}{http://developer.android.com/guide/topics/media/camera.html}} existem alguns passos gerais que são seguidos para criar um aplicação usando a API da camera. São eles:
+		\bi
+			\item \textbf{Detectar e acessar a camera:} Código que verifica a existência de uma camera e requisita o acesso.
+			\item \textbf{Criar uma classe de pré-visualização:} Criar uma classe que extende \texttt{SurfaceView} e implementa \texttt{SurfaceHolder} para mostrar na tela o que a camera está vendo.
+			\item \textbf{Construir o \emph{layout} da pré-visualização:} Com a classe pronta, crie uma \emph{view} que irá incorporar a classe de pré-visualização e mostrar os controles da interface.
+			\item \textbf{Configurar os \emph{listeners} para a captura:} Criar \emph{listeners} para os botões da interface para gravar a imagem.
+			\item \textbf{Capturar e salvar os arquivos:} Criar o código que irá capturar a imagem e salvar no armazenamento.
+			\item \textbf{Liberar a camera:} Depois de usar a camera, a aplicação deve liberar o uso para outras aplicações. 
+		\ei
+
+		\subsection{Acessando a camera}
+
+		Primeiro vamos criar uma classe \texttt{CameraAccess} que irá requisitar o acesso à camera. 
+		A classe fica responsável apenas por verificar se o dispositivo tem camera e por instanciar a camera para o uso. 
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/camera-access.java}
+		\caption{Classe \texttt{CameraAccess}}
+		\label{code:camera-access}
+		\end{listing} 	
+
+		\subsection{Pré-visualização}
+
+		Em seguida iremos criar a classe da visualização da camera. Essa classe extende \texttt{SurfaceView} e implementa a interface \texttt{SurfaceHolder.CallBack}, iremos chamar essa classe de \texttt{CameraPreview}. No código \ref{code:camera-preview1} abaixo começamos a implementar essa classe. Precisamos de duas variáveis \texttt{SurfaceHolder} e \texttt{Camera}. O construtor recebe o contexto e a camera previamente instanciada como parâmetro. Obtemos o \texttt{SurfaceHolder} usando o método \texttt{getHolder()}, adicionamos a classe como \emph{callback}. Por último, na linha 11 configuramos o tipo do \texttt{SurfaceHolder} como \texttt{SURFACE\_TYPE\_PUSH\_BUFFERS} isso já é depredado mas é necessário para acessar a camera em versões do Android mais antigas que 3.0.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/camerapreview1.java}
+		\caption{Classe \texttt{CameraPreview}}
+		\label{code:camera-preview1}
+		\end{listing} 	
+
+		Continuando a analisar o algoritmo \ref{code:camera-preview1}. Precisamos sobrecarregar os métodos da interface. Esses são: \texttt{surfaceCreated()}, \texttt{surfaceChanged()} e \texttt{surfaceDestroyed()}. O primeiro, \texttt{surfaceCreated()} é responsável por instanciar a pré-visualização. Para isso chame o método \texttt{setPreviewDisplay()} passando o \texttt{holder} como parâmetro para a camera saber onde a visualização será desenhada. Depois é só chamar \texttt{startPreview()} para iniciar a visualização. 
+
+	O segundo, \texttt{surfaceChanged} serve para parar e recomeçar a visualização quando o usuário rotaciona a tela, por exemplo. Para isso é necessário fechar a visualização e depois iniciar novamente. Na linha 27 testamos para saber se o \texttt{mHolder} não tem nada desenhado, se for o caso então apenas retorne do método pois não há nada para ser fechado. Caso contrário então precisamos parar a visualização com \texttt{stopPreview()} e depois iniciar novamente da mesma forma como é feito no método \texttt{surfaceCreated()}.
+
+	O terceiro, \texttt{surfaceDestroyed()} é irrelevante nesse caso pois estaremos tomando conta de liberar a camera na \emph{activity} e não nessa classe.
+
+	\subsection{\emph{Layout} e \emph{Activity} da visualização}
+
+	A classe da visualização precisa ser instanciada por uma \emph{activity} que vai efetivamente mostrar o conteúdo. Para o \emph{layout} da \emph{activity} iremos criar \texttt{FrameLayout} que irá conter a visualização e um botão pra capturar a imagem.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/camera/camera-layout.xml}
+		\caption{\emph{Layout} da \emph{Activity} que irá conter a visualização}
+		\label{code:camera-layout}
+		\end{listing} 	
+
+	Você deve também especificar a orientação da \emph{activity} como \emph{landscape} no \emph{Manifest}. Como mostrado na linha 5 do código \ref{code:camera-orientation}. Apesar disso não ser obrigatório, é normal que tiremos fotos no modo paisagem e não retrato, mas isso não é regra.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/camera/camera-orientation.xml}
+		\caption{Configurando a orientação da \emph{activity} no \emph{Manifest}}
+		\label{code:camera-orientation}
+		\end{listing} 	
+
+	\subsection{Criando a \emph{activity}}
+
+		Para começar vamos apenas fazer com que a \emph{activity} mostre a visualização da camera na tela. 
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/camera-activity.java}
+		\caption{Primeira parte da classe \texttt{CameraActivity}}
+		\label{code:camera-activity}
+		\end{listing} 			
+
+		Usando as classes que criamos anteriormente. Na linha 10 criamos uma instancia da classe \texttt{CameraAccess} e requisitamos o acesso a camera usando \texttt{getCameraInstance()}. Depois criamos um \texttt{CameraPreview} e adicionamos o \emph{preview} ao \texttt{FrameLayout}. Nesse ponto se o aplicativo for executado irá mostrar a imagem da camera na tela, com o botão ao lado mas que não faz nada ainda. Precisamos em seguida programar para as imagens ficarem salvas no armazenamento externo.
+
+
+ 
 \end{singlespace}
 
 
