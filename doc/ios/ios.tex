@@ -1523,6 +1523,25 @@ Pronto, temos uma funcionalidade de busca prática e eficaz para a nossa agenda!
 
 \chapter{APIs e bibliotecas especiais}
 
+\paragraph{}Nesta parte do documento faremos uso de APIs do Objective-C que tratam de implementações mais específicas para os aplicativos, nos dando a possibilidade de uso de elementos básicos do sistema assim como a integração com partes internas dos dispositivos iOS. Faremos uso de algumas bibliotecas externas bastante utilizadas pela comunidade, assim como APIs do próprio sistema que adicionaremos ao projeto com apenas alguns cliques.
+
+
+\section{Adicionando uma API do sistema}
+
+\paragraph{}O SDK do iOS possui um extenso pacote de bibliotecas de integração com o sistema, porém o XCode adiciona a um novo projeto apenas os 3 frameworks básicos: Foundation Framework, UIKit Framework e QuartzCore Framework. Isso evita um peso desnecessário ao projeto já que as outras bibliotecas são voltadas para o acesso a elementos específicos. Como o foco deste capítulo é justamente esse uso específico, em alguns casos será necessário adicionar manualmente um framework do sistema ao projeto.
+\paragraph{}Para adicionar um framework, selecione seu projeto em \texttt{Project Navigator} e na janela ao lado selecione o seu \texttt{target}.
+
+IMAGEM
+
+\paragraph{}Na aba \texttt{Build Phases}, desça até \texttt{Link Binaries With Libraries} e clique no símbolo de '+'.
+
+IMAGEM
+
+\paragraph{}Esta é a lista de todos os frameworks do iOS, bastando pesquisar o nome do framework desejado para adicioná-lo ao projeto. Constará no documento quando isso for necessário e o nome do framework a ser adicionado.
+
+\bigskip
+
+
 \section{Armazenamento em cache}
 
 \paragraph{}Existem muitos casos em que precisamos guardar informação em um cache e recuperá-la em outro momento, mesmo após fechar o aplicativo. Podemos ter um formulário não finalizado, ou então dados que devem ser enviados a um web service mas não há conexão no momento. Para estes e diversos outros casos o iOS nos oferece uma estrutura chamada \texttt{\textbf{NSUserDefaults}}.
@@ -1566,6 +1585,8 @@ NSDictionary *dictionary = [userDefaults dictionaryForKey:
                                          @"DictionaryTeste"];
 
 NSInteger int = [userDefaults integerForKey:@"InteiroTeste"];
+
+NSString *string = [userDefaults stringForKey:@"StringTeste"];
 \end{minted}
 \end{listing}
 
@@ -1576,19 +1597,133 @@ NSInteger int = [userDefaults integerForKey:@"InteiroTeste"];
 \bigskip
 
 
-\section{Chamadas}
+\section{Contatos}
 
-\paragraph{}O código para efetuar uma chamada no iOS é bem simples. Já utilizamos este recurso na tela de detalhes do aplicativo de Agenda, mas falaremos desta ação rapidamente por aqui.
-Dentro do método chamado como action de um \texttt{\textbf{UIButton}} criado para efetuar a chamada, execute o seguinte método:
+\paragraph{}É possível acessar os dados dos contatos salvos em um dispositivo iOS e manipulá-los como for conveniente através das classes de \texttt{\textbf{AddressBook.framework}}. Adicione esse framework ao projeto, e em seguida importe as seguintes classes:
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+#import <AddressBook/AddressBook.h>
+#import <AddressBook/ABPerson.h>
+\end{minted}
+\end{listing}
+
+Essa biblioteca nos permite obter a lista de completa dos contatos, retirar dados como nome, e-mail, e telefone do contato, e então armazená-los em um array apenas com os dados retirados.
+\paragraph{}Começamos extraindo a lista de contatos.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+CFErrorRef err;
+ABAddressBookRef m_addressbook =
+                 ABAddressBookCreateWithOptions(NULL, &err);
+    
+CFArrayRef allPeople =
+           ABAddressBookCopyArrayOfAllPeople(m_addressbook);
+CFIndex nPeople = ABAddressBookGetPersonCount(m_addressbook);
+\end{minted}
+\end{listing}
+
+O objeto \texttt{\textbf{ABAddressBookRef}} é uma referência à lista de contatos com os seus dados completos. O método \texttt{\textbf{ABAddressBookCopyArrayOfAllPeople\(m_addressbook\)}} retorna um objeto \texttt{\textbf{CFArrayRef}}, que mantém a referência à lista mas organiza a estrutura em um array de contatos. Por último obtemos o número total de contatos com \texttt{\textbf{ABAddressBookGetPersonCount\(m_addressbook\)}} para utilizarmos na varredura dos dados, que será feita através de um loop pelo array de contatos.
 
 \pagebreak
 
 \begin{listing}
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
-NSString *string = [userDefaults stringForKey:@"StringTeste"];
-NSString *numero = @"tel:0123456789";
+self.contactList = [[NSMutableArray alloc] init];
+
+for (int i=0;i<nPeople; i++) {
+    
+}
+\end{minted}
+\end{listing}
+
+Dentro desse loop vamos extrair \texttt{nome}, \texttt{email} e \texttt{telefone}, guardá-los em um \texttt{\textbf{NSDictionary}} para o contato e adicionar a um \texttt{\textbf{NSArray}} geral para todos os contatos extraídos da varredura.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+NSMutableDictionary *dOfPerson=[NSMutableDictionary dictionary];
+ABRecordRef ref = CFArrayGetValueAtIndex(allPeople,i);
+\end{minted}
+\end{listing}
+
+Na segunda linha o objeto \texttt{\textbf{ABRecordRef}} guarda uma referência ao contato do índice atual através do método \texttt{\textbf{CFArrayGetValueAtIndex(allPeople,i)}}, que recebe o array de referências a todos os contatos e o índice desejado.
+\paragraph{}Extrairemos então o nome completo do contato.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+// nome
+ABMultiValueRef phones =
+                ABRecordCopyValue(ref, kABPersonPhoneProperty);
+CFStringRef firstName, lastName;
+firstName = ABRecordCopyValue(ref, kABPersonFirstNameProperty);
+lastName  = ABRecordCopyValue(ref, kABPersonLastNameProperty);
+[dOfPerson setObject:[NSString stringWithFormat:@"%@ %@",
+                               firstName, lastName]
+                               forKey:@"nome"];
+\end{minted}
+\end{listing}
+
+\pagebreak
+
+Partimos agora para o e-mail.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+// email
+ABMutableMultiValueRef eMail = ABRecordCopyValue
+                              (ref, kABPersonEmailProperty);
+if(ABMultiValueGetCount(eMail)>0) {
+    [dOfPerson setObject:(__bridge NSString *)
+               ABMultiValueCopyValueAtIndex(eMail, 0)
+               forKey:@"email"];
+}
+\end{minted}
+\end{listing}
+
+E por último para o número de telefone.
+    
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+// telefone
+NSString* mobileLabel;
+mobileLabel = (__bridge NSString*)ABMultiValueCopyLabelAtIndex
+                                 (phones, 0);
+if([mobileLabel isEqualToString:(NSString *)
+                                kABPersonPhoneMobileLabel])
+{
+    [dOfPerson setObject:(__bridge NSString*)
+               ABMultiValueCopyValueAtIndex(phones, 0)
+               forKey:@"fone"];
+}
+\end{minted}
+\end{listing}
+
+Obtemos o número de telefone em formato de \texttt{\textbf{NSString}}.
+\paragraph{}Com o dicionário do contato completo, podemos finalizar o loop adicionando o contato ao nosso array.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+[self.contactList addObject:dOfPerson];
+\end{minted}
+\end{listing}
+
+Ao final do processo teremos um array com os dados em formato puro, facilitando o uso desses dados em outras estruturas do aplicativo.
+
+\paragraph{}\textit{\textbf{\underline{Dica}}: Verifique todas as possibilidades de controle dos contatos no iOS com a documentação oficial da Apple em:\\ https://developer.apple.com/library/ios/documentation/ContactData/Conceptual/\\AddressBookProgrammingGuideforiPhone/Introduction.html}
+
+\bigskip
+
+
+\section{Chamadas}
+
+\paragraph{}O código para efetuar uma chamada no iOS é bem simples. Já utilizamos este recurso na tela de detalhes do aplicativo de Agenda, mas falaremos desta ação rapidamente por aqui.
+Dentro do método chamado como action de um \texttt{\textbf{UIButton}} criado para efetuar a chamada, execute o seguinte método:
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+NSString *phoneString = @"tel:0123456789";
 [[UIApplication sharedApplication] openURL:
-                                [NSURL URLWithString:numero]];
+                            [NSURL URLWithString:phoneString]];
 \end{minted}
 \end{listing}
 
@@ -1601,7 +1736,7 @@ Basta substituir o número do exemplo pelo número real e manter o padrão na st
 
 \section{SMS}
 
-\paragraph{}Para mandar um SMS, temos uma classe nativa do iOS que facilita nosso trabalho chamada \texttt{\textbf{MFMessageComposeViewController}}. Utilizamos um método pronto do seu Delegate para determinar o corpo da mensagem e o destinatário, e então chamar a \texttt{Controller} responsável pelo envio do SMS.
+\paragraph{}Para mandar um SMS, utilizaremos a classe \texttt{\textbf{MFMessageComposeViewController}} que fará todo o trabalho por nós. Para ter acesso a essa classe, adicione \texttt{\textbf{MessageUI.framework}} ao projeto. Em um método do seu \texttt{\textbf{Delegate}} determinamos o corpo da mensagem e o destinatário, e então exibir a \texttt{ViewController} responsável pelo envio do SMS.
 Comece importando a classe no código.
 
 \begin{listing}
@@ -1634,20 +1769,23 @@ Utilizaremos dois métodos, sendo que o primeiro será chamado pelo \texttt{\tex
   MFMessageComposeViewController *controller =
                  [[MFMessageComposeViewController alloc] init];
 
-  if([MFMessageComposeViewController canSendText])
-  {
-    controller.body = bodyOfMessage;    
-    controller.recipients = recipients;
-    controller.messageComposeDelegate = self;
-    [self presentModalViewController:controller animated:YES];
-  }    
+  MFMessageComposeViewController *controller =
+    [[MFMessageComposeViewController alloc] init];
+    
+    if([MFMessageComposeViewController canSendText]) {
+        controller.body = bodyOfMessage;
+        controller.recipients = recipients;
+        controller.messageComposeDelegate = self;
+        [self presentViewController:controller animated:YES
+                                             completion:nil];
+    }
 }
 \end{minted}
 \end{listing}
 
-Este método recebe como parâmetros uma string correspondente ao corpo da mensagem que será enviada, e um array contendo strings com os números que servirão de destinatários. Dentro do método, será criada uma instância de MFMessageComposeViewController, a Controller que abriremos para enviar o SMS.
-\paragraph{}A condição seguinte serve para garantir que é possível enviar um SMS com o dispositivo em questão. Lembre-se que só é possível enviar SMS a partir de um iPhone, seguindo o exemplo das ligações. Passada a condição, determinamos o corpo da mensagem e os destinatários a partir dos parâmetros recebidos no método, direcionamos o Delegate da classe para self, e fazemos a execução da Controller a partir de um \texttt{\textbf{ModalViewController}}.
-\paragraph{}Um ModalViewController é, na maioria dos casos, utilizado quando fazemos um desvio no fluxo de uma \texttt{Navigation Controller}. Um Modal abre de uma forma diferente, dando ao usuário justamente a ideia de que essa tela é temporária.
+Este método recebe como parâmetros uma string correspondente ao corpo da mensagem que será enviada, e um array contendo strings com os números que servirão de destinatários. Dentro do método será criada uma instância de \texttt{\textbf{MFMessageComposeViewController}}, a \texttt{ViewController} que abriremos para enviar o SMS.
+\paragraph{}A condição seguinte serve para garantir que é possível enviar um SMS com o dispositivo em questão. Lembre-se que só é possível enviar SMS a partir de um iPhone, seguindo o exemplo das ligações. Passada a condição, determinamos o corpo da mensagem e os destinatários a partir dos parâmetros recebidos no método, direcionamos o \texttt{\textbf{Delegate}} da classe para \texttt{\textbf{Delegate}} e fazemos a execução da \texttt{ViewController} a partir de um \texttt{\textbf{ModalViewController}}.
+\paragraph{}Um \texttt{\textbf{ModalViewController}} é, na maioria dos casos, utilizado quando fazemos um desvio no fluxo de uma \texttt{Navigation Controller}. Um Modal abre de uma forma diferente, dando ao usuário a ideia de que essa tela é temporária.
 \paragraph{}Para finalizar, utilizaremos o seguinte método:
 
 \begin{listing}
@@ -1661,7 +1799,7 @@ Este método recebe como parâmetros uma string correspondente ao corpo da mensa
 \end{minted}
 \end{listing}
 
-Este método é chamado quando confirmaos ou cancelamos o envio da mensagem. Com ele podemos utilizar o método \texttt{\textbf{dismissViewControllerAnimated:completion:}} para que o Modal desapareça e retornemos à tela anterior, de forma similar com que fazemos quando voltamos de uma tela em uma Navigation Controller, utilizando o método popToViewController. Além de fechar o Modal, podemos utilizar este método para retornar mensagens ao usuário, notificando o sucesso ou cancelamento do envio do SMS.
+Este método é chamado quando confirmamos ou cancelamos o envio da mensagem. Com ele podemos utilizar o método \texttt{\textbf{dismissViewControllerAnimated:completion:}} para que o \texttt{\textbf{ModalViewController}} desapareça e retornemos à tela anterior, de forma similar com que fazemos quando voltamos de uma tela em uma \texttt{Navigation Controller}, utilizando o método \texttt{\textbf{popToViewController}}. Além de fechar o \texttt{\textbf{ModalViewController}}, podemos utilizar este método para retornar mensagens ao usuário, notificando o sucesso ou cancelamento do envio do SMS.
 
 \paragraph{}\textit{\textbf{\underline{Dica}}: Para complementar as possibilidades da \texttt{\textbf{MFMessageComposeViewController}}, não deixe de estudar a documentação oficial da Apple:\\
 \(https://developer.apple.com/library/ios/documentation/MessageUI/Reference/\\MFMessageComposeViewController_class/Reference/Reference.html\)}
