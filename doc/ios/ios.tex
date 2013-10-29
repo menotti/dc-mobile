@@ -48,6 +48,7 @@
 
 \paragraph{}O ambiente que utilizaremos é o XCode, da própria Apple. A instalação e configuração dele e do SDK é simples e automática, basta procurar por XCode na App Store ou no site da Apple para desenvolvedores (\texttt{developer.apple.com}).
 \paragraph{}Será feito o download do ambiente, de todas as bibliotecas necessárias e do simulador para a última versão do iOS para testar seus aplicativos. É possível, posteriormente, baixar pelo próprio XCode os simuladores de versões anteriores do iOS para garantir a compatibilidade do seu projeto com mais versões do sistema.\\
+\paragraph{}Este documento foi baseado no iOS 6.1 e XCode 4.6.\\
 
 \paragraph{}\textit{\textbf{\underline{Dica}}: Para entender melhor as funcionalidades da ferramenta, dê uma olhada na extensa documentação que a Apple disponibiliza em 
 XCode User Guide.\\
@@ -1665,7 +1666,7 @@ lastName  = ABRecordCopyValue(ref, kABPersonLastNameProperty);
 
 \pagebreak
 
-Partimos agora para o e-mail.
+\paragraph{}Partimos agora para o e-mail.
 
 \begin{listing}
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
@@ -1710,6 +1711,121 @@ Obtemos o número de telefone em formato de \texttt{\textbf{NSString}}.
 Ao final do processo teremos um array com os dados em formato puro, facilitando o uso desses dados em outras estruturas do aplicativo.
 
 \paragraph{}\textit{\textbf{\underline{Dica}}: Verifique todas as possibilidades de controle dos contatos no iOS com a documentação oficial da Apple em:\\ https://developer.apple.com/library/ios/documentation/ContactData/Conceptual/\\AddressBookProgrammingGuideforiPhone/Introduction.html}
+
+\bigskip
+
+
+\section{Agenda de compromissos}
+
+\paragraph{}O iOS permite que um aplicativo crie agendas e compromissos de modo simplificando especificando título e horário. Devemos adicionar  \texttt{\textbf{EventKit.framework}} ao projeto, e então importar a seguinte biblioteca na sua classe.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+#import <EventKit/EventKit.h>
+\end{minted}
+\end{listing}
+
+Agora vamos construir dois métodos básicos: criar calendário e adicionar evento. Um evento é adicionado a um dado calendário através do identificador desse calendário, e deixaremos isso explicito ao criarmos um calendário novo e adicionarmos um evento com o identificador gerado. Vamos então ao primeiro método. Crie um novo \texttt{\textbf{UIButton}} e ligue a ela uma nova \texttt{\textbf{IBAction}} chamada \texttt{\textbf{createCalendar}}.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (IBAction)createCalendar:(id)sender
+{
+}
+\end{minted}
+\end{listing}
+
+Começamos então com as especificações do calendário.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+EKEventStore *eventStore = [[EKEventStore alloc] init];
+EKCalendar *calendar = [EKCalendar calendarForEntityType:
+						EKEntityTypeEvent eventStore:eventStore];
+\end{minted}
+\end{listing}
+
+Na linha 1 é alocado um objeto \texttt{\textbf{EKEventStore}} que será responsável por salvar o calendário quando ele estiver pronto. Em seguida é criado um objeto \texttt{\textbf{EKCalendar}} que representa o calendário em si, e nos seus parâmetros definimos que o calendário será para eventos, e além disso definimos o objeto responsável por controlar esse calendário, no caso o objeto \texttt{\textbf{EKEventStore}} que acabamos de criar.
+\paragraph{}Em seguida temos que definir qual será o \texttt{\textbf{EKSource}}, que é a fonte do calendário. Temos as seguintes possibilidades: \texttt{\textbf{EKSourceTypeLocal}}, \texttt{\textbf{EKSourceTypeExchange}},\\ \texttt{\textbf{EKSourceTypeCalDAV}}, \texttt{\textbf{EKSourceTypeMobileMe}}, \texttt{\textbf{EKSourceTypeSubscribed}},\\ e \texttt{\textbf{EKSourceTypeBirthdays}}. Para o nosso caso usaremos \texttt{\textbf{EKSourceTypeLocal}}, o que significa que nosso calendário será local, que é o mais comum para eventos.
+
+\pagebreak
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+EKSource *theSource = nil;
+for (EKSource *source in eventStore.sources) {
+    if (source.sourceType == EKSourceTypeLocal) {
+        theSource = source;
+        break;
+    }
+}
+    
+if (theSource) {
+    calendar.source = theSource;
+}
+\end{minted}
+\end{listing}
+
+Não se instancia um \texttt{\textbf{EKSource}}, nós apenas definimos qual o tipo e utilizamos o mesmo para todos, e por isso devemos procurá-lo para então utilizá-lo. É o que temos da linha 1 à linha 7. E finalizamos com a definição da fonte escolhida para o calendário.
+\paragraph{}Com as especificações do calendário definidas, basta salvá-lo efetivamente.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+NSError *error = nil;
+BOOL result = [eventStore saveCalendar:calendar commit:YES
+                                 error:&error];
+
+if (result) {
+	self.calendarIdentifier = calendar.calendarIdentifier;
+}
+\end{minted}
+\end{listing}
+
+Se estiver tudo certo, o método retornará verdadeiro, e com isso podemos salvar o identificador do calendário em uma propriedade da classe. Com o identificador salvo podemos tratar de criar novos eventos para o novo calendário.
+\paragraph{}Da mesma forma que fizemos com a criação do calendário, criamos uma \texttt{\textbf{IBAction}} chamada \texttt{\textbf{addEvent}}.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (IBAction)addEvent:(id)sender
+{
+}
+\end{minted}
+\end{listing}
+
+Como fizemos para o calendário, devemos primeiro definir as especificações iniciais do evento.
+
+\pagebreak
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+EKEventStore *eventStore = [[EKEventStore alloc] init];
+EKEvent *event = [EKEvent eventWithEventStore:eventStore];
+EKCalendar *calendar = [eventStore calendarWithIdentifier:
+                                   self.calendarIdentifier];
+event.calendar = calendar;
+    
+NSDate *startDate = [NSDate date];
+event.startDate = startDate;
+float time = [self.timeField.text floatValue]*3600;
+event.endDate = [startDate dateByAddingTimeInterval:time];
+\end{minted}
+\end{listing}
+
+Alocamos um objeto \texttt{\textbf{EKEventStore}} para controlar o evento, e um objeto \texttt{\textbf{EKEvent}} representando o evento em si. Na linha 3 vamos instanciar um objeto \texttt{\textbf{EKCalendar}} que vai representar o calendário que vamos criar com o primeiro método, utilizando o identificador salvo, e na linha 4 definimos que o calendário do evento sendo criado é o calendário instanciado.
+\paragraph{}Na segunda parte definimos a data inicial e a data final do evento utilizando a classe \texttt{\textbf{NSDate}}. O método \texttt{\textbf{date}} retorna a data e horário atual do sistema, que será o nosso horário inicial para o evento. A variável do tipo float \texttt{\textbf{time}} vai salvar o valor em horas inserido pelo usuário e converter a unidade para segundos. Por último, com o método \texttt{\textbf{dateByAddingTimeInterval:}}, definimos que o horário final será o horário inicial somado ao tempo em segundos salvo na variável \texttt{\textbf{time}}.
+\paragraph{}Agora basta salvar o evento.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+NSError *error = nil;
+BOOL result = [eventStore saveEvent:event span:EKSpanThisEvent
+                             commit:YES error:&error];
+\end{minted}
+\end{listing}
+
+Se a variável \texttt{\textbf{result}} retornar verdadeiro então o evento foi adicionado com sucesso ao nosso recém criado calendário.
+
+\paragraph{}\textit{\textbf{\underline{Dica}}: Verifique todas as possibilidades para criação de agenda e eventos no iOS com a documentação oficial da Apple em:\\ https://developer.apple.com/library/mac/documentation/cocoa/conceptual/DatesAndTimes/\\Articles/dtCalendars.html}
 
 \bigskip
 
@@ -1807,7 +1923,141 @@ Este método é chamado quando confirmamos ou cancelamos o envio da mensagem. Co
 \bigskip
 
 
-\section{Requisições HTTP com JSON}
+\section{Áudio}
+
+É possível executar e controlar mídia de forma bem simples no iOS. Veremos sobre o controle e um pouco sobre algumas propriedades de áudio que podemos obter, como o nível em decibéis dos canais de áudio. Para o nosso exemplo, faremos uso dessa propriedade para construir um medidor simplificado para acompanhar o ritmo da música enquanto ela toca.
+\paragraph{}Para trabalhar com mídia é preciso importar \texttt{\textbf{AVFoundation.framework}} para o projeto e importar a seguinte biblioteca na sua classe.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+#import <AVFoundation/AVFoundation.h>
+\end{minted}
+\end{listing}
+
+Através dessa biblioteca vamos criar nosso controlador de áudio, que será um objeto do tipo \texttt{\textbf{AVAudioPlayer}}. Vamos instanciá-lo como uma propriedade da classe, pois o utilizaremos em diversas partes do código.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@property (strong, nonatomic) AVAudioPlayer *audioPlayer;
+\end{minted}
+\end{listing}
+
+Antes de tudo precisamos configurar o controlador de áudio. Vamos dividir essa configuração em dois métodos que serão chamados em sequência no carregamento da tela.
+\paragraph{}O primeiro será chamado \texttt{\textbf{configureAudioSession}}.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (void)configureAudioSession {
+    NSError *error;
+    [[AVAudioSession sharedInstance]
+                     setCategory:AVAudioSessionCategoryPlayback
+                           error:&error];
+}
+\end{minted}
+\end{listing}
+
+Esse método vai definir como o áudio do nosso aplicativo será executado. Temos diversas possibilidades, como permitir que o áudio se misture com outros aúdios em andamento, ou permitir que o áudio toque em \texttt{background}. No nosso caso não usaremos nada disso, sendo assim o que for que executarmos em nosso aplicativo será executado sozinho e somente enquanto o aplicativo estiver em primeiro plano.
+\paragraph{}Com isso definido, podemos definir o arquivo de mídia a ser executado no segundo método, que será chamado \texttt{\textbf{configureAudioPlayer}}.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (void)configureAudioPlayer {
+    NSURL *audioFileURL = [[NSBundle mainBundle]
+                            URLForResource:@"DemoSong"
+                             withExtension:@"m4a"];
+    NSError *error;
+    self.audioPlayer = [[AVAudioPlayer alloc]
+                         initWithContentsOfURL:audioFileURL
+                                         error:&error];
+    
+    [_audioPlayer setMeteringEnabled:YES];
+}
+\end{minted}
+\end{listing}
+
+Na linha 2 definimos o nome e a extensão do arquivo a ser executado, lembrando que no caso ele deve ser previamente adicionado ao projeto. Feito isso, na linha 6 é dado início ao nosso controlador de áudio com o arquivo definido na linha 2. Por último, na linha 10, definimos com o método \texttt{\textbf{setMeteringEnabled}} que poderemos obter as medidas em decibéis dos canais de áudio.
+\paragraph{}Temos agora nosso áudio configurado e pronto para tocar. Vamos então definir mais dois métodos: um controle de play/pause, e um método para obter os níveis dos canais de áudio e atualizar nossa barra a cada décimo de segundo.
+\paragraph{}O primeiro método é simples, e será uma \texttt{\textbf{IBAction}} chamada \texttt{\textbf{playMusic}} a ser controlada por um \texttt{\textbf{UIButton}}, para que o usuário tenha controle sobre o áudio.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (IBAction)playMusic:(id)sender {
+    if (self.audioPlayer.isPlaying) {
+        [_audioPlayer pause];
+    }
+    else {
+        [_audioPlayer play];
+    }
+}
+\end{minted}
+\end{listing}
+
+De forma bem direta, os métodos \texttt{\textbf{play}} e \texttt{\textbf{pause}} controlam quando o áudio será tocado ou não. Primeiro verificamos se o áudio está tocando ou não, através da propriedade \texttt{\textbf{isPlaying}} do nosso controlador, para então definir se o áudio vai parar ou vai voltar a tocar.
+\paragraph{}Para completar o aplicativo, vamos criar nosso medidor de áudio. Isso será feito através de um objeto \texttt{\textbf{UIProgressView}} a ser adicionado na tela e ligado ao código com o nome \texttt{\textbf{progressBar}} na forma de \texttt{\textbf{IBOutlet}}. Podemos então criar o método responsável por atualizar nossa barra, que será chamado \texttt{\textbf{updateSoundMeter}}.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (void)updateSoundMeter {
+    if (self.audioPlayer.isPlaying) {
+        [self.audioPlayer updateMeters];
+    
+        float power = 0.0f;
+        for (int i = 0; i < [_audioPlayer numberOfChannels]; i++)
+        {
+            power += [_audioPlayer averagePowerForChannel:i];
+        }
+        power /= [_audioPlayer numberOfChannels];
+        power = power/-30;
+        
+        [self.progressBar setProgress:power animated:YES];
+    }
+}
+\end{minted}
+\end{listing}
+
+Criamos uma condição que verifica se o áudio está em execução, e só assim a barra é atualizada. Em seguida, na linha 3, o método \texttt{\textbf{updateMeters}} do nosso controlador atualiza os medidores para que possamos obter os valores atuais. Na linha 5 criamos uma variável \texttt{\textbf{power}} do tipo float que vai armazenar o nível médio em decibéis. Da linha 6 à 9 é feito uma varredura pelo canais de áudio (que são 2 se estiver em modo estéreo) e somado o valor em decibéis na variável \texttt{\textbf{power}} com o método \texttt{\textbf{averagePowerForChannel}} que obtém a média daquele canal específico, para então na linha 10 obtermos a média dos canais.
+\paragraph{}Na linha 11 começamos a preparar o valor de \texttt{\textbf{power}} para ser utilizado na barra. O valor obtido em decibéis é negativo, e por isso é preciso multiplicar por -1, e além disso dividimos por 30 para que os valores se mantenham na maior parte do tempo entre 0.0 e 1.0, limites da barra de progresso. Esse tratamento do valor é necessário para dar o efeito visual na barra, ou então a barra ficaria sempre cheia devido aos altos valores obtidos. Por fim é feita a atualização do valor da barra com o método \texttt{\textbf{setProgress:animated:}}.
+\paragraph{}Pronto, agora basta fazer a chamada dos métodos dentro de \texttt{\textbf{viewDidLoad}}.
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [self configureAudioSession];
+    
+    [self configureAudioPlayer];
+    
+    [NSTimer scheduledTimerWithTimeInterval:0.1
+                            target:self
+                          selector:@selector(updateSoundMeter)
+                          userInfo:nil
+                           repeats:YES];
+}
+\end{minted}
+\end{listing}
+
+Na última linha utilizamos a classe \texttt{\textbf{NSTimer}} para programar o tempo de chamada do método \texttt{\textbf{updateSoundMeter}}. Este método será chamado a cada décimo de segundo para atualizar a barra de progresso, dando um efeito visual de acompanhamento da música.
+
+\paragraph{}\textit{\textbf{\underline{Dica}}: Não deixe de estudar a documentação oficial da Apple para a biblioteca\\  \texttt{\textbf{AV Foundation}}:\\
+\(https://developer.apple.com/library/ios/documentation/AVFoundation/Reference/\\AVFoundationFramework\)}
+
+\bigskip
+
+
+\section{Câmera}
+
+
+
+
+\paragraph{}\textit{\textbf{\underline{Dica}}: Acompanhe a documentação oficial da Apple sobre boas práticas para trabalhar com fotos e vídeo através da câmera:\\
+\(https://developer.apple.com/library/ios/documentation/AudioVideo/Conceptual/\\CameraAndPhotoLib_TopicsForIOS/Articles/TakingPicturesAndMovies.html\)}
+
+\bigskip
+
+
+\section{Requisições HTTP}
 
 \paragraph{}O iOS permite nativamente a comunicação com \texttt{web services} a partir requisições HTTP do tipo GET e POST, e existem diversas APIs externas que extendem essas classes de forma a complementar a ferramenta e facilitar o seu uso. Para lidar com recebimento e envio de dados básicos (do tipo string, inteiro, ou booleano), utiliza-se principalmente arquivos no modelo JSON.
 \paragraph{}Um arquivo JSON define uma hierarquia de dados isolados e sem significado agregado, permitindo uma comunicação HTTP eficiente pela simplicidade da sua estrutura. Dessa forma é necessário apenas saber previamente a estrutura dos dados a serem recebidos, para então fazer o parsing local dos dados de acordo com a necessidade.
