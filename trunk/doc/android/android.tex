@@ -1250,7 +1250,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/comm/httpget.java}
-		\caption{Classe \texttt{RequestTask}}
+		\caption{Usando \texttt{RequestTask} na \emph{activity}}
 		\label{code:requestactivity}
 		\end{listing}		
 
@@ -1647,7 +1647,171 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 		Usando as classes que criamos anteriormente. Na linha 10 criamos uma instancia da classe \texttt{CameraAccess} e requisitamos o acesso a camera usando \texttt{getCameraInstance()}. Depois criamos um \texttt{CameraPreview} e adicionamos o \emph{preview} ao \texttt{FrameLayout}. Nesse ponto se o aplicativo for executado irá mostrar a imagem da camera na tela, com o botão ao lado mas que não faz nada ainda. Precisamos em seguida programar para as imagens ficarem salvas no armazenamento externo.
 
+	%%
+	\newpage
 
+	\subsection{Capturando e salvando as imagens}
+		Agora você está pronto para capturar e salvar as fotos em sua aplicação. Para isso você deve definir \emph{listeners} para o botão da sua interface que irá responder tirando uma foto.
+
+		\dica{Certifique-se de que há permissão de escrita no armazenamento externo para salvar as fotos.}
+
+		Para capturar uma foto, você deve usar o método \texttt{Camera.takePicture()}. Para receber os dados no format JPEG você deve implementar um \texttt{Camera.PictureCallback} que recebe os dados da imagem e os escrevem em um arquivo. Observe a implementação da interface \texttt{PictureCallback} no código abaixo, que pode ser escrito no método \texttt{onCreate()} da \emph{activity}.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/jpegcallback.java}
+		\caption{Criando um \texttt{Callback} para imagens JPEG}
+		\label{code:camera-jpegcallback}
+		\end{listing} 			
+
+		Para simplificar, todo código que efetivamente cria a imagem em um arquivo ficou no método \texttt{getOutputMediaFile()} que pode ser observado abaixo. Na linha X já estamos recebendo o arquivo que foi criado para então tentar efetivamente salvá-lo na mídia externa.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/getoutputmediafile.java}
+		\caption{Método \texttt{getOutputMediaFile()}}
+		\label{code:camera-getoutput}
+		\end{listing} 			
+
+		Na linha 2 do método \texttt{getOutputMediaFile()} estamos escolhendo o nome da pasta que armazernará as fotos salvas. Para este exemplo, escolhi o nome do aplicativo concatenado com a string \texttt{\_PICS}. Como neste exemplo o nome do aplicativo é \texttt{Camera1}, então a pasta será \texttt{Camera1\_PICS}. Na linha 5 criamos um objeto \texttt{File} que contêm uma referência a esta pasta que estamos criando, o caminho dela é dado pelo método \texttt{Environment.getExternalStoragePublicDirectory()} e em seguida pela variavel \texttt{Environment.DIRECTORY\_PICTURES}. Essa chamada escolhe a pasta \texttt{Pictures/} do armazenamento externo e ao ser concatenada com nossa variável \texttt{folder}, temos a pasta que iremos salvar as fotos. Em seguida é feita uma verificação se a pasta já existe, caso não exista ele tenta criar com o método \texttt{mkdirs()}, que retorna \texttt{false} caso não seja possível criar.
+
+		Para o nome do arquivo, criamos um \emph{timestamp} que pega a data e hora atual para o nome do arquivo. Isso pode ser observado na linha 16 com a criação de um \texttt{SimpleDateFormat} no formato \texttt{yyyyMMdd\_HHmmss}, ou seja: ano, mês, dia, hora, minuto e segundo, nesta ordem. Na linha 18 criamos novamente um objeto \texttt{File} mas que dessa vez irá guardar o caminho do arquivo. 
+
+		Por fim, mostramos um \texttt{Toast} para dar um feedback ao usuário que a foto foi salva e mostrando a pasta para que ele possa ver. 
+
+		Agora só falta dar a função do botão de capturar, com o seguinte \emph{listener}:
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/takepic.java}
+		\caption{Método \texttt{getOutputMediaFile()}}
+		\label{code:camera-takepic}
+		\end{listing} 			
+
+		Basta chamar o método \texttt{takePicture()}\footnote{\href{http://developer.android.com/intl/es/reference/android/hardware/Camera.html}{http://developer.android.com/intl/es/reference/android/hardware/Camera.html}}, que recebe três \emph{callbacks}, são eles: \texttt{ShutterCallback}, e dois \texttt{PictureCallback}, um para imagens do tipo \texttt{RAW} e outra para imagens do tipo \texttt{JPEG}. Como só criamos um \emph{callback}, o resto será \texttt{null}.
+		
+		Entretanto, as imagens salvas estarão com uma qualidade bem inferior. Para corrigir isso você pode adicionar o seguinte código antes da linha 13 do algoritmo \ref{code:camera-activity}:
+	
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/params.java}
+		\caption{Melhorando a qualidade das fotos tiradas}
+		\label{code:better-quali}
+		\end{listing} 			
+
+		Você consegue configurar os parâmetros da câmera, neste caso usaremos para melhorar a qualidade da foto. Para isso comece chamando \texttt{getParameters()} e guarde essa referência num objeto \texttt{Parameters}. Com \texttt{setJpegQuality()} conseguimos configurar a qualidade da compressão JPEG entre 0 e 100, sendo 100 o melhor. Em seguida iteremos sob uma lista de resoluções suportadas e escolhemos a maior resolução. Dessa forma a foto terá a maior resolução e com a melhor qualidade de compressão.
+		Para finalizar, chame \texttt{setParameters()} e os parâmetros serão gravados.
+
+	\section{Gravando vídeos}
+
+		Agora você já tem um aplicativo que tira fotos, mas também quer gravar vídeos. Para isso, algumas modificações serão necessárias, assim como algumas adições. Para capturar videos, é necessário um controle cauteloso do objeto \texttt{Camera} em coordenações com a classe \texttt{MediaRecorder}\footnote{\href{http://developer.android.com/intl/es/reference/android/media/MediaRecorder.html}{http://developer.android.com/intl/es/reference/android/media/MediaRecorder.html}}. Diferente de tirar fotos, gravar vídeos requer chamadas à métodos em uma ordem particular. Você deve seguir essa ordem para preparar a aplicação e capturar o video. 
+
+		Os três primeiros passos: 1) Abrir a câmera, 2) Criar uma visualização e 3) Visualizar a câmera, já foram feitos na seção anterior. Para começar a gravar o vídeo são necessários mais alguns passos:
+
+	\subsection{Preparar a gravação}
+
+		Preparar a gravação significa configurar a classe \texttt{MediaRecorder}, todos os passos da configuração devem ser feitos em uma \textbf{ordem especifica}. Para preparar a gravação criaremos um método \texttt{prepareForRecording()}.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/prepareVideo.java}
+		\caption{Método \texttt{prepareForRecording()}}
+		\label{code:preparevideo}
+		\end{listing} 			
+
+		Temos uma variável \texttt{recorder} da classe \texttt{MediaRecorder} e o instanciamos. Primeiro passo é destravar a câmera com \texttt{unlock()} e atribuir a câmera ao \texttt{recorder} com \texttt{setCamera()}. O segundo passo é configurar a fonte de áudio e vídeo com \texttt{setAudioSource()} e \texttt{setVideoSource()}, respectivamente, como é feito nas linhas 6 e 7. O terceiro passo é configurar um \emph{profile} com o \texttt{setProfile()}, você pode obter um \emph{profile} usando o método \texttt{CamcorderProfile.get()}. O quarto passo é configurar o arquivo de saida com o método \texttt{setOutputFile()}, aqui usaremos o método \texttt{getOutpuMediaFile()} que fizemos antes. O quinto passo é configurar a visualização do \texttt{recorder} com \texttt{setPreviewDisplay()}, como é feito na linha 14 e passamos como parâmetro o método getSurface() da nossa classe \texttt{CameraPreview}. Por último devemos tentar chamar o método \texttt{prepare()}, mas caso dê errado precisamos liberar a câmera de volta, para isso usamos o método \texttt{releaseMediaRecorder()} que iremos criar.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/releaseRecorder.java}
+		\caption{Método \texttt{releaseMediaRecorder()}}
+		\label{code:releaserecorder}
+		\end{listing} 			
+
+		O código de \texttt{releaseMediaRecorder()} é simples, são os passos necessários para liberar a câmera do \texttt{recorder} e dar de volta à \emph{activity}.  O método \texttt{reset()} limpa as configurações do \texttt{recorder}.
+
+		É importante também liberar a câmera para outras aplicações caso o usuário troque de aplicação, quando isso acontece o método \texttt{onPause()} é chamado no ciclo de vida da \emph{activity}.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/releaseCam.java}
+		\caption{Liberando a câmera no método \texttt{onPause()}}
+		\label{code:releaserecorder}
+		\end{listing} 			
+
+		Por último, configurar um \emph{listener} para o botão de gravar vídeo, como mostrado no algoritmo \ref{code:recorderlistener} abaixo. 
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/recordlistener.java}
+		\caption{Configurando o \emph{listener} do botão de gravar vídeo}
+		\label{code:recorderlistener}
+		\end{listing} 			
+
+		Com uma variável de controle \texttt{isRecording} guardamos se a câmera está gravando ou não. Caso esteja gravando e o usuário clique no botão chamamos \texttt{stop()}, liberamos o \texttt{recorder} com \texttt{releaseMediaRecorder()}, mudamos o texto do botão com um método simples que irei omitir o código aqui, além de marcar \texttt{isRecording} como falso, pois paramos de gravar. Caso contrário, isto é, o usuário quer começar a gravar então chamamos \texttt{prepareForRecording()} que criamos anteriormente, se o resultado for positivo significa que todas as preparações deram certo, podemos chamar \texttt{start()} e colocar \texttt{"Stop"} no botão onde antes era \texttt{"Record"}, além de marcar \texttt{isRecording} como verdadeiro. Se a preparação falhar, então apenas chamamos \texttt{releaseMediaRecorder()} para cancelar qualquer preparação que tenha sido feita.
+
+	\dica{Porque a complexidade de configurar a gravação de video é alta, é recomendável baixar o projeto \texttt{Camera1} do repositório e estudar o código completo.}
+
+	\section{Usando um \texttt{Intent}}
+
+		A maneira mais fácil de tirar uma simples foto na verdade é chamando um \texttt{Intent} que se encarregará de abrir a \emph{activity} da câmera e retornar a foto tirada.
+
+	\subsection{\texttt{Intent} de capturar foto}
+		
+		O \texttt{Intent} da câmera pode receber opcionalmente um objeto \texttt{Uri} que especifica o caminho e o nome do arquivo onde você gostaria que as fotos fossem salvas. Apesar de ser opcional, esse parâmetro é recomendavel. Caso não seja especificado a aplicação da câmera irá salvar a foto no local padrão com um nome padrão que pode ser visto no campo \texttt{Intent.getData()} que é retornado.
+
+		O código abaixo mostra como executar um \texttt{Intent} para capturar fotos.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/captureintent.java}
+		\caption{Chamando a \emph{activity} de câmera com \texttt{Intent}}
+		\label{code:cameraintent}
+		\end{listing} 		
+
+		Primeiro cria-se um novo \texttt{Intent} e o parâmetro é \texttt{MediaStore.ACTION\_IMAGE\_CAPTURE} que configura uma \emph{activity} com câmera e que pode receber esse \texttt{Intent}. Depois usamos o método \texttt{getOutputMediaFileUri()} que apenas faz uma chamada ao método \texttt{getOutputMediaFile()} (algoritmo \ref{code:camera-getoutput}) que usamos na seção anterior porém retornando uma \texttt{Uri}, que é o caminho do arquivo. Colocamos como extra no \texttt{Intent} o caminho retornado em \texttt{fileUri}, nesse caso \texttt{MediaStore.EXTRA\_OUTPUT} é apenas uma convenção para ficar claro que o valor passado no extra é para ser usado na \emph{activity} de câmera para salvar o arquivo. Por fim chamamos \texttt{startActivityForResult()}, que recebe o \texttt{Intent} e um código que indica uma \emph{activity} que captura imagens.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/urifromfile.java}
+		\caption{Método \texttt{getOutputMediaFileUri()}}
+		\label{code:urifromfile}
+		\end{listing} 		
+
+	\subsection{Recebendo resultado do \texttt{Intent}}
+		
+		Quando você chama \texttt{startActivityForResult()} significa que você espera uma resposta da \emph{activity} que chamou. Essa resposta será obtida no método \texttt{onActivityResult()} que você precisa escrever para manipular esses dados de resposta. O algoritmo \ref{code:requestresult} exemplifica esse método, que trata a resposta da câmera, isto é, se foi possível capturar a foto ou gravar o vídeo.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/requestresult.java}
+		\caption{Método \texttt{onActivityResult()}}
+		\label{code:requestresult}
+		\end{listing} 		
+
+		A lógica está apenas em verificar o retorno da \emph{activity} e mostrar uma mensagem ao usuário, o informando do caminho em que foi salvo a imagem ou vídeo.  
+
+		\dica{Quando você passa uma \texttt{Uri} para a \emph{activity} de câmera, o retorno dela na variável \texttt{data} será sempre \texttt{null}. Você pode, entretando, não especificar uma \texttt{Uri} e usar o campo \texttt{data} para criar um \texttt{Bitmap}.}
+
+	\subsection{\texttt{Intent} de capturar vídeo}
+
+		Para requisitar uma \emph{activity} que grava vídeo, o processo é semelhante embora você pode passar um extra adicional ao \texttt{Intent} que informa a qualidade do vídeo.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/recordintent.java}
+		\caption{Criando um \texttt{Intent} para vídeo}
+		\label{code:requestresult}
+		\end{listing} 		
+		
+		Isso conclui o capítulo de câmera, passamos por todas as fases da criação de um aplicativo que usa a câmera como principal elemento mas também vimos como é simples utilizar a câmera como uma \emph{activity} secundária cuja função é apenas capturar uma imagem. Sempre que existirem dúvidas, faça o \emph{download} dos projetos do repositório para ver o código completo em funcionamento.
+			
+\chapter{Compartilhamento}
+
+		Já aprendemos a enviar dados à outras \emph{activities} usando a classe \texttt{Intent}. Agora veremos como faz para enviar esses dados e dar ao usuário a opção de escolher qual aplicativo já instalado no dispositivo ele quer usar para receber esses dados. Isso pode ser visto como compartilhamento. Imagine que você tirou uma foto e quer mostrar ao seus amigos pelo \emph{Facebook}. Na verdade está enviando uma foto à \emph{activity} do Facebook que recebe esse tipo de dado e assim ela tomará o controle.
+
+		Quando você construir um \texttt{Intent} você deve especificar a ação que você espera que ele acione. O Android já define vários tipos de ações e entre eles está o \texttt{ACTION\_SEND} que indica que o \texttt{intent} está enviando dados de uma \emph{activity} para outra. 
+
+		Se você quer enviar apenas um texto, por exemplo, basta seguir o pequeno exemplo abaixo:
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/sharing/simpletext.java}
+		\caption{Enviando um texto simples através de um \texttt{Intent}}
+		\label{code:simpletext}
+		\end{listing} 		
+
+		continua...
+
+			
+	
  
 \end{singlespace}
 
