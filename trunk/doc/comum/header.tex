@@ -11,7 +11,8 @@
 \usepackage{bookman}                        %%% Fonte de Letras
 \usepackage{enumerate}
 \usepackage{lettrine}
-\usepackage{minted}	
+\usepackage[chapter]{minted}
+\usepackage{caption}
 
 %\usepackage{listings}
 %\lstset{
@@ -62,8 +63,15 @@
   morecomment=[l]{||},
   literate={{(X)}{$\times$}1 {(E)}{$\in$}1 {(U)}{$\cup$}1 {(N)}{$\cap$}1 {(<)}{$\langle$}1 {(>)}{$\rangle$}1 {->}{$\rightarrow$}2 {<\-}{$\leftarrow$}2 {=}{$=$}1 {>}{$>$}1 {<}{$<$}1 {!=}{$\neq$}1 {>=}{$\ge$}1 {<=}{$\le$}1}
 }
-\renewcommand{\lstlistingname}{Algoritmo}
-\renewcommand{\lstlistlistingname}{Lista de Algoritmos}
+
+\renewcommand\listingscaption{Algoritmo}
+\renewcommand\listoflistingscaption{Lista de Algoritmos}
+
+\renewcommand{\listoflistings}{%
+  \cleardoublepage
+  \addcontentsline{toc}{chapter}{\listoflistingscaption}%
+  \listof{listing}{\listoflistingscaption}%
+}
 
 \usepackage[english,brazil]{babel}
 \usepackage[utf8]{inputenc}
