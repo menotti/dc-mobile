@@ -1793,6 +1793,81 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\end{listing} 		
 		
 		Isso conclui o capítulo de câmera, passamos por todas as fases da criação de um aplicativo que usa a câmera como principal elemento mas também vimos como é simples utilizar a câmera como uma \emph{activity} secundária cuja função é apenas capturar uma imagem. Sempre que existirem dúvidas, faça o \emph{download} dos projetos do repositório para ver o código completo em funcionamento.
+
+\chapter{Áudio}
+	\section{Gravando e tocando áudio}
+
+		Gravar áudio é uma tarefa muito semelhante a gravar vídeos no Android. Usaremos a mesma classe: \texttt{MediaRecorder}, para configurar e gravar áudio do microfone do aparelho. Para tocar áudio veremos uma nova classe chamada \texttt{MediaPlayer}.
+
+		Para este exemplo criaremos um aplicativo simples com 2 botões, um para gravar e um para tocar a gravação. A fim de simplificar toda gravação será feita em apenas um arquivo, logo sempre que gravar algo novo estará sobreescrevendo o antigo. Entretanto, você pode modificar o método \texttt{getOutputMediaFile()} (algoritmo \ref{code:camera-getoutput}) que criamos no capítulo anterior para gravar em diferentes arquivos.
+
+		Iniciamos criando uma função que chamaremos de \texttt{prepareRecording()} que é similar aquela que fizemos para o vídeo.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/audio/prepare.java}
+		\caption{Método \texttt{prepareRecording()} para gravações de áudio}
+		\label{code:audioprepare}
+		\end{listing} 		
+
+		Assim como fizemos com o vídeo, a preparação precisa seguir passos determinados. Primeiro precisamos configurar a fonte com \texttt{setAudioSource()}, nesse caso passamos o \texttt{MIC}, o microfone do aparelho. O segundo passo e configurar o formato da saída com \texttt{setOutputFormat()} e nesse exemplo decidi pelo formato \texttt{3gp}. O terceiro passo é determinar o arquivo de saída com \texttt{setOutputFile()} e para esse passamos uma String que chamei de \texttt{testFilename}, o valor de \texttt{testFilename} para este exemplo é o caminho do armazenamento externo mais o nome do arquivo. Depois, \texttt{setAudioEncoder()} para selecionar a codificação do áudio. Por último chamar o método \texttt{prepare()} para consolidar as configurações.
+
+		Também faça uma função \texttt{releaseRecorder()} para liberar o gravador quando terminar a gravação.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/audio/release.java}
+		\caption{Método \texttt{releaseRecorder()}}
+		\label{code:audiorelease}
+		\end{listing} 		
+
+		Em seguida faça o \emph{listener} do botão de gravar da mesma forma do botão de gravar vídeo.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/audio/reclistener.java}
+		\caption{Configurando o botão de gravar áudio}
+		\label{code:audioreclistener}
+		\end{listing} 		
+
+		São necessárias apenas verificações simples para saber se está gravando ou não e se foi possível fazer a preparação do gravador ou não. Se está gravando e o usuário pressiona o botão então chamamos \texttt{stop()} para parar a gravação, trocamos o texto do botão e atribuímos \texttt{isRecording} como falso pois estamos parando de gravar. Caso contrário, ou seja, queremos gravar, então chamamos \texttt{start()} para iniciar a gravação, mudamos o texto e atribuímos verdadeiro para \texttt{isRecording}. Se a preparação falhar então chamamos \texttt{releaseRecorder()} para liberar o microfone.
+
+		Para o tocador, iremos usar a classe \texttt{MediaPlayer}, iniciaremos criando um método \texttt{startPlaying()} responsável por instanciar um \texttt{MediaPlayer} e configurá-lo. 
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/audio/startplaying.java}
+		\caption{Método \texttt{startPlaying()}}
+		\label{code:audiostartplaying}
+		\end{listing} 		
+
+		Na linha 4 você pode pode observar o uso de um \emph{listener} para o \texttt{MediaPlayer} chamado \texttt{OnCompletionListener}, podemos usar essa interface para saber quando o áudio acaba de tocar, nesse caso o estamos usando para poder configurar o botão. Dentro do bloco \texttt{try-catch} usamos \texttt{setDataSource()} para configurar o arquivo de áudio a ser tocado. Depois chamamos \texttt{prepare()} e finalmente \texttt{start()} para começar a tocar. 
+
+		Para complementar, a função \texttt{stopPlaying()} também é útil para quando quisermos parar de tocar o áudio.
+		
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/audio/stoplaying.java}
+		\caption{Método \texttt{stopPlaying()}}
+		\label{code:audiostopplaying}
+		\end{listing} 		
+
+		Por fim, basta configurar o \emph{listener} do botão de tocar áudio, como mostrado no algoritmo abaixo:
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/audio/playlistener.java}
+		\caption{Configurando o botão de tocar áudio}
+		\label{code:audioplaylistener}
+		\end{listing} 		
+
+		A lógica desse método é praticamente o mesmo do botão de gravar áudio. 
+
+		Para testar, a variável \texttt{testFilename} é dada por:
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/audio/testfilename.java}
+		\caption{Variável \texttt{testFilename}}
+		\label{code:audiofile}
+		\end{listing} 		
+
+		\dica{Não se esqueça das permissões no \emph{Manifest}!}
+
+		Com isso terminamos nosso aplicativo que não so faz uma simples gravação de áudio, mas que também nos permite escutá-la usando a classe \texttt{MediaPlayer}.
+
 			
 \chapter{Compartilhamento}
 
