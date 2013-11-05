@@ -38,6 +38,10 @@
 		AC691C2D181705A600D6E657 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC691C2C181705A600D6E657 /* EventKit.framework */; };
 		AC691C31181705CE00D6E657 /* APICalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC691C2F181705CD00D6E657 /* APICalendarViewController.m */; };
 		AC691C32181705CE00D6E657 /* APICalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC691C30181705CE00D6E657 /* APICalendarViewController.xib */; };
+		ACA5984818276B400088C741 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACA5984718276B400088C741 /* Social.framework */; };
+		ACA5984C18276B5D0088C741 /* APISocialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA5984A18276B5D0088C741 /* APISocialViewController.m */; };
+		ACA5984D18276B5D0088C741 /* APISocialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACA5984B18276B5D0088C741 /* APISocialViewController.xib */; };
+		ACA5984F18276FC80088C741 /* LogoDC.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ACA5984E18276FC80088C741 /* LogoDC.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +88,11 @@
 		AC691C2E181705CD00D6E657 /* APICalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APICalendarViewController.h; sourceTree = "<group>"; };
 		AC691C2F181705CD00D6E657 /* APICalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APICalendarViewController.m; sourceTree = "<group>"; };
 		AC691C30181705CE00D6E657 /* APICalendarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = APICalendarViewController.xib; sourceTree = "<group>"; };
+		ACA5984718276B400088C741 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		ACA5984918276B5D0088C741 /* APISocialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APISocialViewController.h; sourceTree = "<group>"; };
+		ACA5984A18276B5D0088C741 /* APISocialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APISocialViewController.m; sourceTree = "<group>"; };
+		ACA5984B18276B5D0088C741 /* APISocialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = APISocialViewController.xib; sourceTree = "<group>"; };
+		ACA5984E18276FC80088C741 /* LogoDC.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = LogoDC.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACA5984818276B400088C741 /* Social.framework in Frameworks */,
 				AC691C2D181705A600D6E657 /* EventKit.framework in Frameworks */,
 				AC691C2A1816FC4B00D6E657 /* AddressBook.framework in Frameworks */,
 				AC691C2B1816FC4B00D6E657 /* AddressBookUI.framework in Frameworks */,
@@ -108,6 +118,7 @@
 		AC691B8C180C754200D6E657 = {
 			isa = PBXGroup;
 			children = (
+				ACA5984718276B400088C741 /* Social.framework */,
 				AC691C2C181705A600D6E657 /* EventKit.framework */,
 				AC691C281816FC4B00D6E657 /* AddressBook.framework */,
 				AC691C291816FC4B00D6E657 /* AddressBookUI.framework */,
@@ -166,6 +177,9 @@
 				AC691C2E181705CD00D6E657 /* APICalendarViewController.h */,
 				AC691C2F181705CD00D6E657 /* APICalendarViewController.m */,
 				AC691C30181705CE00D6E657 /* APICalendarViewController.xib */,
+				ACA5984918276B5D0088C741 /* APISocialViewController.h */,
+				ACA5984A18276B5D0088C741 /* APISocialViewController.m */,
+				ACA5984B18276B5D0088C741 /* APISocialViewController.xib */,
 				AC691B9F180C754200D6E657 /* Supporting Files */,
 			);
 			path = DemoAPI;
@@ -174,6 +188,7 @@
 		AC691B9F180C754200D6E657 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				ACA5984E18276FC80088C741 /* LogoDC.jpg */,
 				AC691C1C1816EC4400D6E657 /* DemoSong.m4a */,
 				AC691BA0180C754200D6E657 /* DemoAPI-Info.plist */,
 				AC691BA1180C754200D6E657 /* InfoPlist.strings */,
@@ -251,6 +266,8 @@
 				AC691C221816F26000D6E657 /* APICameraViewController.xib in Resources */,
 				AC691C271816FC1600D6E657 /* APIContactsViewController.xib in Resources */,
 				AC691C32181705CE00D6E657 /* APICalendarViewController.xib in Resources */,
+				ACA5984D18276B5D0088C741 /* APISocialViewController.xib in Resources */,
+				ACA5984F18276FC80088C741 /* LogoDC.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,6 +288,7 @@
 				AC691C211816F26000D6E657 /* APICameraViewController.m in Sources */,
 				AC691C261816FC1600D6E657 /* APIContactsViewController.m in Sources */,
 				AC691C31181705CE00D6E657 /* APICalendarViewController.m in Sources */,
+				ACA5984C18276B5D0088C741 /* APISocialViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,6 +418,7 @@
 				AC691BBA180C754200D6E657 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

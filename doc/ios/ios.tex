@@ -55,7 +55,7 @@
 
 \paragraph{}\textit{\textbf{\underline{Dica}}: Para entender melhor as funcionalidades da ferramenta, dê uma olhada na extensa documentação que a Apple disponibiliza em 
 XCode User Guide.\\
-\(developer.apple.com/library/ios/\#documentation/ToolsLanguages/Conceptual/\\Xcode_User_Guide\)}
+\(developer.apple.com/library/ios/\#documentation/ToolsLanguages/Conceptual/\\Xcode\_User\_Guide\)}
 
 
 \chapter{Conhecendo a linguagem}
@@ -165,7 +165,7 @@ A ideia de criar um label, além da própria variável, é de tornar intuitiva a
 \end{minted}
 \end{listing}
 
-No exemplo anterior, temos os parâmetros \texttt{\textbf{nonatomic}} e \texttt{\textbf{strong}}. O primeiro é para proteger a variável em ambiente multi-thread, forçando uma cópia do valor da variável caso o getter e setter sejam usados ao mesmo tempo em duas threads. O segundo é voltado apenas para objetos (variáveis do tipo BOOL ou int não se enquadram, por exemplo), e define o tempo de permanência do objeto na memória, que é definida como \texttt{\textbf{strong}} ou \texttt{\textbf{weak}}. A primeira é a que usamos na maioria dos casos e garante que o objeto permanecerá na memória até o fim da execução; a segunda é para quando queremos que o objeto exista apenas enquanto outro objeto apontar para ele. O único caso em que usaremos \texttt{\textbf{weak}} é na criação de \texttt{\textbf{outlets}} ligados a interface, que veremos mais a frente.
+No exemplo anterior, temos os parâmetros \texttt{\textbf{nonatomic}} e \texttt{\textbf{strong}}. O primeiro é para proteger a variável em ambiente multi-thread, forçando uma cópia do valor da variável caso o getter e setter sejam usados ao mesmo tempo em duas threads. O segundo é voltado apenas para objetos (variáveis do tipo BOOL ou int não se enquadram, por exemplo), e define o tempo de permanência do objeto na memória, que é definida como \texttt{\textbf{strong}} ou \texttt{\textbf{weak}}. A primeira é a que usamos na maioria dos casos e garante que o objeto permanecerá na memória até o fim da execução; a segunda é para quando queremos que o objeto exista apenas enquanto outro objeto apontar para ele. O único caso em que usaremos \texttt{\textbf{weak}} é na criação de \texttt{\textbf{IBOutlets}} ligados a interface, que veremos mais a frente.
 
 \paragraph{}Agora veremos como acessamos métodos e atributos de um objeto:
 
@@ -206,7 +206,7 @@ Um estudo desse material será de grande ajuda para entender exatamente o que a 
 \section{Foundation Framework}
 
 \paragraph{}O \texttt{\textbf{Foundation Framework}} é o que dá a base para a linguagem. É um conjunto bastante completo de bibliotecas que auxiliam na manipulação de dados, com estruturas como arrays, dicionários, e strings, entre outras diversas possibilidades como uso de notificações, animações, alertas, etc.
-\paragraph{}A seguir, veremos uma introdução às classes que utilizaremos em Objective-C, presentes no Foundation.
+\paragraph{}A seguir, veremos uma introdução às classes que utilizaremos em Objective-C, presentes no \texttt{\textbf{Foundation}}.
 
 \bigskip
 
@@ -229,7 +229,7 @@ Em conjunto com o \texttt{\textbf{NSDictionary}}, é recomendável também o est
 
 \subsection{Documentação}
 
-\paragraph{}A Apple disponibilizada a documentação completa das classes do Foundation em
+\paragraph{}A Apple disponibilizada a documentação completa das classes do \texttt{\textbf{Foundation}} em
 \emph{Foundation Framework Reference\\ \(http://developer.apple.com/library/ios/\#documentation/Cocoa/Reference/\\Foundation/ObjC\_classic/\_index.html\)}.
 \paragraph{}Essa documentação será importante ao longo do estudo de desenvolvimento para iOS. O Foundation é muito extenso e rico em possibilidades, já trazendo a implementação de diversas soluções que tomariam um bom tempo e algumas linhas de código a mais no seu projeto.
 
@@ -246,13 +246,13 @@ Em conjunto com o \texttt{\textbf{NSDictionary}}, é recomendável também o est
 
 \section{UIKit Framework}
 
-\paragraph{}Neste capítulo começaremos a ver como é feita a criação de telas no iOS. Utilizaremos um framework voltado especificamente para a construção da \texttt{UI (User Interface)}, chamado \texttt{\textbf{UIKit Framework}}, em conjunto com a interface gráfica do XCode que auxilia a criação do layout.
+\paragraph{}Neste capítulo começaremos a ver como é feita a criação de telas no iOS. Utilizaremos um framework voltado especificamente para a construção da \emph{User Interface}, chamado \texttt{\textbf{UIKit Framework}}, em conjunto com a interface gráfica do XCode que auxilia a criação do layout.
 \paragraph{}Temos um conjunto de elementos gráficos já prontos, como botões, barras de ferramenta, rótulos, campos de texto, tabelas, telas com rolagem horizantal ou vertical, entre outros elementos que os usuário de iOS já estão familiarizados. Além disso, temos também disponíveis diversas ações e interações a serem relacionadas com esses elementos, como tipo e permissão de toque, tipo de rolagem, controle automático de animações, e controle dos elementos e das ações através do código, com métodos extremamente flexíveis que permitem uma ótima customização da interface e da lógica de eventos pelo programador.
 
 \bigskip
 
 \paragraph{}\textit{\textbf{\underline{Dica}}: A documentação completa das classes do UIKit está em 
-UIKit Framework Reference\\ \(http://developer.apple.com/library/ios/\#documentation/uikit/reference/\\UIKit_Framework/_index.html\).}
+UIKit Framework Reference\\ \(http://developer.apple.com/library/ios/\#documentation/uikit/reference/\\UIKit\_Framework/\_index.html\).}
 
 \bigskip
 
@@ -264,7 +264,7 @@ UIKit Framework Reference\\ \(http://developer.apple.com/library/ios/\#documenta
 
 \section{Estrutura das telas}
 
-\paragraph{}Os elementos gráficos no iOS são conjuntos de objetos que se unem em uma certa hierarquia, formando o que entendemos por \texttt{User Interface} (UI).
+\paragraph{}Os elementos gráficos no iOS são conjuntos de objetos que se unem em uma certa hierarquia, formando o que entendemos por \emph{User Interface}.
 \paragraph{}No topo da hierarquia temos a \texttt{\textbf{UIWindow}}, que serve para dar suporte para desenho na tela. Utilizamos ela uma única vez para indicar qual é a tela inicial, a \texttt{\textbf{RootViewController}}, e não mais interagimos com ela. Abaixo dela vem a \texttt{\textbf{UIScreen}}, que representa a tela em si. Além de fornecer o tamanho em pixels da tela, o atributo \emph{bounds}, dificilmente terá mais utilidade direta para o programador.
 \paragraph{}Onde realmente atuaremos será nos objetos do tipo \texttt{\textbf{UIView}}, ligados diretamente à \texttt{\textbf{UIWindow}}, e nos objetos do tipo \texttt{\textbf{UIViewController}}, que gerenciam a \texttt{\textbf{UIView}}.
 
@@ -280,15 +280,21 @@ UIKit Framework Reference\\ \(http://developer.apple.com/library/ios/\#documenta
 
 \bigskip
 
-\paragraph{}Esta figura representa as ligações entre os elementos de interface no iOS. A \texttt{\textbf{UIWindow}} aponta para a \texttt{\textbf{UIScreen}}, que representa a tela e seus limites, e aponta para  \texttt{\textbf{UIViewController}} inicial do aplicativo, que recebe o nome especial de \texttt{\textbf{RootViewController}}. A \texttt{\textbf{UIView}}, que representa os elementos gráficos da tela, e é controlada pela \texttt{\textbf{UIViewController}} inicial, é então adicionada à \texttt{\textbf{UIWindow}}, e assim temos a referência à controladora inicial e sua tela. Veremos a seguir a relação entre uma \texttt{\textbf{UIViewController}} e uma texttt{\textbf{UIView}} com mais detalhes a seguir.
+\paragraph{}Esta figura representa as ligações entre os elementos de interface no iOS. A \texttt{\textbf{UIWindow}} aponta para a \texttt{\textbf{UIScreen}}, que representa a tela e seus limites, e aponta para  \texttt{\textbf{UIViewController}} inicial do aplicativo, que recebe o nome especial de \texttt{\textbf{RootViewController}}. A \texttt{\textbf{UIView}}, que representa os elementos gráficos da tela, e é controlada pela \texttt{\textbf{UIViewController}} inicial, é então adicionada à \texttt{\textbf{UIWindow}}, e assim temos a referência à controladora inicial e sua tela. Veremos a seguir a relação entre uma \texttt{\textbf{UIViewController}} e uma \texttt{\textbf{UIView}} com mais detalhes a seguir.
 
 \bigskip
 
 \subsection{UIView x UIViewController}
 
 \paragraph{}Um objeto do tipo \texttt{\textbf{UIView}}, ou apenas \emph{View}, é onde colocamos de fato os elementos visuais. Ela representa uma determinada área que pode conter objetos como \texttt{\textbf{UIButton}}, \texttt{\textbf{UILabel}} e \texttt{\textbf{UITextField}}, além de outras \emph{Views} inseridas, formando uma hierarquia de objetos que vão se orientar diretamente pelo posicionamento e comportamento da \texttt{\textbf{UIView}} maior.
-\paragraph{}A grande ideia a ser entendida e que diferencia uma \emph{View} de uma \emph{View Controller} é que um objeto de \texttt{\textbf{UIView}} contém estritamente elementos gráficos, sem nenhuma lógica do comportamento. Um objeto de \texttt{\textbf{UIView}} não entende e não deve entender as consequências de suas ações. Um \texttt{\textbf{UIButton}}, por exemplo, sabe como reagir quando é acionado mas não sabe qual tipo de ação ou mensagem foi gerada e nem pra onde ela foi enviada a partir do seu toque. Essa reação pode ser chamar um alerta, uma nova tela, uma animação, ou um acesso a \emph{web service}, mas o que acionou a ação não é responsábilidade do componente.
+\paragraph{}A grande ideia a ser entendida e que diferencia uma \emph{View} de uma \emph{View Controller} é que um objeto de \texttt{\textbf{UIView}} contém estritamente elementos gráficos, sem nenhuma lógica do comportamento. Um objeto de \texttt{\textbf{UIView}} não entende e não deve entender as consequências de suas ações. Um \texttt{\textbf{UIButton}}, por exemplo, sabe como reagir quando é acionado mas não sabe qual tipo de ação ou mensagem foi gerada e nem pra onde ela foi enviada a partir do seu toque. Essa reação pode ser chamar um alerta, uma nova tela, uma animação, ou um acesso a \emph{web service}, mas o que acionou a ação não é responsabilidade do componente.
+
+\bigskip
+
 \paragraph{}\textit{\textbf{\underline{Dica}}: Deixando algumas coisas claras, uma tela pode conter uma só \emph{View} tomando todo o espaço ou várias \emph{Views} se dividindo, sendo elas totalmente independentes ou aninhadas. Além disso, você pode criar novas classes herdando de \texttt{\textbf{UIView}} para serem estanciadas dentro de uma \texttt{\textbf{UIViewController}}.}
+
+\bigskip
+
 \paragraph{}Uma \emph{View Controller} é o que gerencia a lógica e comportamento de um conjunto específico de uma ou mais \emph{Views}, e é responsável por carregar e interagir com as \emph{Views} no momento certo e da forma correta. Um \texttt{\textbf{UIButton}} acionado envia um sinal para a \emph{View Controller}, que tem o papel de entender qual deve ser a resposta para esse evento, que pode ser algo como envio de dados, interação com as \emph{Views}, ou criação de animações.
 \paragraph{}Uma \emph{View Controller} é criada com uma única \emph{View} atrelada, e dentro dela podemos inserir mais elementos visuais, como até mais mais \emph{Views}.
 
@@ -317,7 +323,7 @@ UIKit Framework Reference\\ \(http://developer.apple.com/library/ios/\#documenta
 \end{figure}
 
 \paragraph{}Conforme vamos criando novas telas, precisamos de um modo de chamá-las e de retornar delas para a tela anterior. O iOS permite mais de um tipo de gerenciamento de navegação das telas, mas na maioria dos casos faremos uso do \emph{Navigation Controller}.
-\paragraph{}O \emph{Navigation Controller} funciona como uma pilha de \emph{View Controllers} que tem início sempre na já citada \texttt{\textbf{RootNavigationController}}, que será a tela inicial do aplicativo. Nós definimos uma única vez pelo código qual será nossa \texttt{\textbf{RootNavigationController}}, após isso trabalharemos apenas com métodos de \emph{push} e \emph{pop} para carregar e descarregar as telas. Graficamente, o \emph{Navigation Controller} é a barra superior (que também pode ser inferior) nas telas dos aplicativos e que contém um botão de retorno e outros botões auxiliares.
+\paragraph{}O \emph{Navigation Controller} funciona como uma pilha de \emph{View Controllers} que tem início sempre na já citada \texttt{\textbf{RootNavigationController}}, que será a tela inicial do aplicativo. Nós definimos uma única vez pelo código qual será nossa \texttt{\textbf{RootNavigationController}}, após isso trabalharemos apenas com métodos de \emph{push} e \emph{pop} para carregar e descarregar as telas. Graficamente, o \emph{Navigation Controller} é a barra superior nas telas dos aplicativos e que contém um botão de retorno e outros botões auxiliares.
 \paragraph{}Há um outro tipo de navegação complementar chamado \emph{Tab Bar Controller}, que nada mais é que uma nova tela, que pode inclusive estar contida na pilha do \emph{Navigation Controller}, e que traz duas ou mais telas divididas por abas.
 
 \bigskip
@@ -338,19 +344,19 @@ UIKit Framework Reference\\ \(http://developer.apple.com/library/ios/\#documenta
 
 \section{Interface Builder}
 
-\paragraph{}Para nos auxiliar na construção das telas, utilizeremos o Interface Builder do XCode. Na criação de uma nova \emph{View Controller}, é criado um arquivo .xib atrelado a essa classe, que ligará automaticamente os objetos criados na interface ao código da classe.
-\paragraph{}O Interface Builder é uma ferramente muito poderosa e o utilizaremos principalmente para definir o posicionamento dos objetos, como as \emph{Views} e seus componentes, e para fazer a ligação dos \texttt{\textbf{outlets}} e \texttt{\textbf{actions}} ao código.
+\paragraph{}Para nos auxiliar na construção das telas, utilizeremos o \emph{Interface Builder} do XCode. Na criação de uma nova \emph{View Controller}, é criado um arquivo .xib atrelado a essa classe, que ligará automaticamente os objetos criados na interface ao código da classe.
+\paragraph{}O \emph{Interface Builder} é uma ferramenta muito poderosa e o utilizaremos principalmente para definir o posicionamento dos objetos, como as \emph{Views} e seus componentes, e para fazer a ligação dos \texttt{\textbf{IBOutlets}} e \texttt{\textbf{IBActions}} ao código.
 
 \bigskip
 
-\paragraph{}\textit{\textbf{\underline{Dica}}: Lembrando que sempre podemos determinar o layout e a criação dos objetos diretamente no código, sendo o Interface Builder apenas um facilitador. Em diversos casos lidar com o código acaba sendo até mais prático.}
+\paragraph{}\textit{\textbf{\underline{Dica}}: Lembrando que sempre podemos determinar o layout e a criação dos objetos diretamente no código, sendo o Interface Builder apenas um facilitador. Em diversos casos lidar com o código acaba sendo a melhor opção.}
 
 \bigskip
 
-\subsection{Outlets e Actions}
+\subsection{IBOutlets e IBActions}
 
-\paragraph{}\texttt{\textbf{Outlets}} representam uma ligação entre um objeto criado na interface pelo Interface Builder, como um botão ou um texto, e uma instância criada no código. Funciona como um ponteiro de um objeto do código para a sua representação gráfica, e assim podemos nos referenciar a esse elemento no código do \emph{View Controller} para definirmos seu comportamento e possíveis mudanças nas suas características.
-\paragraph{}Já uma \texttt{\textbf{action}} representa uma mensagem enviada por um objeto da interface. A \texttt{\textbf{action}} define o método que será chamado e que conterá o código com o comportamento desejado.
+\paragraph{}\texttt{\textbf{IBOutlets}} representam uma ligação entre um objeto criado na interface pelo Interface Builder, como um botão ou um texto, e uma instância criada no código. Funciona como um ponteiro de um objeto do código para a sua representação gráfica, e assim podemos nos referenciar a esse elemento no código do \emph{View Controller} para definirmos seu comportamento e possíveis mudanças nas suas características.
+\paragraph{}Já uma \texttt{\textbf{IBAction}} representa uma mensagem enviada por um objeto da interface. A \texttt{\textbf{IBAction}} define o método que será chamado e que conterá o código com o comportamento desejado.
 
 \bigskip
 \bigskip
@@ -464,7 +470,7 @@ UIKit Framework Reference\\ \(http://developer.apple.com/library/ios/\#documenta
 \bigskip
 
 \paragraph{}Com os objetos adicionados, devemos ligá-los ao código. Para isso, basta selecionar o objeto e arrastá-lo ao código da classe enquanto segura a tecla Control.
-\paragraph{}No pop-up é possível escolher se é um \texttt{\textbf{outlet}} ou uma \texttt{\textbf{action}}, mas por enquanto criaremos só os \texttt{\textbf{outlets}}. Escolha um nome apropriado ao objeto, que o diferencie mas também deixe claro o seu tipo para facilitar a leitura do código, como \texttt{\textbf{okButton}}.
+\paragraph{}No pop-up é possível escolher se é um \texttt{\textbf{IBOutlet}} ou uma \texttt{\textbf{IBAction}}, mas por enquanto criaremos só os \texttt{\textbf{IBOutlets}}. Escolha um nome apropriado ao objeto, que o diferencie mas também deixe claro o seu tipo para facilitar a leitura do código, como \texttt{\textbf{okButton}}.
 
 \bigskip
 \bigskip
@@ -472,7 +478,7 @@ UIKit Framework Reference\\ \(http://developer.apple.com/library/ios/\#documenta
 \begin{figure}[H]
   \centering
   \includegraphics[totalheight=0.3\textheight]{figuras/1/link_outlet_button.png}
-  \caption{Outlets: ligação dos objetos com o código}
+  \caption{IBOutlets: ligação dos objetos com o código}
   \label{fig:a}
 \end{figure}
 
@@ -542,8 +548,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 
 \bigskip
 
-\paragraph{}Podemos agora começar a adicionar funcionalidades com o código. Vamos criar uma \texttt{\textbf{action}} bem simples para testar o comportamento do aplicativo com o simulador. Para isso basta arrastar o botão para o código segurando Control, e escolher a opção \texttt{\textbf{action}}, e criar um nome para ela, como \texttt{\textbf{okTouched}}. A intenção da nossa primeira \texttt{\textbf{action}} é que os textos do botão e do rótulo troquem quando clicarmos no botão.
-\paragraph{}Com a \texttt{\textbf{action}} criada, veja que no código de implementação da classe (arquivo .m) já será criado o esqueleto do método que será chamado, onde colocaremos nossa lógica.
+\paragraph{}Podemos agora começar a adicionar funcionalidades com o código. Vamos criar uma \texttt{\textbf{IBAction}} bem simples para testar o comportamento do aplicativo com o simulador. Para isso basta arrastar o botão para o código segurando Control, e escolher a opção \texttt{\textbf{IBAction}}, e criar um nome para ela, como \texttt{\textbf{okTouched}}. A intenção da nossa primeira \texttt{\textbf{IBAction}} é que os textos do botão e do rótulo troquem quando clicarmos no botão.
+\paragraph{}Com a \texttt{\textbf{IBAction}} criada, veja que no código de implementação da classe (arquivo .m) já será criado o esqueleto do método que será chamado, onde colocaremos nossa lógica.
 
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
@@ -564,7 +570,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 
 \subsection{Manipulando a Navigation Controller}
 
-\paragraph{}Pensando agora na próxima tela, vamos preparar o código para a transição. Adicionamos um novo botão que servirá de chamada para a segunda tela, e criamos um \texttt{\textbf{outlet}} e uma \texttt{\textbf{action}} para ele. Colocaremos no método da \texttt{\textbf{action}} a chamada para a segunda tela, que será através de um \emph{push} da tela na Navigation Controller.
+\paragraph{}Pensando agora na próxima tela, vamos preparar o código para a transição. Adicionamos um novo botão que servirá de chamada para a segunda tela, e criamos um \texttt{\textbf{IBOutlet}} e uma \texttt{\textbf{IBAction}} para ele. Colocaremos no método da \texttt{\textbf{IBAction}} a chamada para a segunda tela, que será através de um \emph{push} da tela na Navigation Controller.
 
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
@@ -657,7 +663,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 \subsection{Trocando informação entre telas}
 
 \paragraph{}Ao inicializarmos uma instância de uma \emph{View Controller}, podemos atribuir valores às suas Properties antes de fazer o \emph{push} da tela. Dessa forma bem simples, é possível levar informação de uma tela existente para uma tela nova, podendo exibir ou tratar esses dados convenientemente na \emph{View Controller} da próxima tela. Para exemplificar, vamos criar um campo de texto na segunda tela e exibir o seu conteúdo em um rótulo na terceira tela.
-\paragraph{}Para isso vamos precisar de um campo de texto na segunda tela, de um rótulo na terceira tela, e de uma variável do tipo string na terceira tela (ThirdScreenViewController.h), onde vamos armazenar o conteúdo do campo de texto. Além disso, também é preciso criar a \texttt{\textbf{action}} para fazer a chamada da terceira tela pelo botão.
+\paragraph{}Para isso vamos precisar de um campo de texto na segunda tela, de um rótulo na terceira tela, e de uma variável do tipo string na terceira tela (ThirdScreenViewController.h), onde vamos armazenar o conteúdo do campo de texto. Além disso, também é preciso criar a \texttt{\textbf{IBAction}} para fazer a chamada da terceira tela pelo botão.
 \paragraph{}A \texttt{\textbf{Property}} da string é criada no arquivo de header da classe da terceira tela da seguinte forma:
 
 \begin{listing}[H]
@@ -674,7 +680,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 \begin{figure}[H]
   \centering
   \includegraphics[totalheight=0.35\textheight]{figuras/2/xib_tela2_header.png}
-  \caption{Tela 2 e seus atributos. Repare nos pontos que definem as ligações dos outlets com a interface.}
+  \caption{Tela 2 e seus atributos. Repare nos pontos que definem as ligações dos IBOutlets com a interface.}
   \label{fig:a}
 \end{figure}
 
@@ -793,7 +799,7 @@ self.nameTextField.delegate = self;
 \end{listing}
 
 \paragraph{}O que fizemos aqui foi criar a declaração de um \texttt{\textbf{Delegate}}, como fazemos com uma classe, e então instanciamos um objeto do tipo do \texttt{\textbf{Delegate}} que criamos. Este objeto servirá de referência para que outras classes possam implementar e utilizar os métodos criados pelo \texttt{\textbf{Delegate}}.
-\paragraph{}Definimos o \texttt{\textbf{Delegate}} e seu método, agora basta definir onde será a chamada do método. Criaremos um botão na terceira tela, e ligado a ela uma \emph{action} chamada \texttt{\textbf{sendMessage}}, e nesta \emph{action} ficará a chamada para o método do \texttt{\textbf{Delegate}}.
+\paragraph{}Definimos o \texttt{\textbf{Delegate}} e seu método, agora basta definir onde será a chamada do método. Criaremos um botão na terceira tela, e ligado a ela uma \texttt{\textbf{IBAction}} chamada \texttt{\textbf{sendMessage}}, e nesta \texttt{\textbf{IBAction}} ficará a chamada para o método do \texttt{\textbf{Delegate}}.
 
 \begin{listing}
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
@@ -805,7 +811,7 @@ self.nameTextField.delegate = self;
 \end{minted}
 \end{listing}
 
-Este é o método da \texttt{\textbf{action}} que criamos, e é acionado quando o botão "Enviar Mensagem" é tocado. Dentro dele fazemos a chamada do método \texttt{\textbf{sendMessageFromTextField}} definido no \texttt{\textbf{MessageDelegate}}, que vai buscar a implementação do método em qualquer classe que tenha referenciado o \texttt{\textbf{MessageDelegate}}.
+Este é o método da \texttt{\textbf{IBAction}} que criamos, e é acionado quando o botão "Enviar Mensagem" é tocado. Dentro dele fazemos a chamada do método \texttt{\textbf{sendMessageFromTextField}} definido no \texttt{\textbf{MessageDelegate}}, que vai buscar a implementação do método em qualquer classe que tenha referenciado o \texttt{\textbf{MessageDelegate}}.
 
 \bigskip
 \bigskip
@@ -1131,7 +1137,7 @@ NSArray * descriptors =
 \subsection{A lista de contatos}
 
 \paragraph{}Com a nossa estrutura de dados pronta, podemos enfim criar um objeto \texttt{\textbf{UITableView}} em \texttt{\textbf{UITableViewController}} para começarmos a lidar com os dados na tela.
-\paragraph{}Adicione a tabela pelo \emph{Interface Builder} da mesma forma que já fizemos. Apague tudo que já existir na tela, selecione \texttt{\textbf{Table View}} entre os objetos e arraste para a tela. Então selecione a tabela adicionada e arraste-a com o Control apertado para o código do \emph{header} ao lado para criar um \emph{outlet}. Crie-o com o nome \texttt{\textbf{table}}. Além disso, é preciso fazer a ligação com o \emph{File's Owner} para indicar que as alterações feitas no código da \texttt{\textbf{UITableViewController}} terão efeito na tabela. Para isso, basta selecionar a tabela e arrastar com o Ctrl apertado até o quadrado amarelo no lado esquerdo. Selecione \texttt{\textbf{dataSource}}, e faça mais uma vez para selecionar \texttt{\textbf{delegate}}.
+\paragraph{}Adicione a tabela pelo \emph{Interface Builder} da mesma forma que já fizemos. Apague tudo que já existir na tela, selecione \texttt{\textbf{Table View}} entre os objetos e arraste para a tela. Então selecione a tabela adicionada e arraste-a com o Control apertado para o código do \emph{header} ao lado para criar um \texttt{\textbf{IBOutlet}}. Crie-o com o nome \texttt{\textbf{table}}. Além disso, é preciso fazer a ligação com o \emph{File's Owner} para indicar que as alterações feitas no código da \texttt{\textbf{UITableViewController}} terão efeito na tabela. Para isso, basta selecionar a tabela e arrastar com o Ctrl apertado até o quadrado amarelo no lado esquerdo. Selecione \texttt{\textbf{dataSource}}, e faça mais uma vez para selecionar \texttt{\textbf{delegate}}.
 
 \bigskip
 \bigskip
@@ -1246,7 +1252,7 @@ NSArray * descriptors =
 \subsection{Tela de detalhes}
 
 \paragraph{}Pronto, já temos a exibição dos contatos funcionando. O próximo passo é criar uma tela de exibição dos detalhes do contato, que também usará uma \texttt{\textbf{UITableView}} e que será chamada quando a célula de um contato for clicado.
-\paragraph{}Crie uma nova tela herdando de \texttt{\textbf{UIViewController}} chamada \texttt{\textbf{Detail}}. Assim como fizemos na \texttt{\textbf{TableViewController}}, adicione uma \texttt{\textbf{UITableView}} na tela (que chamei de \texttt{\textbf{tableDetail}}), crie o \texttt{\textbf{outlet}}, faça as ligações com o \texttt{\textbf{File's Owner}}, e por fim mude a declaração da classe no arquivo header \texttt{\textbf{Detail.h}}.
+\paragraph{}Crie uma nova tela herdando de \texttt{\textbf{UIViewController}} chamada \texttt{\textbf{Detail}}. Assim como fizemos na \texttt{\textbf{TableViewController}}, adicione uma \texttt{\textbf{UITableView}} na tela (que chamei de \texttt{\textbf{tableDetail}}), crie o \texttt{\textbf{IBOutlet}}, faça as ligações com o \texttt{\textbf{File's Owner}}, e por fim mude a declaração da classe no arquivo header \texttt{\textbf{Detail.h}}.
 
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
@@ -1361,7 +1367,7 @@ NSArray * descriptors =
 \subsection{Busca dos contatos}
 
 \paragraph{}A essa altura já temos o aplicativo funcionando do jeito planejado, visualizando de forma organizada quaisquer contatos contidos na nossa \emph{Property List}. A última funcionalidade a ser implementada no aplicativo será a busca dos contatos.
-\paragraph{}O primeiro passo para a busca é adicionar uma \texttt{\textbf{SearchDisplayController}} através do Interface Builder na classe \texttt{\textbf{TableViewController}}. Selecione o elemento em \emph{Objects} no Interface Builder, e posicione-o dentro da \texttt{\textbf{View}}, acima da \texttt{\textbf{UITableView}}. Com a barra de busca posicionada, pressione a tecla Control e arraste-a até o cubo laranja (File's Owner), assim como fez com a tabela no início, e clique em \texttt{\textbf{delegate}}. Faça o mesmo processo novamente, mas arrastando para o arquivo .h, e salve o \emph{outlet} como \texttt{\textbf{searchBar}}.
+\paragraph{}O primeiro passo para a busca é adicionar uma \texttt{\textbf{SearchDisplayController}} através do Interface Builder na classe \texttt{\textbf{TableViewController}}. Selecione o elemento em \emph{Objects} no Interface Builder, e posicione-o dentro da \texttt{\textbf{View}}, acima da \texttt{\textbf{UITableView}}. Com a barra de busca posicionada, pressione a tecla Control e arraste-a até o cubo laranja (File's Owner), assim como fez com a tabela no início, e clique em \texttt{\textbf{delegate}}. Faça o mesmo processo novamente, mas arrastando para o arquivo .h, e salve o \texttt{\textbf{IBOutlet}} como \texttt{\textbf{searchBar}}.
 
 \bigskip
 \bigskip
@@ -1925,7 +1931,7 @@ BOOL result = [eventStore saveEvent:event span:EKSpanThisEvent
 \section{Chamadas}
 
 \paragraph{}O código para efetuar uma chamada no iOS é bem simples. Já utilizamos este recurso na tela de detalhes do aplicativo de Agenda, mas falaremos desta ação rapidamente por aqui.
-Dentro do método chamado como action de um \texttt{\textbf{UIButton}} criado para efetuar a chamada, execute o seguinte método:
+Dentro do método chamado como \texttt{\textbf{IBAction}} de um \texttt{\textbf{UIButton}} criado para efetuar a chamada, execute o seguinte método:
 
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
@@ -2014,6 +2020,100 @@ NSString *phoneString = @"tel:0123456789";
 
 \paragraph{}\textit{\textbf{\underline{Dica}}: Para complementar as possibilidades da \texttt{\textbf{MFMessageComposeViewController}}, não deixe de estudar a documentação oficial da Apple:\\
 \(https://developer.apple.com/library/ios/documentation/MessageUI/Reference/\\MFMessageComposeViewController_class/Reference/Reference.html\)}
+
+\bigskip
+\bigskip
+
+
+\section{Compartilhamento em redes sociais}
+
+\paragraph{}A biblioteca nativa do iOS para redes sociais permite lidar com compartilhamento de conteúdo no \emph{Facebook} e no \emph{Twitter} de forma muito simples, e se assemelha bastante ao que é feito com envio de SMS. Para começarmos, adicione \texttt{\textbf{Social.framework}} ao projeto, e então importe ela e o \texttt{\textbf{UIKit}} no código.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+#import <UIKit/UIKit.h>
+#import <Social/Social.h>
+\end{minted}
+\end{listing}
+
+\paragraph{}Agora crie no \texttt{\textbf{Interface Builder}} um \texttt{\textbf{UITextField}} e um \texttt{\textbf{UIButton}} para cada serviço, e crie um \texttt{\textbf{IBOutlet}} para os \texttt{\textbf{UITextField}} e uma \texttt{\textbf{IBAction}} para os \texttt{\textbf{UIButton}}.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@property (weak, nonatomic) IBOutlet UITextField *twitterField;
+@property (weak, nonatomic) IBOutlet UITextField *facebookField;
+
+- (IBAction)postTwitter:(id)sender;
+- (IBAction)postFacebook:(id)sender;
+\end{minted}
+\end{listing}
+
+\paragraph{}Usamos os mesmos métodos para os dois serviços, mudando apenas um parâmetro que indica qual serviço queremos usar.
+
+\bigskip
+
+\subsection{Twitter}
+
+\paragraph{}Faremos uma postatem no \emph{Twitter} a partir do \texttt{\textbf{UIButton}} que criamos com o conteúdo do \texttt{\textbf{twitterField}}. 
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (IBAction)postTwitter:(id)sender {
+    if ([SLComposeViewController isAvailableForServiceType:
+                                 SLServiceTypeTwitter])
+    {
+        SLComposeViewController *controller = 
+              [SLComposeViewController
+               composeViewControllerForServiceType:
+                                       SLServiceTypeTwitter];
+        [controller setInitialText:self.twitterField.text];
+        
+        [self presentViewController:controller
+                           animated:YES
+                         completion:nil];
+    }
+}
+\end{minted}
+\end{listing}
+
+\paragraph{}A verificação inicial serve apenas para garantir que o \emph{Twitter} está configurado na versão do iOS do dispositivo. Em seguida criamos a tela de composição da mensagem a ser postada e definimos o tipo de serviço com \texttt{\textbf{SLServiceTypeTwitter}} como parâmetro. Na linha 9 o método \texttt{\textbf{setInitialText:}} define o texto inicial da mensagem, que será o conteúdo de \texttt{\textbf{twitterField}}. Na linha 11 finalizamos ao chamar a tela de composição na forma de um \texttt{\textbf{ModalViewController}}.
+
+\bigskip
+
+\subsection{Facebook}
+
+\paragraph{}A postagem no \emph{Facebook} seguirá exatamente o mesmo modelo, apenas com duas possibilidades a mais. Além do texto inicial, vamos definir também uma URL e uma imagem para acompanharem o texto.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (IBAction)postFacebook:(id)sender {
+    if([SLComposeViewController isAvailableForServiceType:
+                                SLServiceTypeFacebook])
+    {
+        SLComposeViewController *controller =
+              [SLComposeViewController
+               composeViewControllerForServiceType:
+                                       SLServiceTypeFacebook];
+        
+        [controller setInitialText:self.facebookField.text];
+        [controller addURL:
+            [NSURL URLWithString:@"http://mobile.dc.ufscar.br"]];
+        [controller addImage:[UIImage imageNamed:@"LogoDC.jpg"]];
+
+        [self presentViewController:controller
+                           animated:YES
+                         completion:nil];
+    }
+}
+\end{minted}
+\end{listing}
+
+\paragraph{}Para definir o serviço, mudamos o parâmetro na linha 8 para \texttt{\textbf{SLServiceTypeFacebook}}. Na linha 10 definimos o texto inicial, assim como feito com o \emph{Twitter}. Na linha 11 o método \texttt{\textbf{addURL:}} recebe um objeto \texttt{\textbf{NSURL}} para adicionar um link à postagem, e na linha 13 o método \texttt{\textbf{addImage:}} recebe uma \texttt{\textbf{UIImage}} para adicionar uma imagem à postagem. Terminamos o método chamando a tela de composição da mensagem como um um \texttt{\textbf{ModalViewController}}.
+
+\bigskip
+
+\paragraph{}\textit{\textbf{\underline{Dica}}: Para informações detalhadas sobre integração com redes sociais veja a documentação oficial da Apple da biblioteca \texttt{\textbf{Social Framework}}:\\
+\(https://developer.apple.com/library/ios/documentation/Social/Reference/\\Social_Framework\)}
 
 \bigskip
 \bigskip
@@ -2147,29 +2247,345 @@ NSString *phoneString = @"tel:0123456789";
 
 \section{Câmera}
 
-Texto
+\paragraph{}Para acessar a câmera de um dispositivo iOS não é preciso adicionar nenhuma biblioteca extra ao projeto. A classe responsável por lidar com a câmera e a biblioteca de imagens do usuário é a \texttt{\textbf{UIImagePickerController}}, inclusa no \texttt{\textbf{UIKit Framework}}. Lembrando que, como ocorre em outras APIs, não é possível acessar a câmera a partir do \texttt{\textbf{iOS Simulator}}, sendo necessário executar o aplicativo em um dispositivo real para que vejamos os resultados.
+\paragraph{}Começamos importando o \texttt{\textbf{UIKit}} na nossa classe.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+#import <UIKit/UIKit.h>
+\end{minted}
+\end{listing}
+
+\paragraph{}Em seguida adicionamos os seguintes protocolos \texttt{\textbf{Delegate}} à declaração da classe. Deve ficar assim:
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@interface APICameraViewController : UIViewController
+                    <UIImagePickerControllerDelegate>
+\end{minted}
+\end{listing}
+
+\paragraph{}Agora temos que ajeitar os componentes gráficos necessários antes de implementar o código. Com o \texttt{\textbf{Interface Builder}} vamos adicionar um \texttt{\textbf{UIImageView}} para exibir a foto tirada na câmera, e um \texttt{\textbf{UIButton}} que terá a função de chamar a câmera para tirar uma nova foto. Coloque os dois elementos na tela de forma que a \texttt{\textbf{UIImageView}} tome boa parte do espaço, já que precisamos de espaço para exibir a foto, com o \texttt{\textbf{UIButton}} embaixo ocupando apenas o espaço necessário.
+\paragraph{}Após ajeitá-los espacialmente, é preciso ligá-los ao código. Crie um \texttt{\textbf{IBOutlet}} da \texttt{\textbf{UIImageView}} chamado \texttt{\textbf{imageView}}, e uma \texttt{\textbf{IBAction}} para o \texttt{\textbf{UIButton}} chamada \texttt{\textbf{takePhoto}}.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UILabel *progressLabel;
+\end{minted}
+\end{listing}
+
+\paragraph{}Com a base da classe pronta, vamos para a implementação dos métodos. Temos que implementar a chamada da câmera dentro de \texttt{\textbf{takePhoto}} e implementar um método do \texttt{\textbf{UIImagePickerControllerDelegate}} a ser chamado quando uma foto é tirada.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (IBAction)takePhoto:(id)sender {
+    if ([UIImagePickerController isSourceTypeAvailable:
+        UIImagePickerControllerSourceTypeCamera])
+    {
+        UIImagePickerController *picker =
+                   [[UIImagePickerController alloc] init];
+        picker.delegate = self;
+        picker.allowsEditing = YES;
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        
+        [self presentViewController:picker animated:YES
+                                         completion:NULL];
+    }
+}
+\end{minted}
+\end{listing}
+
+\paragraph{}A verificação inicial na linha 2 serve para garantir que o dispositivo em questão possui uma câmera a ser utilizada. Isso serve apenas para garantir que se o aplicativo não vai fechar caso for executado no simulador ou em um dispositivo iOS sem câmera, como um iPod antigo.
+\paragraph{}Passada a verificação, criamos uma instância de \texttt{\textbf{UIImagePickerController}} na linha 5, e configuramos 3 detalhes importantes nas linhas seguintes. Na linha 7 nós definimos o uso do \texttt{\textbf{Delegate}} do objeto, pois assim podemos utilizar o método chamado após a foto ser tirada, que será explicado logo mais. Na linha 8 definimos que o usuário pode ajustar o tamanho da foto após tirá-la. E na linha 9 é onde definimos que o nosso objeto \texttt{\textbf{UIImagePickerController}} terá a função de câmera.
+\paragraph{}Com o objeto definido como queremos, fazemos a chamada dele em um\\ \texttt{\textbf{ModalViewController}} na linha 11, exatamente como fazemos com um SMS. Essa nova tela aberta mostrará a câmera do dispositivo e todas as opções disponíveis.
+\paragraph{}A chamada da câmera está pronta, mas precisamos tratar do retorno da câmera para o aplicativo principal, além de exibir a foto na \texttt{\textbf{UIImageView}} que criamos. O método que nos interessa do \texttt{\textbf{UIImagePickerControllerDelegate}} é o\\ \texttt{\textbf{imagePickerController:didFinishPickingMediaWithInfo:}}, que é chamado assim que o usuário termina de ajustar o tamanho da foto tirada.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (void)imagePickerController:(UIImagePickerController *)picker
+        didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *chosenImage =
+            info[UIImagePickerControllerEditedImage];
+    self.imageView.image = chosenImage;
+    
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+}
+\end{minted}
+\end{listing}
+
+\paragraph{}Na linha 4 obtemos a imagem da foto tirada e ajustada pelo usuário, e na linha 5 a colocamos na nossa \texttt{\textbf{UIImageView}} para ser exibida ao usuário. Por fim, na linha 7 chamamos o método \texttt{\textbf{dismissViewControllerAnimated:completion:}} para fechar o\\ \texttt{\textbf{ModalViewController}} aberto com a câmera.
+\paragraph{}Como último detalhe, podemos definir um segundo método do\\ \texttt{\textbf{UIImagePickerControllerDelegate}}.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (void)imagePickerControllerDidCancel:
+        (UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+}
+\end{minted}
+\end{listing}
+
+\paragraph{}Este método é chamado caso o usuário cancele a ação sem tirar nenhuma foto. Isso fará simplesmente com que o \texttt{\textbf{ModalViewController}} seja fechado e o usuário retorne à tela principal do aplicativo.
 
 \bigskip
 
-\paragraph{}\textit{\textbf{\underline{Dica}}: Acompanhe a documentação oficial da Apple sobre boas práticas para trabalhar com fotos e vídeo através da câmera:\\
+\paragraph{}\textit{\textbf{\underline{Dica}}: Acompanhe a documentação oficial da Apple sobre boas práticas para trabalhar com fotos e vídeo através da câmera em:\\
 \(https://developer.apple.com/library/ios/documentation/AudioVideo/Conceptual/\\CameraAndPhotoLib_TopicsForIOS/Articles/TakingPicturesAndMovies.html\)}
 
 \bigskip
 \bigskip
 
 
-\section{Compartilhamento em redes sociais}
+\section{Requisições HTTP}
 
-Texto
+\paragraph{}O iOS permite nativamente a comunicação com \emph{web services} a partir requisições HTTP do tipo GET e POST, e existem diversas APIs externas que extendem essas classes de forma a complementar a ferramenta e facilitar o seu uso. Para lidar com recebimento e envio de dados básicos (do tipo string, inteiro, ou booleano), utiliza-se principalmente arquivos no modelo JSON.
+\paragraph{}Um arquivo JSON define uma hierarquia de dados isolados e sem significado agregado, permitindo uma comunicação HTTP eficiente pela simplicidade da sua estrutura. Dessa forma é necessário apenas saber previamente a estrutura dos dados a serem recebidos, para então fazer o \emph{parsing} local dos dados de acordo com a necessidade.
+
+\bigskip
+
+\paragraph{}\textit{\textbf{\underline{Dica}}: Se não estiver familiarizado com o formato dos dados utilizados em um JSON, recomendo a leitura deste resumo:\\
+\(http://www.w3schools.com/json/json_syntax.asp\)}
 
 \bigskip
 
-\paragraph{}\textit{\textbf{\underline{Dica}}: Para informações detalhadas sobre integração com redes sociais veja a documentação oficial da Apple da biblioteca \texttt{\textbf{Social Framework}}:\\
-\(https://developer.apple.com/library/ios/documentation/Social/Reference/\\Social_Framework\)}
+\paragraph{}Para efetuarmos requisições HTTP com arquivos JSON utilizaremos uma API externa muito popular chamada \texttt{\textbf{AFNetworking}}. Ela nos permite fazer requisições de forma simples e reutilizável em todo o projeto, lidando com o envio de estruturas do tipo \texttt{\textbf{NSDictionary}} e \texttt{\textbf{NSArray}} com conversão automática para JSON, e o recebimento de um arquivo JSON com conversão automática para um objeto \texttt{\textbf{NSDictionary}}.
+\paragraph{}Será feita uma abordagem simplificada da criação dos métodos de requisição e do uso deles na prática, adaptando o aplicativo de Agenda para que ele receba os dados a partir de um JSON na web ao invés da \texttt{\textbf{Property List}} local, mas mantendo a mesma estrutura de dados.
+\paragraph{}Na página do \texttt{\textbf{AFNetworking}} no \emph{Github} (\textit{github.com/AFNetworking/AFNetworking}) temos o código completo disponível, junto da documentação e de um guia simples de como inserir as classes no seu projeto no XCode. A versão utilizada como base para este documento foi 1.3.1, presente no nosso repositório.
+\paragraph{}lembre-se que tudo que for feito aqui terá o aplicativo Agenda como base, assim como as classes já existentes no projeto.
 
 \bigskip
+
+\subsection{Uso de blocks}
+
+\paragraph{}Os métodos da \texttt{\textbf{AFNetworking}} utilizam um elemento muito utilizado em Objective-C chamado \texttt{\textbf{block}}. Um \texttt{\textbf{block}} consiste em um trecho de código passado como parâmetro para métodos como se fosse uma variável única. Este trecho de código possui seus próprios parâmetros, funcionando como um método \texttt{\textbf{void}} separado, que roda em uma \emph{thread} separada da \emph{thread} principal. Com um \texttt{\textbf{block}} podemos executar ações de forma assíncrona enquanto a \emph{thread} principal continua executando as ações normais do aplicativo, sem alterar o fluxo normal. No caso de uma requisição HTTP, precisamos esperar o tempo de resposta do \emph{web service} e tratar os dados recebidos caso a requisição obtiver sucesso, sem que o aplicativo pare para esperar essa resposta, ou que ele tente gerar as mudanças para o usuário sem ter recebido os dados.
+
 \bigskip
 
+\paragraph{}\textit{\textbf{\underline{Dica}}: Para entender melhor o uso de blocks e seu funcionamento detalhado, estude este artigo contido na documentação da Apple:\\
+\(https://developer.apple.com/library/ios/documentation/cocoa/conceptual/\\ProgrammingWithObjectiveC/WorkingwithBlocks/WorkingwithBlocks.html\)}
+
+\bigskip
+
+\subsection{Criando a classe WebService}
+
+\paragraph{}Para utilizar os métodos da \texttt{\textbf{AFNetworking}} criamos uma classe de controle para o \emph{web service} a ser acessado no aplicativo. A classe será um \emph{singleton}, ou seja, ela vai instanciar um objeto dela mesma de forma que teremos uma única instância sendo chamada para todo o aplicativo.
+\paragraph{}Começando a sua construção, crie uma nova classe chamada \texttt{\textbf{WebService}} herdando da classe \texttt{\textbf{HTTPClient}}. Com a classe criada, é preciso importar a \texttt{\textbf{AFNetworking}} no seu header.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+#import <Foundation/Foundation.h>
+#import "AFHTTPClient.h"
+#import "AFNetworking.h"
+\end{minted}
+\end{listing}
+
+\paragraph{}Ainda no header, precisamos declarar o método estático \texttt{\textbf{sharedInstance}}, que será responsável por tornar a classe um \emph{singleton}. Sua declaração fica assim:
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@interface WebService : AFHTTPClient
+
++ (id)sharedInstance;
+
+@end
+\end{minted}
+\end{listing}
+
+\paragraph{}Agora partiremos para a implementação dos métodos de inicialização da classe. Vamos sobrescrever o método \texttt{\textbf{initWithBaseURL:}} de \texttt{\textbf{HTTPClient}}.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (id)initWithBaseURL:(NSURL *)url
+{
+    self = [super initWithBaseURL:url];
+    if(self) {
+    
+    }
+    
+    return self;
+}
+\end{minted}
+\end{listing}
+
+\paragraph{}Esse é um padrão muito utilizado para sobrescrever métodos de inicialização. Garantimos que o método original será executado através do \texttt{\textbf{super}}, que é uma referência à classe pai, no caso  \texttt{\textbf{HTTPClient}}. Em seguida verificamos se o método retornou algo válido, e se tudo deu certo podemos escrever nosso código para continuar a inicialização do objeto. O método recebe como parâmetro a URL do nosso \emph{web service} e será usada como padrão em toda a classe.
+\paragraph{}O seguinte código vai dentro da condição.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+[self registerHTTPOperationClass:[AFJSONRequestOperation class]];
+[self setDefaultHeader:@"Accept" value:@"application/json"];
+[self setParameterEncoding:AFJSONParameterEncoding];
+
+[[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+\end{minted}
+\end{listing}
+
+\paragraph{}Na linha 1 o método \texttt{\textbf{registerHTTPOperationClass:}} define o tipo arquivo que a classe vai fazer requisição, no caso usaremos JSON. Na linha 2 o método\\ \texttt{\textbf{setDefaultHeader:value:}} informa o servidor que tipo de arquivo deve ser retornado, que será JSON. Na linha 3 o método \texttt{\textbf{setParameterEncoding:}} define o formato dos parâmetros enviados quando for feito um POST, e a opção \texttt{\textbf{AFJSONParameterEncoding}} faz com que o parâmetro enviado, que será um objeto \texttt{\textbf{NSDictionary}}, vai ser convertido e enviado como JSON para o servidor. A última linha define simplesmente que sempre que houver uma requisição em andamento o ícone de rede do iOS será animado, e deixará de ser animado assim que a requisição terminar.
+\paragraph{}O método de inicialização está pronto, e agora precisamos implementar o método\\ \texttt{\textbf{sharedInstance}}, que vai controlar a instanciação da classe e chamar o método de inicialização se for preciso.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
++ (WebService *)sharedInstance
+{
+    static dispatch_once_t pred;
+    static WebService *_sharedManager = nil;
+    
+    dispatch_once(&pred,
+                  ^{ _sharedManager = [[self alloc]
+                    initWithBaseURL:[NSURL URLWithString:
+                     @"https://dl.dropboxusercontent.com"]];
+                   });
+    return _sharedManager;
+}
+\end{minted}
+\end{listing}
+
+\paragraph{}O uso do método \texttt{\textbf{dispatch\_once}} é uma recomendação da Apple para se criar um \emph{singleton}. A variável do tipo \texttt{\textbf{dispatch\_once\_t}} é um contador que começa com o valor zero e é incrementada caso o método \texttt{\textbf{dispatch\_once}} tenha sucesso. Esse código garante que o método \texttt{\textbf{initWithBaseURL:}} só será chamado uma vez, que é quando o contador está em zero.
+\paragraph{}Como no nosso caso faremos apenas uma requisição GET bem simples, estamos usando o Dropbox para buscarmos o arquivo dos contatos. Substitua o parâmetro com a URL do seu \emph{web service} real.
+\paragraph{}Agora vamos criar mais dois métodos: um método chamado \\ \texttt{\textbf{connectionWithURL:method:path:httpClient:parameters:completion:}} que fará todas as requisições de fato para o \emph{web service}, e um método que vai criar nossa requisição específica de contatos e então chamar o primeiro método para finalizar.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (void)connectionWithURL:(NSURL*)url method:(NSString*)method
+        path:(NSString*)path
+        httpClient:(AFHTTPClient*)httpClient
+        parameters:(NSDictionary*)parameters
+        completion:(void (^)(BOOL success,
+                             NSInteger message,
+                             id data))completionBlock
+{
+    NSMutableURLRequest *request = [httpClient
+                                    requestWithMethod:method
+                                                 path:path
+                                           parameters:parameters];
+    
+    AFJSONRequestOperation *operation =
+    [AFJSONRequestOperation
+	JSONRequestOperationWithRequest:request
+               success:^(NSURLRequest *request,
+                         NSHTTPURLResponse *response,
+                         id JSON)
+                         {
+                         	completionBlock(YES,
+                         	                0,
+                         	                JSON);
+                         	NSLog(@"Success");
+                         }
+               failure:^(NSURLRequest *request,
+                         NSHTTPURLResponse *response,
+                         NSError *error,
+                         id JSON)
+                         {
+                         	completionBlock(NO,
+                         	                response.statusCode,
+                         	                JSON);
+                         	NSLog(@"Failure");
+                         }];
+                   
+    [AFJSONRequestOperation addAcceptableContentTypes:
+                            [NSSet setWithObject:@"text/plain"]];
+    
+    [operation start];
+    [operation waitUntilFinished];
+}
+\end{minted}
+\end{listing}
+
+\paragraph{}É neste método que é feita a requisição e onde temos se a chamada obteve sucesso e os dados recebidos, ou se a chamada terminou com falha e o erro recebido. Essa resposta é devolvida através do parâmetro \texttt{\textbf{completionBlock}} que é um \texttt{\textbf{block}} que guarda os parâmetros de resposta da requisição: se foi sucesso, uma mensagem caso tenha ocorrido um problema, e os dados recebidos do servidor. Esses dados são recebidos como \texttt{\textbf{id}} mas eles vêm no formato de um \texttt{\textbf{NSDictionary}}.
+\paragraph{}No final do método temos alguns detalhes a serem citados. O método\\ \texttt{\textbf{addAcceptableContentTypes:}} garante que se o servidor não enviar o arquivo como um JSON e sim como se fosse um arquivo texto normal, que é o que ocorre com o Dropbox, a requisição vai entender que é um arquivo válido. Na penúltima linha temos a chamada de fato da requisição, nada acontece de fato sem essa linha. A última linha é opcional e foi citada apenas como curiosidade, e ela faz com que o aplicativo pare tudo e espere a requisição terminar. Como já foi dito, a \texttt{\textbf{AFNetworking}} garante que a requisição seja feita de forma assíncrona, sem atrapalhar o fluxo normal do aplicativo, mas ela permite com o método \texttt{\textbf{waitUntilFinished}} que o fluxo seja interrompido caso for conveniente.
+\paragraph{}Por último criaremos o método que vai definir o que precisamos para fazer a requisição dos contatos.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (void)requestContactsWithCompletion:(void (^)
+                                       (BOOL success,
+                                        NSInteger message,
+                                        id data))completionBlock
+{
+    BOOL state;
+    state = NO;
+    NSURL *url = [[NSURL alloc] initWithString:
+                  @"https://dl.dropboxusercontent.com"];
+    
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc]
+                                initWithBaseURL:url];
+    [httpClient registerHTTPOperationClass:
+                [AFJSONRequestOperation class]];
+    [httpClient setDefaultHeader:@"Accept"
+                           value:@"application/json"];
+    [httpClient setParameterEncoding:AFFormURLParameterEncoding];
+    
+    [self connectionWithURL:url
+                     method:@"GET"
+                       path:@"/u/57270874/contatos.json"
+                 httpClient:httpClient
+                 parameters:nil
+                 completion:completionBlock];
+}
+\end{minted}
+\end{listing}
+
+\paragraph{}O método segue as opções que já definimos na classe. Aqui definimos mais uma vez a URL padrão do \emph{web service}, colocamos o caminho do arquivo que nos interessa no parâmetro \texttt{\textbf{path}}, e o tipo de requisição no parâmetro \texttt{\textbf{method}}. No caso faremos um simples GET, mas se fosse um POST os nossos parâmetros a serem enviados ao \emph{web service} seriam definidos no parâmetro \texttt{\textbf{parameters}} como um objeto  \texttt{\textbf{NSDictionary}}.
+\paragraph{}Não se esqueça de declarar o método no header da classe \texttt{\textbf{WebService}} pois precisamos enxergá-lo de fora da classe.
+
+\bigskip
+
+\subsection{Requisição e parsing dos dados}
+
+\paragraph{}Vamos fazer a chamada do serviço na classe \texttt{\textbf{TableViewController}}, onde os contatos são exibidos. Antes de tudo importe a classe \texttt{\textbf{WebService}} no código.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+#import <UIKit/UIKit.h>
+#import "DataContato.h"
+#import "Detail.h"
+#import "WebService.h"
+\end{minted}
+\end{listing}
+
+\paragraph{}Agora podemos chamar o método \texttt{\textbf{requestContactsWithCompletion:}} que criamos para fazer a requisição dos contatos. Criaremos um método chamado \texttt{\textbf{connecting}} que vai ser chamado por último no \texttt{\textbf{viewDidLoad}}, e dentro dele chamaremos a requisição.
+\paragraph{}O \texttt{\textbf{viewDidLoad}} deve ficar assim:
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    self.navigationItem.title = @"Contatos";
+    
+    [self connecting];
+}
+\end{minted}
+\end{listing}
+
+\paragraph{}E assim vai ficar nosso novo método:
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (void)connecting {
+    [[WebService sharedInstance] requestContactsWithCompletion:
+                    ^(BOOL success, NSInteger message, id data)
+     {
+         if (success) {
+             NSDictionary *dict = data;
+             self.dictionary = 
+             [NSMutableDictionary dictionaryWithDictionary:dict];
+             
+             [self setDictionaryArray];
+         }
+     }];
+}
+\end{minted}
+\end{listing}
+
+\paragraph{}Chamamos o método a partir de \texttt{\textbf{sharedInstance}}, que cria a instância única de\\ \texttt{\textbf{WebService}}. A chamada de um método com \texttt{\textbf{block}} nos parâmetros é um pouco confusa no começo, afinal temos um trecho de código como parâmetro, mas essa dificuldade inicial passa rápido. Nosso \texttt{\textbf{block}} recebe as 3 variáveis de resposta da requisição, e assim podemos tratar  do \emph{parsing} dos nossos dados dentro do \texttt{\textbf{block}}.
+\paragraph{}Na linha 4 temos a verificação de sucesso, garantindo que só vamos tratar a variável \texttt{\textbf{data}} se ela recebeu mesmo os dados do servidor. Nas linha 5 e 6 definimos essa variável como um \texttt{\textbf{NSDictionary}}, o que ela é de fato, e salvamos esses dados na propriedade \texttt{\textbf{dictionary}} que já existia no projeto. Dessa forma, o nosso \emph{parsing} vai manter a mesma lógica do projeto original, já que só mudamos o modo de obter os dados que continuam sendo salvos em \texttt{\textbf{dictionary}}. Assim, na linha 8 chamamos o método \texttt{\textbf{setDictionaryArray}}, responsável por ler a estrutura salva e exibir os dados na \texttt{\textbf{UITableView}}.
+
+\bigskip
 
 \section{Localização}
 
@@ -2179,38 +2595,6 @@ Texto
 
 \paragraph{}\textit{\textbf{\underline{Dica}}: Entenda melhor como trabalhar com a localização do usuário neste guia oficial da Apple:\\
 \(https://developer.apple.com/library/ios/documentation/userexperience/conceptual/\\LocationAwarenessPG/CoreLocation/CoreLocation.html\)}
-
-\bigskip
-\bigskip
-
-
-\section{Requisições HTTP}
-
-\paragraph{}O iOS permite nativamente a comunicação com \texttt{web services} a partir requisições HTTP do tipo GET e POST, e existem diversas APIs externas que extendem essas classes de forma a complementar a ferramenta e facilitar o seu uso. Para lidar com recebimento e envio de dados básicos (do tipo string, inteiro, ou booleano), utiliza-se principalmente arquivos no modelo JSON.
-\paragraph{}Um arquivo JSON define uma hierarquia de dados isolados e sem significado agregado, permitindo uma comunicação HTTP eficiente pela simplicidade da sua estrutura. Dessa forma é necessário apenas saber previamente a estrutura dos dados a serem recebidos, para então fazer o parsing local dos dados de acordo com a necessidade.
-
-\bigskip
-
-\paragraph{}\textit{\textbf{\underline{Dica}}: Se não estiver familiarizado com o formato dos dados utilizados em um JSON, recomendo a leitura deste resumo:\\
-\(http://www.w3schools.com/json/json_syntax.asp\)}
-
-\bigskip
-
-\paragraph{}Para efetuarmos requisições HTTP com arquivos JSON utilizaremos uma API externa muito utilizada chamada \texttt{\textbf{AFNetworking}}. Ela nos permite fazer requisições de forma simples e reutilizável em todo o projeto, lidando com o envio de estruturas do tipo \texttt{\textbf{NSDictionary}} e \texttt{\textbf{NSArray}} com conversão automática para JSON, e o recebimento de um arquivo JSON com conversão automática para um objeto \texttt{\textbf{NSDictionary}}.
-\paragraph{}Será feita uma abordagem simplificada da criação dos métodos de requisição e do uso deles na prática, adaptando o aplicativo de Agenda para que ele receba os dados a partir de um JSON na web ao invés da \texttt{Property List} local, mantendo a mesma estrutura de dados.
-\paragraph{}Na página da AFNetworking no github (\textit{https://github.com/AFNetworking/AFNetworking}) temos o código completo disponível, junto da documentação e de um guia simples de como inserir as classes no seu projeto no XCode.
-
-\bigskip
-
-\subsection{Uso de blocks}
-
-\paragraph{}Os métodos da \texttt{\textbf{AFNetworking}} utilizam um elemento muito utilizado em Objective-C chamado \texttt{\textbf{block}}. Um \texttt{\textbf{block}} consiste em um trecho de código passado como parâmetro para métodos como se fosse uma variável única. Este trecho de código possui seus próprios parâmetros, funcionando como um método \texttt{void} separado, que roda em uma thread separada da principal. Com block podemos esperar o término de uma ação enquanto a \texttt{thread} principal continua executando as ações normais do aplicativo, para então tratar seus resultados sem alterar o fluxo. No caso de uma requisição HTTP, precisamos esperar o tempo de resposta do web service e tratar se a requisição obteve sucesso e os valores recebidos, e neste caso o uso de block é exatamente o que precisamos.
-
-\bigskip
-
-\paragraph{}\textit{\textbf{\underline{Dica}}: Para entender melhor o uso de blocks e seu funcionamento detalhado, estude este artigo contido na documentação da Apple:\\
-\(https://developer.apple.com/library/ios/documentation/cocoa/conceptual/\\ProgrammingWithObjectiveC/WorkingwithBlocks/WorkingwithBlocks.html\)}
-
 
 
 \chapter{Um pouco de MVC}
