@@ -14,6 +14,7 @@
 #import "APICameraViewController.h"
 #import "APIContactsViewController.h"
 #import "APICalendarViewController.h"
+#import "APISocialViewController.h"
 
 @interface DemoAPIViewController : UIViewController
 
