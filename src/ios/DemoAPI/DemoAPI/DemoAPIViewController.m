@@ -18,7 +18,7 @@
 {
     [super viewDidLoad];
     
-    self.count = 8;
+    self.count = 9;
     
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width*self.count, 0)];
     [self.scrollView setScrollsToTop:NO];
@@ -31,6 +31,7 @@
     [self loadContactsAPI];
     [self loadCalendarAPI];
     [self loadSocialAPI];
+    [self loadMotionAPI];
 }
 
 - (void)loadCallAPI {
@@ -151,6 +152,22 @@
     [self addChildViewController:myAPIViewController];
     
     NSInteger apiId = 8;
+    CGRect frame = self.scrollView.frame;
+    frame.origin.x = frame.size.width*(apiId-1);
+    frame.origin.y = 0;
+    myAPIViewController.view.frame = frame;
+    
+    [myAPIViewController.progressLabel setText:[NSString stringWithFormat:@"%d/%d",apiId,self.count]];
+    
+    [self.scrollView addSubview:myAPIViewController.view];
+}
+
+- (void)loadMotionAPI {
+    APIMotionViewController *myAPIViewController = [[APIMotionViewController alloc] initWithNibName:@"APIMotionViewController" bundle:nil];
+    
+    [self addChildViewController:myAPIViewController];
+    
+    NSInteger apiId = 9;
     CGRect frame = self.scrollView.frame;
     frame.origin.x = frame.size.width*(apiId-1);
     frame.origin.y = 0;
