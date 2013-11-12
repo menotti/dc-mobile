@@ -2,7 +2,7 @@
 //  APIMotionViewController.h
 //  DemoAPI
 //
-//  Created by Régis on 05/11/13.
+//  Created by Régis on 27/10/13.
 //  Copyright (c) 2013 UFSCar. All rights reserved.
 //
 

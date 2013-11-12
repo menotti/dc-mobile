@@ -18,7 +18,7 @@
 {
     [super viewDidLoad];
     
-    self.count = 9;
+    self.count = 10;
     
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width*self.count, 0)];
     [self.scrollView setScrollsToTop:NO];
@@ -32,6 +32,7 @@
     [self loadCalendarAPI];
     [self loadSocialAPI];
     [self loadMotionAPI];
+    [self loadLocationAPI];
 }
 
 - (void)loadCallAPI {
@@ -178,10 +179,20 @@
     [self.scrollView addSubview:myAPIViewController.view];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)loadLocationAPI {
+    APILocationViewController *myAPIViewController = [[APILocationViewController alloc] initWithNibName:@"APILocationViewController" bundle:nil];
+    
+    [self addChildViewController:myAPIViewController];
+    
+    NSInteger apiId = 10;
+    CGRect frame = self.scrollView.frame;
+    frame.origin.x = frame.size.width*(apiId-1);
+    frame.origin.y = 0;
+    myAPIViewController.view.frame = frame;
+    
+    [myAPIViewController.progressLabel setText:[NSString stringWithFormat:@"%d/%d",apiId,self.count]];
+    
+    [self.scrollView addSubview:myAPIViewController.view];
 }
 
 @end
