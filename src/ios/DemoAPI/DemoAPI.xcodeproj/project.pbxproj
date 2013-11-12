@@ -45,6 +45,9 @@
 		ACA5985318293AB70088C741 /* APIMotionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA5985118293AB70088C741 /* APIMotionViewController.m */; };
 		ACA5985418293AB70088C741 /* APIMotionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACA5985218293AB70088C741 /* APIMotionViewController.xib */; };
 		ACA598561829434D0088C741 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACA598551829434C0088C741 /* CoreMotion.framework */; };
+		ACA5985A1831BC850088C741 /* APILocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA598581831BC840088C741 /* APILocationViewController.m */; };
+		ACA5985B1831BC850088C741 /* APILocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACA598591831BC840088C741 /* APILocationViewController.xib */; };
+		ACA5985D1831BE0B0088C741 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACA5985C1831BE0B0088C741 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +103,10 @@
 		ACA5985118293AB70088C741 /* APIMotionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIMotionViewController.m; sourceTree = "<group>"; };
 		ACA5985218293AB70088C741 /* APIMotionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = APIMotionViewController.xib; sourceTree = "<group>"; };
 		ACA598551829434C0088C741 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		ACA598571831BC840088C741 /* APILocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APILocationViewController.h; sourceTree = "<group>"; };
+		ACA598581831BC840088C741 /* APILocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APILocationViewController.m; sourceTree = "<group>"; };
+		ACA598591831BC840088C741 /* APILocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = APILocationViewController.xib; sourceTree = "<group>"; };
+		ACA5985C1831BE0B0088C741 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACA5985D1831BE0B0088C741 /* CoreLocation.framework in Frameworks */,
 				ACA598561829434D0088C741 /* CoreMotion.framework in Frameworks */,
 				ACA5984818276B400088C741 /* Social.framework in Frameworks */,
 				AC691C2D181705A600D6E657 /* EventKit.framework in Frameworks */,
@@ -126,6 +134,7 @@
 		AC691B8C180C754200D6E657 = {
 			isa = PBXGroup;
 			children = (
+				ACA5985C1831BE0B0088C741 /* CoreLocation.framework */,
 				ACA598551829434C0088C741 /* CoreMotion.framework */,
 				ACA5984718276B400088C741 /* Social.framework */,
 				AC691C2C181705A600D6E657 /* EventKit.framework */,
@@ -192,6 +201,9 @@
 				ACA5985018293AB70088C741 /* APIMotionViewController.h */,
 				ACA5985118293AB70088C741 /* APIMotionViewController.m */,
 				ACA5985218293AB70088C741 /* APIMotionViewController.xib */,
+				ACA598571831BC840088C741 /* APILocationViewController.h */,
+				ACA598581831BC840088C741 /* APILocationViewController.m */,
+				ACA598591831BC840088C741 /* APILocationViewController.xib */,
 				AC691B9F180C754200D6E657 /* Supporting Files */,
 			);
 			path = DemoAPI;
@@ -281,6 +293,7 @@
 				ACA5984D18276B5D0088C741 /* APISocialViewController.xib in Resources */,
 				ACA5984F18276FC80088C741 /* LogoDC.jpg in Resources */,
 				ACA5985418293AB70088C741 /* APIMotionViewController.xib in Resources */,
+				ACA5985B1831BC850088C741 /* APILocationViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +316,7 @@
 				AC691C31181705CE00D6E657 /* APICalendarViewController.m in Sources */,
 				ACA5984C18276B5D0088C741 /* APISocialViewController.m in Sources */,
 				ACA5985318293AB70088C741 /* APIMotionViewController.m in Sources */,
+				ACA5985A1831BC850088C741 /* APILocationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
