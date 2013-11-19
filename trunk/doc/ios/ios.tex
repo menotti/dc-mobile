@@ -106,6 +106,7 @@ XCode User Guide.\\
 
 @end
 \end{minted}
+\caption{Declaração da classe no .h}
 \end{listing}
 
 \paragraph{}E na implementação fica entre \texttt{\textbf{@implementation}} e \texttt{\textbf{@end}}, sem colocar a superclasse.
@@ -116,6 +117,7 @@ XCode User Guide.\\
 
 @end
 \end{minted}
+\caption{Declaração da classe no .m}
 \end{listing}
 
 \paragraph{}\textbf{Métodos}
@@ -148,14 +150,15 @@ XCode User Guide.\\
 	NSLog(@"%@ %@",stringA,stringB);
 }
 \end{minted}
+\caption{Implementação de métodos}
 \end{listing}
 
-A ideia de criar um label, além da própria variável, é de tornar intuitiva a leitura do método. No caso do último exemplo, o método seria lido como \emph{escreverString:comString:}.\\
+\paragraph{}A ideia de criar um label, além da própria variável, é de tornar intuitiva a leitura do método. No caso do último exemplo, o método seria lido como \emph{escreverString:comString:}.\\
 
 \paragraph{}\textbf{Propriedades}
 
 \paragraph{}Como já citado anteriormente, o Objective-C oferece uma possibilidade de encapsulamento de atributos de uma classe, a partir de uma \texttt{\textbf{Property}}.
-\paragraph{}Uma \texttt{\textbf{Property}} define automaticamente métodos \texttt{setter} e \texttt{getter} de uma variável, e também o tempo de duração na memória se for um objeto, de acordo com os parâmetros definidos. É geralmente definido no header da classe.
+\paragraph{}Uma \texttt{\textbf{Property}} define automaticamente métodos \emph{setter} e \emph{getter} de uma variável, e também o tempo de duração na memória se for um objeto, de acordo com os parâmetros definidos. É geralmente definido no header da classe.
 \paragraph{}Exemplo:
 
 \begin{listing}[H]
@@ -163,9 +166,10 @@ A ideia de criar um label, além da própria variável, é de tornar intuitiva a
 @property (nonatomic, strong) NSString *nome;
 @property BOOL existe;
 \end{minted}
+\caption{Declaração de propriedades}
 \end{listing}
 
-No exemplo anterior, temos os parâmetros \texttt{\textbf{nonatomic}} e \texttt{\textbf{strong}}. O primeiro é para proteger a variável em ambiente multi-thread, forçando uma cópia do valor da variável caso o getter e setter sejam usados ao mesmo tempo em duas threads. O segundo é voltado apenas para objetos (variáveis do tipo BOOL ou int não se enquadram, por exemplo), e define o tempo de permanência do objeto na memória, que é definida como \texttt{\textbf{strong}} ou \texttt{\textbf{weak}}. A primeira é a que usamos na maioria dos casos e garante que o objeto permanecerá na memória até o fim da execução; a segunda é para quando queremos que o objeto exista apenas enquanto outro objeto apontar para ele. O único caso em que usaremos \texttt{\textbf{weak}} é na criação de \texttt{\textbf{IBOutlets}} ligados a interface, que veremos mais a frente.
+\paragraph{}No exemplo anterior, temos os parâmetros \texttt{\textbf{nonatomic}} e \texttt{\textbf{strong}}. O primeiro é para proteger a variável em ambiente multi-thread, forçando uma cópia do valor da variável caso o getter e setter sejam usados ao mesmo tempo em duas threads. O segundo é voltado apenas para objetos (variáveis do tipo BOOL ou int não se enquadram, por exemplo), e define o tempo de permanência do objeto na memória, que é definida como \texttt{\textbf{strong}} ou \texttt{\textbf{weak}}. A primeira é a que usamos na maioria dos casos e garante que o objeto permanecerá na memória até o fim da execução; a segunda é para quando queremos que o objeto exista apenas enquanto outro objeto apontar para ele. O único caso em que usaremos \texttt{\textbf{weak}} é na criação de \texttt{\textbf{IBOutlets}} ligados a interface, que veremos mais a frente.
 
 \paragraph{}Agora veremos como acessamos métodos e atributos de um objeto:
 
@@ -189,6 +193,7 @@ funcionario.sobrenome = "Silva";
 [self escreverString:funcionario.nome
            comString:funcionario.sobrenome];
 \end{minted}
+\caption{Chamada de métodos}
 \end{listing}
 
 \paragraph{}Esse código mostra que estamos setando as variáveis nome e sobrenome do objeto funcionario do tipo \texttt{\textbf{Pessoa}} e usando-as como parâmetros para o método \emph{escreverString:comString:} da própria classe (\texttt{\textbf{self}} é o mesmo que \texttt{\textbf{this}} em C++ e Java).
@@ -491,6 +496,7 @@ UIKit Framework Reference\\ \(http://developer.apple.com/library/ios/\#documenta
 @property (strong, nonatomic) UINavigationController
 									   *navController;
 \end{minted}
+\caption{Definição da \emph{Navigation Controller}}
 \end{listing}
 
 \paragraph{}Esta propriedade representa a \emph{Navigation Controller} em si. No arquivo FirstAppAppDelegate.m, deixaremos o primeiro método deste jeito:
@@ -515,6 +521,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     return YES;
 }
 \end{minted}
+\caption{Definições do \emph{AppDelegate}}
 \end{listing}
 
 \paragraph{}Nesse arquivo é inicializado a \texttt{\textbf{UIWindow}} sendo apontada para \texttt{\textbf{UIScreen}} na linha 4. Como foi dito, a \texttt{\textbf{UIWindow}} é a reponsável por chamar a primeira tela do aplicativo. Nesse código é criado a Navigation Controller que utilizaremos para navegar entre as telas do aplicativo, e definimos qual será a primeira tela, chamada \texttt{\textbf{RootNavigationController}}. Na linha 7 é inicializada a \texttt{\textbf{UIViewController}} inicial, e na linha 9 a definimos como a primeira tela da \emph{Navigation Controller}. Na linha 12 fazemos o apontamento final da \texttt{\textbf{UIWindow}} à \emph{Navigation Controller}, que a partir de então será a responsável por todo o gerenciamento das telas do aplicativo.
@@ -531,6 +538,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 	self.navigationItem.title = @"Tela 1";
 }
 \end{minted}
+\caption{Definição do título de uma tela}
 \end{listing}
 
 \paragraph{}O método \texttt{\textbf{viewDidLoad}} é onde colocaremos tudo que será definido no carregamento da tela, pois este é o método de inicialização gráfica. Há um grande número de métodos do \texttt{\textbf{UIViewController}} que podemos sobrescrever de acordo com a nossa necessidade. Eles têm a função de controlar o comportamento da tela durante toda a sua existência, desde sua inicialização até finalização, podendo prever respostas a qualquer ação do usuário.
@@ -561,6 +569,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     [self.okButton setTitle:aux forState:UIControlStateNormal];
 }
 \end{minted}
+\caption{Implementação de uma \emph{IBAction}}
 \end{listing}
 
 \paragraph{}O código funciona como uma troca simples. Na linha 3 inicializamos uma variável local com o texto do label; na linha 4 atribuimos o texto do botão ao texto do rótulo; e na linha 5 chamamos o método da classe \texttt{\textbf{UIButton}} responsável por modificar o texto do botão, que no caso será o texto salvo na variável auxiliar.
@@ -586,6 +595,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
                                          animated:YES];
 }
 \end{minted}
+\caption{Chamada de uma nova tela}
 \end{listing}
 
 \paragraph{}Para chamar uma nova tela é preciso criar uma instância da \emph{View Controller} a ser chamada, no caso da SecondScreenViewController (que ainda não criamos), para então jogá-la na pilha com o método de \emph{push}, que recebe como parâmetro a instância criada.
@@ -670,6 +680,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 @property (nonatomic, strong) NSString *textLabel;
 \end{minted}
+\caption{Propriedade do tipo \emph{NSString}}
 \end{listing}
 
 \paragraph{}A segunda tela e suas propriedades devem estar assim:
@@ -691,7 +702,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 - (IBAction)thirdScreen:(id)sender {
-    
+
     self.thirdScreen = [[ThirdScreenViewController alloc]
                 initWithNibName:@"ThirdScreenViewController"
                          bundle:nil];
@@ -703,6 +714,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
                                          animated:YES];
 }
 \end{minted}
+\caption{Chamada de uma nova tela enviando uma variável}
 \end{listing}
 
 \paragraph{}Além disso, precisamos tratar o conteúdo da variável na classe da terceira tela. Vamos verificar no método \texttt{\textbf{viewDidLoad}} o conteúdo da variável que recebeu o dado da segunda tela.
@@ -722,6 +734,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     self.messageTextField.delegate = self;
 }
 \end{minted}
+\caption{Tratamento da variável recebida na próxima tela}
 \end{listing}
 
 \paragraph{}De uma forma bem simples, verificamos o conteúdo da string recebida na linha 5 e a atribuimos para o conteúdo do rótulo na linha 6 ou 8, de acordo com a condição.
@@ -751,6 +764,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 @interface SecondScreenViewController :
            UIViewController <UITextFieldDelegate>
 \end{minted}
+\caption{Referência ao \emph{UITextFieldDelegate} na declaração da classe}
 \end{listing}
 
 \paragraph{}A referência a um \texttt{\textbf{Delegate}} vem sempre entre os símbolos < e > na declaração da classe, separando por vírgula dentro da chave se houver mais de um. Após isso, precisamos apenas atribuir o \texttt{\textbf{Delegate}} à classe no \texttt{\textbf{viewDidLoad}} das classes em que utilizaremos o\\ \texttt{\textbf{UITextFieldDelegate}}.
@@ -759,6 +773,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 self.nameTextField.delegate = self;
 \end{minted}
+\caption{Definição do \emph{delegate}}
 \end{listing}
 
 \paragraph{}Pronto, agora é possível que o objeto \texttt{\textbf{UITextField}}, que foi instanciado na classe da tela e consequentemente não enxerga os elementos dessa classe, como o teclado, envie informações à mesma. No caso, queremos que o teclado seja dispensado no momento que terminarmos de editar o campo de texto, e quando isso ocorre há um método a ser chamado. Vamos implementar este método com a lógica que queremos no arquivo de implementação da classe.
@@ -774,6 +789,7 @@ self.nameTextField.delegate = self;
     return YES;
 }
 \end{minted}
+\caption{Implementação de métodos do \emph{UITextFieldDelegate}}
 \end{listing}
 
 \paragraph{}Este código verifica na linha 3 se o objeto \texttt{\textbf{UITextField}} que chamou o método é o mesmo objeto instanciado na classe, no caso o \texttt{\textbf{nameTextField}}. Assim, quando há mais de um \texttt{\textbf{UITextField}}, podemos definir comportamentos diferentes para cada um apenas fazendo essa verificação. Execute o projeto e faça o teste, agora o teclado deve sumir quando o campo de texto não está selecionado.
@@ -787,6 +803,7 @@ self.nameTextField.delegate = self;
 
 @end
 \end{minted}
+\caption{Declaração de um método \emph{Delegate}}
 \end{listing}
 
 \paragraph{}Esta é a declaração de um protocolo \texttt{\textbf{Delegate}}. O título é declarado entre \texttt{\textbf{•}{@protocol}} e \texttt{\textbf{<NSObject>}}, e entre a declaração do título e \texttt{\textbf{@end}} é feita a declaração de todos os métodos desse \texttt{\textbf{Delegate}}.
@@ -796,6 +813,7 @@ self.nameTextField.delegate = self;
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 @property (assign, nonatomic) id <MessageDelegate> delegate;
 \end{minted}
+\caption{Declaração da propriedade do \emph{Delegate} criado}
 \end{listing}
 
 \paragraph{}O que fizemos aqui foi criar a declaração de um \texttt{\textbf{Delegate}}, como fazemos com uma classe, e então instanciamos um objeto do tipo do \texttt{\textbf{Delegate}} que criamos. Este objeto servirá de referência para que outras classes possam implementar e utilizar os métodos criados pelo \texttt{\textbf{Delegate}}.
@@ -809,6 +827,7 @@ self.nameTextField.delegate = self;
                    self.messageTextField.text];
 }
 \end{minted}
+\caption{Chamada do método criado no \emph{Delegate}}
 \end{listing}
 
 Este é o método da \texttt{\textbf{IBAction}} que criamos, e é acionado quando o botão "Enviar Mensagem" é tocado. Dentro dele fazemos a chamada do método \texttt{\textbf{sendMessageFromTextField}} definido no \texttt{\textbf{MessageDelegate}}, que vai buscar a implementação do método em qualquer classe que tenha referenciado o \texttt{\textbf{MessageDelegate}}.
@@ -831,6 +850,7 @@ Este é o método da \texttt{\textbf{IBAction}} que criamos, e é acionado quand
 @interface SecondScreenViewController : UIViewController
            <UITextFieldDelegate, MessageDelegate>
 \end{minted}
+\caption{Referência ao \emph{Delegate} criado}
 \end{listing}
 
 \paragraph{}No método em que é chamada a terceira tela, atribuímos o nosso \texttt{\textbf{Delegate}} à classe da segunda tela, logo após a instanciação.
@@ -852,6 +872,7 @@ Este é o método da \texttt{\textbf{IBAction}} que criamos, e é acionado quand
                                          animated:YES];
 }
 \end{minted}
+\caption{Atribuição do \emph{Delegate} criado}
 \end{listing}
 
 \paragraph{}Na linha 9 temos a adição da referência da instância do \texttt{\textbf{MessageDelegate}} da tela 3 para a tela 2.
@@ -867,6 +888,7 @@ Este é o método da \texttt{\textbf{IBAction}} que criamos, e é acionado quand
     self.nameTextField.text = message;
 }
 \end{minted}
+\caption{Implementação do método do \emph{Delegate} criado}
 \end{listing}
 
 \paragraph{}Na linha 3 chamamos a tela 3 para a \emph{Navigation Controller}, e na linha 5 salvamos a mensagem que escrevemos como conteúdo do campo de texto criado na tela 3.
@@ -901,9 +923,10 @@ Este é o método da \texttt{\textbf{IBAction}} que criamos, e é acionado quand
 @interface TableViewController : UIViewController
              <UITableViewDataSource,UITableViewDelegate>
 \end{minted}
+\caption{Declarando o controle de uma \emph{UITableView}}
 \end{listing}
 
-\paragraph{}Assim teremos a possibilidade de sobrescrever diversos métodos de \texttt{\textbf{da UITableView}} que já são chamados pela controladora para gerenciar o comportamento e as configurações da tabela.
+\paragraph{}Assim teremos a possibilidade de sobrescrever diversos métodos da \texttt{\textbf{UITableView}} que já são chamados pela controladora para gerenciar o comportamento e as configurações da tabela.
 \paragraph{}Métodos como esse:
 
 \begin{listing}
@@ -911,6 +934,7 @@ Este é o método da \texttt{\textbf{IBAction}} que criamos, e é acionado quand
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section
 \end{minted}
+\caption{Método utilizado por uma \emph{UITableView}}
 \end{listing}
 
 \paragraph{}Que retorna o número de linhas por seção. E esse:
@@ -920,6 +944,7 @@ Este é o método da \texttt{\textbf{IBAction}} que criamos, e é acionado quand
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 \end{minted}
+\caption{Mais um método utilizado por uma \emph{UITableView}}
 \end{listing}
 
 \paragraph{}Que é chamado no carregamento de cada célula da tabela e retorna um objeto \texttt{\textbf{UITableViewCell}} que contém as definições dessa celula, como texto, imagem de fundo, ou uma imagem miniatura. O endereço da célula é obtido pelo parâmetro \texttt{\textbf{indexPath}}, que contém dois valores: a seção (\texttt{\textbf{section}}) e a linha (\texttt{\textbf{row}}).
@@ -946,6 +971,7 @@ Este é o método da \texttt{\textbf{IBAction}} que criamos, e é acionado quand
 
 @end
 \end{minted}
+\caption{Declaração do modelo para contatos}
 \end{listing}
 
 \paragraph{}E no arquivo \texttt{\textbf{DataContato.m}} colocamos a implementação do construtor.
@@ -974,6 +1000,7 @@ Este é o método da \texttt{\textbf{IBAction}} que criamos, e é acionado quand
 
 @end
 \end{minted}
+\caption{Construtores do modelo de contatos}
 \end{listing}
 
 \subsection{Organização da estrutura}
@@ -997,9 +1024,10 @@ Este é o método da \texttt{\textbf{IBAction}} que criamos, e é acionado quand
 
 @end
 \end{minted}
+\caption{Declaração das propriedades da tabela}
 \end{listing}
 
-\paragraph{}A propriedade \texttt{\textbf{dicionary}} vai ser o nosso dicionário, contendo todos os dados do arquivo \texttt{\textbf{contatos.plist}}, desordenados e sem significado. Em \texttt{\textbf{keysArray}} salvaremos um \emph{array} com as primeiras letras dos contatos, assim podemos buscar os dados em \texttt{\textbf{dictionary}} para enfim transformá-los em objetos \texttt{\textbf{DataContato}}, e salvá-los em \texttt{\textbf{ContatoObjArray}}, divididos entre as letras.
+\paragraph{}A propriedade \texttt{\textbf{dictionary}} vai ser o nosso dicionário, contendo todos os dados do arquivo \texttt{\textbf{contatos.plist}}, desordenados e sem significado. Em \texttt{\textbf{keysArray}} salvaremos um \emph{array} com as primeiras letras dos contatos, assim podemos buscar os dados em \texttt{\textbf{dictionary}} para enfim transformá-los em objetos \texttt{\textbf{DataContato}}, e salvá-los em \texttt{\textbf{ContatoObjArray}}, divididos entre as letras.
 \paragraph{}Agora vamos para o arquivo de implementação definir nosso método \texttt{\textbf{viewDidLoad}}.
 
 \begin{listing}[H]
@@ -1020,6 +1048,7 @@ Este é o método da \texttt{\textbf{IBAction}} que criamos, e é acionado quand
     [self setDictionaryArray];
 }
 \end{minted}
+\caption{Implementação da lista de contatos}
 \end{listing}
 
 \paragraph{}Nesse código, primeiro damos à tela o título \emph{Contatos}, e então vamos montar o endereço do arquivo \texttt{\textbf{contatos.plist}} na variável \texttt{\textbf{filePath}}. Podemos então inicializar a propriedade \texttt{\textbf{dictionary}} com o conteúdo desse endereço. Por último chamamos o método \texttt{\textbf{setDictionaryArray}}, que será onde montaremos a estrutura dos contatos utilizando as chaves primárias e a classe \texttt{\textbf{DataContato}}.
@@ -1043,6 +1072,7 @@ NSMutableArray *tmpKey, *tmpContato;
 
     NSMutableArray *arrayObj = [[NSMutableArray alloc] init];
 \end{minted}
+\caption{Ordenação das letras iniciais}
 \end{listing}
 
 \paragraph{}Este código mostra um modo mais simples de ordenação de um \texttt{\textbf{NSArray}} com um \texttt{\textbf{NSSortDescriptor}}. Criamos o objeto \texttt{\textbf{sort}} e setamos que a ordenação vai ser ascendente, então salvamos em \texttt{\textbf{keysArray}} todas as chaves de \texttt{\textbf{dictionary}} utilizando o método \texttt{\textbf{allKeys}} de \texttt{\textbf{NSDictionary}}. Por fim fazemos a ordenação de \texttt{\textbf{keysArray}} com o método \texttt{\textbf{sortUsingDescriptors}}, onde mandamos como parâmetro um \texttt{\textbf{NSArray}} criado com o \texttt{\textbf{sort}}.
@@ -1083,6 +1113,7 @@ for (int i=0; i<countKeys; i++)
         [arrayObj addObject:arrayObjAux];
     }
 \end{minted}
+\caption{Separação dos contatos de cada letra}
 \end{listing}
 
 \paragraph{}Finalizando o método, fazemos a chamada do método que vai ordenar o \emph{array} de objetos \texttt{\textbf{DataContato}} produzido, ordenando internamente os contatos de cada chave primária de acordo com nome e sobrenome.
@@ -1091,6 +1122,7 @@ for (int i=0; i<countKeys; i++)
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 [self sortObjArray:arrayObj];
 \end{minted}
+\caption{Chamada do método criado para ordenação}
 \end{listing}
 
 \paragraph{}Neste método \texttt{\textbf{sortObjArray}}, faremos um uso mais específico do \texttt{\textbf{NSSortDescriptor}}, que nos permite alguns truques de ordenação. Vamos ordernar primeiro por nome e depois por sobrenome, e realocar o contato inteiro e não cada atributo separado. Assim como fizemos no método anterior, vamos definir nossas prioridades de ordenação em um \texttt{\textbf{NSArray}}, e utilizar um método parecido de \texttt{\textbf{NSArray}} para ordernar automaticamente o \emph{array} de contatos de cada letra.\\
@@ -1118,6 +1150,7 @@ self.contatoObjArray = [[NSMutableArray alloc] init];
       ascending:YES
       selector:@selector(localizedCaseInsensitiveCompare:)];
 \end{minted}
+\caption{Ordenação por nome e sobrenome}
 \end{listing}
 
 \paragraph{}Cada \emph{descriptor} vai ser responsável pela ordenação de um atributo do objeto \texttt{\textbf{DataContato}}. Definimos qual vai ser o atributo nos parâmetros, e utilizamos um \emph{selector} que não vai diferenciar letras maiúsculas e minúsculas.
@@ -1132,6 +1165,7 @@ NSArray * descriptors =
     for(NSMutableArray* array in arrayObj)
         [self.contatoObjArray addObject:[array sortedArrayUsingDescriptors:descriptors]];
 \end{minted}
+\caption{Finalização da ordenação dos objetos}
 \end{listing}
 
 \subsection{A lista de contatos}
@@ -1178,6 +1212,7 @@ NSArray * descriptors =
                  [self.keysArray objectAtIndex:section]] count];
 }
 \end{minted}
+\caption{Definição do tamanho da lista de contatos}
 \end{listing}
 
 \paragraph{}No primeiro método, retornamos o total de elementos de \texttt{\textbf{keysArray}}. O segundo método tem a mesma ideia, mas é necessário utilizar o parâmetro \texttt{\textbf{section}} para buscar o total de contatos de acordo com a letra, já que esse valor é variável.
@@ -1197,6 +1232,7 @@ NSArray * descriptors =
     return [self.keysArray];
 }
 \end{minted}
+\caption{Definição do índice da lista}
 \end{listing}
 
 \paragraph{}Seguindo a mesma ideia dos métodos anteriores, neste primeiro método retornamos a letra contida na posição correspondente ao valor de \texttt{\textbf{section}} em \texttt{\textbf{keysArray}}. No segundo método, definimos um índice para a lista de contatos retornando o próprio \texttt{\textbf{keysArray}} que contém todas as letras ordenadas.
@@ -1231,6 +1267,7 @@ NSArray * descriptors =
     return cell;
 }
 \end{minted}
+\caption{Definição do conteúdo de cada célula}
 \end{listing}
 
 \paragraph{}A primeira parte do método é um código padrão que serve para reutilizar células, e criar apenas o número de células exibidas na tela, atualizando o conteúdo de acordo com a rolagem feita pelo usuário. O processo de criação das células é custoso, sendo desnescessário criar uma célula para cada linha que será exibida, bastando apenas criar um número fixo e reutilizar. Não é preciso entender exatamente o que esse trecho faz, apenas copie-o.
@@ -1259,6 +1296,7 @@ NSArray * descriptors =
 @interface Detail : UIViewController
          <UITableViewDataSource,UITableViewDelegate>
 \end{minted}
+\caption{Definindo o controle de uma nova tabela}
 \end{listing}
 
 \paragraph{}Por último, faremos uma alteração no \emph{layout} da tabela. No \emph{Interface Builder}, abra o menu \emph{Utilities} à direita, selecione a tabela e vá em \emph{Attributes Inspector}, e lá mude o atributo \emph{Style} de \emph{Plain} para \emph{Grouped}. Como teremos uma lista pequena com apenas uma \texttt{\textbf{section}}, esse layout parece mais adequado.
@@ -1277,6 +1315,7 @@ NSArray * descriptors =
 
 @end
 \end{minted}
+\caption{Declaração da classe da tela de detalhes}
 \end{listing}
 
 \paragraph{}Partiremos agora para a implementação. O código nessa tela é bem mais simples que em \texttt{\textbf{TableViewController}}, já que o tamanho da tabela é fixo e o conteúdo a ser exibido virá sempre de \texttt{\textbf{contato}}.
@@ -1296,6 +1335,7 @@ NSArray * descriptors =
     return 2;
 }
 \end{minted}
+\caption{Definição do tamanho da tabela de detalhes}
 \end{listing}
 
 \paragraph{}As duas células servirão para exibir, respectivamente, o nome completo e o número de telefone do contato. Para isso, vamos ler o nome e número do atributo \texttt{\textbf{DataContato}} da tela, salvá-los em um array, e assim definir qual deles será exibido de acordo com a posição da linha da tabela.
@@ -1305,8 +1345,6 @@ NSArray * descriptors =
 - (UITableViewCell *) tableView:(UITableView *)tableView
                cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    // Set the text of the cell to the row index.
     NSString *fullname = [[NSString alloc] init];
     fullname = [contato.firstName stringByAppendingFormat:
                                     @" %@",contato.lastName];
@@ -1325,6 +1363,7 @@ NSArray * descriptors =
     return cell;
 }
 \end{minted}
+\caption{Definição do contéudo das células de detalhes}
 \end{listing}
 
 \paragraph{}Como o nome está dividido em \texttt{\textbf{firstName}} e \texttt{\textbf{lastName}}, utilizamos o método\\
@@ -1349,6 +1388,7 @@ NSArray * descriptors =
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 \end{minted}
+\caption{Definição do comportamento do toque nas células}
 \end{listing}
 
 \paragraph{}Na linha 4 colocamos a condição de que o dispositivo é um iPhone, pois iPad, iPod, e o próprio simulador não possuem discador. Fazemos essa verificação comparando o retorno do método \texttt{\textbf{currentDevice}} de \texttt{\textbf{UIDevice}}. Na linha 9 o \texttt{\textbf{UIApplication}} é referenciado e o método para efetuar chamadas recebe um único parâmetro: uma string com o número a ser chamado. O método só terá efeito em um iPhone, que possui o discador, não fazendo nada em dispositivos como iPod, iPad e o próprio simulador.
@@ -1416,6 +1456,7 @@ NSArray * descriptors =
     return YES;
 }
 \end{minted}
+\caption{Método para busca automática dos contatos com botão}
 \end{listing}
 
 \bigskip
@@ -1426,13 +1467,13 @@ NSArray * descriptors =
    controller shouldReloadTableForSearchScope:(NSInteger)
    searchOption
 {
-    
     [self filterContentForSearchText:
           [self.searchDisplayController.searchBar text]];
     
     return YES;
 }
 \end{minted}
+\caption{Método que executa a busca automática ao digitar}
 \end{listing}
 
 \paragraph{}O primeiro método é chamado se adicionarmos um botão junto da\\
@@ -1467,6 +1508,7 @@ NSArray * descriptors =
     }
 }
 \end{minted}
+\caption{Lógica da busca dos contatos}
 \end{listing}
 
 \paragraph{}Coloquei a lógica em um método separado, que é chamado dentro de\\
@@ -1489,6 +1531,7 @@ NSArray * descriptors =
         return [self.keysArray count];
 }
 \end{minted}
+\caption{Comportamento da tabela com busca}
 \end{listing}
 
 \bigskip
@@ -1506,6 +1549,7 @@ NSArray * descriptors =
                 [self.keysArray objectAtIndex:section]] count];
 }
 \end{minted}
+\caption{Definição do tamanho da tabela com busca}
 \end{listing}
 
 \bigskip
@@ -1523,6 +1567,7 @@ NSArray * descriptors =
         return [self.keysArray objectAtIndex:section];
 }
 \end{minted}
+\caption{Definição do título da tabela com busca}
 \end{listing}
 
 \paragraph{}A condição será a mesma sempre. Verificamos se a \texttt{\textbf{UITableView}} recebida por parâmetro é a tabela criada pela \texttt{\textbf{UISearchDisplayController}}, e se for a tabela terá uma única seção com o título "Resultados" e o número de células será o tamanho do array \texttt{\textbf{searchList}}.
@@ -1538,7 +1583,6 @@ if ([tableView isEqual:
         [self.searchList objectAtIndex:indexPath.row];
         cell.textLabel.text = contato.firstName;
     }
-    
     else
     {
         NSString *texto;
@@ -1553,6 +1597,7 @@ if ([tableView isEqual:
         cell.imageView.image = cellImage;
     }
 \end{minted}
+\caption{Definição da exibição condicional do conteúdo da célula}
 \end{listing}
 
 \paragraph{}Dessa forma, resta apenas adicionar a condição no método que define o resultado do toque na célula. O resultado continua o mesmo, mas temos que ter o cuidado de enviar o contato salvo em \texttt{\textbf{searchList}}, e não de \texttt{\textbf{contatoObjArray}}.
@@ -1589,6 +1634,7 @@ if ([tableView isEqual:
     
 }
 \end{minted}
+\caption{Definição do comportamento condicional do toque na célula}
 \end{listing}
 
 \paragraph{}Pronto, temos uma funcionalidade de busca prática e eficaz para a nossa agenda.
@@ -1596,14 +1642,6 @@ if ([tableView isEqual:
 \bigskip
 
 \paragraph{}\textit{\textbf{\underline{Dica}}: Agora que o aplicativo está do jeito que definimos, aproveite para revisar o funcionamento de todos os métodos que utilizamos até aqui. Estude o que pode ser feito com \texttt{\textbf{NSArray}}, \texttt{\textbf{NSString}} e \texttt{\textbf{NSDictionary}} e como seus métodos facilitaram as estruturas. Além disso, revise os métodos da \texttt{\textbf{UITableView}} e entenda melhor o que foi feito. Como desafio, implemente a adição de contatos, desde a tela de adição até a reorganização das estruturas e gravação no arquivo da \emph{Property List}.}
-
-\bigskip
-\bigskip
-
-
-\section{Configurando uma tela de slide}
-
-Texto
 
 
 \chapter{APIs e bibliotecas especiais}
@@ -1622,16 +1660,26 @@ Texto
 \bigskip
 \bigskip
 
-IMAGEM
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.15\textheight]{figuras/framework1.png}
+  \caption{Tela do Target do projeto}
+  \label{fig:a}
+\end{figure}
 
 \bigskip
 
-\paragraph{}Na aba \texttt{Build Phases}, desça até \texttt{Link Binaries With Libraries} e clique no símbolo de '+'.
+\paragraph{}Na aba \emph{Build Phases}, desça até \emph{Link Binaries With Libraries} e clique no símbolo de \texttt{+}.
 
 \bigskip
 \bigskip
 
-IMAGEM
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.4\textheight]{figuras/framework2.png}
+  \caption{Frameworks contidos no projeto}
+  \label{fig:a}
+\end{figure}
 
 \bigskip
 
@@ -1652,6 +1700,7 @@ IMAGEM
 NSUserDefaults *userDefaults =
                [NSUserDefaults standardUserDefaults];
 \end{minted}
+\caption{Declaração do objeto \emph{NSUserDefaults}}
 \end{listing}
 
 \paragraph{}Para salvar temos um método de setter para objetos, e um método para cada tipo de valor númerico. O método para objetos aceita strings, arrays e dicionários.
@@ -1662,6 +1711,7 @@ NSUserDefaults *userDefaults =
 
 [userDefaults setInteger:10 forKey:@"InteiroTeste"];
 \end{minted}
+\caption{Gravação de dados em cache}
 \end{listing}
 
 \paragraph{}A sincronização com a estrutura é feita automaticamente, mas não exatamente em tempo real. Prevendo qualquer tipo de travamento no aplicativo, é possível forçar a sincronização após inserir os dados.
@@ -1670,6 +1720,7 @@ NSUserDefaults *userDefaults =
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 [userDefaults synchronize];
 \end{minted}
+\caption{Sincronização dos dados salvos}
 \end{listing}
 
 \paragraph{}Para recuperar é o mesmo esquema, com a diferença que temos métodos de getter específicos para arrays, strings, e dicionários, além dos métodos para cada tipo de valor.
@@ -1687,6 +1738,7 @@ NSInteger int = [userDefaults integerForKey:@"InteiroTeste"];
 
 NSString *string = [userDefaults stringForKey:@"StringTeste"];
 \end{minted}
+\caption{Recuperação dos dados salvos em cache}
 \end{listing}
 
 \bigskip
@@ -1701,13 +1753,14 @@ NSString *string = [userDefaults stringForKey:@"StringTeste"];
 
 \section{Contatos}
 
-\paragraph{}É possível acessar os dados dos contatos salvos em um dispositivo iOS e manipulá-los como for conveniente através das classes de \texttt{\textbf{AddressBook.framework}}. Adicione esse framework ao projeto, e em seguida importe as seguintes classes:
+\paragraph{}É possível acessar os dados dos contatos salvos em um dispositivo iOS e manipulá-los como for conveniente através das classes de \texttt{\textbf{AddressBook Framework}}. Adicione esse framework ao projeto, e em seguida importe as seguintes classes:
 
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 #import <AddressBook/AddressBook.h>
 #import <AddressBook/ABPerson.h>
 \end{minted}
+\caption{Importação das classes do \emph{AdressBook}}
 \end{listing}
 
 \paragraph{}Essa biblioteca nos permite obter a lista de completa dos contatos, retirar dados como nome, e-mail, e telefone do contato, e então armazená-los em um array apenas com os dados retirados.
@@ -1723,6 +1776,7 @@ CFArrayRef allPeople =
            ABAddressBookCopyArrayOfAllPeople(m_addressbook);
 CFIndex nPeople = ABAddressBookGetPersonCount(m_addressbook);
 \end{minted}
+\caption{Extração da lista de contatos}
 \end{listing}
 
 \paragraph{}O objeto \texttt{\textbf{ABAddressBookRef}} é uma referência à lista de contatos com os seus dados completos. O método \texttt{\textbf{ABAddressBookCopyArrayOfAllPeople\(m_addressbook\)}} retorna um objeto \texttt{\textbf{CFArrayRef}}, que mantém a referência à lista mas organiza a estrutura em um array de contatos. Por último obtemos o número total de contatos com \texttt{\textbf{ABAddressBookGetPersonCount\(m_addressbook\)}} para utilizarmos na varredura dos dados, que será feita através de um loop pelo array de contatos.
@@ -1735,6 +1789,7 @@ for (int i=0;i<nPeople; i++) {
     
 }
 \end{minted}
+\caption{Obtenção do número total de contatos}
 \end{listing}
 
 \paragraph{}Dentro desse loop vamos extrair \texttt{nome}, \texttt{email} e \texttt{telefone}, guardá-los em um \texttt{\textbf{NSDictionary}} para o contato e adicionar a um \texttt{\textbf{NSArray}} geral para todos os contatos extraídos da varredura.
@@ -1744,6 +1799,7 @@ for (int i=0;i<nPeople; i++) {
 NSMutableDictionary *dOfPerson=[NSMutableDictionary dictionary];
 ABRecordRef ref = CFArrayGetValueAtIndex(allPeople,i);
 \end{minted}
+\caption{Definição de um \emph{array} de contatos}
 \end{listing}
 
 \paragraph{}Na segunda linha o objeto \texttt{\textbf{ABRecordRef}} guarda uma referência ao contato do índice atual através do método \texttt{\textbf{CFArrayGetValueAtIndex(allPeople,i)}}, que recebe o array de referências a todos os contatos e o índice desejado.
@@ -1761,6 +1817,7 @@ lastName  = ABRecordCopyValue(ref, kABPersonLastNameProperty);
                                firstName, lastName]
                                forKey:@"nome"];
 \end{minted}
+\caption{Obtenção do nome completo do contato}
 \end{listing}
 
 \paragraph{}Partimos agora para o e-mail.
@@ -1776,6 +1833,7 @@ if(ABMultiValueGetCount(eMail)>0) {
                forKey:@"email"];
 }
 \end{minted}
+\caption{Obtenção do email do contato}
 \end{listing}
 
 \paragraph{}E por último para o número de telefone.
@@ -1794,6 +1852,7 @@ if([mobileLabel isEqualToString:(NSString *)
                forKey:@"fone"];
 }
 \end{minted}
+\caption{Obtenção do número de telefone do contato}
 \end{listing}
 
 \paragraph{}Obtemos o número de telefone em formato de \texttt{\textbf{NSString}}. Com o dicionário do contato completo, podemos finalizar o loop adicionando o contato ao nosso array.
@@ -1802,6 +1861,7 @@ if([mobileLabel isEqualToString:(NSString *)
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 [self.contactList addObject:dOfPerson];
 \end{minted}
+\caption{Gravação do contato completo ao \emph{array}}
 \end{listing}
 
 \paragraph{}Ao final do processo teremos um array com os dados em formato puro, facilitando o uso desses dados em outras estruturas do aplicativo.
@@ -1816,15 +1876,16 @@ if([mobileLabel isEqualToString:(NSString *)
 
 \section{Agenda de compromissos}
 
-\paragraph{}O iOS permite que um aplicativo crie agendas e compromissos de modo simplificando especificando título e horário. Devemos adicionar  \texttt{\textbf{EventKit.framework}} ao projeto, e então importar a seguinte biblioteca na sua classe.
+\paragraph{}O iOS permite que um aplicativo crie agendas e compromissos de modo simplificando especificando título e horário. Devemos adicionar \texttt{\textbf{EventKit Framework}} ao projeto, e então importar a seguinte biblioteca na sua classe.
 
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 #import <EventKit/EventKit.h>
 \end{minted}
+\caption{Importação do \emph{EventKit}}
 \end{listing}
 
-\paragraph{}Agora vamos construir dois métodos básicos: criar calendário e adicionar evento. Um evento é adicionado a um dado calendário através do identificador desse calendário, e deixaremos isso explicito ao criarmos um calendário novo e adicionarmos um evento com o identificador gerado. Vamos então ao primeiro método. Crie um novo \texttt{\textbf{UIButton}} e ligue a ela uma nova \texttt{\textbf{IBAction}} chamada \texttt{\textbf{createCalendar}}.
+\paragraph{}Agora vamos construir dois métodos básicos: criar calendário e adicionar evento. Um evento é adicionado a um dado calendário através do identificador desse calendário, e deixaremos isso explicito ao criarmos um calendário novo e adicionarmos um evento com o identificador gerado. Crie um novo \texttt{\textbf{UIButton}} e ligue a ele uma nova \texttt{\textbf{IBAction}} chamada \texttt{\textbf{createCalendar}}.
 
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
@@ -1832,6 +1893,7 @@ if([mobileLabel isEqualToString:(NSString *)
 {
 }
 \end{minted}
+\caption{Declaração do método de criação do novo calendário}
 \end{listing}
 
 \paragraph{}Começamos então com as especificações do calendário.
@@ -1842,6 +1904,7 @@ EKEventStore *eventStore = [[EKEventStore alloc] init];
 EKCalendar *calendar = [EKCalendar calendarForEntityType:
 						EKEntityTypeEvent eventStore:eventStore];
 \end{minted}
+\caption{Especificações do novo calendário}
 \end{listing}
 
 \paragraph{}Na linha 1 é alocado um objeto \texttt{\textbf{EKEventStore}} que será responsável por salvar o calendário quando ele estiver pronto. Em seguida é criado um objeto \texttt{\textbf{EKCalendar}} que representa o calendário em si, e nos seus parâmetros definimos que o calendário será para eventos, e além disso definimos o objeto responsável por controlar esse calendário, no caso o objeto \texttt{\textbf{EKEventStore}} que acabamos de criar.
@@ -1861,6 +1924,7 @@ if (theSource) {
     calendar.source = theSource;
 }
 \end{minted}
+\caption{Definição da fonte do novo calendário}
 \end{listing}
 
 \paragraph{}Não se instancia um \texttt{\textbf{EKSource}}, nós apenas definimos qual o tipo e utilizamos o mesmo para todos, e por isso devemos procurá-lo para então utilizá-lo. É o que temos da linha 1 à linha 7. E finalizamos com a definição da fonte escolhida para o calendário.
@@ -1876,6 +1940,7 @@ if (result) {
 	self.calendarIdentifier = calendar.calendarIdentifier;
 }
 \end{minted}
+\caption{Gravação do novo calendário}
 \end{listing}
 
 \paragraph{}Se estiver tudo certo, o método retornará verdadeiro, e com isso podemos salvar o identificador do calendário em uma propriedade da classe. Com o identificador salvo podemos tratar de criar novos eventos para o novo calendário.
@@ -1887,6 +1952,7 @@ if (result) {
 {
 }
 \end{minted}
+\caption{Declaração do método para adicionar novos eventos}
 \end{listing}
 
 \paragraph{}Como fizemos para o calendário, devemos primeiro definir as especificações iniciais do evento.
@@ -1904,6 +1970,7 @@ event.startDate = startDate;
 float time = [self.timeField.text floatValue]*3600;
 event.endDate = [startDate dateByAddingTimeInterval:time];
 \end{minted}
+\caption{Especificações do novo evento}
 \end{listing}
 
 \paragraph{}Alocamos um objeto \texttt{\textbf{EKEventStore}} para controlar o evento, e um objeto \texttt{\textbf{EKEvent}} representando o evento em si. Na linha 3 vamos instanciar um objeto \texttt{\textbf{EKCalendar}} que vai representar o calendário que vamos criar com o primeiro método, utilizando o identificador salvo, e na linha 4 definimos que o calendário do evento sendo criado é o calendário instanciado.
@@ -1916,6 +1983,7 @@ NSError *error = nil;
 BOOL result = [eventStore saveEvent:event span:EKSpanThisEvent
                              commit:YES error:&error];
 \end{minted}
+\caption{Gravação do novo evento}
 \end{listing}
 
 \paragraph{}Se a variável \texttt{\textbf{result}} retornar verdadeiro então o evento foi adicionado com sucesso ao nosso recém criado calendário.
@@ -1939,6 +2007,7 @@ NSString *phoneString = @"tel:0123456789";
 [[UIApplication sharedApplication] openURL:
                             [NSURL URLWithString:phoneString]];
 \end{minted}
+\caption{Chamada do método que efetua ligação}
 \end{listing}
 
 \paragraph{}Basta substituir o número do exemplo pelo número real e manter o padrão na string. Lembrando que este método não terá efeito no iOS Simulator ou em um iPad, sendo que o único dispositivo iOS que efetua ligações é o iPhone.
@@ -1953,13 +2022,14 @@ NSString *phoneString = @"tel:0123456789";
 
 \section{SMS}
 
-\paragraph{}Para mandar um SMS, utilizaremos a classe \texttt{\textbf{MFMessageComposeViewController}} que fará todo o trabalho por nós. Para ter acesso a essa classe, adicione \texttt{\textbf{MessageUI.framework}} ao projeto. Em um método do seu \texttt{\textbf{Delegate}} determinamos o corpo da mensagem e o destinatário, e então exibir a \texttt{ViewController} responsável pelo envio do SMS.
+\paragraph{}Para mandar um SMS, utilizaremos a classe \texttt{\textbf{MFMessageComposeViewController}} que fará todo o trabalho por nós. Para ter acesso a essa classe, adicione \texttt{\textbf{MessageUI Framework}} ao projeto. Em um método do seu \texttt{\textbf{Delegate}} determinamos o corpo da mensagem e o destinatário, e então exibir a \texttt{ViewController} responsável pelo envio do SMS.
 \paragraph{}Comece importando a classe no código.
 
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 #import <MessageUI/MFMessageComposeViewController.h>
 \end{minted}
+\caption{Importação do \emph{MessageUI}}
 \end{listing}
 
 \paragraph{}E então declare o seu \texttt{\textbf{Delegate}} na declaração da classe no seu arquivo header.
@@ -1972,6 +2042,7 @@ NSString *phoneString = @"tel:0123456789";
 	
 }
 \end{minted}
+\caption{Referência ao \emph{Delegate} de SMS}
 \end{listing}
 
 \paragraph{}Utilizaremos dois métodos, sendo que o primeiro será chamado pelo \texttt{\textbf{UIButton}} para determinar os dados do SMS e seu envio.
@@ -1996,6 +2067,7 @@ NSString *phoneString = @"tel:0123456789";
     }
 }
 \end{minted}
+\caption{Definições do conteúdo do SMS}
 \end{listing}
 
 \paragraph{}Este método recebe como parâmetros uma string correspondente ao corpo da mensagem que será enviada, e um array contendo strings com os números que servirão de destinatários. Dentro do método será criada uma instância de \texttt{\textbf{MFMessageComposeViewController}}, a \texttt{ViewController} que abriremos para enviar o SMS.
@@ -2012,6 +2084,7 @@ NSString *phoneString = @"tel:0123456789";
   [self dismissViewControllerAnimated:YES completion:nil];  
 }
 \end{minted}
+\caption{Metódo chamado para finalizar o SMS}
 \end{listing}
 
 \paragraph{}Este método é chamado quando confirmamos ou cancelamos o envio da mensagem. Com ele podemos utilizar o método \texttt{\textbf{dismissViewControllerAnimated:completion:}} para que o \texttt{\textbf{ModalViewController}} desapareça e retornemos à tela anterior, de forma similar com que fazemos quando voltamos de uma tela em uma \texttt{Navigation Controller}, utilizando o método \texttt{\textbf{popToViewController}}. Além de fechar o \texttt{\textbf{ModalViewController}}, podemos utilizar este método para retornar mensagens ao usuário, notificando o sucesso ou cancelamento do envio do SMS.
@@ -2027,13 +2100,14 @@ NSString *phoneString = @"tel:0123456789";
 
 \section{Compartilhamento em redes sociais}
 
-\paragraph{}A biblioteca nativa do iOS para redes sociais permite lidar com compartilhamento de conteúdo no \emph{Facebook} e no \emph{Twitter} de forma muito simples, e se assemelha bastante ao que é feito com envio de SMS. Para começarmos, adicione \texttt{\textbf{Social.framework}} ao projeto, e então importe ela e o \texttt{\textbf{UIKit}} no código.
+\paragraph{}A biblioteca nativa do iOS para redes sociais permite lidar com compartilhamento de conteúdo no \emph{Facebook} e no \emph{Twitter} de forma muito simples, e se assemelha bastante ao que é feito com envio de SMS. Para começarmos, adicione \texttt{\textbf{Social Framework}} ao projeto, e então importe ela e o \texttt{\textbf{UIKit}} no código.
 
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 #import <UIKit/UIKit.h>
 #import <Social/Social.h>
 \end{minted}
+\caption{Importação do \emph{Social}}
 \end{listing}
 
 \paragraph{}Agora crie no \texttt{\textbf{Interface Builder}} um \texttt{\textbf{UITextField}} e um \texttt{\textbf{UIButton}} para cada serviço, e crie um \texttt{\textbf{IBOutlet}} para os \texttt{\textbf{UITextField}} e uma \texttt{\textbf{IBAction}} para os \texttt{\textbf{UIButton}}.
@@ -2046,6 +2120,7 @@ NSString *phoneString = @"tel:0123456789";
 - (IBAction)postTwitter:(id)sender;
 - (IBAction)postFacebook:(id)sender;
 \end{minted}
+\caption{Declaração das ações de compartilhamento social}
 \end{listing}
 
 \paragraph{}Usamos os mesmos métodos para os dois serviços, mudando apenas um parâmetro que indica qual serviço queremos usar.
@@ -2074,6 +2149,7 @@ NSString *phoneString = @"tel:0123456789";
     }
 }
 \end{minted}
+\caption{Método para postagem no \emph{Twitter}}
 \end{listing}
 
 \paragraph{}A verificação inicial serve apenas para garantir que o \emph{Twitter} está configurado na versão do iOS do dispositivo. Em seguida criamos a tela de composição da mensagem a ser postada e definimos o tipo de serviço com \texttt{\textbf{SLServiceTypeTwitter}} como parâmetro. Na linha 9 o método \texttt{\textbf{setInitialText:}} define o texto inicial da mensagem, que será o conteúdo de \texttt{\textbf{twitterField}}. Na linha 11 finalizamos ao chamar a tela de composição na forma de um \texttt{\textbf{ModalViewController}}.
@@ -2106,6 +2182,7 @@ NSString *phoneString = @"tel:0123456789";
     }
 }
 \end{minted}
+\caption{Método para postagem no \emph{Facebook}}
 \end{listing}
 
 \paragraph{}Para definir o serviço, mudamos o parâmetro na linha 8 para \texttt{\textbf{SLServiceTypeFacebook}}. Na linha 10 definimos o texto inicial, assim como feito com o \emph{Twitter}. Na linha 11 o método \texttt{\textbf{addURL:}} recebe um objeto \texttt{\textbf{NSURL}} para adicionar um link à postagem, e na linha 13 o método \texttt{\textbf{addImage:}} recebe uma \texttt{\textbf{UIImage}} para adicionar uma imagem à postagem. Terminamos o método chamando a tela de composição da mensagem como um um \texttt{\textbf{ModalViewController}}.
@@ -2122,12 +2199,13 @@ NSString *phoneString = @"tel:0123456789";
 \section{Áudio}
 
 \paragraph{}É possível executar e controlar mídia de forma bem simples no iOS. Veremos sobre o controle e um pouco sobre algumas propriedades de áudio que podemos obter, como o nível em decibéis dos canais de áudio. Para o nosso exemplo, faremos uso dessa propriedade para construir um medidor simplificado para acompanhar o ritmo da música enquanto ela toca.
-\paragraph{}Para trabalhar com mídia é preciso importar \texttt{\textbf{AVFoundation.framework}} para o projeto e importar a seguinte biblioteca na sua classe.
+\paragraph{}Para trabalhar com mídia é preciso importar \texttt{\textbf{AVFoundation Framework}} para o projeto e importar a seguinte biblioteca na sua classe.
 
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 #import <AVFoundation/AVFoundation.h>
 \end{minted}
+\caption{Importação do \emph{AVFoundation}}
 \end{listing}
 
 \paragraph{}Através dessa biblioteca vamos criar nosso controlador de áudio, que será um objeto do tipo \texttt{\textbf{AVAudioPlayer}}. Vamos instanciá-lo como uma propriedade da classe, pois o utilizaremos em diversas partes do código.
@@ -2136,6 +2214,7 @@ NSString *phoneString = @"tel:0123456789";
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 @property (strong, nonatomic) AVAudioPlayer *audioPlayer;
 \end{minted}
+\caption{Declaração do \emph{player}}
 \end{listing}
 
 \paragraph{}Antes de tudo precisamos configurar o controlador de áudio. Vamos dividir essa configuração em dois métodos que serão chamados em sequência no carregamento da tela.
@@ -2150,6 +2229,7 @@ NSString *phoneString = @"tel:0123456789";
                            error:&error];
 }
 \end{minted}
+\caption{Configuração da sessão de áudio}
 \end{listing}
 
 \paragraph{}Esse método vai definir como o áudio do nosso aplicativo será executado. Temos diversas possibilidades, como permitir que o áudio se misture com outros aúdios em andamento, ou permitir que o áudio toque em \texttt{background}. No nosso caso não usaremos nada disso, sendo assim o que for que executarmos em nosso aplicativo será executado sozinho e somente enquanto o aplicativo estiver em primeiro plano.
@@ -2169,6 +2249,7 @@ NSString *phoneString = @"tel:0123456789";
     [_audioPlayer setMeteringEnabled:YES];
 }
 \end{minted}
+\caption{Configuração do \emph{player}}
 \end{listing}
 
 \paragraph{}Na linha 2 definimos o nome e a extensão do arquivo a ser executado, lembrando que no caso ele deve ser previamente adicionado ao projeto. Feito isso, na linha 6 é dado início ao nosso controlador de áudio com o arquivo definido na linha 2. Por último, na linha 10, definimos com o método \texttt{\textbf{setMeteringEnabled}} que poderemos obter as medidas em decibéis dos canais de áudio.
@@ -2186,6 +2267,7 @@ NSString *phoneString = @"tel:0123456789";
     }
 }
 \end{minted}
+\caption{Método para tocar ou pausar o áudio}
 \end{listing}
 
 \paragraph{}De forma bem direta, os métodos \texttt{\textbf{play}} e \texttt{\textbf{pause}} controlam quando o áudio será tocado ou não. Primeiro verificamos se o áudio está tocando ou não, através da propriedade \texttt{\textbf{isPlaying}} do nosso controlador, para então definir se o áudio vai parar ou vai voltar a tocar.
@@ -2209,6 +2291,7 @@ NSString *phoneString = @"tel:0123456789";
     }
 }
 \end{minted}
+\caption{Método para obter os níveis do áudio em decibéis}
 \end{listing}
 
 \paragraph{}Criamos uma condição que verifica se o áudio está em execução, e só assim a barra é atualizada. Em seguida, na linha 3, o método \texttt{\textbf{updateMeters}} do nosso controlador atualiza os medidores para que possamos obter os valores atuais. Na linha 5 criamos uma variável \texttt{\textbf{power}} do tipo float que vai armazenar o nível médio em decibéis. Da linha 6 à 9 é feito uma varredura pelo canais de áudio (que são 2 se estiver em modo estéreo) e somado o valor em decibéis na variável \texttt{\textbf{power}} com o método \texttt{\textbf{averagePowerForChannel}} que obtém a média daquele canal específico, para então na linha 10 obtermos a média dos canais.
@@ -2232,6 +2315,7 @@ NSString *phoneString = @"tel:0123456789";
                            repeats:YES];
 }
 \end{minted}
+\caption{Chamada dos métodos de definição da sessão de áudio}
 \end{listing}
 
 \paragraph{}Na última linha utilizamos a classe \texttt{\textbf{NSTimer}} para programar o tempo de chamada do método \texttt{\textbf{updateSoundMeter}}. Este método será chamado a cada décimo de segundo para atualizar a barra de progresso, dando um efeito visual de acompanhamento da música.
@@ -2254,6 +2338,7 @@ NSString *phoneString = @"tel:0123456789";
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 #import <UIKit/UIKit.h>
 \end{minted}
+\caption{Importação do \emph{UIKit}}
 \end{listing}
 
 \paragraph{}Em seguida adicionamos os seguintes protocolos \texttt{\textbf{Delegate}} à declaração da classe. Deve ficar assim:
@@ -2263,6 +2348,7 @@ NSString *phoneString = @"tel:0123456789";
 @interface APICameraViewController : UIViewController
                     <UIImagePickerControllerDelegate>
 \end{minted}
+\caption{Referência ao \emph{Delegate} do \emph{UIImagePicker}}
 \end{listing}
 
 \paragraph{}Agora temos que ajeitar os componentes gráficos necessários antes de implementar o código. Com o \texttt{\textbf{Interface Builder}} vamos adicionar um \texttt{\textbf{UIImageView}} para exibir a foto tirada na câmera, e um \texttt{\textbf{UIButton}} que terá a função de chamar a câmera para tirar uma nova foto. Coloque os dois elementos na tela de forma que a \texttt{\textbf{UIImageView}} tome boa parte do espaço, já que precisamos de espaço para exibir a foto, com o \texttt{\textbf{UIButton}} embaixo ocupando apenas o espaço necessário.
@@ -2271,8 +2357,8 @@ NSString *phoneString = @"tel:0123456789";
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UILabel *progressLabel;
 \end{minted}
+\caption{Declaração da tela de exibição da foto tirada}
 \end{listing}
 
 \paragraph{}Com a base da classe pronta, vamos para a implementação dos métodos. Temos que implementar a chamada da câmera dentro de \texttt{\textbf{takePhoto}} e implementar um método do \texttt{\textbf{UIImagePickerControllerDelegate}} a ser chamado quando uma foto é tirada.
@@ -2294,6 +2380,7 @@ NSString *phoneString = @"tel:0123456789";
     }
 }
 \end{minted}
+\caption{Método que chama a câmera}
 \end{listing}
 
 \paragraph{}A verificação inicial na linha 2 serve para garantir que o dispositivo em questão possui uma câmera a ser utilizada. Isso serve apenas para garantir que se o aplicativo não vai fechar caso for executado no simulador ou em um dispositivo iOS sem câmera, como um iPod antigo.
@@ -2313,6 +2400,7 @@ NSString *phoneString = @"tel:0123456789";
     [picker dismissViewControllerAnimated:YES completion:NULL];
 }
 \end{minted}
+\caption{Método que finaliza a câmera e mostra a foto tirada}
 \end{listing}
 
 \paragraph{}Na linha 4 obtemos a imagem da foto tirada e ajustada pelo usuário, e na linha 5 a colocamos na nossa \texttt{\textbf{UIImageView}} para ser exibida ao usuário. Por fim, na linha 7 chamamos o método \texttt{\textbf{dismissViewControllerAnimated:completion:}} para fechar o\\ \texttt{\textbf{ModalViewController}} aberto com a câmera.
@@ -2326,6 +2414,7 @@ NSString *phoneString = @"tel:0123456789";
     [picker dismissViewControllerAnimated:YES completion:NULL];
 }
 \end{minted}
+\caption{Método que cancela o uso da câmera}
 \end{listing}
 
 \paragraph{}Este método é chamado caso o usuário cancele a ação sem tirar nenhuma foto. Isso fará simplesmente com que o \texttt{\textbf{ModalViewController}} seja fechado e o usuário retorne à tela principal do aplicativo.
@@ -2380,6 +2469,7 @@ NSString *phoneString = @"tel:0123456789";
 #import "AFHTTPClient.h"
 #import "AFNetworking.h"
 \end{minted}
+\caption{Importação do \emph{AFNetworking}}
 \end{listing}
 
 \paragraph{}Ainda no header, precisamos declarar o método estático \texttt{\textbf{sharedInstance}}, que será responsável por tornar a classe um \emph{singleton}. Sua declaração fica assim:
@@ -2392,6 +2482,7 @@ NSString *phoneString = @"tel:0123456789";
 
 @end
 \end{minted}
+\caption{Definindo uma classe como \emph{singleton}}
 \end{listing}
 
 \paragraph{}Agora partiremos para a implementação dos métodos de inicialização da classe. Vamos sobrescrever o método \texttt{\textbf{initWithBaseURL:}} de \texttt{\textbf{HTTPClient}}.
@@ -2408,6 +2499,7 @@ NSString *phoneString = @"tel:0123456789";
     return self;
 }
 \end{minted}
+\caption{Implementação do construtor da classe do serviço web}
 \end{listing}
 
 \paragraph{}Esse é um padrão muito utilizado para sobrescrever métodos de inicialização. Garantimos que o método original será executado através do \texttt{\textbf{super}}, que é uma referência à classe pai, no caso  \texttt{\textbf{HTTPClient}}. Em seguida verificamos se o método retornou algo válido, e se tudo deu certo podemos escrever nosso código para continuar a inicialização do objeto. O método recebe como parâmetro a URL do nosso \emph{web service} e será usada como padrão em toda a classe.
@@ -2421,6 +2513,7 @@ NSString *phoneString = @"tel:0123456789";
 
 [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 \end{minted}
+\caption{Defininções do serviço web}
 \end{listing}
 
 \paragraph{}Na linha 1 o método \texttt{\textbf{registerHTTPOperationClass:}} define o tipo arquivo que a classe vai fazer requisição, no caso usaremos JSON. Na linha 2 o método\\ \texttt{\textbf{setDefaultHeader:value:}} informa o servidor que tipo de arquivo deve ser retornado, que será JSON. Na linha 3 o método \texttt{\textbf{setParameterEncoding:}} define o formato dos parâmetros enviados quando for feito um POST, e a opção \texttt{\textbf{AFJSONParameterEncoding}} faz com que o parâmetro enviado, que será um objeto \texttt{\textbf{NSDictionary}}, vai ser convertido e enviado como JSON para o servidor. A última linha define simplesmente que sempre que houver uma requisição em andamento o ícone de rede do iOS será animado, e deixará de ser animado assim que a requisição terminar.
@@ -2438,9 +2531,10 @@ NSString *phoneString = @"tel:0123456789";
                     initWithBaseURL:[NSURL URLWithString:
                      @"https://dl.dropboxusercontent.com"]];
                    });
-    return _sharedManager;
+    return self.sharedManager;
 }
 \end{minted}
+\caption{Implementação do método que instancia a classe \emph{singleton}}
 \end{listing}
 
 \paragraph{}O uso do método \texttt{\textbf{dispatch\_once}} é uma recomendação da Apple para se criar um \emph{singleton}. A variável do tipo \texttt{\textbf{dispatch\_once\_t}} é um contador que começa com o valor zero e é incrementada caso o método \texttt{\textbf{dispatch\_once}} tenha sucesso. Esse código garante que o método \texttt{\textbf{initWithBaseURL:}} só será chamado uma vez, que é quando o contador está em zero.
@@ -2492,6 +2586,7 @@ NSString *phoneString = @"tel:0123456789";
     [operation waitUntilFinished];
 }
 \end{minted}
+\caption{Método que faz a requisição HTTP}
 \end{listing}
 
 \paragraph{}É neste método que é feita a requisição e onde temos se a chamada obteve sucesso e os dados recebidos, ou se a chamada terminou com falha e o erro recebido. Essa resposta é devolvida através do parâmetro \texttt{\textbf{completionBlock}} que é um \texttt{\textbf{block}} que guarda os parâmetros de resposta da requisição: se foi sucesso, uma mensagem caso tenha ocorrido um problema, e os dados recebidos do servidor. Esses dados são recebidos como \texttt{\textbf{id}} mas eles vêm no formato de um \texttt{\textbf{NSDictionary}}.
@@ -2526,6 +2621,7 @@ NSString *phoneString = @"tel:0123456789";
                  completion:completionBlock];
 }
 \end{minted}
+\caption{Definição da requisição da lista de contatos}
 \end{listing}
 
 \paragraph{}O método segue as opções que já definimos na classe. Aqui definimos mais uma vez a URL padrão do \emph{web service}, colocamos o caminho do arquivo que nos interessa no parâmetro \texttt{\textbf{path}}, e o tipo de requisição no parâmetro \texttt{\textbf{method}}. No caso faremos um simples GET, mas se fosse um POST os nossos parâmetros a serem enviados ao \emph{web service} seriam definidos no parâmetro \texttt{\textbf{parameters}} como um objeto  \texttt{\textbf{NSDictionary}}.
@@ -2544,6 +2640,7 @@ NSString *phoneString = @"tel:0123456789";
 #import "Detail.h"
 #import "WebService.h"
 \end{minted}
+\caption{Importação da classe do serviço web na classe da lista dos contatos}
 \end{listing}
 
 \paragraph{}Agora podemos chamar o método \texttt{\textbf{requestContactsWithCompletion:}} que criamos para fazer a requisição dos contatos. Criaremos um método chamado \texttt{\textbf{connecting}} que vai ser chamado por último no \texttt{\textbf{viewDidLoad}}, e dentro dele chamaremos a requisição.
@@ -2560,6 +2657,7 @@ NSString *phoneString = @"tel:0123456789";
     [self connecting];
 }
 \end{minted}
+\caption{Chamada do método de chamada do serviço web}
 \end{listing}
 
 \paragraph{}E assim vai ficar nosso novo método:
@@ -2580,6 +2678,7 @@ NSString *phoneString = @"tel:0123456789";
      }];
 }
 \end{minted}
+\caption{Chamada do serviço web e tratamento dos dados}
 \end{listing}
 
 \paragraph{}Chamamos o método a partir de \texttt{\textbf{sharedInstance}}, que cria a instância única de\\ \texttt{\textbf{WebService}}. A chamada de um método com \texttt{\textbf{block}} nos parâmetros é um pouco confusa no começo, afinal temos um trecho de código como parâmetro, mas essa dificuldade inicial passa rápido. Nosso \texttt{\textbf{block}} recebe as 3 variáveis de resposta da requisição, e assim podemos tratar  do \emph{parsing} dos nossos dados dentro do \texttt{\textbf{block}}.
@@ -2587,9 +2686,399 @@ NSString *phoneString = @"tel:0123456789";
 
 \bigskip
 
+\section{Acelerômetro e giroscópio}
+
+\paragraph{}O iOS possui um conjunto de bibliotecas chamado \texttt{\textbf{Core Motion Framework}} para obter os valores do acelerômetro e giroscópio do dispositivo. Adicione-o ao projeto e importe a classe \texttt{\textbf{CoreMotion.h}} ao código.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+#import <UIKit/UIKit.h>
+#import <CoreMotion/CoreMotion.h>
+\end{minted}
+\caption{Importação do \emph{Core Motion}}
+\end{listing}
+
+\paragraph{}Como ocorre em outras APIs que dependem do \emph{hardware}, temos a limitação de não ser possível testar o acelerômetro e o giroscópio no simulador, então será preciso um dispositivo iOS real para verificar a leitura dos valores.
+
+\bigskip
+
+\subsection{Explicando a função de cada sensor}
+
+\paragraph{}\textbf{Acelerômetro}
+
+\paragraph{}O acelerômetro mede a aceleração do dispositivo, em cada um dos 3 eixos, em relação ao valor da gravidade. Se o dispositivo estiver numa mesa, por exemplo, o acelerômetro vai ler o valor \emph{1g} para cada eixo, sendo positivo ou negativo de acordo com a orientação do respectivo eixo, e em queda livre o acelerômetro vai ler o valor \emph{0g}.
+\paragraph{}Com esses valores é possível identificar a orientação exata do dispositivo e as forças aplicadas a ele, indicando a inclinação de cada eixo.
+
+\bigskip	
+
+\paragraph{}\textbf{Giroscópio}
+
+\paragraph{}A adição do giroscópio a um dispositivo com acelerômetro ajuda nas medidas de inclinação do dispositivo, permitindo que a orientação do dispositivo seja identificada com muito mais precisão. Isso vem do fato do giroscópio identificar o movimentos em torno do próprio eixo do dispositivo, medindo a velocidade e angulação da rotação.
+\paragraph{}Essa nova medida garante que a orientação será precisa mesmo quando os eixos do dispositivos estiverem em rotação, já que o acelerômetro não consegue identificar essa acerelação em torno do eixo central.
+
+\bigskip
+
+\subsection{Obtendo as medidas}
+
+\paragraph{}Em nosso exemplo vamos obter 2 medidas diferentes para cada um dos 3 eixos: aceleração e rotação. Além disso faremos o controle dessas medidas marcando os valores máximos obtidos de cada uma.
+\paragraph{}Para isso precisamos adicionar um \texttt{\textbf{UILabel}} a cada uma dessas medidas, e ligá-los ao código com um \texttt{\textbf{IBOutlet}}. O header de sua classe deve ter as seguintes propriedades:
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@property (weak, nonatomic) IBOutlet UILabel *accX;
+@property (weak, nonatomic) IBOutlet UILabel *accY;
+@property (weak, nonatomic) IBOutlet UILabel *accZ;
+@property (weak, nonatomic) IBOutlet UILabel *rotX;
+@property (weak, nonatomic) IBOutlet UILabel *rotY;
+@property (weak, nonatomic) IBOutlet UILabel *rotZ;
+@property (weak, nonatomic) IBOutlet UILabel *maxAccX;
+@property (weak, nonatomic) IBOutlet UILabel *maxAccY;
+@property (weak, nonatomic) IBOutlet UILabel *maxAccZ;
+@property (weak, nonatomic) IBOutlet UILabel *maxRotX;
+@property (weak, nonatomic) IBOutlet UILabel *maxRotY;
+@property (weak, nonatomic) IBOutlet UILabel *maxRotZ;
+\end{minted}
+\caption{Declaração das propriedades que exibem os valores dos sensores}
+\end{listing}
+
+\paragraph{}Para obter essas medidas precisamos de um objeto do tipo \texttt{\textbf{CMMotionManager}}, que é responsável por ler os valores do acelerômetro e do giroscópio e identificar o que se passa em cada um deles. Defina uma propriedade para ele.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@property (strong, nonatomic) CMMotionManager *motionManager;
+\end{minted}
+\caption{Declaração do gerenciador dos sensores}
+\end{listing}
+
+\paragraph{}Antes de configurar a leitura, defina 6 variáveis globais no arquivo de implementação para guardar os valores máximos de cada medida.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@implementation APIMotionViewController
+
+double currentMaxAccelX;
+double currentMaxAccelY;
+double currentMaxAccelZ;
+double currentMaxRotX;
+double currentMaxRotY;
+double currentMaxRotZ;
+\end{minted}
+\caption{Variáveis que guardam os valores máximos obtidos}
+\end{listing}
+
+\paragraph{}E em seguida inicialize-as com o valor zero no método \texttt{\textbf{viewDidLoad}}.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    currentMaxAccelX = 0;
+    currentMaxAccelY = 0;
+    currentMaxAccelZ = 0;
+    
+    currentMaxRotX = 0;
+    currentMaxRotY = 0;
+    currentMaxRotZ = 0;
+}
+\end{minted}
+\caption{Inicializando os valores atuais em zero}
+\end{listing}
+
+\paragraph{}Ainda no \texttt{\textbf{viewDidLoad}}, podemos agora inicializar nosso \texttt{\textbf{CMMotionManager}}.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+self.motionManager = [[CMMotionManager alloc] init];
+self.motionManager.accelerometerUpdateInterval = .2;
+self.motionManager.gyroUpdateInterval = .2;
+\end{minted}
+\caption{Inicialização do gerenciador dos sensores}
+\end{listing}
+
+\paragraph{}A linha 1 simplesmente inicializa o objeto. As linhas 2 e 3 definem o intervalo de leitura das medidas de cada um dos sensores.
+\paragraph{}Em seguida faremos a chamada dos métodos responsáveis pela leitura de fato das medidas.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+[self.motionManager startAccelerometerUpdatesToQueue:
+                    [NSOperationQueue currentQueue]
+                    withHandler:
+                    ^(CMAccelerometerData  *accelerometerData,
+                      NSError *error)
+                    {
+                    	[self outputAccelerationData:
+                    	      accelerometerData.acceleration];
+                    }];
+    
+[self.motionManager startGyroUpdatesToQueue:
+                    [NSOperationQueue currentQueue]
+                    withHandler:
+                    ^(CMGyroData *gyroData,
+                      NSError *error)
+                    {
+                    	[self outputRotationData:
+                    	      gyroData.rotationRate];
+                    }];
+\end{minted}
+\caption{Chamada dos métodos de leitura dos dados dos sensores}
+\end{listing}
+
+\paragraph{}Os métodos de leitura para os dois sensores funcionam de forma idêntica. Cada um dos métodos efetua a leitura das medidas e então definimos como vamos lidar com esses valores dentro de um \texttt{\textbf{block}}, que recebe como parâmetros um objeto com os dados lidos, em caso de sucesso, e um objeto \texttt{\textbf{NSError}}, em caso de erro de leitura.
+\paragraph{}Dentro desse \texttt{\textbf{block}} faremos a chamada de um método, para cada sensor, que fará a atualização dos valores na tela. Implementaremos os métodos \texttt{\textbf{outputAccelerationData:}} e \texttt{\textbf{outputRotationData:}} a seguir.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+-(void)outputAccelerationData:(CMAcceleration)acceleration
+{
+    self.accX.text = [NSString stringWithFormat:
+                               @"%.2f",acceleration.x];
+    
+    if(fabs(acceleration.x) > fabs(currentMaxAccelX))
+    {
+        currentMaxAccelX = acceleration.x;
+    }
+    
+    self.accY.text = [NSString stringWithFormat:
+                               @"%.2f",acceleration.y];
+    
+    if(fabs(acceleration.y) > fabs(currentMaxAccelY))
+    {
+        currentMaxAccelY = acceleration.y;
+    }
+    
+    self.accZ.text = [NSString stringWithFormat:
+                               @"%.2f",acceleration.z];
+    
+    if(fabs(acceleration.z) > fabs(currentMaxAccelZ))
+    {
+        currentMaxAccelZ = acceleration.z;
+    }
+    
+    self.maxAccX.text = [NSString stringWithFormat:
+                                  @"%.2f",currentMaxAccelX];
+    self.maxAccY.text = [NSString stringWithFormat:
+                                  @"%.2f",currentMaxAccelY];
+    self.maxAccZ.text = [NSString stringWithFormat:
+                                  @"%.2f",currentMaxAccelZ];
+}
+\end{minted}
+\caption{Atualização dos valores dos acelerômetro na tela}
+\end{listing}
+
+\paragraph{}O método recebe como parâmetro um objeto \texttt{\textbf{CMAcceleration}} com o conjunto de valores obtidos do acelerômetro. Vamos então, para cada eixo, atualizar o valor atual do sensor e verificar se esse valor é o máximo lido até então.
+\paragraph{}De forma análoga, faremos o mesmo para o método \texttt{\textbf{outputRotationData:}}, que receberá por parâmetro os valores obtidos do giroscópio em um objeto \texttt{\textbf{CMRotationRate}}.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+-(void)outputRotationData:(CMRotationRate)rotation
+{
+    self.rotX.text = [NSString stringWithFormat:
+                               @"%.2fr/s",rotation.x];
+    
+    if(fabs(rotation.x) > fabs(currentMaxRotX))
+    {
+        currentMaxRotX = rotation.x;
+    }
+    
+    self.rotY.text = [NSString stringWithFormat:
+                               @"%.2fr/s",rotation.y];
+    
+    if(fabs(rotation.y) > fabs(currentMaxRotY))
+    {
+        currentMaxRotY = rotation.y;
+    }
+    
+    self.rotZ.text = [NSString stringWithFormat:
+                               @"%.2fr/s",rotation.z];
+    
+    if(fabs(rotation.z) > fabs(currentMaxRotZ))
+    {
+        currentMaxRotZ = rotation.z;
+    }
+    
+    self.maxRotX.text = [NSString stringWithFormat:
+                                  @"%.2f",currentMaxRotX];
+    self.maxRotY.text = [NSString stringWithFormat:
+                                  @"%.2f",currentMaxRotY];
+    self.maxRotZ.text = [NSString stringWithFormat:
+                                  @"%.2f",currentMaxRotZ];
+}
+\end{minted}
+\caption{Atualização dos valores do giroscópio na tela}
+\end{listing}
+
+\paragraph{}A leitura dos valores está pronto. Para finalizar, adicione um \texttt{\textbf{UIButton}} à tela para zerar os valores máximos obtidos. Ligue-o ao código com uma \texttt{\textbf{IBAction}} chamada \texttt{\textbf{resetValues}}, e zere os valores dentro do método.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (IBAction)resetValues:(id)sender
+{
+    currentMaxAccelX = 0;
+    currentMaxAccelY = 0;
+    currentMaxAccelZ = 0;
+    currentMaxRotX = 0;
+    currentMaxRotY = 0;
+    currentMaxRotZ = 0;
+}
+\end{minted}
+\caption{Método que zera os valores máximos obtidos}
+\end{listing}
+
+\bigskip
+
+\paragraph{}\textit{\textbf{\underline{Dica}}: Veja a documentação oficial da Apple sobre o \texttt{\textbf{Core Motion Framework}}:\\
+\(https://developer.apple.com/library/ios/documentation/CoreMotion/Reference/\\CoreMotion\_Reference/\_index.html\)}
+
+\bigskip
+
 \section{Localização}
 
-Texto
+\paragraph{}É possível obter as coordenadas da localização de um dispositivo iOS a partir das classes de \texttt{\textbf{Core Location Framework}}. Adicione essa biblioteca ao projeto e importe a classe \texttt{\textbf{CoreLocation.h}} no código.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+#import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
+\end{minted}
+\caption{Importação do \emph{Core Location}}
+\end{listing}
+
+\paragraph{}Usaremos também dois métodos do \texttt{\textbf{CLLocationManagerDelegate}}, então declare-o no header da sua classe.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@interface APILocationViewController : UIViewController
+                             <CLLocationManagerDelegate>
+\end{minted}
+\caption{Referência ao \emph{Delegate} de localização}
+\end{listing}
+
+\paragraph{}No nosso exemplo vamos utilizar um objeto do tipo \texttt{\textbf{CLLocationManager}} para obter as coordenadas de longitude e latitude do dispositivo, e um objeto do tipo \texttt{\textbf{CLGeocoder}} para transformar essas coordenadas em um endereço, e exibir os dados na tela a partir de um botão que atualiza a localização atual.
+\paragraph{}Ainda no header da classe, crie as seguintes propriedades:
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) CLGeocoder *geocoder;
+\end{minted}
+\caption{Declaração dos gerenciadores de localização}
+\end{listing}
+
+\paragraph{}Crie na tela os \texttt{\textbf{UILabels}} que representam latitude, longitude, e endereço, além de um \texttt{\textbf{IBOutlet}} no código para cada um.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@property (weak, nonatomic) IBOutlet UILabel *latitudeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *longitudeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+\end{minted}
+\caption{Declaração das propriedades que exibem a localização na tela}
+\end{listing}
+
+\paragraph{}E por último, coloque um \texttt{\textbf{UIButton}} para atualizar a localização e crie uma \texttt{\textbf{IBAction}} chamada \texttt{\textbf{getCurrentLocation}}.
+\paragraph{}Agora no código de implementação, inicialize as propriedades dentro de \texttt{\textbf{viewDidLoad}}.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.geocoder = [[CLGeocoder alloc] init];
+}
+\end{minted}
+\caption{Inicialização dos gerenciadores de localização}
+\end{listing}
+
+\paragraph{}O método \texttt{\textbf{getCurrentLocation}} será responsável por atualizar a localização do dispositivo a partir do objeto \texttt{\textbf{locationManager}}.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (IBAction)getCurrentLocation:(id)sender {
+    self.locationManager.delegate = self;
+    self.locationManager.desiredAccuracy =
+                              kCLLocationAccuracyBest;
+    
+    [self.locationManager startUpdatingLocation];
+}
+\end{minted}
+\caption{Método que atualiza a localização atual}
+\end{listing}
+
+\paragraph{}Na linha 2 definimos nossa classe como destino do \texttt{\textbf{delegate}} do \texttt{\textbf{locationManager}}. Na linha 3 definimos o nível de precisão da localização como o melhor possível. Na linha 6 chamamos o método \texttt{\textbf{startUpdatingLocation}}, que tenta obter as coordenadas do dispositivo e chama os métodos do \texttt{\textbf{CLLocationManagerDelegate}} de acordo com a resposta.
+\paragraph{}Devemos implementar dois métodos do \texttt{\textbf{CLLocationManagerDelegate}}: o\\ \texttt{\textbf{didFailWithError:}} para quando não é possível obter a localização, e o\\ \texttt{\textbf{didUpdateToLocation:}} para quando temos sucesso na obtenção das coordenadas.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (void)locationManager:(CLLocationManager *)manager
+        didFailWithError:(NSError *)error
+{
+    UIAlertView *errorAlert = [[UIAlertView alloc]
+                               initWithTitle:@"Erro"
+                                     message:mensagem
+                                    delegate:nil
+                           cancelButtonTitle:@"Ok"
+                           otherButtonTitles:nil];
+    [errorAlert show];
+}
+\end{minted}
+\caption{Método chamado em caso de erro na localização}
+\end{listing}
+
+\paragraph{}Em caso de erro, definimos apenas um alerta para o usuário. Este erro vai aparecer quando o usuário não tiver permitido o uso da localização no dispositivo, ou se o aplicativo for executado no simulador. Não é possível obter a localização a partir do simulador, porém é possível determinar uma localização no XCode durante a execucação do aplicativo para simular o funcionamento do código. Chegaremos nisso logo mais.
+\paragraph{}Vamos à implementação da atualização das coordenadas em caso de sucesso. O método vai ter duas partes: atualização das coordenadas na tela, e obtenção do endereço a partir das coordenadas.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (void)locationManager:(CLLocationManager *)manager
+        didUpdateToLocation:(CLLocation *)newLocation
+        fromLocation:(CLLocation *)oldLocation
+{
+    CLLocation *currentLocation = newLocation;
+    
+    if (currentLocation != nil) {
+        self.longitudeLabel.text = [NSString stringWithFormat:
+               @"%.8f",currentLocation.coordinate.longitude];
+        self.latitudeLabel.text = [NSString stringWithFormat:
+                @"%.8f",currentLocation.coordinate.latitude];
+    }
+    
+    [self.locationManager stopUpdatingLocation];
+    
+    [self.geocoder reverseGeocodeLocation:currentLocation
+     completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (error == nil && [placemarks count] > 0) {
+            CLPlacemark *placemark = [placemarks lastObject];
+            self.addressLabel.text = [NSString stringWithFormat:
+                                 @"%@\n%@\n%@\n%@\n%@",
+                                 placemark.thoroughfare,
+                                 placemark.postalCode,
+                                 placemark.locality,
+                                 placemark.administrativeArea,
+                                 placemark.country];
+        }
+    }];
+}
+\end{minted}
+\caption{Atualização da localização na tela}
+\end{listing}
+
+\paragraph{}Na linha 5 definimos a localização atual a partir do objeto \texttt{\textbf{newLocation}} recebido por parâmetro. Na linha 7 garantimos que a localização recebida é válida, e atualizamos as coordenadas de longitude e latitude na tela. Feito isso, chamamos o método\\ \texttt{\textbf{stopUpdatingLocation}} para finalizar a atualização dos valores, caso contrário as coordenadas serão atualizadas indefinidamente causando um gasto desnecessário de bateria. Como não precisamos de uma atualização constante, podemos garantir que a localização será obtida somente uma vez quando tocarmos o botão de atualização.
+\paragraph{}Na segunda parte, na linha 16 chamamos o método\\ \texttt{\textbf{reverseGeocodeLocation:completionHandler:}} de \texttt{\textbf{geocoder}} para obter o endereço a partir das coordenadas obtidas. Dentro do parâmetro \texttt{\textbf{block}} fazemos a atualização do endereço na tela. Na linha 19 definimos um objeto\\ \texttt{\textbf{CLPlacemark}} a partir do último objeto do \emph{array} recebido como parâmetro, que representa o endereço completo da localização obtida. Em seguida, na linha 20, atualizamos o endereço com todos os dados do endereço contidos em \texttt{\textbf{placemark}}, como logradouro, código postal, cidade, estado, e país.
+\paragraph{}Com o aplicativo em execução, defina uma localização no XCode para testar a exibição dos valores com o simulador.
+
+\bigskip
+\bigskip
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.15\textheight]{figuras/location.png}
+  \caption{Simulando a localização no XCode}
+  \label{fig:a}
+\end{figure}
 
 \bigskip
 
@@ -2599,12 +3088,12 @@ Texto
 
 \chapter{Um pouco de MVC}
 
-\paragraph{}O MVC, ou \texttt{Model-View-Controller}, é um tipo de estrutura muito utilizada no desenvolvimento de software com interface. Nele temos uma divisão clara entre a informação vista pelo usuário e os dados em si, utilizando uma controladora para gerenciar todo o processo. O conceito de MVC é primordial para que o desenvolvimento de projetos para plataformas móveis seja bem estruturado e livre de conflitos.
+\paragraph{}O MVC, ou \emph{Model-View-Controller}, é um tipo de estrutura muito utilizada no desenvolvimento de software com interface. Nele temos uma divisão clara entre a informação vista pelo usuário e os dados em si, utilizando uma controladora para gerenciar todo o processo. O conceito de MVC é primordial para que o desenvolvimento de projetos para plataformas móveis seja bem estruturado e livre de conflitos.
 \paragraph{}Vamos definir os três componentes do MVC dentro do contexto de plataforma móvel:
 \begin{itemize}
-\item Model: é onde ficam os dados em si, junto da lógica do sistema e das regras de negócios, representando uma estrutura de dados que dão sentido a algo. Um exemplo é uma classe que define um contato da agenda, que contém dados como nome e número de telefone, e além disso pode ser categorizado de acordo com condições como tipo de telefone ou profissão do contato.
-\item View: é literalmente o que é exibido para o usuário. Como já explicado neste documento, os elementos de uma tela não sabem quem chamou eles e o que vai acontecer em caso de interação. Tudo que um botão sabe, por exemplo, é que se for tocado ele deve enviar uma mensagem a outro objeto, mas o que essa mensagem causará não é responsabilidade dele.
-\item Controller: é o responsável por gerenciar todas as ações e determinar o que deve acontecer. É o elemento que faz a ligação entre o \texttt{Model} e a \texttt{View}, lendo e definindo dados de acordo com as regras de negócio do \texttt{Model}, e interagindo com o usuário enviando notificações e recebendo ações de toque na \texttt{View}.
+\item \emph{Model}: é onde ficam os dados em si, junto da lógica do sistema e das regras de negócios, representando uma estrutura de dados que dão sentido a algo. Um exemplo é uma classe que define um contato da agenda, que contém dados como nome e número de telefone, e além disso pode ser categorizado de acordo com condições como tipo de telefone ou profissão do contato.
+\item \emph{View}: é literalmente o que é exibido para o usuário. Como já explicado neste documento, os elementos de uma tela não sabem quem chamou eles e o que vai acontecer em caso de interação. Tudo que um botão sabe, por exemplo, é que se for tocado ele deve enviar uma mensagem a outro objeto, mas o que essa mensagem causará não é responsabilidade dele.
+\item \emph{Controller}: é o responsável por gerenciar todas as ações e determinar o que deve acontecer. É o elemento que faz a ligação entre o \emph{Model} e a \emph{View}, lendo e definindo dados de acordo com as regras de negócio do \emph{Model}, e interagindo com o usuário enviando notificações e recebendo ações de toque na \emph{View}.
 \end{itemize}
 \paragraph{}Esta divisão se tornou necessária a partir do aumento da complexidade as aplicações, em que é necessário lidar com estruturas de dados ao mesmo tempo que o usuário interage com a aplicação. Seria impraticável se fosse preciso alterar o layout para modificar a consequência do toque em um botão, por exemplo. Determinar uma abstração para dados e uma para elementos visuais possibilitou que os dois se mantivessem separados e sem consciência um do outro, dando o poder da interação a um terceiro componente que não recebe interações e nem agrega informação, mas sabe como ligar um ao outro sem causar conflitos.
 
