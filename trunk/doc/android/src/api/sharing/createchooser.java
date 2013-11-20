@@ -1,0 +1,1 @@
+startActivity(Intent.createChooser(sendIntent, "Share text..."));
