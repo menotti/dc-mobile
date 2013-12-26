@@ -1868,8 +1868,165 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 		Com isso terminamos nosso aplicativo que não so faz uma simples gravação de áudio, mas que também nos permite escutá-la usando a classe \texttt{MediaPlayer}.
 
-			
-\chapter{Compartilhamento}
+\chapter{Localização e Mapas}
+
+		O Google já tem uma documentação muito boa que ensina como acessar a API do Google \emph{Maps} no seu aplicativo. Porém muitas vezes ela pode confusa e você sente que falta informações um pouco mais claras. Nesse capítulo iremos abordar tanto o acesso a localização do dispositivo usando \texttt{LocationManager} e colocar essas informações no Google \emph{Maps}.
+
+		Já existe uma nova API que utiliza o Google \emph{Play Services}, a documentação oficial pode ser vista \href{https://developer.android.com/google/play-services/location.html}{aqui}\footnote{\href{https://developer.android.com/google/play-services/location.html}{https://developer.android.com/google/play-services/location.html}}
+
+		\section{Acessando a localização}
+	
+		Antes de iniciar, você precisa definir se quer ter obter a localização usando GPS \emph{(Global Positioning System)} ou usando a Internet. Caso opte por usar o GPS, deve-se atentar ao fato que o GPS demora muito para inicializar e obter as coordenadas. Enquanto que usando a Internet isso é praticamente instantâneo, porém a localização não é tão precisa. Ou seja, se quer rapidez use a Internet como seu \emph{Location Provider}, se quer precisão use o GPS.
+
+		Sabendo disso então você deve colocar as permissões no \emph{Manifest}, mostradas abaixo.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/maps/perm1.xml}
+		\caption{Permissões para obter localização}
+		\label{code:locationperm}
+		\end{listing} 		
+
+		A permissão \texttt{INTERNET} só será necessária caso não queira obter a localização usando o GPS.
+
+		O próximo passo é criar um \texttt{LocationListener} para acessar a localização.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/maps/listener.java}
+		\caption{Criando um \texttt{LocationListener}}
+		\label{code:locationlistener}
+		\end{listing} 	
+
+		O método mais importante deste \emph{listener} é \texttt{onLocationChanged()}, toda vez que as coordenadas de sua posição forem alteradas, ele irá chamar este método. Para esse exemplo eu apenas atualizei o valor de duas variáveis, que podem ser utilizadas para atualizar a posição em um mapa, por exemplo. Já os métodos \texttt{onProviderDisabled()} e \texttt{onProviderEnabled()} realizam uma ação quando o provedor de localização é desativado ou ativado, isso irá depender muito de sua aplicação. Mas para um exemplo simples estou apenas mostrando um \texttt{Toast} com a mensagem de que ele foi desativado ou ativado. O método \texttt{onStatusChanged()} é chamado quando o estado do provedor muda, por exemplo se ele se torna disponível depois de um período de disponibilidade.
+
+		O próximo passo é definir o \texttt{LocationListener} que criamos para um \texttt{LocationManager}. Que deve ser feito no \texttt{onCreate()}.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/maps/locmanager.java}
+		\caption{Configurando o \texttt{LocationManager}}
+		\label{code:locationmanager}
+		\end{listing} 	
+
+		A referência ao \texttt{LocationManager} deve ser obtida com o método \texttt{getSystemService()}. Em seguida criamos uma nova instância da classe \texttt{MyLocationListener} que criamos anteriormente. Depois deve-se registrar o \emph{listener} para receber atualizações usando \texttt{requestLocationUpdates()}. Os parâmetros são: o provedor que será usado, o intervalo mínimo entre atualizações (em ms), a disância mínima entre atualizações (em metros) e o \emph{listener}. Nesse exemplo, estamos usando o GPS, caso queira usar a Internet, deve-se usar \texttt{LocationManager.NETWORK\_PROVIDER}.
+
+ 		\section{Google \emph{Maps}}
+
+		Configurar o Google \emph{Maps} para uso pode ser complicado. Você deve registrar sua aplicação para obter uma chave para dar permissão ao seu aplicativo de usar o \emph{Maps}. Nessa seção faremos o passo a passo de como obter a chave e colocar um mapa na sua \emph{activity}.
+
+		Antes de iniciar, quero deixar claro que o Google \emph{Maps} não funciona no emulador Android. Isso é devido a utilização do Google \emph{Play Services} que não está disponível nos emuladores (até essa data). Existe sim a possibilidade de instalar o \emph{Play Services} nos emuladores, mas isso não está previsto pelo Google e pode não funcionar corretamente. 
+
+		\subsection{Obtendo a chave de certificação \emph{debug}}
+		
+		Para poder testar o \emph{Maps} nos aplicativos que está desenvolvendo você deve obter uma chave de certificação \emph{debug}. Na verdade toda aplicação ao ser lançada na \emph{Play Store} precisa estar assinada digitalmente usando uma chave \emph{release} que pode ser obtida da mesma maneira.\footnote{\href{http://developer.android.com/intl/es/tools/publishing/app-signing.html}{http://developer.android.com/intl/es/tools/publishing/app-signing.html}}
+
+	 	Caso esteja usando o \emph{Eclipse}, a chave de certificação \emph{debug} pode ser obtida no menu \emph{Window} > \emph{Preferences} > \emph{Android}  > \emph{Build}, sob o campo \emph{SHA-1 fingerprint}.
+
+		Você pode obter pela linha de comando, usando o software \emph{keytool} que vem junto do JDK. Você irá precisar apontar para o arquivo \texttt{debug.keystore} que está na pasta \texttt{.android} em seu sistema. Basta executar o \emph{keytool} com o seguinte comando.
+
+		\texttt{keytool -list -v -keystore} \texttt{".android/debug.keystore"} \texttt{ -alias androiddebugkey} \texttt{ -storepass android} \texttt{ -keypass android}
+
+		\subsection{Obtendo a \emph{API Key}}
+
+		Com a chave de certificação \emph{debug} em mãos, você deve acessar o Google \emph{API Console} e criar um novo projeto. Após criar o projeto, acesse API no menu à esquerda e marque \emph{Google Maps Android API v2} com \emph{status ON}. Como mostrado na figura abaixo:
+
+		\begin{figure}[H]
+		  \centering
+		  \includegraphics{figuras/api/localizacao/console1.png}
+		  \caption{Ativando \emph{Maps API} no Google \emph{API Console}}
+		  \label{fig:apiconsole1}
+		\end{figure}
+
+		Em seguida, é necessário registrar uma nova aplicação. Para isso, acesse \emph{Registered apps} no menu à esquerda e clique em \emph{REGISTER APP}. Preencha os campos de acordo e clique em \emph{Register}.
+
+		\begin{figure}[H]
+		  \centering
+		  \includegraphics[width=.8\textwidth]{figuras/api/localizacao/console2.png}
+		  \caption{Registrando um \emph{app} no Google \emph{API Console}}
+		  \label{fig:apiconsole2}
+		\end{figure}
+
+
+		Com isso, você terá acesso a sua \emph{API Key} que será colocada no \emph{Manifest} para habilitar o uso do Google \emph{Maps} no dispositivo.
+		
+		\begin{figure}[H]
+		  \centering
+		  \includegraphics[width=.9\textwidth]{figuras/api/localizacao/console3.png}
+		  \caption{Passo final para obter a \emph{API Key}}
+		  \label{fig:apiconsole2}
+		\end{figure}
+	
+		Agora, com o código em mãos, você deve abrir seu \emph{Manifest} e adicionar a seguinte linha dentro da \emph{tag} \texttt{<application>}.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/maps/apikey.xml}
+		\caption{Configurando a \emph{API Key} no \emph{Manifest}}
+		\label{code:apikey}
+		\end{listing} 	
+
+		\subsection{Configurando o Google  \emph{Play Services}}
+
+		Primeiro, você deve fazer \emph{download} do Google \emph{Play Services} no \emph{SDK Manager}. Após o término do \emph{download} é necessário importar a bilbioteca no Eclipse e referenciá-lo em seu projeto. 
+		
+		A pasta com a bibliotecla do Google \emph{Play Services} se encontrará na pasta \texttt{sdk/extras/google/google\_play\_services/libproject/} e se chama \texttt{google-play-services\_lib}. É necessário importar essa pasta como projeto existente no Eclipse, não se esqueça de marcar a opção para copiar o projeto para o seu \emph{workspace}. 
+
+		Depois de importar, você deve abrir as propriedades do seu projeto, selecionar \emph{Android} no menu à esquerda. Na parte inferior onde está escrito \emph{Library} clique em \emph{Add...} e selecione o \texttt{google-play-services\_lib}. Se aparecer um símbolo verde de "correto", então deu certo.
+
+		\begin{figure}[H]
+		  \centering
+		  \includegraphics[width=.8\textwidth]{figuras/api/localizacao/playlib.png}
+		  \caption{Adicionando a Google \emph{Play Services} como bilbioteca do projeto}
+		  \label{fig:apiplaylib}
+		\end{figure}
+
+		\subsection{Adicionando um mapa em sua \emph{activity}}
+
+		O Google \emph{Maps} no Android usa OpenGL ES versão 2 para renderizar o mapa, logo é necessário adicionar o uso do OpenGL no \emph{Manifest}.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/maps/opengl.xml}
+		\caption{Adicionando o uso do OpenGL no \emph{Manifest}}
+		\label{code:mapfrag}
+		\end{listing} 	
+
+		Agora que já obtemos a localização, podemos usá-la para marcar a posição no mapa. Existem diversas maneiras de adicionar um mapa em uma \emph{activity}. Nesse exemplo adicionaremos usando um \texttt{FrameLayout} para colocar o mapa dentro. Uma outra forma é simplesmente declarando um fragmento no XML do \emph{layout} como mostrado abaixo:
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/maps/frag.xml}
+		\caption{Adicionando o mapa como um fragmento no XML}
+		\label{code:mapfrag}
+		\end{listing} 	
+		
+		O \emph{layout} da \emph{activity} consiste de dois \texttt{TextView} para mostrar a latitude e a longitude do dispositivo no momento, alem disso tem um \texttt{FrameLayout} que irá conter o fragmento do mapa.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/maps/activity.java}
+		\caption{\emph{Activity} com Google \emph{Maps}}
+		\label{code:mapactivity}
+		\end{listing} 	
+		
+		O primeiro detalhe a ser notado é que a \emph{Activity} está extendendo \texttt{FragmentActivity} a fim de poder usar o \texttt{SupportFragment} para compatibilidade com versões anteriores do Android. As linhas 18 a 22 já são conhecidas, do exemplo anterior. 
+
+		Na linha 27 estamos usando \texttt{findFragmentByTag()} para podermos obter o fragmento do mapa, caso ele não esteja declarado no XML, será criada uma nova instância na linha 32. Na linha 34 a 38 estamos adicionando o fragmento do mapa ao \texttt{FrameLayout} do \emph{layout} usando \texttt{FragmentTransaction} e por fim chamando uma função \texttt{setUpMadIfNeeded()} para obtermos a instância do mapa (e não do seu fragmento). 
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/maps/setupif.java}
+		\caption{Método \texttt{setUpMapIfNeeded()}}
+		\label{code:setupif}
+		\end{listing} 	
+
+		Apenas obtemos a instância do mapa de seu fragmento e criando um marcador na posição (0,0). Importante salientar que o principal motivo de se fazer esse método é para poder chamá-lo no método \texttt{onResume()} da \emph{activity} a fim de atualizar o mapa caso o aplicativo tenha sido parado por algum motivo. Agora iremos modificar o método \texttt{onLocationChanged()} do \texttt{MyLocationListener} para atualizar a posição no mapa e adicionar um marcador na posição correta.
+		
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/maps/onlocmod.java}
+		\caption{Método \texttt{onLocationChanged()} modificado}
+		\label{code:onlocmod}
+		\end{listing} 	
+		
+		Primeiro removemos o marcador anterior, depois adicionamos um novo marcador na posição obtida pelo \emph{listener}. Na linha 13 chamamos o método \texttt{moveCamera()} para colocar a camera na posição do marcador. 
+
+		Para mais exemplos de mapas, você pode importar o projeto \emph{maps} da pasta \emph{samples} onde você obteve o \emph{libproject}.
+	 
+	
+\chapter{Compartilhamento} 
 
 		Já aprendemos a enviar dados à outras \emph{activities} usando a classe \texttt{Intent}. Agora veremos como faz para enviar esses dados e dar ao usuário a opção de escolher qual aplicativo já instalado no dispositivo ele quer usar para receber esses dados. Isso pode ser visto como compartilhamento. Imagine que você tirou uma foto e quer mostrar ao seus amigos pelo \emph{Facebook}. Na verdade está enviando uma foto à \emph{activity} do Facebook que recebe esse tipo de dado e assim ela tomará o controle.
 
@@ -1883,7 +2040,66 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:simpletext}
 		\end{listing} 		
 
-		continua...
+		Contanto que exista um aplicativo instalado no aparelho com um filtro que aceite \texttt{ACTION\_SEND} e o tipo \texttt{MIME} \texttt{"text/plain"} o Android irá executá-lo, caso exista mais de um então um diálogo aparecerá perguntando qual aplicativo o usuário deseja escolher para receber o \texttt{Intent}. 
+
+		\dica{Se chamar \texttt{Intent.createChooser()} então o Android sempre irá mostrar o diálogo. Você pode configurar o texto a ser mostrado no parâmetro.}
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/sharing/createchooser.java}
+		\caption{Chamando \texttt{createChooser()}}
+		\label{code:createchooser}
+		\end{listing} 		
+
+		Você pode usar alguns \emph{extras} padrões nos \texttt{Intent}, tais como: \texttt{EXTRA\_EMAIL} para o texto ser o corpo do e-mail, \texttt{EXTRA\_SUBJECT} para o texto ser o assunto do e-mail. Porém o aplicativo que estiver recebendo o \texttt{Intent} deve estar preparado para esse tipo de \emph{extra}, se não nada vai acontecer. Existe ainda a opção de criar \emph{extras} personalizados, mas também so irá funcionar caso o aplicativo esteja projetado para esse tipo de \emph{extra}. Nesse caso é comum criar um \emph{extra} personalizado caso você tenha feito um conjunto de aplicativos que podem trocar informações através de \texttt{Intents} e que irão usar esse \emph{extra}.
+
+		Além de texto é possível enviar dados binários ou até mesmo mais de um dado ao enviar uma lista. Para enviar uma foto que você tirou com a câmera, por exemplo, você deve usar o \emph{extra} chamado \texttt{EXTRA\_STREAM} e configurar o tipo do \texttt{Intent} para \texttt{"image/jpeg"}.
+
+		Uma forma mais completa de enviar imagems ou outros tipos de dados é usando um \texttt{ContentProvider}\footnote{\href{http://developer.android.com/intl/es/reference/android/content/ContentProvider.html}{http://developer.android.com/intl/es/reference/android/content/ContentProvider.html}} que irá criar uma interface para a prover os dados a outras aplicações.
+
+		Outra parte importante do compartilhamento é fazer com que sua aplicação consiga receber dados de \texttt{Intents}. O primeiro passo para isso é configurar os \texttt{intent-filter} no \emph{Manifest}. Quando você define um \texttt{intent-filter} você está dizendo para o Android que uma determinada \emph{activity} é capaz de receber um determinado de \texttt{Intent}. Uma \emph{activity} pode ter múltiplos filtros, cada um relacionado a um determinado tipo de dado.
+
+		Para exemplificar o conceito, iremos fazer um aplicativo que escreve um texto e tira uma foto e um aplicativo que recebe um texto ou uma imagem e mostra o que foi recebido. O aplicativo usa conceitos já conhecidos então iremos nos limitar a explicar somente a parte do compartilhamento. Entretanto, caso haja dúvidas é possivel obter ambos aplicativos do repositório.
+
+		No primeiro aplicativo, é interessante salientar apenas os botões que adicionei para compartilhar. Um tem a função de compartilhar o texto e outro a imagem. Você pode, por exemplo compartilhar um e depois o outro no aplicativo do \emph{Gmail} que ambos irão ser adicionados ao corpo do e-mail.
+		
+		Observe no código abaixo, como ficaram os botões de compartilhamento.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/sharing/sharingbtn.java}
+		\caption{Botões para compartilhar texto e imagem}
+		\label{code:sharingbtn}
+		\end{listing} 		
+
+		A parte mais importante é o método \texttt{setType}, ele recebe um \emph{MIME Type}\footnote{MIME: \href{http://en.wikipedia.org/wiki/MIME}{http://en.wikipedia.org/wiki/MIME}}, como é o caso de \texttt{text/plain} e \texttt{image/png}. Outros \emph{MIME Types} poderiam ser usados como \texttt{image/*} caso não soubéssemos o formato da imagem ou até mesmo \texttt{*/*} que representa qualquer tipo. O problema disso é que todos aplicativos irão aparecer na lista e alguns podem não receber o que você está tentando enviar! Portanto seja cauteloso.
+
+		Já o segundo aplicativo irá receber tanto um texto como uma foto e mostrar ao usuário, apenas para exemplificar o recebimento de \texttt{Intents}. O primeiro passo é criar os \texttt{intent-filter} para receber os \emph{MIME Type} corretos.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/sharing/intentfilter.xml}
+		\caption{Configurando os \texttt{intent-filter} no \emph{Manifest}}
+		\label{code:intentfilter}
+		\end{listing} 	
+
+		É necessário criar um \texttt{intent-filter} para cada tipo de dado que será recebido. Como nesse caso só existe uma \emph{activity}, ela é tanto uma \emph{activity Launcher}, ou seja, aquela que abre o apicativo. Mas também recebe dois \emph{MIME Types}, são eles \texttt{text/plain} e \texttt{image/*}. Em seguida, precisamos receber os dados do \texttt{Intent} e mostrá-los para o usuário, como é feito no código abaixo:
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/sharing/receive.java}
+		\caption{Obtendo os dados do \texttt{Intent} e mostrando ao usuário}
+		\label{code:sharingintent}
+		\end{listing} 		
+
+		Lembre-se que nesse pedaço de código, estamos apenas preocupados em obter os dados do \texttt{Intent} e colocá-los nas suas \emph{views} e portanto não é o código completo da \emph{activity}. Basicamente o que fazemos é comparar as \emph{strings} recebidas no \texttt{Intent} para saber o que está sendo recebido. Ao verificar o \emph{action}, sabemos que o \texttt{Intent} veio através de compartilhamento e ao analisar o \emph{type}, sabemos o \emph{MIME type} e podemos construir a \emph{activity} de acordo.
+
+		\dica{Modifique a \emph{activity} para salvar a imagem ou o texto no caso do usuário voltar para compartilhar outra coisa. Você pode salvar os dados no \texttt{Bundle}.}
+
+		Esse capítulo tentou apenas para dar uma introdução ao compartilhamento de dados entre aplicativos. Outras coisas interessantes podem ser feitas, por exemplo adicionar o botão de \emph{Easy Share} como descrito \href{http://developer.android.com/intl/es/training/sharing/shareaction.html}{nessa página}\footnote{\href{http://developer.android.com/intl/es/training/sharing/shareaction.html}{http://developer.android.com/intl/es/training/sharing/shareaction.html}} da documentação. Além disso, existe também a classe \texttt{ContentProvider} que fornece uma interface para compartilhamento.
+		
+		
+		\chapter{Agenda e Contatos} 
+		 	Obtendo dados da agenda, adicionando contatos...
+
+
+		
 
 			
 	
@@ -1905,9 +2121,9 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 \appendix
 \addtocontents{toc}{\protect\setcounter{tocdepth}{0}} % as seções do apêndice não aparecem do sumário com este comando...
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\ape{apen}{Especificação blá, blá, blá}
+\ape{apen}{Classes e métodos interessantes}
 
-Isto é um apêndice...
+Em construção...
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
