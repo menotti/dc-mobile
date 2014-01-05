@@ -2095,13 +2095,96 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		Esse capítulo tentou apenas para dar uma introdução ao compartilhamento de dados entre aplicativos. Outras coisas interessantes podem ser feitas, por exemplo adicionar o botão de \emph{Easy Share} como descrito \href{http://developer.android.com/intl/es/training/sharing/shareaction.html}{nessa página}\footnote{\href{http://developer.android.com/intl/es/training/sharing/shareaction.html}{http://developer.android.com/intl/es/training/sharing/shareaction.html}} da documentação. Além disso, existe também a classe \texttt{ContentProvider} que fornece uma interface para compartilhamento.
 		
 		
-		\chapter{Agenda e Contatos} 
-		 	Obtendo dados da agenda, adicionando contatos...
+\chapter{Agenda e Contatos} 
+	\section{Usando o \emph{Contacts Provider}}
 
+	O Android contém um repositório central onde estão armazenadas as informações dos contatos do usuário, incluindo os dados de redes sociais. Esse repositório se chama \emph{Contacts Provider}\footnote{\href{http://developer.android.com/guide/topics/providers/contacts-provider.html}{http://developer.android.com/guide/topics/providers/contacts-provider.html}}.	
+	
+	Seguindo as lições da documentação oficial, iremos criar uma pequena aplicação que obtém todos seus contatos e popula uma lista com eles. Mais detalhes do contato poderão ser obtidos ao se clicar no contato. O primeiro passo, sempre obrigatório para se acessar o repositório de contatos é adicionar permissão no \emph{Manifest}. Demonstrado no trecho abaixo:	
 
-		
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/contacts/permission.xml}
+		\caption{Permissão para acessar os contatos}
+		\label{code:contactpermission}
+		\end{listing} 	
+	
+	Em seguida precisamos de uma \emph{activity} com uma lista para conter os contatos. Nesse exemplo criamos um XML de \emph{layout} que só contenha uma \texttt{ListView} e em seguida um outro XML para definir o \emph{layout} de um item da lista, nesse caso será somente uma \texttt{TextView}. Você poderá obter mais detalhes no código do projeto disponível no repositório.
 
+	\dica{Você pode incementar essa lista adicionando outras informações do contato na lista, como a foto de cada um}
+
+	Após ter definido o \emph{layout}, precisamos mostrar a lista de contatos, começe definindo a \emph{activity} que irá conter a lista. A lista deverá ser populada utilizando a classe \texttt{ContactsContract}\footnote{\href{http://developer.android.com/reference/android/provider/ContactsContract.html}{http://developer.android.com/reference/android/provider/ContactsContract.html}} que já nos providencia algumas constantes e métodos para acessar a lista de contatos.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/contacts/fragment.java}
+		\caption{\emph{Activity} que irá conter a lista de contatos}
+		\label{code:contactfragment}
+		\end{listing} 	
+	
+	Como pode ser observado no código \ref{code:contactfragment} estamos extendendo a classe \texttt{FragmentActivity}\footnote{\href{http://developer.android.com/reference/android/support/v4/app/FragmentActivity.html}{http://developer.android.com/reference/android/support/v4/app/FragmentActivity.html}} que nos permite usar o \texttt{Loader} em Android mais antigos. Além disso estamos implementando as interfaces \texttt{LoaderManager.LoaderCallbacks}\footnote{\href{http://developer.android.com/reference/android/app/LoaderManager.LoaderCallbacks.html}{http://developer.android.com/reference/android/app/LoaderManager.LoaderCallbacks.html}} que permite o carregamento de dados de forma assícrona. Estamos implementando também a interface \texttt{OnItemClickListener}\footnote{\href{http://developer.android.com/reference/android/widget/AdapterView.OnItemClickListener.html}{http://developer.android.com/reference/android/widget/AdapterView.OnItemClickListener.html}} para que possamos carregar mais informações do contato quando clicado na lista.
+	
+	Precisamos de algumas variáveis para auxiliar na seleção dos contatos e na criação do adaptador da lista. A variável \texttt{FROM\_COLUMNS}, abaixo, são os dados que serão mostrados e que nesse caso é apenas o nome do contato. Observe que estamos fazendo uma pequena comparação da versão do SDK pois depois da versão 3.0 do SDK, a classe \texttt{Contacts} foi alterada. Já a variável \texttt{TO\_IDS} serve para o adaptador saber onde colocar a informação, passamos para ele o \emph{id} do \texttt{TextView} que colocamos no XML. Como essa lição se baseia na lição da documentação oficial, estamos usando um dos \emph{ids} padrões do Android.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/contacts/fromto.java}
+		\caption{Variáveis para o adaptador da lista}
+		\label{code:contactadaptervar}
+		\end{listing} 	
+
+	As próximas variáveis são aquelas da seleção dos contatos. Nesse exemplo vamos obter todos os contatos e portanto deixar a variável \texttt{mSearchString} vazia, mas caso queira obter contatos especificos, basta fazer algo que preencha essa variável. Temos a variável \texttt{SELECTION} que funciona como a parte \emph{WHERE} de uma consulta \texttt{SQL}, ela já está preparada para a busca por algum nome, caso queira. A variável \texttt{PROJECTION} é uma constante que define as colunas que você quer retornar das consultas, nesse caso queremos 3: o \emph{id} do contato, sua chave de busca \emph{(lookup key)} e o seu nome. Por fim, as variaveis \texttt{CONTACT\_ID\_INDEX} e \texttt{LOOKUP\_KEY\_INDEX} funcionam como ponteiros para o \texttt{Cursor} que irá se mover nos resultados da pesquisa, basta definir o valor da variável como sendo a posição da coluna na projeção. Como temos a coluna \emph{id} sendo a primeira e a \emph{lookup} sendo a segunda, colocamos os valores 0 e 1, respectivamente. Isso é necessário para se obter dados de uma coluna individual do \texttt{Cursor}.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/contacts/morevar.java}
+		\caption{Variáveis para o \texttt{Cursor} do conjunto resultante da busca}
+		\label{code:contactcursorvar}
+		\end{listing} 	
+
+	As últimas variáveis de que precisamos são estas, para armazenar os resultados da consulta e guardar referências. Iremos usar a \texttt{Uri} do contato para buscar mais informações posteriormente.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/contacts/lastvar.java}
+		\caption{Variáveis de controle}
+		\label{code:contactlastvar}
+		\end{listing} 	
+
+	Depois, precisamos implementar o método \texttt{onCreate()}. Nesse método, iremos configurar o adaptador da lista que será um \texttt{SimpleCursorAdapter}\footnote{\href{http://developer.android.com/reference/android/widget/SimpleCursorAdapter.html}{http://developer.android.com/reference/android/widget/SimpleCursorAdapter.html}}. Esse adaptador liga os resultados da busca com a \texttt{ListView}.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/contacts/onactivity.java}
+		\caption{Método \texttt{onActivityCreated()}}
+		\label{code:contactonactivity}
+		\end{listing} 	
+
+	Na linha 4 do algoritmo \ref{code:contactonactivity}, estamos criando o \texttt{SimpleCursorAdapter}, como já discutido na lição de listas, é necessário passar para o adaptador o \emph{layout} interno da lista assim como os mapas com os dados e os \emph{ids} das views em que esses dados serão inseridos, são esses parâmetros, as variáveis \texttt{FROM\_COLUMNS} e \texttt{TO\_IDS}. Na linha 10 determinamos o adaptador para a lista e na linha 11 determinamos que o listener da lista será a própria classe. Isso é possível pois estamos implementando a interface \texttt{OnItemClickListener}.
+
+	Como estamos usando o \texttt{CursorLoader}\footnote{\href{http://developer.android.com/reference/android/content/CursorLoader.html}{http://developer.android.com/reference/android/content/CursorLoader.html}} para buscar os dados, nós precisamos inicializar a \emph{thread} que ficará no plano de fundo que irá controlar a busca de forma assíncrona. 
+
+	O próximo passo é implementar o método \texttt{onCreateLoader()}, que irá realizar a consulta, ao retornar um \texttt{CursorLoader} que recebeu como parâmetros da busca .
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/contacts/oncreateloader.java}
+		\caption{Método \texttt{onCreateLoader()}}
+		\label{code:contactoncreateloader}
+		\end{listing} 	
+
+	Depois, você deve implementar os métodos \texttt{onLoadFinished()} e \texttt{onLoaderReset()}. O primeiro é chamado quando o \emph{Contacts Provider} retorna os resultados da consulta, usamos o método \texttt{swapCursor()} para trocar o \emph{cursor} do adaptador pelo \emph{cursor} do método \texttt{onLoadFinished()}. Já o segundo é chamado quando o \emph{framework} detecta que o \emph{cursor} contém dados desatualizados, nesse caso basta apagar a referêrencia ao \emph{cursor} no adaptador.
+	 
+	Por fim, você deve implementar o método \texttt{onItemClick()} para abrir uma nova \emph{activity} ao clicar no contato.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/contacts/onitemclick.java}
+		\caption{Método \texttt{onItemClick()}}
+		\label{code:contactonitemclick}
+		\end{listing} 	
 			
+	Primeiro nós obtemos a posição na lista através do parâmetro \texttt{position}, em seguida colocamos o \emph{cursor} nessa posição e obtemos os dados do contato. Usando o método \texttt{getLookupUri()} nós conseguimos a \texttt{URI} do contato para que seja possível acessar suas informações detalhadas.
+
+	\subsection{Detalhes de um contato}
+
+	Conseguir os detalhes do contato usa o mesmo princípio de conseguir todos os contatos. Devemos fazer algumas consultas, mas com seleções e projeções diferentes. Para obter os telefones de um contato, deverá acessar o campo \emph{Phone} do \texttt{ContactsContract}, para obter os e-mails: \emph{Email}, e para acessar os endereços: \emph{StructuredPostal}.
+
+	
+	
+
 	
  
 \end{singlespace}
