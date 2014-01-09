@@ -2182,11 +2182,70 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 	Conseguir os detalhes do contato usa o mesmo princípio de conseguir todos os contatos. Devemos fazer algumas consultas, mas com seleções e projeções diferentes. Para obter os telefones de um contato, deverá acessar o campo \emph{Phone} do \texttt{ContactsContract}, para obter os e-mails: \emph{Email}, e para acessar os endereços: \emph{StructuredPostal}.
 
+	Nesse exemplo, criaremos uma nova \emph{activity} que irá conter os dados do contato escolhido na primeira \emph{activity}. Para facilitar a leitura do código, iremos criar três interfaces para serem usadas, essas interfaces irão conter as projeções e seleções de cada um dos tipos de dado. 
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/contacts/interfaces.java}
+		\caption{Interfaces das consultas dos contatos}
+		\label{code:contactinterfaces}
+		\end{listing} 	
+
+	Dessa forma, mostrada no algoritmo \ref{code:contactinterfaces}, conseguimos organizar melhor o código para as consultas que iremos fazer. Essa \emph{activity}, que decidi chamar \texttt{ContactDetailsActivity} também irá extender \texttt{FragmentActivity} e implementar \texttt{LoaderCallbacks<Cursor>}. Iremos utilizar essas três variáveis, das quais duas serão obtidas do \texttt{Intent} que abriu essa \emph{activity}.
 	
-	
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/contacts/contactdetails.java}
+		\caption{Classe \texttt{ContactDetailsActivity}}
+		\label{code:contactdetailsactivity}
+		\end{listing} 	
+
+
+	Em seguida, construa o método \texttt{onCreate()}. A diferença é a obtenção dos dados do \texttt{Intent} e a referência ao \texttt{ViewGroup} que iremos utilizar mais tarde. 
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/contacts/oncreate.java}
+		\caption{Método \texttt{onCreate()} de \texttt{ContactDetailsActivity}}
+		\label{code:contactdetailsoncreate}
+		\end{listing} 	
+
+	O método \texttt{setContact()} é usado para colocar os dados obtidos do \texttt{Intent} nos atributos da classe e chamar as consultas necessárias. Chamamos o método \texttt{restartLoader()} para forçar a criação da \emph{thread} que irá realizar a consulta. Observe que cada uma é responsável por uma consulta, passamos o \texttt{QUERY\_ID} de cada uma das interfaces para diferenciá-las.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/contacts/setcontact.java}
+		\caption{Método \texttt{setContact()}}
+		\label{code:contactdetailssetcontact}
+		\end{listing} 			
+		\interfootnotelinepenalty=10000
+	O método \texttt{hasPhone()}, que pode ser visto na linha 14 verifica se o contato tem algum número de telefone cadastrado. Esse método demonstra uma outra forma de se adquirir os dados de um contato, sem ser em outra \emph{thread}, mas na mesma \emph{thread} da \emph{UI (User Interface)}\footnote{Tudo que fizemos até agora (exceto o \texttt{AsyncTask} na lição de comunicação) está rodando na chamada \emph{UI thread}, isso significa que o Android está executando seu código na mesma \emph{thread} em que cria a interface do usuário. Usar o \texttt{Loader} implica em fazer com que as consultas rodem em uma outra \emph{thread}, liberando a \emph{UI thread} do serviço e impedindo que o aplicativo pareça estar travado enquanto busca informações. O \texttt{AsyncTask} é uma outra forma de executar \emph{background threads} de forma assícrona.}. 
 
 	
- 
+	Agora iremos implementar o método \texttt{onCreateLoader()}, de forma semelhante à última vez, mas agora iremos criar um \texttt{CursorLoader} diferente dependendo do \emph{id} que foi passado para o método - no caso é o \texttt{QUERY\_ID} que foi o parâmetro do método \texttt{restartLoader()}, visto no algoritmo \ref{code:contactdetailssetcontact}.
+		
+		 \begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/contacts/oncreateloader2.java}
+		\caption{Método \texttt{onCreateLoader()}}
+		\label{code:contactdetailssoncreateloader}
+		\end{listing} 			
+	
+	Nesse método, nós estamos fazendo um \texttt{switch} para selecionar qual consulta iremos fazer e então usamos as projeções e seleções de cada interface para realizar a consulta. Se atente as diferenças entre cada um: no primeiro caso, nós usamos \texttt{mContactUri} no segundo parâmetro do construtor do \texttt{CursorLoader} pois nós já temos o "endereço" do nome do contato nesse atributo, não e preciso fazer uma seleção, nesse caso.
+
+	 No segundo e terceiro casos, no segundo parâmetro passamos o "endereço" da tabela dos endereços e telefones dos contatos, mas usamos a seleção para poder selecionar qual contato. A variável \texttt{addressArgs} contém o \emph{id} do contato que irá servir como parâmetro da seleção. Note que no Android essas informações dos contatos estão guardadas em um banco de dados e o que estamos fazendo na realidade são \emph{SELECT} comuns, mas usando as classes pré-definidas para nos auxiliar. O Android também já junta várias tabelas automaticamente para facilitar as buscas.
+
+	Para finalizar, vamos implementar o método \texttt{onLoadFinished()}, nesse método é que adquirimos os dados do \texttt{cursor} e criamos as \emph{views} para mostrar esses dados. 
+
+		 \begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/contacts/onloadfinished2.java}
+		\caption{Método \texttt{onLoadFinished()}}
+		\label{code:contactsdetailsonloadfinished}
+		\end{listing} 			
+
+		Novamente, o método irá tomar uma ação diferente dependendo de qual consulta foi realizada. Se existe um resultado, então nós criado uma \texttt{TextView} e colocamos o texto adquirido nela. Aqui é que usamos a variável \texttt{container}, usamos o método \texttt{addView()} para colocar essa \emph{view} dentro dela.
+
+	
+		Esse capítulo tentou dar uma introdução à obtenção dos contatos da agenda. É uma tema especialmente difícil por haver muito rigor nos detalhes. É altamente recomendável estudar mais a fundo a lição presente na documentação oficial e o exemplo oferecido por eles. 
+
+\chapter{Acelerômetro}
+	
+
 \end{singlespace}
 
 
