@@ -2,7 +2,7 @@ public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
 	if(mContactUri == null){
 		return;
 	}
-	switch(loader.getId()){
+	switch(loader.getId()){	
 		case ContactDetailsQuery.QUERY_ID:
 			if(cursor.moveToFirst()){
 				String contactName = 

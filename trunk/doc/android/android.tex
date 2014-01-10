@@ -273,7 +273,7 @@ Você pode configurar a versão do SDK manualmente modificando os valores no \em
 
 A tag \texttt{uses-sdk} serve apenas para o compilador saber quais versões do Android você pretende que seu aplicativo suporte. Dessa forma quando seu aplicativo for lançado na loja \emph{Google Play} o aplicativo só será visível para aqueles usuários que possuem a versão mínima do Android indicana no atributo.
 
-Primeiro vamos criar um \emph{layout} para o aplicativo usando o construtor de interfaces presente no ambiente, primeiro abra o arquivo \texttt{res/layout/activity\_main.xml} , segundo o \emph{manifest}, é essa \emph{activity} que será aberta quando o aplicativo for iniciado, isso é configurado através do \emph{intent-filter}\footnote{Mais informações na seção 5.2}. 
+Primeiro vamos criar um \emph{layout} para o aplicativo usando o construtor de interfaces presente no ambiente, primeiro abra o arquivo \texttt{res/layout/activity\_main.xml} , segundo o \emph{manifest}, é essa \emph{activity} que será aberta quando o aplicativo for iniciado, isso é configurado através do \emph{intent-filter}\footnote{Mais informações na seção \ref{sec:especac}}. 
 
 Selecione o ''Hello world'' e o remova da sua \emph{activity}.
 
@@ -306,7 +306,7 @@ Primeiro, na linha 2 modifique o \emph{id} do \emph{Text Field} para um nome mai
 \textbf{Dica:} Existem vários tipos de recursos, porém é importante salientar os diferentes tipos de \emph{id}. Quando referimos aos recursos podemos usar \texttt{@android:id/} para acessar recursos que já estão definidos no sistema Android. Usamos \texttt{@id/} para acessar recursos que já foram definidos no seu projeto. Para criar um novo recurso, usamos \texttt{@+id/}.
 \end{framed}
 
-Os outros atributos são para definir o tamanho, alinhamento e margem da caixa de texto. O valor \texttt{wrap\_content} dos atributos \texttt{layout\_width} e \texttt{layout\_height} (largura e altura, linhas 3 e 4) força a \emph{view} a mudar de tamanho automaticamente para abrigar seu conteúdo. Os atributos \texttt{layout\_alignParentLeft} e \texttt{layout\_alignParentTop} servem (linhas 5 e 6) para alinhar essa \emph{view} com a \emph{view} pai dela, dessa forma ficará alinhado com a borda esquerda e com a borda superior do pai. Os atributos \texttt{layout\_marginLeft} e \texttt{layout\_marginTop} (linhas 7 e 8) deslocam o elemento colocando uma margem entre a borda e a \emph{view}, esses valores estarão diferentes pois são computados automaticamente quando a \emph{view} é colocada através do construtor de interfaces. Note que isso só acontecerá caso esteja usando \texttt{RelativeLayout}\footnote{Mais informações na seção 5.3} que é o nosso caso. Por útlimo o atributo \texttt{ems} (linha 9) configura o tamanho da fonte através da unidade de medida Em.
+Os outros atributos são para definir o tamanho, alinhamento e margem da caixa de texto. O valor \texttt{wrap\_content} dos atributos \texttt{layout\_width} e \texttt{layout\_height} (largura e altura, linhas 3 e 4) força a \emph{view} a mudar de tamanho automaticamente para abrigar seu conteúdo. Os atributos \texttt{layout\_alignParentLeft} e \texttt{layout\_alignParentTop} servem (linhas 5 e 6) para alinhar essa \emph{view} com a \emph{view} pai dela, dessa forma ficará alinhado com a borda esquerda e com a borda superior do pai. Os atributos \texttt{layout\_marginLeft} e \texttt{layout\_marginTop} (linhas 7 e 8) deslocam o elemento colocando uma margem entre a borda e a \emph{view}, esses valores estarão diferentes pois são computados automaticamente quando a \emph{view} é colocada através do construtor de interfaces. Note que isso só acontecerá caso esteja usando \texttt{RelativeLayout}\footnote{Mais informações na seção \ref{subsec:relativelayout}} que é o nosso caso. Por útlimo o atributo \texttt{ems} (linha 9) configura o tamanho da fonte através da unidade de medida Em.
 
 Depois adicione uma \textit{hint} para essa caixa de texto, uma \textit{hint} é algo que vai estar escrito na caixa de texto quando ela estiver vazia, indicando que tipo de texto você pretende que seja escrito nessa caixa de texto, Neste exemplo (linha 10) a \textit{hint} é uma referência a \emph{string} chamada \emph{name} que iremos definir depois.
 
@@ -444,22 +444,22 @@ Para rodar no emulador:
 \item Quando o emulador terminar de carregar, destrave a tela do emulador, usando o mouse.
 \ee
 
-Agora para rodar o aplicativo basta clicar em \emph{Run} na barra de tarefas do Eclipse e selecionar \textit{Android Application} na janela \emph{Run as}. O Eclipse irá instalar o APK e abrir o aplicativo automaticamente, no dispositivo ou no emulador. As figuras 4.6, 4.7 e 4.8 mostram a execução do aplicativo.
+Agora para rodar o aplicativo basta clicar em \emph{Run} na barra de tarefas do Eclipse e selecionar \textit{Android Application} na janela \emph{Run as}. O Eclipse irá instalar o APK e abrir o aplicativo automaticamente, no dispositivo ou no emulador. As figuras \ref{fig:1tela}, \ref{fig:1tela2} e \ref{fig:2tela} mostram a execução do aplicativo.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=.4\textwidth]{figuras/6-criando-app.png}
   \caption{Primeira tela do primeiro aplicativo}
-  \label{fig:f}
+  \label{fig:1tela}
   \includegraphics[width=.4\textwidth]{figuras/7-criando-app.png}
   \caption{Primeira tela após escrever texto na caixa de texto}
-  \label{fig:g}
+  \label{fig:1tela2}
 \end{figure}
 \begin{figure}[H]
   \centering
   \includegraphics[width=.4\textwidth]{figuras/8-criando-app.png}
   \caption{Segunda tela mostrando a mensagem enviada}
-  \label{fig:h}
+  \label{fig:2tela}
 \end{figure}
 
 %%%%%%% DESIGN %%%%%%%%%%
@@ -505,6 +505,7 @@ Parado \emph{(Stopped)}
 \hspace*{5mm} Nesse estado a \emph{activity} está completamente oculto e não está visível para o usuário, está em plano de fundo. Quando está parada, uma instância de uma \emph{activity} e toda informação de seu estado tais como variáveis são mantidos, porém a \emph{activity} não executa nenhum código.
 	
 \section{Especifique a \emph{activity} que inicia seu aplicativo}
+\label{sec:especact}
 
 Quando um usuário abre um aplicativo, o sistema chama o método \texttt{onCreate()} da \emph{activity} que foi declarada como sendo a iniciadora do aplicativo. Você pode definir qual \emph{activity} que vai iniciar seu aplicativo no arquivo \texttt{AndroidManifest.xml} que está no diretório raíz do seu projeto.
 
@@ -545,6 +546,7 @@ O \texttt{LinearLayout} arranja \emph{views} em uma única coluna ou uma única 
 \end{figure}
 
 \subsection{RelativeLayout}
+\label{subsec:relativelayout}
 
 O \texttt{RelativeLayout} permite especificar como as \emph{views} são posicionadas uma em relação a outra. Cada \emph{view} embutida no interior de um \texttt{RelativeLayout} tem atributos que permitem o seu alinhamento com outras \emph{views}. Esses atributos podem ser encontrados na \href{http://developer.android.com/reference/android/widget/RelativeLayout.LayoutParams.html}{documentação}\footnote{ \href{http://developer.android.com/reference/android/widget/RelativeLayout.LayoutParams.html}{http://developer.android.com/reference/android/widget/RelativeLayout.LayoutParams.html}}
 
@@ -559,7 +561,7 @@ Novamente cabe comentar que é possível aninhar diferentes \emph{ViewGroups} pa
 
 \subsection{FrameLayout}
 
-O \texttt{FrameLayout} é o mais simples e eficiente tipo de \emph{layout}, pode ser usado apenas para mostrar uma \emph{view} ou \emph{views} que se sobrepõem. Geralmente é usado como um recipiente para os \texttt{Fragments}\footnote{Mais informações na seção XXXXXX}.
+O \texttt{FrameLayout} é o mais simples e eficiente tipo de \emph{layout}, pode ser usado apenas para mostrar uma \emph{view} ou \emph{views} que se sobrepõem. Geralmente é usado como um recipiente para os \texttt{Fragments}\footnote{Mais informações na seção \ref{sec:frags}}.
 
 Uma \emph{view} definida em um \texttt{FrameLayout} sempre será colocado no canto superior esquerdo da tela do dispositivo ou do \emph{ViewGroup} a que pertence o \texttt{FrameLayout}. Se mais de uma \emph{view} foi definida elas serão empilhadas uma em cima da outra. Isso significa que a primeira \emph{view} adicionada ao \texttt{FrameLayout} será mostrada na base da pilha, e a última adicionada será mostrada no topo.
 
@@ -872,6 +874,7 @@ No algoritmo \ref{code:act-fullimage}, configuramos um \texttt{View.setOnItemCli
 
 %% FRAGMENTOS %%
 \section{Fragmentos}
+\label{sec:frags}
 
 Fragmentos são a solução do Android para criar interfaces de usuário modulares, eles vivem dentro das \emph{activity} e uma \emph{activity} pode conter vários fragmentos. Assim como as \emph{activity} os fragmentos possuem um ciclo de vida. %% EXPLICAR MELHOR %%.
 
@@ -2244,7 +2247,47 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		Esse capítulo tentou dar uma introdução à obtenção dos contatos da agenda. É uma tema especialmente difícil por haver muito rigor nos detalhes. É altamente recomendável estudar mais a fundo a lição presente na documentação oficial e o exemplo oferecido por eles. 
 
 \chapter{Acelerômetro}
+	Os dispositivos Android contam com um sensor chamado acelerômetro que consegue captar o movimento do aparelho nos três eixos. É útil para fazer jogos, saber a orientação do aparelho, entre outras utilidades. Para isso o Android contém um \emph{framework} para os sensores, uma das classes é a \texttt{SensorManager} que contém vários métodos para acessar, registrar \emph{listeners} e constantes para calibrar os sensores, reportar a precisão do sensor e configurar a taxa de aquisição dos dados. Para saber mais sobre o \emph{framework}, acesse a \href{http://developer.android.com/guide/topics/sensors/sensors\_overview.html}{documentação oficial}\footnote{\href{http://developer.android.com/guide/topics/sensors/sensors\_overview.html}{http://developer.android.com/guide/topics/sensors/sensors\_overview.html}}.
+
+	Agora, para exemplificar vamos construir uma aplicação bem simples que apenas irá mostrar na tela os valores lidos do acelerômetro. Criaremos apenas uma \emph{activity} com três \texttt{TextView} para mostrar os valores lidos do acelerômetro.
+
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/accelerometer/activity.java}
+	\caption{Classe \texttt{AccelActivity}}
+	\label{code:accelactivity}
+	\end{listing} 			
+
+	Usaremos os dois \emph{arrays}, \texttt{gravity} e \texttt{acceleration} para guardar os valores lidos do sensor. Em seguida, no método \texttt{onCreate()}, você deverá obter uma referência ao \texttt{SensorManager} usando \texttt{getSystemService()}.
+
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/accelerometer/oncreate.java}
+	\caption{Método \texttt{onCreate()} de \texttt{AccelActivity}}
+	\label{code:accelactivitycreate}
+	\end{listing} 			
+
+	É necessário, agora, criar o \emph{listener} que irá escutar o sensor e escrever os dados na tela. O método \texttt{onSensorChangend()} é chamado de acordo com o intervalo definido em \texttt{registerListener()} na linha 4 do algoritmo \ref{code:accelregister}.
+
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/accelerometer/listener.java}
+	\caption{Método \texttt{onSensorChanged()}}
+	\label{code:accelonsensorchanged}
+	\end{listing} 			
 	
+	Primeiro verificamos se o sensor que chamou o método é o acelerômetro, só prosseguimos caso seja. Os dados lidos estão armazenados no \emph{array} \texttt{event}. Cada índice indica um eixo: 0 é o eixo X, 1 é o eixo Y e 2 é o eixo Z. Para calcular corretamente a aceleração, precisamos retirar o componente gravitacional da conta. Para isso fazemos um filtro passa-baixo, como indicado na documentação\footnote{\href{http://developer.android.com/guide/topics/sensors/sensors\_motion.html}{http://developer.android.com/guide/topics/sensors/sensors\_motion.html}}.
+
+	Por último, deve-se registrar o \emph{listener} quando a \emph{activity} está em primeiro plano e desregistrar quando a \emph{activity} for pausada. Isso é necessário para não ficar consumindo a bateria de forma desnecessária. Logo, será necessário fazer isso nos métodos \texttt{onResume()} e \texttt{onPause()}.
+
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/accelerometer/register.java}
+	\caption{Métodos \texttt{onResume()} e \texttt{onPause()}}
+	\label{code:accelregister}
+	\end{listing} 			
+
+	Quando registrar o \emph{listener}, é importante indicar o intervalo de atualização (terceiro parâmetro), \texttt{SENSOR\_DELAY\_NORMAL} é o mais lento. 
+	
+	Esse capítulo buscou apenas dar uma introdução bem simples ao uso de sensores, mas mais especificamente o uso do acelerômetro. Todos os sensores podem ser programados de forma similar. 
+
+\chapter{Bluetooth}
 
 \end{singlespace}
 
