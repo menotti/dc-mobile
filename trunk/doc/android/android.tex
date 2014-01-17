@@ -2289,6 +2289,161 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 \chapter{Bluetooth}
 
+	O Android providencia uma API para conectar o aparelho em outros dispositivos \emph{Bluetooth}, sejam outros celulares, \emph{tablets}, fones de ouvido e até mesmo HDP \emph{(Health Device Profile)} que é um tipo de conexão \emph{Bluetooth} para aparelhos médicos. Com a API para \emph{Bluetooth} você pode: sondar outros dispositivos \emph{Bluetooth}, buscar por dispositivos já pareados, estabelecer conexão, transferir dados e gerenciar múltiplas conexões.
+
+	Para exemplificar iremos construir uma pequena aplicação que envia uma mensagem para um dispositivo pareado. Esse exemplo irá introduzir diversos novos conceitos do sistema Android e do próprio Java, entre eles: \texttt{BroadcastReceiver}, \texttt{Thread}, \texttt{Handler}, \texttt{Runnable}, além claro, do \texttt{Bluetooth}.
+ 
+	 Primeiro nossa aplicação deve recuperar todos os dispositivos \emph{bluetooth} já conhecidos, ou seja, aqueles que já foram pareados com o nosso aparelho. Colocaremos numa \texttt{ListView} tanto os dispositivos pareados como aqueles novos que iremos procurar. 
+
+	Iniciaremos com uma classe que chamei de \texttt{DeviceListActivity}, essa \emph{activity} irá mostrar a lista dos dispositivos encontrados, ao se clicar em um desses dispositivos, uma mensagem será enviada através de um \emph{socket}. Somente se o outro dispositivo estiver rodando a aplicação no mesmo momento é que a mensagem poderá ser visualizada.
+
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/activity.java}
+	\caption{Classe \texttt{DeviceListActivity}}
+	\label{code:bluetooth-activity}
+	\end{listing} 			
+
+	Usaremos um \texttt{ArrayAdapter}\footnote{\href{http://developer.android.com/reference/android/widget/ArrayAdapter.html}{http://developer.android.com/reference/android/widget/ArrayAdapter.html}} para mostrar na lista o nome e o endereço MAC dos dispositivos. Além disso, a variável \texttt{BluetoothAdapter}\footnote{\href{http://developer.android.com/reference/android/bluetooth/BluetoothAdapter.html}{http://developer.android.com/reference/android/bluetooth/BluetoothAdapter.html}} é usada para iniciar a varredura por novos dispositivos, obter a lista de dispositivos pareados instanciar um \texttt{BluetoothDevice}\footnote{\href{http://developer.android.com/reference/android/bluetooth/BluetoothDevice.html}{http://developer.android.com/reference/android/bluetooth/BluetoothDevice.html}} e criar um \texttt{BluetoothServerSocket}\footnote{\href{http://developer.android.com/reference/android/bluetooth/BluetoothServerSocket.html}{http://developer.android.com/reference/android/bluetooth/BluetoothServerSocket.html}} que irá aceitar novas conexões. 
+
+	Agora já iremos para o método \texttt{onCreate()}, nesse método 4 importantes passos deverão ser seguidos. Os três primeiros estão sendo mostrados no código abaixo.
+
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/oncreate1.java}
+	\caption{Primeira parte do método \texttt{onCreate()}}
+	\label{code:bluetooth-oncreate1}
+	\end{listing} 			
+
+	O primeiro passo, marcado na linha 6, é obter a referência do adaptador \emph{bluetooth} com a chamada ao método \texttt{BluetoothAdapter.getDefaultAdapter()}. Caso esse método retorne \texttt{null} então o aparelho Android não \emph{hardware Bluetooth}. 
+
+	O segundo passo é verificar se o \emph{Bluetooth} está ativado, essa verificação é feita com uma chamada ao método \texttt{isEnbaled()} como é feito na linha 13. Se o retorno for falso então nós iremos perguntao ao usuário se ele gostaria de ativar o adaptador \emph{Bluetooth}. Para isso é necessário lançar um \texttt{Intent} com \emph{action} igual à \texttt{BluetoothAdapter.ACTION\_REQUEST\_ENABLE}. Ao chamar \texttt{startActivityForResult()} um alerta irá perguntar ao usuário se ele quer ativar o \emph{Bluetooth}. A variável \texttt{REQUEST\_ENABLE\_BT} pode ser qualquer valor maior que 0.  
+
+	O terceiro passo é obter todos os dispositivos já pareados, a classe \texttt{BluetoothAdapter} mantém uma lista desses dispositivos que pode ser obtida com a chamada ao método \texttt{getBondedDevices()}. Depois, adicionaremos o nome e endereço MAC desses dispositivos pareados à \texttt{ListView} usando o \texttt{ArrayAdapter}. 
+
+	O método \texttt{onActivityResult} não precisa de nada especial. Mostrar para o usuário um \emph{feedback} já é suficiente.
+
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/onactivityresult.java}
+	\caption{Método \texttt{onActivityResult()}}
+	\label{code:bluetooth-onactivityresult}
+	\end{listing} 			
+
+	Voltando ao método \texttt{onCreate()} Observe o comentário \texttt{// [1]} na linha 31 do algoritmo \ref{code:bluetooth-oncreate1}, nesse pedaço do código iremos adicionar um rodapé na \texttt{ListView} com um botão que iniciará a varredura por novos dispositivos.
+
+	Apesar de não ter apresentado este conceito antes, rodapés e cabeçalhos em \texttt{ListViews} são bem simples, construa um \emph{layout} XML e use o \texttt{LayoutInflater} para obter a \texttt{View}, depois adicione essa \texttt{View} à lista usando \texttt{addFooterView()}. Rodapés e cabeçalhos precisam ser adicionados à \texttt{ListView} antes de definir o adaptador. Também adicionaremos um \emph{listener} a um botão para que ele inicie a varredura. O método \texttt{startDiscovery()} é usado para fazer a varredura.
+
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/oncreate2.java}
+	\caption{Segunda parte do método \texttt{onCreate()}}
+	\label{code:bluetooth-oncreate2}
+	\end{listing} 			
+
+	Porém, chamar \texttt{startDiscovery()} não é suficiente, é necessário construir um \texttt{BroadcastReceiver} para capturar os \texttt{Intents} que tenham as informações dos dispositivos \emph{Bluetooth} que foram descobertos.
+
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/broadcast.java}
+	\caption{\texttt{BroadcastReceiver} que captura dispositivos \emph{Bluetooth}}
+	\label{code:bluetooth-broadcastreceiver}
+	\end{listing} 			
+
+	O que esse \texttt{BroadcastReceiver} está fazendo é capturar os \texttt{Intents} e verificar em quais deles o campo \emph{action} equivale a \texttt{BluetoothDevice.ACTION\_FOUND}. Sendo positivo, é obtido um \texttt{BluetoothDevice} que veio no campo \emph{extra} do \texttt{Intent}. Então repetimos o procedimento de adicionar esse dispositivo no adaptador da lista. É necessário criar um \texttt{IntentFilter}\footnote{\href{http://developer.android.com/reference/android/content/IntentFilter.html}{http://developer.android.com/reference/android/content/IntentFilter.html}} para ser usado com o \texttt{BroadcastReceiver}.
+
+	Porém, para o \texttt{BroadcastReceiver} começar a funcionar é necessário registrá-lo com o método \texttt{registerReceiver()}. É importante também remove-lo com o método \texttt{unregisterReceiver()} no método \texttt{onDestroy()}.
+
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/register.java}
+	\caption{Registrando e removendo o \texttt{BroadcastRegister}}
+	\label{code:bluetooth-registerbroadcast}
+	\end{listing} 			
+
+	Agora, iremos criar três \emph{threads}. A primeira, chamada de \texttt{AcceptThread} será responsável por instânciar um \texttt{BluetoothSocketServer} e aceitar uma nova conexão vinda de um outro dispositivo. A segunda, \texttt{ConnectThread} será usada quando a aplicação funcionar como cliente, essa \emph{thread} irá tentar estabeceler uma conexão com outro dispositivo. Já a terceira, \texttt{ConnectedThread} será usada em ambos os casos, para gerenciar a conexão e a entrada e saída de dados. Todas essas \emph{threads} estão escritas como classes \emph{inline} (dentro da classe \texttt{DeviceListActivity}).
+
+	A primeira \emph{thread}, \texttt{AcceptThread}, irá instanciar um \texttt{BluetoothServerSocket}\footnote{\href{http://developer.android.com/reference/android/bluetooth/BluetoothServerSocket.html}{http://developer.android.com/reference/android/bluetooth/BluetoothServerSocket.html}}  usando o método \texttt{listenUsingRfcommWithServiceRecord()}, esse método cria um \emph{socket} seguro, toda informação será criptografada. Os parâmetros são \texttt{name} e \texttt{uuid}, \texttt{name} é o nome do serviço que nesse caso pode ser qualquer coisa. Já o \texttt{uuid} é um identificador universal único para ser usado com a aplicação, pode-se obter um número usando geradores aleatórios de UUID disponíveis na web. A \emph{thread} irá ficar tentando escutar uma conexão com o método \texttt{accept()}. Note que este método é bloqueante e irá retornar um \emph{socket} se a conexão foi aceita ou irá gerar uma exceção.
+Como não queremos aceitar mais nenhuma conexão, chamamos \texttt{close()} que irá fechar o \texttt{BluetoothServerSocket} mas não irá fechar o \texttt{BluetoothSocket} criado, mantendo a conexão.
+
+Se o \emph{socket} conseguir ser instanciado corretamente, iremos chamar o método \texttt{manageConnection()}, responsável por instanciar a \emph{thread} que gerencia a conexão. 
+
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/acceptthread.java}
+	\caption{Classe \texttt{AcceptThread}}
+	\label{code:bluetooth-acceptthread}
+	\end{listing} 			
+
+	O algoritmo \ref{code:bluetooth-connectthread} abaixo mostra a segunda \emph{thread}, essa \emph{thread} é responsável por estabelecer uma conexão com outro dispositivo que esteja rodando a mesma aplicação, por isso é usado o mesmo UUID. O construtor irá receber um \texttt{BluetoothDevice}, que foi selecionado da lista, e tentará criar a conexão com o método \texttt{createRfcommSocketToServiceRecord()}. A \emph{thread} irá cancelar a varredura e irá tentar conectar ao socket usando \texttt{connect()}, que também é uma chamada bloqueante. Se a conexão falhar ou ocorrer um \emph{timeout}, ele irá gerar uma exceção. Por segurança, chamamos \texttt{close()} dentro do bloco \texttt{catch} para tentar fechar o \emph{socket} e liberar os recursos do aparelho. Se tudo der certo, chamamos o método \texttt{manageConnection} que veremos logo. Por enquanto deixaremos a linha 29 em cheque, voltaremos logo nela.
+
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/connectthread.java}
+	\caption{Classe \texttt{ConnectThread}}
+	\label{code:bluetooth-connectthread}
+	\end{listing} 	
+
+	O método \texttt{manageConnection()} apenas irá instanciar a \emph{thread} \texttt{ConnectedThread}.
+
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/manage.java}
+	\caption{Método \texttt{manageConnection()}}
+	\label{code:bluetooth-manage}
+	\end{listing} 	
+
+	Agora veremos a última \emph{thread}, essa resposável pela entrada e saída de dados através do \emph{socket}.
+
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/connected.java}
+	\caption{Classe \texttt{ConnectedThread}}
+	\label{code:bluetooth-connected}
+	\end{listing} 	
+
+	Primeiro obtemos o \texttt{InputStream} e \texttt{OutputStream} do \emph{socket} usando os métodos \texttt{getInputStream()} e \texttt{getOutputStream()}, respectivamente. Você pode ler e escrever o fluxo de dados usando \texttt{read()} e \texttt{write()}, é necessário fazer isso numa \emph{thread} pois essas chamadas são bloqueantes. O método \texttt{read()} irá bloquear enquanto não houver nada para ler e o método \texttt{write()} pode bloquear caso o outro lado esteja lendo os \emph{buffers} muito lentamente. 
+
+	A \emph{thread} irá repetir enquanto não houver excessão e ficará tentando ler do \emph{stream} usando \texttt{read()}. Aqui novamente colocaremos a linha 28 em cheque e voltaremos nela posteriormente. Faremos também um método \texttt{write()} para essa classe, para embrulhar o método do \emph{socket}, que poderá ser chamado da \emph{activity}.
+
+	Agora, dois métodos, um para receber e mostrar a mensagem e outro para enviar a mensagem. O método \texttt{writeMessage()}, abaixo, abre um alerta com um \texttt{EditText} em que o usuário pode escrever a mensagem para ser enviada.
+
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/writemessage.java}
+	\caption{Método \texttt{writeMessage()}}
+	\label{code:bluetooth-writemessage}
+	\end{listing} 	
+	 
+	O método \texttt{showMessage()} mostra a mensagem recebida em um \texttt{Toast}.
+
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/showmessage.java}
+	\caption{Método \texttt{showMessage()}}
+	\label{code:bluetooth-showmessage}
+	\end{listing} 	
+
+	Com isso, podemos voltar e explicar a linha 29 do algoritmo \ref{code:bluetooth-acceptthread} e a linha 28 do algoritmo \ref{code:bluetooth-connected}. Essas são chamadas para o \texttt{Handler} da \emph{UI thread}. Dessa forma, podemos chamar métodos que precisam estar na \emph{UI thread}, mas fora dela. A chamada irá esperar até que a \emph{UI thread} entre para executar.
+
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/handler.java}
+	\caption{\texttt{Handler} e \texttt{Runnable}}
+	\label{code:bluetooth-handler}
+	\end{listing} 	
+
+	Os \texttt{Runnable} estão encarregados de executar os dois métodos, para mostrar e enviar a mensagem. O \texttt{Handler} irá chamar o \texttt{Runnable} quando estiver na \emph{UI thread}.
+
+	Agora é necessário implementar o método \texttt{onItemClick} para abrir a conexão com o dispositivo selecionado.
+
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/onitemlick.java}
+	\caption{Implementação do método \texttt{onItemClick()}}
+	\label{code:bluetooth-onitemclick}
+	\end{listing} 	
+
+	Obtemos a \emph{string} do adaptador e usamos \texttt{split} para separar somente o endereço MAC. Criamos uma \texttt{ConnectThread} para conectar ao dispositivo \emph{Bluetooth}.
+
+	Por último iremos completar o método \texttt{onCreate()} (algoritmo \ref{code:bluetooth-oncreate1}), onde antes tinha \texttt{// [2]} complete com uma chamada à \texttt{AcceptThread}. 
+
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/oncreate3.java}
+	\caption{Terceira parte do método \texttt{onCreate()}}
+	\label{code:bluetooth-oncreate3}
+	\end{listing} 	
+
+	Com isso, finalizamos a aplicação. É recomendável verificar o projeto completo no repositório caso ainda existam dúvidas. Qualquer tipo de dado em forma de um \emph{array} de \emph{bytes} pode ser enviado através do canal de comunicação \emph{Bluetooth}, nesse exemplo estamos enviando apenas uma mensagem mas poderia ser qualquer tipo de arquivo.
+
+	
+
 \end{singlespace}
 
 
