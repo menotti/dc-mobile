@@ -1,4 +1,5 @@
-		\documentclass[a4paper,12pt,brazil]{book}
+% !TEX program = xelatexmk
+\documentclass[a4paper,12pt,brazil]{book}
 
 % tentei incluir o da pasta comum mas não funcionou
 % \include{../comum/header}
@@ -53,10 +54,10 @@
 \addcontentsline{toc}{section}{Resumo}
 
 \begin{singlespace}
-Esse material didático oferece uma visão geral de como programar para o sistema móvel Android e utilizar suas APIs nativas na criação de aplicativos. O material tentará cobrir desde o básico, como a configuração do ambiente de desenvolvimento, criação de layouts básicos e complexos, estrutura geral de um aplicativo e ir até a programação de aplicativos mais complexos que tentam utilizar uma ou várias APIs em conjunto.
+Esse material didático oferece uma visão geral de como programar para o sistema móvel Android e utilizar suas APIs nativas na criação de aplicativos. O material tentará cobrir desde o básico, como a configuração do ambiente de desenvolvimento, criação de layouts básicos e complexos, estrutura geral de um aplicativo e, finalmente, apresentar a programação de aplicativos mais complexos que utilizam APIs nativas.
 
-O objetivo é dar apenas uma noção de como utilizar as ferramentas do Android, introduzir ao aluno os conceitos e não entrar em detalhes do sistema operacional ou em conceitos mais aprofundados, mas sim uma visão genérica.
-Após a leitura desse material e realização da prática o aluno deve estar preparado para construir seus próprios aplicativos nativos, e poderá até monetizar seus aplicativos se desejar.
+O objetivo é fornecer noções sobre como utilizar as ferramentas do Android, introduzir os conceitos sem entrar em detalhes aprofundados do sistema operacional e assim disponibilizar uma visão básica sobre o assunto.
+Após a leitura desse material e realização da prática o leitor deverá estar preparado para construir seus próprios aplicativos nativos, e poderá até monetizá-los se desejar.
 \end{singlespace}
 
 \clearpage % se o verso ficar em branco...
@@ -161,8 +162,8 @@ Caso opte por utilizar uma instalação já existente do ambiente Eclipse, você
 \section{Linguagem}
 A linguagem usada para programar na plataforma Android é Java. Então antes de engajar no aprendizado Android é altamente recomendável estudar material Java e principalmente o paradigma de orientação a objetos.
 
-O Android tem algumas particulariedades na organização e configuração que é feita através de arquivos XML específicos do Android. Alguns arquivos XML servem para configurar o aplicativo, layout de cada tela e outros dão suporte a strings para facilitar o suporte a múltiplos idiomas.
-Felizmente o conjunto Eclipse com ADT já cuida disso automaticamente e possui uma serie de facilidades alcançadas por meio de interfaces gráficas para os programadores. Por esse motivo, para qualquer iniciante nessa área e recomendável a utilizacão do ambiente Eclipse.
+O Android tem algumas particularidades na organização e configuração que é feita através de arquivos XML específicos do Android. Alguns arquivos XML servem para configurar o aplicativo, layout de cada tela e outros dão suporte a strings para facilitar o suporte a múltiplos idiomas.
+Felizmente o conjunto Eclipse com ADT já cuida disso automaticamente e possui uma série de facilidades alcançadas por meio de interfaces gráficas para os programadores. Por esse motivo, para qualquer iniciante nessa área é recomendável a utilizacão do ambiente Eclipse.
 
 A criação de layouts dos aplicativos pode ser feita inteiramente através da interface gráfica disponível no ambiente, no estilo \textit{drag and drop}. 
 
@@ -176,7 +177,7 @@ Dentre os diversos arquivos XML existentes na configuração de um aplicativo An
  
  A pasta \texttt{src/} contém o pacote com as classes do seu aplicativo isto é, o código fonte do seu aplicativo. Tanto \emph{activites} como classes de suporte devem estar dentro do pacote.
 
-Dentro da pasta \texttt{res/} de recursos, encontram-se outros arquivos, referentes à disposição do layout, valores de strings e imagens que sua aplicação irá utilizar. A pasta \texttt{layout/} junto com as pastas \texttt{drawable-*/} servem para dispor o layout. Cada \textit{drawable} comporta imagens para um tamanho diferente de tela, enquanto que a pasta de \textit{layout} contém a dispoção geral do layout. São nesses arquivos que se colocam os itens \emph{(views)} que irão nas telas, como botões, caixas de texto, caixas de seleção, etc.
+Dentro da pasta \texttt{res/} de recursos, encontram-se outros arquivos, referentes à disposição do layout, valores de strings e imagens que sua aplicação irá utilizar. A pasta \texttt{layout/} junto com as pastas \texttt{drawable-*/} servem para dispor o layout. Cada \textit{drawable} comporta imagens para um tamanho diferente de tela, enquanto que a pasta de \textit{layout} contém a disposição geral do layout. São nesses arquivos que se colocam os itens \emph{(views)} que irão nas telas, como botões, caixas de texto, caixas de seleção, etc.
 
 Na pasta \texttt{values/} o mais importante é o arquivo \texttt{strings.xml} que contém os valores das strings do aplicativo. Sempre que você quiser referenciar alguma string, a mesma deverá estar expressa nesse arquivo. Fica fácil dessa forma fazer o aplicativo suportar múltiplos idiomas, pois basta traduzir esse único arquivo para alterar todos os textos do aplicativo.
 
@@ -247,7 +248,7 @@ Observe na Figura 4.1 a janela de criação de uma nova aplicação Android. Em 
 \textbf{Dica:} Para obter o máximo de compatibilidade sempre procure utilizar \emph{layouts} compatíveis com versões antigas, observe na figura 1.1 que versões antigas ainda tem uma fatia considerável do mercado.
 \end{framed}
 
-A figura 4.2 mostra a segunda janela da configuração inicial do seu aplicativo. Você pode escolher um ícone personalizado se marcar a caixa \emph{Create custom launcher icon} o que te levará para a janela da figura 4.3. Se marcar \emph{Create Activity}  o assistente de criação te levará para a janela da figura 4.4 onde poderá escolher qual \emph{activity} vai ser criada para seu aplicativo. Em todos os exemplos escolheremos a opção \emph{Blank Activity}. Como nosso projeto não e uma biblioteca não marcaremos \emph{Mark this project as a library}. Se marcar \emph{Create Project in Workspace} o assistente irá salvar o projeto na pasta que foi configurada para o \emph{Workspace}, caso contrário ele irá pedir para escolher outro caminho. Como não trabalharemos com \emph{Working Sets} do Eclipse, a opção \emph{Add project to working sets} permanece desmarcada. 
+A figura 4.2 mostra a segunda janela da configuração inicial do seu aplicativo. Você pode escolher um ícone personalizado se marcar a caixa \emph{Create custom launcher icon} o que te levará para a janela da figura 4.3. Se marcar \emph{Create Activity}  o assistente de criação te levará para a janela da figura 4.4 onde poderá escolher qual \emph{activity} vai ser criada para seu aplicativo. Em todos os exemplos escolheremos a opção \emph{Blank Activity}. Como nosso projeto não é uma biblioteca não marcaremos \emph{Mark this project as a library}. Se marcar \emph{Create Project in Workspace} o assistente irá salvar o projeto na pasta que foi configurada para o \emph{Workspace}, caso contrário ele irá pedir para escolher outro caminho. Como não trabalharemos com \emph{Working Sets} do Eclipse, a opção \emph{Add project to working sets} permanece desmarcada. 
 
 Finalmente a figura 4.5 mostra a janela para nomear a \emph{activity} inicial, nesse exemplo mantive \emph{MainActivity}. O nome do \emph{layout} dessa \emph{activity} mantive como \emph{activity\_main} que é o padrão. Na caixa \emph{Navigation Type} existem algumas opções de \emph{layout} pré-definidas pelo Android. São elas:
 \begin{itemize}[noitemsep, nolistsep]
@@ -271,7 +272,7 @@ Você pode configurar a versão do SDK manualmente modificando os valores no \em
 \caption{Exemplo de configuração de versão do SDK no arquivo \texttt{AndroidManifest.xml} }
 \end{listing}
 
-A tag \texttt{uses-sdk} serve apenas para o compilador saber quais versões do Android você pretende que seu aplicativo suporte. Dessa forma quando seu aplicativo for lançado na loja \emph{Google Play} o aplicativo só será visível para aqueles usuários que possuem a versão mínima do Android indicana no atributo.
+A tag \texttt{uses-sdk} serve apenas para o compilador saber quais versões do Android você pretende que seu aplicativo suporte. Dessa forma quando seu aplicativo for lançado na loja \emph{Google Play} o aplicativo só será visível para aqueles usuários que possuem a versão mínima do Android indicada no atributo.
 
 Primeiro vamos criar um \emph{layout} para o aplicativo usando o construtor de interfaces presente no ambiente, primeiro abra o arquivo \texttt{res/layout/activity\_main.xml} , segundo o \emph{manifest}, é essa \emph{activity} que será aberta quando o aplicativo for iniciado, isso é configurado através do \emph{intent-filter}\footnote{Mais informações na seção \ref{sec:especac}}. 
 
@@ -293,7 +294,7 @@ A tela deverá ficar parecida com a da figura 4.4. Agora arraste um \textit{Text
   \label{fig:a}
 \end{figure}
 
-Ao clicar duas vezes no elemento no modo visual, você sera levado ao marcador desse elemento no XML correspondente da \emph{activity}. Clique duas vezes na caixa de texto, o seguinte código será exibido:
+Ao clicar duas vezes no elemento no modo visual, você seré levado ao marcador desse elemento no XML correspondente da \emph{activity}. Clique duas vezes na caixa de texto, o seguinte código será exibido:
 
 \begin{listing}
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/firstapp/1.xml}
@@ -356,7 +357,7 @@ Agora iremos obter o texto que está escrito na caixa para fazer algo com ele, n
 \caption{Obtendo o conteúdo da caixa de texto e enviando para outra \emph{activity}}
 \end{listing}
 
-O código na linha 3 está obtendo a referência a caixa de texto usando o método \texttt{findViewById()} passando o \textit{id} da caixa de texto como parâmetro, esse \emph{id} é obtido acessando uma variável estática da classe \texttt{R}  (observe que esse e o mesmo \emph{id} que voce colocou no arquivo xml do layout da \emph{activity}).
+O código na linha 3 está obtendo a referência da caixa de texto usando o método \texttt{findViewById()} passando o \textit{id} da caixa de texto como parâmetro, esse \emph{id} é obtido acessando uma variável estática da classe \texttt{R}  (observe que esse e o mesmo \emph{id} que voce colocou no arquivo xml do layout da \emph{activity}).
 Em seguida usando o método \texttt{getText()} da caixa de texto, obtem-se a \emph{string} que foi escrita pelo usuário.
 
 Por fim, essa \emph{string} é colocada no \texttt{Intent} com o método \texttt{putExtra()}, uma \texttt{Intent} pode carregar consigo uma coleção de vários tipos de dados como pares chave-valor chamados \textit{extras}, esse método toma a chave como primeiro parâmetro e o valor no segundo parâmetro.
@@ -390,7 +391,7 @@ Agora, precisamos extrair os dados enviados a essa \emph{activity} através do \
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/firstapp/8.java}
-\caption{Obtendo a \emph{string} passada como extra passados através do \texttt{Intent}}
+\caption{Obtendo a \emph{string} passada como extra do \texttt{Intent}}
 \label{code:obtendo-string-intent}
 \end{listing}
 
@@ -773,7 +774,7 @@ Para finalizar, você deve construir os objetos na classe da \emph{activity}, ne
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/exlist-main.java}
-\caption{Construindo a lista expandível na \emph{activity}}
+\caption{Construindo a lista expansível na \emph{activity}}
 \label{code:listaexp-ac}
 \end{listing}	
 
@@ -836,7 +837,7 @@ Exemplo acima rodando em um \emph{smartphone} na figura 5.13:
 \begin{figure}[H]
   \centering
   \includegraphics[width=.475\textwidth]{figuras/design/grade-exemplo1.png}
-  \caption{Demonstração de um \texttt{Grid view}}
+  \caption{Demonstração de um \texttt{GridView}}
   \label{fig:e}
 \end{figure}
 
@@ -1268,7 +1269,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/comm/httppost.java}
-		\caption{Modificando o método para requsições \emph{POST}}
+		\caption{Modificando o método para requisições \emph{POST}}
 		\label{code:httppost}
 		\end{listing} 
 
@@ -1397,17 +1398,17 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 		Para criar um novo arquivo você deve invocar o método \texttt{openFileOutput()} passando o nome do arquivo e o modo de operação. Esse método irá retornar um \texttt{FileOutputStream}. Você poderá escrever nesse arquivo chamando o método \texttt{FileOutputStream.write()} e \texttt{FileOutputStream.close()} para fechar o arquivo.
 
-		Para exemplificar, faremos um aplicativo do tipo bloco de notas. Será composto de dois botões, um para abrir um arquivo e outro para salvar um arquivo, e uma caixa de texto para escrever. Tudo será feito no método \texttt{onCreate()}, primeiro  usamos \texttt{findViewById()} para obter as \emph{views}. O botão de salvar irá abrir um dialogo perguntando o nome do arquivo, e o botão de abrir mostrará um dialogo permitindo ao usuário escolher dentre os arquivos já salvos anteriormente.
+		Para exemplificar, faremos um aplicativo do tipo bloco de notas. Será composto de dois botões, um para abrir um arquivo e outro para salvar um arquivo, e uma caixa de texto para escrever. Tudo será feito no método \texttt{onCreate()}, primeiro  usamos \texttt{findViewById()} para obter as \emph{views}. O botão de salvar irá abrir um alerta perguntando o nome do arquivo, e o botão de abrir mostrará um alerta permitindo ao usuário escolher dentre os arquivos já salvos anteriormente.
 
-		No código abaixo criamos o \emph{listener} do botão de salvar, dentro dele criamos um dialogo e precisamos de um \emph{listener} para confirmar e um para cancelar.
+		No código abaixo criamos o \emph{listener} do botão de salvar, dentro dele criamos um alerta e precisamos de um \emph{listener} para confirmar e um para cancelar.
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/storage/internal1.java}
-		\caption{Passos iniciais do \emph{listener}, criando um dialogo.}
+		\caption{Passos iniciais do \emph{listener}, criando um alerta.}
 		\label{code:internal1}
 		\end{listing} 	
 		\newpage
-		Com o \texttt{AlertDialog.Builder} começamos a construir um novo diálogo. Usamos o \texttt{LayoutInflater} para carregar o \emph{layout} com uma \texttt{EditText}.
+		Com o \texttt{AlertDialog.Builder} começamos a construir um novo alerta. Usamos o \texttt{LayoutInflater} para carregar o \emph{layout} com uma \texttt{EditText}.
 		Chamamos \texttt{setPositivoButton()} para criar um \emph{listener} que irá salvar o arquivo quando o botão for clicado.
 
 		\begin{listing}[H]
@@ -1416,38 +1417,38 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:internal2}
 		\end{listing} 	
 
-		Vamos analisar o algoritmo \ref{code:internal2}. Na linha 5 queremos a referência ao \texttt{EditText} contido no diálogo, para isso precisamos usar a variável \texttt{fnameEntry} criada ao chamar o método \texttt{LayoutInflater.inflate()}. Depois, na linha 7-8 certificamos que o nome do arquivo não será vazio (se for vazio, o arquivo não é salvo), para isso atribuimos o nome \emph{untitled} a ele. Obtemos também o texto escrito na caixa de texto da \emph{activity} na linha 9.
+		Vamos analisar o algoritmo \ref{code:internal2}. Na linha 5 queremos a referência ao \texttt{EditText} contido no alerta, para isso precisamos usar a variável \texttt{fnameEntry} criada ao chamar o método \texttt{LayoutInflater.inflate()}. Depois, na linha 7-8 certificamos que o nome do arquivo não será vazio (se for vazio, o arquivo não é salvo), para isso atribuimos o nome \emph{untitled} a ele. Obtemos também o texto escrito na caixa de texto da \emph{activity} na linha 9.
 
 		Agora que já temos o nome e os dados do arquivo, precisamos efetivamente salvá-lo no armazenamento interno. Com o método \texttt{openFileOutput()} teremos um \texttt{FileOutputStream} que servirá para escrever os dados no arquivo. Isso é feito nas linhas 13-14 com o método \texttt{write()} e em seguida o método \texttt{close()}.
 		Para certificar ao usuário que o arquivo foi salvo, mostramos um \texttt{Toast} com a mensagem que o arquivo foi salvo.
 
-		Se o usuário clicar em \emph{cancel} no diálogo, precisamos fechá-lo, basta invocar \texttt{dialog.close()} no \emph{listener}.
+		Se o usuário clicar em \emph{cancel} no alerta, precisamos fechá-lo, basta invocar \texttt{dialog.close()} no \emph{listener}.
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/storage/internal3.java}
-		\caption{Fechando o dialogo ao clicar em \emph{close}}
+		\caption{Fechando o alerta ao clicar em \emph{close}}
 		\label{code:internal3}
 		\end{listing} 	
 
-		Depois chame \texttt{builder.create().show()} no \texttt{listener} do botão \emph{Save} para mostrar o diálogo.
+		Depois chame \texttt{builder.create().show()} no \texttt{listener} do botão \emph{Save} para mostrar o alerta.
  
-		Para o botão \emph{Open} iremos mostrar um dialogo com os nomes dos arquivos salvos anteriormente, quando um desses for clicado o arquivo se abrirá preenchendo a caixa de texto.
+		Para o botão \emph{Open} iremos mostrar um alerta com os nomes dos arquivos salvos anteriormente, quando um desses for clicado o arquivo se abrirá preenchendo a caixa de texto.
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/storage/internal4.java}
-		\caption{Criando um diálogo com os arquivos salvos}
+		\caption{Criando um alerta com os arquivos salvos}
 		\label{code:internal4}
 		\end{listing} 	
 	
-		Dessa vez usamos o método \texttt{builder.setItems()} para construir uma lista no diálogo. O método \texttt{fileList()} retorna um \texttt{array} de nomes de arquivo que foram armazenados internalmente no aplicativo. 
+		Dessa vez usamos o método \texttt{builder.setItems()} para construir uma lista no alerta. O método \texttt{fileList()} retorna um \texttt{array} de nomes de arquivo que foram armazenados internalmente no aplicativo. 
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/storage/internal5.java}
-		\caption{Criando um diálogo com os arquivos salvos}
+		\caption{Criando um alerta com os arquivos salvos}
 		\label{code:internal5}
 		\end{listing} 	
 		
-		Na linha 7 do algoritmo \ref{code:internal5} queremos obter a referência do arquivo selecionado. Chamando o método \texttt{getFilesDir()} nos é fornecido o diretório contendo os arquivos, com \texttt{listFiles()} temos um \emph{array} de \texttt{Files} e o selecionamos com a variável \texttt{which}, que é a posição clicada na lista do diálogo. Para ler os dados desse arquivo, usamos a classe \texttt{BufferedReader} e guardamos as linhas sendo lidas em um objeto do tipo \texttt{StringBuilder}. Nas linhas 13-16 lemos cada linha do arquivo em um loop \emph{while} e usamos o método \texttt{append()} duas vezes, uma para adicionar a linha lida na \emph{string} e outra para adicionar o separador de linha (comummente \textbackslash n). Ao fim invocamos \texttt{close()} para fechar o \texttt{BufferedReader}. E colocamos o texto lido de volta na caixa de texto.
+		Na linha 7 do algoritmo \ref{code:internal5} queremos obter a referência do arquivo selecionado. Chamando o método \texttt{getFilesDir()} nos é fornecido o diretório contendo os arquivos, com \texttt{listFiles()} temos um \emph{array} de \texttt{Files} e o selecionamos com a variável \texttt{which}, que é a posição clicada na lista do alerta. Para ler os dados desse arquivo, usamos a classe \texttt{BufferedReader} e guardamos as linhas sendo lidas em um objeto do tipo \texttt{StringBuilder}. Nas linhas 13-16 lemos cada linha do arquivo em um loop \emph{while} e usamos o método \texttt{append()} duas vezes, uma para adicionar a linha lida na \emph{string} e outra para adicionar o separador de linha (comummente \textbackslash n). Ao fim invocamos \texttt{close()} para fechar o \texttt{BufferedReader}. E colocamos o texto lido de volta na caixa de texto.
 
  		\dica{Você também pode optar por salvar seus arquivos no \emph{cache}, isto é, na pasta \emph{cache} da sua aplicação. Esses arquivos são apagados automaticamente quando o sistema necessita de memória. Para isso use o método \texttt{getCacheDir()} para obter o caminho do diretório de \emph{cache}.}
 
@@ -2043,9 +2044,9 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:simpletext}
 		\end{listing} 		
 
-		Contanto que exista um aplicativo instalado no aparelho com um filtro que aceite \texttt{ACTION\_SEND} e o tipo \texttt{MIME} \texttt{"text/plain"} o Android irá executá-lo, caso exista mais de um então um diálogo aparecerá perguntando qual aplicativo o usuário deseja escolher para receber o \texttt{Intent}. 
+		Contanto que exista um aplicativo instalado no aparelho com um filtro que aceite \texttt{ACTION\_SEND} e o tipo \texttt{MIME} \texttt{"text/plain"} o Android irá executá-lo, caso exista mais de um então um alerta aparecerá perguntando qual aplicativo o usuário deseja escolher para receber o \texttt{Intent}. 
 
-		\dica{Se chamar \texttt{Intent.createChooser()} então o Android sempre irá mostrar o diálogo. Você pode configurar o texto a ser mostrado no parâmetro.}
+		\dica{Se chamar \texttt{Intent.createChooser()} então o Android sempre irá mostrar o alerta. Você pode configurar o texto a ser mostrado no parâmetro.}
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/sharing/createchooser.java}
@@ -2425,7 +2426,7 @@ Se o \emph{socket} conseguir ser instanciado corretamente, iremos chamar o méto
 	Agora é necessário implementar o método \texttt{onItemClick} para abrir a conexão com o dispositivo selecionado.
 
 	\begin{listing}[H]
-	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/onitemlick.java}
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/onitemclick.java}
 	\caption{Implementação do método \texttt{onItemClick()}}
 	\label{code:bluetooth-onitemclick}
 	\end{listing} 	
@@ -2440,9 +2441,39 @@ Se o \emph{socket} conseguir ser instanciado corretamente, iremos chamar o méto
 	\label{code:bluetooth-oncreate3}
 	\end{listing} 	
 
-	Com isso, finalizamos a aplicação. É recomendável verificar o projeto completo no repositório caso ainda existam dúvidas. Qualquer tipo de dado em forma de um \emph{array} de \emph{bytes} pode ser enviado através do canal de comunicação \emph{Bluetooth}, nesse exemplo estamos enviando apenas uma mensagem mas poderia ser qualquer tipo de arquivo.
+	Com isso, finalizamos a aplicação. É recomendável verificar o projeto completo no repositório caso ainda existam dúvidas. Qualquer tipo de dado em forma de um \emph{array} de \emph{bytes} pode ser enviado através do canal de comunicação \emph{Bluetooth}. Nesse exemplo estamos enviando apenas uma mensagem mas poderia ser qualquer tipo de arquivo.
+
+
+\chapter{Internacionalização}
+
+	É possível fazer com que sua aplicação dê suporte a diversos idiomas, o Android fornece uma maneira fácil de internacionalizar suas \emph{strings} e \emph{bitmaps}. 
+
+	Antes nós usamos o arquivo de recursos \texttt{strings.xml} para armazenar qualquer tipo de texto dos nossos exemplos. Dessa forma você consegue manter esse tipo de informação separada do código. Isso permite separar os textos por idioma, quando isso acontece o Android muda automaticamente o idioma do aplicativo de acordo com o idioma do aparelho.
+	
+	Para adicionar suporte a mais idiomas, crie diretórios \texttt{values/} adicionais dentro do diretório \texttt{res/} que incluam um hífen e o código ISO do país no final. Por exemplo, \texttt{values-es/} para espanhol ou \texttt{values-pt/} para português. Dentro de cada uma dessas pastas você deve ter um arquivo \texttt{string.xml} com os textos traduzidos. Por exemplo, em \texttt{values/string.xml} você deve manter o idioma padrão da aplicação, preferencialmente inglês:
+
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/locale/string-en.xml}
+	\caption{\texttt{strings.xml} padrão}
+	\label{code:locale-strings}
+	\end{listing} 	
+
+	Em \texttt{values-pt/strings.xml} você pode escrever os textos em português:
+
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/locale/string-pt.xml}
+	\caption{\texttt{strings.xml} em português}
+	\label{code:locale-strings-pt}
+	\end{listing} 	
+
+	Outros recursos também podem aproveitar da localização, como é o caso dos \texttt{drawables}. Você pode ter imagens traduzidas dentro dessas pastas.
+
+	Os códigos do idioma seguem o padrão ISO-639-1\footnote{\href{http://en.wikipedia.org/wiki/List\_of\_ISO\_639-1\_codes}{http://en.wikipedia.org/wiki/List\_of\_ISO\_639-1\_codes}}.
+
+	Se você quiser separar por país, por exemplo entre português brasileiro e português de portugual, você deve adicionar o código do país ao nome da pasta, precedido por um \texttt{-r}. Português do brasil seria \texttt{values-pt-rBR/} e de portugual seria \texttt{values-pt-rPT/}.
 
 	
+
 
 \end{singlespace}
 
@@ -2458,14 +2489,5 @@ Se o \emph{socket} conseguir ser instanciado corretamente, iremos chamar o méto
 \doublespace
 
 
-\appendix
-\addtocontents{toc}{\protect\setcounter{tocdepth}{0}} % as seções do apêndice não aparecem do sumário com este comando...
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\ape{apen}{Classes e métodos interessantes}
-
-Em construção...
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
 
 \end{document}
