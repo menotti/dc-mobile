@@ -519,7 +519,7 @@ Quando um usuário abre um aplicativo, o sistema chama o método \texttt{onCreat
 
 %dica
 \begin{framed}
-\textbf{Dica:} Quando você cria um projeto Android no Eclipse, por padrão é incluida uma classe \emph{activity} que está declarada no manifesto com esse filtro.
+\textbf{Dica:} Quando você cria um projeto Android no Eclipse, por padrão é incluída uma classe \emph{activity} que está declarada no manifesto com esse filtro.
 \end{framed}
 
 %%% Tipos de Layout %%%
@@ -738,7 +738,7 @@ Nesses dois \emph{layouts} teremos apenas uma \texttt{TextView} para abrigar um 
 \caption{Layout \texttt{list\_item\_child.xml}}
 \end{listing}	
 
-Em seguida precisamos crare uma classe que irá abrigar os dados dos elementos pai, elementos estes que serão expandidos quando clicados. Nesse exemplo criamos uma classe \emph{Parent}, como mostrado no algoritmo \ref{code:parent}
+Em seguida precisamos criar uma classe que irá abrigar os dados dos elementos pai, elementos estes que serão expandidos quando clicados. Nesse exemplo criamos uma classe \emph{Parent}, como mostrado no algoritmo \ref{code:parent}
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/parent.java}
@@ -766,7 +766,7 @@ Na linha 7 no construtor da calsse, usamos o método \texttt{LayoutInflater.from
 
 Ao extender a classe \texttt{BaseExpandableListAdapter} temos que programar alguns métodos. O método \texttt{getChild()} deve adquirir o ponteiro para um subitem de um item na lista. O método \texttt{getChildId()} deve obter o \emph{id} de um subitem, porém nesse exemplo não temos nada configurado então usamos a própria posição desse subitem como \emph{id} e retornamos \texttt{childPosition}. 
 
-O método \texttt{getChildView} na linha 24 vai atribuir o \emph{layout} dos subitens na linha 28. Na linha 32 obtemos o \texttt{TextView} desse subitem e com o método \texttt{TextView.setText()} atribuimos seu respectivo texto. Esse texto está guardado no \emph{array} chamado \texttt{mArrayChildren} da classe \texttt{Parent}, então a fim de obter esse texto devemos obter o \texttt{Parent} correto. Quando você clica em um item da lista, o Android guarda qual item você clicou no parâmetro \texttt{groupPosition}. Em seguida se obtem o texto de cada subitem pelo parâmetro \texttt{childPosition}.
+O método \texttt{getChildView} na linha 24 vai atribuir o \emph{layout} dos subitens na linha 28. Na linha 32 obtemos o \texttt{TextView} desse subitem e com o método \texttt{TextView.setText()} atribuímos seu respectivo texto. Esse texto está guardado no \emph{array} chamado \texttt{mArrayChildren} da classe \texttt{Parent}, então a fim de obter esse texto devemos obter o \texttt{Parent} correto. Quando você clica em um item da lista, o Android guarda qual item você clicou no parâmetro \texttt{groupPosition}. Em seguida se obtém o texto de cada subitem pelo parâmetro \texttt{childPosition}.
 
 Outro método importante é o \texttt{getGroupView}, funciona da mesma maneira que \texttt{getChildView} mas configurando os \emph{views} dos itens pai em vez dos subitens.
 
@@ -940,8 +940,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	%% TABHOST TABWIDGET %%	
 	\subsection{Usando \texttt{TabHost} e \texttt{TabWidget}}
 	
-	Abas usando essas interfaces são suportados por todas as versões do android	
-	Vamos criar uma interface com abas seguindo esse esquema:
+	Abas usando essas interfaces são suportadas por todas as versões do Android.Vamos criar uma interface com abas seguindo esse esquema:
 	
 	\begin{figure}[H]
 	  \centering
@@ -1082,7 +1081,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 \section{Abas com gesto de arrastar}
 
 	Ao juntar os dois conceitos, o de \emph{layout} com abas e o gesto de arrastar, podemos fazer o controle das abas arrastando a tela. Esse tipo de \emph{design} é comum em muitos aplicativos pela facilidade e rapidez com o que o usuário pode visualizar vários conteúdos. 
-	Nesse exemplo iremos re-utilizar o código dos exemplos anteriores com algumas modificações. Serão reutilizadas classes: \texttt{TabInfo}, \texttt{TabFactory}, \texttt{PagerAdapter}, \texttt{Tab1Fragment}, \texttt{Tab2Fragment}, \texttt{Tab3Fragment}.
+	Nesse exemplo iremos reutilizar o código dos exemplos anteriores com algumas modificações. Serão reutilizadas classes: \texttt{TabInfo}, \texttt{TabFactory}, \texttt{PagerAdapter}, \texttt{Tab1Fragment}, \texttt{Tab2Fragment}, \texttt{Tab3Fragment}.
 	
 	Primeiro modificaremos o \emph{layout} das abas adicionando o \texttt{ViewPager} após \texttt{FrameLayout}. Note que esse é o mesmo \emph{layout} do algoritmo \ref{code:layout-tabhost}, por isso o algoritmo \ref{code:layout-viewpager} não está completo.
 	
@@ -1117,21 +1116,6 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	\dica{Pela dificuldade em acompanhar passo a passo a construção desse \emph{design}, é recomendável obter o código do projeto no repositório. Está sob o nome \emph{SwipeableTabs}.}
 
 
-% NAV DRAWER
-\section{Menu lateral \emph{(Navigation Drawer)}}
-
-	O \emph{Sliding Menu} não é padrão no SDK do Android, mas é um tipo de \emph{design} que está sendo usado por muitos aplicativos famosos hoje em dia, tais como: Facebook, Linkedin, Foursquare, e outros. Consiste de um menu que fica escondido na lateral esquerda da tela e que pode ser acessado utilizando um gesto ''puxando'' o menu ou com um botão instalado na \emph{ActionBar}.
-	
-	Existe um projeto \emph{Open Source} que é bem conhecido, acessado por esse link no \href{https://github.com/jfeinstein10/SlidingMenu}{GitHub}\footnote{\href{https://github.com/jfeinstein10/SlidingMenu}{https://github.com/jfeinstein10/SlidingMenu}}.
-	
-	A imagem abaixo mostra o menu sendo usado no aplicativo do Facebook.
-	
-	\begin{figure}[H]
-	  \centering
-	  \includegraphics[width=.3\textwidth]{figuras/design/sidemenu.png}
-	  \caption{Exemplo de \emph{Sliding Menu}}
-	  \label{fig:e}
-	\end{figure}
 	
 \section{\emph{ActionBar}}
 
@@ -1152,7 +1136,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	
 		A \emph{activity} popula a \emph{ActionBar} em seu método \texttt{onCreateOptionsMenu()}. Entradas na \emph{ActionBar} são chamadas de ações (\emph{actions}). 
 		
-		As ações para a \emph{ActionBar} são definidas em arquivos XML posicionados na pasta \texttt{menu/}. O algoritmo abaixo mostra o menu padrão dos exemplos que construímos até agora. Ele só contem um item \emph{''Settings''} que está no \emph{dropdown} menu que pode ser acessado através da \emph{ActionBar}, à direita. O fato dele estar escondido se deve ao atributo \texttt{showAsAction} estar com valor \emph{never}, ao ser mudado para \emph{always} o acesso ao \emph{Settings} será diretamente através da \emph{ActionBar}. Existe também o valor \emph{ifRoom} que irá mostrar apenas se houver espaço disponível.
+		As ações para a \emph{ActionBar} são definidas em arquivos XML posicionados na pasta \texttt{menu/}. O algoritmo abaixo mostra o menu padrão dos exemplos que construímos até agora. Ele só contém um item \emph{''Settings''} que está no \emph{dropdown} menu que pode ser acessado através da \emph{ActionBar}, à direita. O fato dele estar escondido se deve ao atributo \texttt{showAsAction} estar com valor \emph{never}, ao ser mudado para \emph{always} o acesso ao \emph{Settings} será diretamente através da \emph{ActionBar}. Existe também o valor \emph{ifRoom} que irá mostrar apenas se houver espaço disponível.
 		
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/actionbar-menupadrao.xml}
@@ -1164,7 +1148,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\caption{Método padrão \texttt{onCreateOptionsMenu()}}
 		\end{listing}
 		
-		Se uma ação e selecionada, o método \texttt{onOptionsItemSelected()} é chamado. Ele recebe a ação selecionada como parâmetro \texttt{MenuItem}. Baseando-se nessa informação você pode decidir o que fazer. Nesse exemplo iremos abrir uma nova \emph{activity} que seria a tela de configuração do aplicativo.
+		Se uma ação é selecionada, o método \texttt{onOptionsItemSelected()} é chamado. Ele recebe a ação selecionada como parâmetro \texttt{MenuItem}. Baseando-se nessa informação você pode decidir o que fazer. Nesse exemplo iremos abrir uma nova \emph{activity} que seria a tela de configuração do aplicativo.
 		
 		No seu projeto, crie uma nova \emph{Activity} do tipo \emph{Settings Activity}. 
 		
@@ -1186,16 +1170,16 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\caption{Adicionando novo item na \emph{ActionBar}}
 		\end{listing}
 		
-		Observe o atributo \texttt{android:icon}, estamos obtendo um \emph{drawable} que já existe no sistema Android, e se chama \emph{ic\_menu\_search}. Esse é o ícone da busca, a lupa. Depois vamos adicionar uma ação a ser executada quando esse ícone for clicado. Iremos criar nesse exemplo, uma caixa de texto de forma programática, isto é, em vez de defini-la no XML iremos cria-la com código na \emph{Activity}. 
+		Observe o atributo \texttt{android:icon}, estamos obtendo um \emph{drawable} que já existe no sistema Android, e se chama \emph{ic\_menu\_search}. Esse é o ícone da busca, a lupa. Depois vamos adicionar uma ação a ser executada quando esse ícone for clicado. Iremos criar nesse exemplo, uma caixa de texto de forma programática, isto é, em vez de defini-la no XML iremos criá-la com código na \emph{Activity}. 
 		
-		No método \texttt{onCreate()} você precisa configurar a \emph{ActionBar} para mostrar \emph{views}. Use o método \texttt{getActionBar()} para obter uma referência da \emph{ActionBar} e \texttt{setDisplayOptions()} para configura-la. Depois, no método \texttt{onOptionsItemSelected()} você vai programar a ação do novo botão. Inicialmente cria-se uma nova \emph{view} do tipo \texttt{EditText}, colocamos algumas configurações e a adicionamos na \emph{ActionBar}. Por não termos uma busca devidamente implementada, vamos mostrar um \texttt{Toast} com o conteúdo da busca, a fim de demonstração.
+		No método \texttt{onCreate()} você precisa configurar a \emph{ActionBar} para mostrar \emph{views}. Use o método \texttt{getActionBar()} para obter uma referência da \emph{ActionBar} e \texttt{setDisplayOptions()} para configurá-la. Depois, no método \texttt{onOptionsItemSelected()} você vai programar a ação do novo botão. Inicialmente cria-se uma nova \emph{view} do tipo \texttt{EditText}, colocamos algumas configurações e a adicionamos na \emph{ActionBar}. Por não termos uma busca devidamente implementada, vamos mostrar um \texttt{Toast} com o conteúdo da busca, a fim de demonstração.
 		
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/actionbar-oncreate.java}
 		\caption{Configurando \emph{ActionBar} no método \texttt{onCreate()}}
 		\end{listing}
 		
-		No algoritmo \ref{code:actionbar-seach}, abaixo, criamos um \texttt{EditText} e o configuramos caso o botão com o ícone de busca seja pressionado. Na linha 5-6 criamos um \texttt{LayoutParams} que configura o tamanho da \emph{view}. Na linha 8 o método \texttt{EditText.setImeOptions()} é responsável por configurar o teclado para uma busca, junto com a linha 9 que diz para o \texttt{EditText} que a entrada será texto, essa combinação faz com que o teclado mostre o ícone da lupa no lugar da tecla \emph{Enter}. A linha 10 configura a cor do texto para branca. Adicionamos a \emph{view} na \emph{ActionBar} com o método \texttt{ActionBar.setCustomView()} e passamos como parâmetro a \emph{view} criada e os parâmetros de \emph{layout} criados. O método \texttt{EditText.requestFocus()} faz com que o foco seja dado à nova caixa de texto, para que possamos edita-la. Precisamos ainda fazer com que o teclado abra para que possamos editar a caixa de texto, é isso que as linhas 13-14 e 15 estão fazendo. O método \texttt{getSystemService()} obtem a referência de um serviço do Android, e nesse caso estamos pedindo pelo serviço de método de entrada, o teclado. O método \texttt{InputMethodManager.showSoftInput()} abre o \emph{Soft Input}, ou seja, o teclado virtual para edição da \emph{view}. 
+		No algoritmo \ref{code:actionbar-seach}, abaixo, criamos um \texttt{EditText} e o configuramos caso o botão com o ícone de busca seja pressionado. Na linha 5-6 criamos um \texttt{LayoutParams} que configura o tamanho da \emph{view}. Na linha 8 o método \texttt{EditText.setImeOptions()} é responsável por configurar o teclado para uma busca, junto com a linha 9 que diz para o \texttt{EditText} que a entrada será texto, essa combinação faz com que o teclado mostre o ícone da lupa no lugar da tecla \emph{Enter}. A linha 10 configura a cor do texto para branca. Adicionamos a \emph{view} na \emph{ActionBar} com o método \texttt{ActionBar.setCustomView()} e passamos como parâmetro a \emph{view} criada e os parâmetros de \emph{layout} criados. O método \texttt{EditText.requestFocus()} faz com que o foco seja dado à nova caixa de texto, para que possamos editá-la. Precisamos ainda fazer com que o teclado abra para que possamos editar a caixa de texto, é isso que as linhas 13-14 e 15 estão fazendo. O método \texttt{getSystemService()} obtém a referência de um serviço do Android, e nesse caso estamos pedindo pelo serviço de método de entrada, o teclado. O método \texttt{InputMethodManager.showSoftInput()} abre o \emph{Soft Input}, ou seja, o teclado virtual para edição da \emph{view}. 
 		
 		Finalmente fazemos com que ao botão de busca no teclado ser clicado, um \texttt{Toast} mostre para o usuário o conteúdo da caixa de texto. É isso que a interface \texttt{onEditorActionListener} faz com o método \texttt{onEditorAction()}.
 		
@@ -1482,14 +1466,14 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 			\item \texttt{Ringtones/} - Toques;
 			\item \texttt{Alarms/} - Toques do despertador;
 			\item \texttt{Notifications/} - Toques das notificações;
-			\item \texttt{Pictures/} - Fotos (exceto aquelas tiradas com a camera);
-			\item \texttt{Movies/} - Filmes (exceto aquelas gravadas com a camera); e
+			\item \texttt{Pictures/} - Fotos (exceto aquelas tiradas com a câmera);
+			\item \texttt{Movies/} - Filmes (exceto aquelas gravadas com a câmera); e
 			\item \texttt{Download/} - Arquivos baixados.
 		\end{itemize}
 
 		\section{Banco de dados}
 
-		O Android fornece suporte à bancos de dados \texttt{SQLite}. Qualquer banco que você criar será acessível apenas pela sua aplicação e não fora dela.
+		O Android fornece suporte ao bancos de dados \texttt{SQLite}. Qualquer banco que você criar será acessível apenas pela sua aplicação e não fora dela.
 
 		A maneira recomendada de criar um banco de dados é criando uma subclasse da classe \texttt{SQLiteOpenHelper} e sobrescrever o método \texttt{onCreate()}. Para ler e escrever no banco, chame os métodos \texttt{getReadableDatabase()} e \texttt{getWritableDatabase()}. Ambas retornam um objeto do tipo \texttt{SQLiteDatabase} que fornece métodos para operar sobre o banco.
 
@@ -1511,9 +1495,9 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:db1}
 		\end{listing} 	
 
-		Primeiro criamos algumas \emph{Strings} para ajudar na criação do banco. Em seguida, criamos o construtor da classe, os argumentos passados são: o contexto da \emph{activity} que instanciou a classe, o nome do banco, um \texttt{CursorFactory} caso esteja usando (não é o caso), e a versão do banco que começa de 1 e deve incrementar a medida que você o atualiza.
+		Primeiro criamos algumas \emph{Strings} para ajudar na criação do banco. Em seguida, criamos o construtor da classe, os argumentos passados são: o contexto da \emph{activity} que instanciou a classe, o nome do banco, um \texttt{CursorFactory} caso esteja usando (não é o caso), e a versão do banco que começa em 1 e deve incrementar a medida que você o atualiza. 
 		
-		O método \texttt{onCreate()} do banco é responsável pela criação do banco de o popular. Fazemos isso executando consultas SQL diretamente ao banco com o método \texttt{execSQL()}. No código \ref{code:db1} você pode observar a chamada de \texttt{execSQL()} duas vezes. Não se confunda com a segunda consulta, que adiciona as tuplas ao banco, é só uma maneira de inserir várias tuplas em uma única consulta.
+		O método \texttt{onCreate()} do banco é responsável pela criação do banco e de o popular. Fazemos isso executando consultas SQL diretamente ao banco com o método \texttt{execSQL()}. No código \ref{code:db1} você pode observar a chamada de \texttt{execSQL()} duas vezes. Não se confunda com a segunda consulta, que adiciona as tuplas ao banco, é só uma maneira de inserir várias tuplas em uma única consulta.
 
 		Agora na nossa \emph{activity} precisamos realizar as consultas para popular os \emph{Spinners}. No método \texttt{onCreate()} faça: 
 
@@ -1523,13 +1507,13 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:db2}
 		\end{listing} 	
 
-		Estou "pulando" a parte de obter as referências dos \emph{spinners} e botões e partindo para o que interessa no código \ref{code:db2}. Na linha 5 instanciamos o \texttt{CarOpenHelper} na variável \texttt{mDatabase}. Na linha 6 criamos um \emph{array} que contém as colunas que iremos fazer consulta, isto é necessário para o método \texttt{query} na linha 10.
+		Estou "pulando" a parte de obter as referências dos \emph{spinners} e botões e partindo para o que interessa no código \ref{code:db2}. Na linha 5 instanciamos o \texttt{CarOpenHelper} na variável \texttt{mDatabase}. Na linha 6 criamos um \emph{array} que contém as colunas que iremos fazer consulta, isto é necessário para o método \texttt{query()} na linha 10.
 
 		Ao chamar \texttt{mDatabase.getReadableDatabase()} obtemos um objeto do tipo \texttt{SQLiteDatabase}
 \footnote{\href{http://developer.android.com/reference/android/database/sqlite/SQLiteDatabase.html}{http://developer.android.com/reference/android/database/sqlite/SQLiteDatabase.html}}
- mas que só permite a leitura. Já o método \texttt{query} retorna um \texttt{Cursor} que é usado para iterar sobre os resultados. Na linha 10 observe os parâmetros que usamos para fazer a consulta: A tabela que vamos fazer a consulta, um \emph{array} de \emph{strings} com as colunas que queremos obter,  uma cláusula \texttt{WHERE} (observe que passar \textbf{null} aqui implica em retornar todas as tuplas da coluna), argumentos da seleção (para aqueles que conhecem \emph{prepared statements} onde "?" é substituido pelos valores, uma cláusula \texttt{GROUP BY} (\textbf{null} significa não agrupar), uma cláusula \texttt{HAVING}, uma cláusula \texttt{ORDER BY} e uma cláusula \texttt{LIMIT}.
+ mas que só permite a leitura. Já o método \texttt{query()} retorna um \texttt{Cursor} que é usado para iterar sobre os resultados. Na linha 10 observe os parâmetros que usamos para fazer a consulta: A tabela que vamos fazer a consulta, um \emph{array} de \emph{strings} com as colunas que queremos obter,  uma cláusula \texttt{WHERE} (observe que passar \textbf{null} aqui implica em retornar todas as tuplas da coluna), argumentos da seleção (para aqueles que conhecem \emph{prepared statements} onde "?" é substituido pelos valores, uma cláusula \texttt{GROUP BY} (\textbf{null} significa não agrupar), uma cláusula \texttt{HAVING}, uma cláusula \texttt{ORDER BY} e uma cláusula \texttt{LIMIT}.
 
-	Em seguida criamos dois \texttt{Set} para armazenar os resultados e omitir os repetidos (poderia ter feito duas consultados e usado \texttt{DISTINCT}, claramente um banco mal projetado).  Usamos o \texttt{Cursor} para iterar sobre o resultado e adiciona-los aos conjuntos. O \texttt{set1} contém os fabricantes e o \texttt{set2} contém os anos de fabricação. Usamos \texttt{Cursor.getString(int index)} para obter o elemento do resultado que está naquele índice, nesse caso o índice 0 é a coluna de fabricantes e o índice 1 é a coluna de anos de fabricação. Com esses dois conjuntos em mão podemos criar duas \texttt{ArrayList} para serem usadas com o \texttt{ArrayAdapter} que irá popular os \emph{Spinners}.
+	Em seguida criamos dois \texttt{Set} para armazenar os resultados e omitir os repetidos. Usamos o \texttt{Cursor} para iterar sobre o resultado e adicioná-los aos conjuntos. O \texttt{set1} contém os fabricantes e o \texttt{set2} contém os anos de fabricação. Usamos \texttt{Cursor.getString()} para obter o elemento do resultado que está naquele índice, nesse caso o índice 0 é a coluna de fabricantes e o índice 1 é a coluna de anos de fabricação. Com esses dois conjuntos em mão podemos criar duas \texttt{ArrayList} para serem usadas com os \texttt{ArrayAdapter} que irão popular os \emph{Spinners}.
 
 	Depois é necessário criar dois \emph{listeners} para os elementos dos \emph{Spinners} que guarda numa variável o fabricante e o ano de fabricação selecionados (aqui irei omitir código, mas pode ser obtido no repositório). E um \emph{listener} para o botão que irá chamar o método \texttt{openCarList()}.
 
@@ -1539,7 +1523,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:db3}
 	\end{listing} 	
 
-	Esse método é responsável por obter a lista de carros da seleção feita nos \emph{Spinners} e mandar essa lista para outra \emph{activity}. O método \texttt{fetchCarList()} é que irá fazer a chamada ao BD, da mesma forma com que foi feito anteriormente, mas dessa vez estamos obtendo a coluna \emph{Model} do banco com \texttt{WHERE} sendo os parâmetros obtidos. 
+	Esse método é responsável por obter a lista de carros da seleção feita nos \emph{Spinners} e mandar essa lista para outra \emph{activity}. O método \texttt{fetchCarList()} é que irá fazer a chamada ao BD, da mesma forma que foi feito anteriormente, mas dessa vez estamos obtendo a coluna \emph{Model} do banco com \texttt{WHERE} sendo os parâmetros obtidos. 
 
 	\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/storage/db4.java}
@@ -1549,55 +1533,55 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 	O resultado de \texttt{fetchCarList()} é enviado para outra \emph{activity} que irá mostrar os modelos em forma de uma lista. 
 
-	Nesse capítulo podemos aprender apenas o básico de acesso ao banco de dados SQLite, é um assunto que tem muito mais o que aprender e recomendo olhar a documentação para futuras consultas. 
+	Nesse capítulo pudemos aprender apenas o básico de acesso ao banco de dados \texttt{SQLite}, é um assunto que tem muito mais o que aprender e recomendo olhar a documentação para futuras consultas. 
 
 \chapter{Câmera}
 	
-	O Android fornece um \emph{framework} para acesso às diferentes cameras e funcionalidades dessas cameras disponíveis no dispositivo. É possível tirar fotos e gravar vídeos nos aplicativos. Há duas formas de acessar a camera, a primeira sendo pela API e a segunda pelo \emph{intent} da camera. 
-	Nesse capítulo iremos discutir brevemente sobre como usar a API e um exemplo de chamar o aplicativo padrão da camera através de um \emph{intent}.
+	O Android fornece um \emph{framework} para acesso às diferentes câmeras e funcionalidades dessas câmeras disponíveis no dispositivo. É possível tirar fotos e gravar vídeos nos aplicativos. Há duas formas de acessar a câmera, a primeira sendo pela API e a segunda pelo \texttt{Intent} da câmera. 
+	Nesse capítulo iremos discutir brevemente sobre como usar a API e um exemplo de chamar o aplicativo padrão da câmera através de um \texttt{Intent}.
 
 	\section{Usando a API}
-		Para usar a API da camera, primeiro devemos requisitar a permissão de usar a camera no \emph{Manifest}.
+		Para usar a API da câmera, primeiro devemos requisitar a permissão para usar a câmera no \emph{Manifest}.
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/camera/permission.xml}
-		\caption{Requisitando permissão de usar a camera}
+		\caption{Requisitando permissão para usar a câmera}
 		\label{code:camera-permission}
 		\end{listing} 	
 
-		Você pode ainda requisitar outras funcionalidades como \emph{flash}, foco automático, usar a camera da frente ao requisitar outras \emph{features} usando \texttt{<uses-feature>}. A lista das funcionalidades está presente na \href{http://developer.android.com/guide/topics/manifest/uses-feature-element.html\#hw-features}{documentação}\footnote{\href{http://developer.android.com/guide/topics/manifest/uses-feature-element.html\#hw-features}{http://developer.android.com/guide/topics/manifest/uses-feature-element.html\#hw-features}}.
+		Você pode ainda requisitar outras funcionalidades como \emph{flash}, foco automático, usar a câmera da frente ao requisitar outras \emph{features} usando \texttt{<uses-feature>}. A lista das funcionalidades está presente na \href{http://developer.android.com/guide/topics/manifest/uses-feature-element.html\#hw-features}{documentação}\footnote{\href{http://developer.android.com/guide/topics/manifest/uses-feature-element.html\#hw-features}{http://developer.android.com/guide/topics/manifest/uses-feature-element.html\#hw-features}}.
 		
-		Se você for guardar as fotos no armazenamento externo, precisa requisitar a permissão de escrita:
+		Se você for guardar as fotos no armazenamento externo, precisa requisitar a permissão para escrita:
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/camera/permission2.xml}
-		\caption{Requisitando permissão de gravar no armazenamento externo}
+		\caption{Requisitando permissão para gravar no armazenamento externo}
 		\label{code:write-external-permission}
 		\end{listing} 	
 
-		Se for gravar áudio quando estiver gravando vídeo, precisa requisitar a permissão de gravar áudio:
+		Se for gravar áudio quando estiver gravando vídeo, precisa requisitar a permissão para gravar áudio:
 
 		
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/camera/permission3.xml}
-		\caption{Requisitando permissão de gravar áudio}
+		\caption{Requisitando permissão para gravar áudio}
 		\label{code:audio-permission}
 		\end{listing} 	
 		
-		Segundo a \href{http://developer.android.com/guide/topics/media/camera.html}{documentação}\footnote{\href{http://developer.android.com/guide/topics/media/camera.html}{http://developer.android.com/guide/topics/media/camera.html}} existem alguns passos gerais que são seguidos para criar um aplicação usando a API da camera. São eles:
+		Segundo a \href{http://developer.android.com/guide/topics/media/camera.html}{documentação}\footnote{\href{http://developer.android.com/guide/topics/media/camera.html}{http://developer.android.com/guide/topics/media/camera.html}} existem alguns passos gerais que são seguidos para criar um aplicação usando a API da câmera. São eles:
 		\bi
-			\item \textbf{Detectar e acessar a camera:} Código que verifica a existência de uma camera e requisita o acesso.
-			\item \textbf{Criar uma classe de pré-visualização:} Criar uma classe que extende \texttt{SurfaceView} e implementa \texttt{SurfaceHolder} para mostrar na tela o que a camera está vendo.
+			\item \textbf{Detectar e acessar a câmera:} Código que verifica a existência de uma câmera e requisita o acesso.
+			\item \textbf{Criar uma classe de pré-visualização:} Criar uma classe que extende \texttt{SurfaceView} e implementa \texttt{SurfaceHolder} para mostrar na tela o que a câmera está vendo.
 			\item \textbf{Construir o \emph{layout} da pré-visualização:} Com a classe pronta, crie uma \emph{view} que irá incorporar a classe de pré-visualização e mostrar os controles da interface.
 			\item \textbf{Configurar os \emph{listeners} para a captura:} Criar \emph{listeners} para os botões da interface para gravar a imagem.
 			\item \textbf{Capturar e salvar os arquivos:} Criar o código que irá capturar a imagem e salvar no armazenamento.
-			\item \textbf{Liberar a camera:} Depois de usar a camera, a aplicação deve liberar o uso para outras aplicações. 
+			\item \textbf{Liberar a câmera:} Depois de usar a câmera, a aplicação deve liberar o uso para outras aplicações. 
 		\ei
 
-		\subsection{Acessando a camera}
+		\subsection{Acessando a câmera}
 
-		Primeiro vamos criar uma classe \texttt{CameraAccess} que irá requisitar o acesso à camera. 
-		A classe fica responsável apenas por verificar se o dispositivo tem camera e por instanciar a camera para o uso. 
+		Primeiro vamos criar uma classe \texttt{CameraAccess} que irá requisitar o acesso à câmera. 
+		A classe ficará responsável apenas por verificar se o dispositivo tem câmera e por instanciar a câmera para o uso. 
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/camera-access.java}
@@ -1607,7 +1591,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 		\subsection{Pré-visualização}
 
-		Em seguida iremos criar a classe da visualização da camera. Essa classe extende \texttt{SurfaceView} e implementa a interface \texttt{SurfaceHolder.CallBack}, iremos chamar essa classe de \texttt{CameraPreview}. No código \ref{code:camera-preview1} abaixo começamos a implementar essa classe. Precisamos de duas variáveis \texttt{SurfaceHolder} e \texttt{Camera}. O construtor recebe o contexto e a camera previamente instanciada como parâmetro. Obtemos o \texttt{SurfaceHolder} usando o método \texttt{getHolder()}, adicionamos a classe como \emph{callback}. Por último, na linha 11 configuramos o tipo do \texttt{SurfaceHolder} como \texttt{SURFACE\_TYPE\_PUSH\_BUFFERS} isso já é depredado mas é necessário para acessar a camera em versões do Android mais antigas que 3.0.
+		Em seguida iremos criar a classe da visualização da câmera. Essa classe extende \texttt{SurfaceView} e implementa a interface \texttt{SurfaceHolder.CallBack}, iremos chamar essa classe de \texttt{CameraPreview}. No código \ref{code:camera-preview1} abaixo começamos a implementar essa classe. Precisamos de duas variáveis \texttt{SurfaceHolder} e \texttt{Camera}. O construtor recebe o contexto e a câmera previamente instanciada como parâmetro. Obtemos o \texttt{SurfaceHolder} usando o método \texttt{getHolder()}, adicionamos a classe como \emph{callback}. Por último, na linha 11 configuramos o tipo do \texttt{SurfaceHolder} como \texttt{SURFACE\_TYPE\_PUSH\_BUFFERS} isso já é depredado mas é necessário para acessar a câmera em versões do Android mais antigas que 3.0.
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/camerapreview1.java}
@@ -1615,15 +1599,15 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:camera-preview1}
 		\end{listing} 	
 
-		Continuando a analisar o algoritmo \ref{code:camera-preview1}. Precisamos sobrecarregar os métodos da interface. Esses são: \texttt{surfaceCreated()}, \texttt{surfaceChanged()} e \texttt{surfaceDestroyed()}. O primeiro, \texttt{surfaceCreated()} é responsável por instanciar a pré-visualização. Para isso chame o método \texttt{setPreviewDisplay()} passando o \texttt{holder} como parâmetro para a camera saber onde a visualização será desenhada. Depois é só chamar \texttt{startPreview()} para iniciar a visualização. 
+		Continuando a analisar o algoritmo \ref{code:camera-preview1}. Precisamos sobrecarregar os métodos da interface. Esses são: \texttt{surfaceCreated()}, \texttt{surfaceChanged()} e \texttt{surfaceDestroyed()}. O primeiro, \texttt{surfaceCreated()} é responsável por instanciar a pré-visualização. Para isso chame o método \texttt{setPreviewDisplay()} passando o \texttt{holder} como parâmetro para a câmera saber onde a visualização será desenhada. Depois é só chamar \texttt{startPreview()} para iniciar a visualização. 
 
-	O segundo, \texttt{surfaceChanged} serve para parar e recomeçar a visualização quando o usuário rotaciona a tela, por exemplo. Para isso é necessário fechar a visualização e depois iniciar novamente. Na linha 27 testamos para saber se o \texttt{mHolder} não tem nada desenhado, se for o caso então apenas retorne do método pois não há nada para ser fechado. Caso contrário então precisamos parar a visualização com \texttt{stopPreview()} e depois iniciar novamente da mesma forma como é feito no método \texttt{surfaceCreated()}.
+	O segundo, \texttt{surfaceChanged()} serve para parar e recomeçar a visualização quando o usuário rotaciona a tela, por exemplo. Para isso, é necessário fechar a visualização e depois iniciar novamente. Na linha 27 testamos para saber se o \texttt{mHolder} não tem nada desenhado, se for o caso então apenas retorne do método pois não há nada para ser fechado. Caso contrário então precisamos parar a visualização com \texttt{stopPreview()} e depois iniciar novamente da mesma forma como é feito no método \texttt{surfaceCreated()}.
 
-	O terceiro, \texttt{surfaceDestroyed()} é irrelevante nesse caso pois estaremos tomando conta de liberar a camera na \emph{activity} e não nessa classe.
+	O terceiro, \texttt{surfaceDestroyed()} é irrelevante nesse caso pois estaremos tomando conta de liberar a câmera na \emph{activity} e não nessa classe.
 
 	\subsection{\emph{Layout} e \emph{Activity} da visualização}
 
-	A classe da visualização precisa ser instanciada por uma \emph{activity} que vai efetivamente mostrar o conteúdo. Para o \emph{layout} da \emph{activity} iremos criar \texttt{FrameLayout} que irá conter a visualização e um botão pra capturar a imagem.
+	A classe da visualização precisa ser instanciada por uma \emph{activity} que vai efetivamente mostrar o conteúdo. Para o \emph{layout} da \emph{activity} iremos criar um \texttt{FrameLayout} que irá conter a visualização e um botão pra capturar a imagem.
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/camera/camera-layout.xml}
@@ -1641,7 +1625,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 	\subsection{Criando a \emph{activity}}
 
-		Para começar vamos apenas fazer com que a \emph{activity} mostre a visualização da camera na tela. 
+		Para começar vamos apenas fazer com que a \emph{activity} mostre a visualização da câmera na tela usando as classes que criamos anteriormente. 
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/camera-activity.java}
@@ -1649,7 +1633,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:camera-activity}
 		\end{listing} 			
 
-		Usando as classes que criamos anteriormente. Na linha 10 criamos uma instancia da classe \texttt{CameraAccess} e requisitamos o acesso a camera usando \texttt{getCameraInstance()}. Depois criamos um \texttt{CameraPreview} e adicionamos o \emph{preview} ao \texttt{FrameLayout}. Nesse ponto se o aplicativo for executado irá mostrar a imagem da camera na tela, com o botão ao lado mas que não faz nada ainda. Precisamos em seguida programar para as imagens ficarem salvas no armazenamento externo.
+		Na linha 10 criamos uma instância da classe \texttt{CameraAccess} e requisitamos o acesso a câmera usando \texttt{getCameraInstance()}. Depois criamos um \texttt{CameraPreview} e adicionamos o \emph{preview} ao \texttt{FrameLayout}. Nesse ponto, se o aplicativo for executado irá mostrar a imagem da câmera na tela, com o botão ao lado mas que não faz nada ainda. Precisamos em seguida programar para que as imagens ficarem salvas no armazenamento externo.
 
 	%%
 	\newpage
@@ -1657,7 +1641,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	\subsection{Capturando e salvando as imagens}
 		Agora você está pronto para capturar e salvar as fotos em sua aplicação. Para isso você deve definir \emph{listeners} para o botão da sua interface que irá responder tirando uma foto.
 
-		\dica{Certifique-se de que há permissão de escrita no armazenamento externo para salvar as fotos.}
+		\dica{Certifique-se de que há permissão para escrita no armazenamento externo para salvar as fotos.}
 
 		Para capturar uma foto, você deve usar o método \texttt{Camera.takePicture()}. Para receber os dados no format JPEG você deve implementar um \texttt{Camera.PictureCallback} que recebe os dados da imagem e os escrevem em um arquivo. Observe a implementação da interface \texttt{PictureCallback} no código abaixo, que pode ser escrito no método \texttt{onCreate()} da \emph{activity}.
 
@@ -1667,7 +1651,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:camera-jpegcallback}
 		\end{listing} 			
 
-		Para simplificar, todo código que efetivamente cria a imagem em um arquivo ficou no método \texttt{getOutputMediaFile()} que pode ser observado abaixo. Na linha X já estamos recebendo o arquivo que foi criado para então tentar efetivamente salvá-lo na mídia externa.
+		Para simplificar, todo código que efetivamente cria a imagem em um arquivo ficou no método \texttt{getOutputMediaFile()} que pode ser observado abaixo.
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/getoutputmediafile.java}
@@ -1675,7 +1659,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:camera-getoutput}
 		\end{listing} 			
 
-		Na linha 2 do método \texttt{getOutputMediaFile()} estamos escolhendo o nome da pasta que armazernará as fotos salvas. Para este exemplo, escolhi o nome do aplicativo concatenado com a string \texttt{\_PICS}. Como neste exemplo o nome do aplicativo é \texttt{Camera1}, então a pasta será \texttt{Camera1\_PICS}. Na linha 5 criamos um objeto \texttt{File} que contêm uma referência a esta pasta que estamos criando, o caminho dela é dado pelo método \texttt{Environment.getExternalStoragePublicDirectory()} e em seguida pela variavel \texttt{Environment.DIRECTORY\_PICTURES}. Essa chamada escolhe a pasta \texttt{Pictures/} do armazenamento externo e ao ser concatenada com nossa variável \texttt{folder}, temos a pasta que iremos salvar as fotos. Em seguida é feita uma verificação se a pasta já existe, caso não exista ele tenta criar com o método \texttt{mkdirs()}, que retorna \texttt{false} caso não seja possível criar.
+		Na linha 2 do método \texttt{getOutputMediaFile()} estamos escolhendo o nome da pasta que armazernará as fotos salvas. Para este exemplo, escolhi o nome do aplicativo concatenado com a \emph{string} \texttt{"\_PICS"}. Como neste exemplo o nome do aplicativo é \texttt{"Camera1"}, então a pasta será \texttt{"Camera1\_PICS"}. Na linha 5 criamos um objeto \texttt{File} que contêm uma referência a esta pasta que estamos criando, o caminho dela é dado pelo método \texttt{Environment.getExternalStoragePublicDirectory()} e em seguida pela variável \texttt{Environment.DIRECTORY\_PICTURES}. Essa chamada escolhe a pasta \texttt{Pictures/} do armazenamento externo e ao ser concatenada com a nossa variável \texttt{folder}, temos a pasta que iremos salvar as fotos. Em seguida é feita uma verificação se a pasta já existe, caso não exista ele tenta criá-la com o método \texttt{mkdirs()}, que retorna \texttt{false} caso não seja possível criar.
 
 		Para o nome do arquivo, criamos um \emph{timestamp} que pega a data e hora atual para o nome do arquivo. Isso pode ser observado na linha 16 com a criação de um \texttt{SimpleDateFormat} no formato \texttt{yyyyMMdd\_HHmmss}, ou seja: ano, mês, dia, hora, minuto e segundo, nesta ordem. Na linha 18 criamos novamente um objeto \texttt{File} mas que dessa vez irá guardar o caminho do arquivo. 
 
@@ -1699,18 +1683,18 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:better-quali}
 		\end{listing} 			
 
-		Você consegue configurar os parâmetros da câmera, neste caso usaremos para melhorar a qualidade da foto. Para isso comece chamando \texttt{getParameters()} e guarde essa referência num objeto \texttt{Parameters}. Com \texttt{setJpegQuality()} conseguimos configurar a qualidade da compressão JPEG entre 0 e 100, sendo 100 o melhor. Em seguida iteremos sob uma lista de resoluções suportadas e escolhemos a maior resolução. Dessa forma a foto terá a maior resolução e com a melhor qualidade de compressão.
+		Você consegue configurar os parâmetros da câmera, neste caso usaremos para melhorar a qualidade da foto. Para isso comece chamando \texttt{getParameters()} e guarde essa referência num objeto \texttt{Parameters}. Com \texttt{setJpegQuality()} conseguimos configurar a qualidade da compressão JPEG entre 0 e 100, sendo 100 o melhor. Em seguida iteraremos sob uma lista de resoluções suportadas e escolhemos a maior resolução. Dessa forma a foto terá a maior resolução e com a melhor qualidade de compressão.
 		Para finalizar, chame \texttt{setParameters()} e os parâmetros serão gravados.
 
 	\section{Gravando vídeos}
 
-		Agora você já tem um aplicativo que tira fotos, mas também quer gravar vídeos. Para isso, algumas modificações serão necessárias, assim como algumas adições. Para capturar videos, é necessário um controle cauteloso do objeto \texttt{Camera} em coordenações com a classe \texttt{MediaRecorder}\footnote{\href{http://developer.android.com/intl/es/reference/android/media/MediaRecorder.html}{http://developer.android.com/intl/es/reference/android/media/MediaRecorder.html}}. Diferente de tirar fotos, gravar vídeos requer chamadas à métodos em uma ordem particular. Você deve seguir essa ordem para preparar a aplicação e capturar o video. 
+		Agora você já tem um aplicativo que tira fotos, mas também quer gravar vídeos. Para isso, algumas modificações serão necessárias, assim como algumas adições. Para capturar videos, é necessário um controle cauteloso do objeto \texttt{Camera} em coordenação com a classe \texttt{MediaRecorder}\footnote{\href{http://developer.android.com/intl/es/reference/android/media/MediaRecorder.html}{http://developer.android.com/intl/es/reference/android/media/MediaRecorder.html}}. Diferente de tirar fotos, gravar vídeos requer chamadas à métodos em uma ordem particular. Você deve seguir essa ordem para preparar a aplicação e capturar o video. 
 
-		Os três primeiros passos: 1) Abrir a câmera, 2) Criar uma visualização e 3) Visualizar a câmera, já foram feitos na seção anterior. Para começar a gravar o vídeo são necessários mais alguns passos:
+		Os três primeiros passos são: 1) Abrir a câmera, 2) Criar uma visualização e 3) Visualizar a câmera, já foram feitos na seção anterior. Para começar a gravar o vídeo são necessários mais alguns passos:
 
 	\subsection{Preparar a gravação}
 
-		Preparar a gravação significa configurar a classe \texttt{MediaRecorder}, todos os passos da configuração devem ser feitos em uma \textbf{ordem especifica}. Para preparar a gravação criaremos um método \texttt{prepareForRecording()}.
+		Preparar a gravação significa configurar a classe \texttt{MediaRecorder}, todos os passos da configuração devem ser feitos em uma \textbf{ordem específica}. Para preparar a gravação criaremos um método \texttt{prepareForRecording()}.
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/prepareVideo.java}
@@ -1718,7 +1702,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:preparevideo}
 		\end{listing} 			
 
-		Temos uma variável \texttt{recorder} da classe \texttt{MediaRecorder} e o instanciamos. Primeiro passo é destravar a câmera com \texttt{unlock()} e atribuir a câmera ao \texttt{recorder} com \texttt{setCamera()}. O segundo passo é configurar a fonte de áudio e vídeo com \texttt{setAudioSource()} e \texttt{setVideoSource()}, respectivamente, como é feito nas linhas 6 e 7. O terceiro passo é configurar um \emph{profile} com o \texttt{setProfile()}, você pode obter um \emph{profile} usando o método \texttt{CamcorderProfile.get()}. O quarto passo é configurar o arquivo de saida com o método \texttt{setOutputFile()}, aqui usaremos o método \texttt{getOutpuMediaFile()} que fizemos antes. O quinto passo é configurar a visualização do \texttt{recorder} com \texttt{setPreviewDisplay()}, como é feito na linha 14 e passamos como parâmetro o método getSurface() da nossa classe \texttt{CameraPreview}. Por último devemos tentar chamar o método \texttt{prepare()}, mas caso dê errado precisamos liberar a câmera de volta, para isso usamos o método \texttt{releaseMediaRecorder()} que iremos criar.
+		Temos uma variável \texttt{recorder} da classe \texttt{MediaRecorder} e o instanciamos. O Primeiro passo é destravar a câmera com \texttt{unlock()} e atribuir a câmera ao \texttt{recorder} com \texttt{setCamera()}. O segundo passo é configurar a fonte de áudio e vídeo com \texttt{setAudioSource()} e \texttt{setVideoSource()}, respectivamente, como é feito nas linhas 6 e 7. O terceiro passo é configurar um \emph{profile} com o \texttt{setProfile()}, você pode obter um \emph{profile} usando o método \texttt{CamcorderProfile.get()}. O quarto passo é configurar o arquivo de saida com o método \texttt{setOutputFile()}, aqui usaremos o método \texttt{getOutpuMediaFile()} que fizemos antes. O quinto passo é configurar a visualização do \texttt{recorder} com \texttt{setPreviewDisplay()}, como é feito na linha 14 e passamos como parâmetro o método getSurface() da nossa classe \texttt{CameraPreview}. Por último devemos tentar chamar o método \texttt{prepare()}, mas caso dê errado precisamos liberar a câmera de volta, para isso usaremos o método \texttt{releaseMediaRecorder()}, que iremos criar abaixo.
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/releaseRecorder.java}
@@ -1726,7 +1710,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:releaserecorder}
 		\end{listing} 			
 
-		O código de \texttt{releaseMediaRecorder()} é simples, são os passos necessários para liberar a câmera do \texttt{recorder} e dar de volta à \emph{activity}.  O método \texttt{reset()} limpa as configurações do \texttt{recorder}.
+		O código de \texttt{releaseMediaRecorder()} é simples, são os passos necessários para liberar a câmera do \texttt{recorder} e dá-la de volta à \emph{activity}.  O método \texttt{reset()} limpa as configurações do \texttt{recorder}.
 
 		É importante também liberar a câmera para outras aplicações caso o usuário troque de aplicação, quando isso acontece o método \texttt{onPause()} é chamado no ciclo de vida da \emph{activity}.
 
@@ -1744,9 +1728,9 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:recorderlistener}
 		\end{listing} 			
 
-		Com uma variável de controle \texttt{isRecording} guardamos se a câmera está gravando ou não. Caso esteja gravando e o usuário clique no botão chamamos \texttt{stop()}, liberamos o \texttt{recorder} com \texttt{releaseMediaRecorder()}, mudamos o texto do botão com um método simples que irei omitir o código aqui, além de marcar \texttt{isRecording} como falso, pois paramos de gravar. Caso contrário, isto é, o usuário quer começar a gravar então chamamos \texttt{prepareForRecording()} que criamos anteriormente, se o resultado for positivo significa que todas as preparações deram certo, podemos chamar \texttt{start()} e colocar \texttt{"Stop"} no botão onde antes era \texttt{"Record"}, além de marcar \texttt{isRecording} como verdadeiro. Se a preparação falhar, então apenas chamamos \texttt{releaseMediaRecorder()} para cancelar qualquer preparação que tenha sido feita.
+		Com uma variável de controle \texttt{isRecording} guardamos se a câmera está gravando ou não. Caso esteja gravando e o usuário clique no botão chamamos \texttt{stop()}, liberamos o \texttt{recorder} com \texttt{releaseMediaRecorder()}, mudamos o texto do botão, além de marcar \texttt{isRecording} como falso, pois paramos de gravar. Caso contrário, isto é, o usuário quer começar a gravar então chamamos \texttt{prepareForRecording()} que criamos anteriormente, se o resultado for positivo significa que todas as preparações deram certo, podemos chamar \texttt{start()} e colocar \texttt{"Stop"} no botão onde antes era \texttt{"Record"}, além de marcar \texttt{isRecording} como verdadeiro. Se a preparação falhar, então apenas chamamos \texttt{releaseMediaRecorder()} para cancelar qualquer preparação que tenha sido feita.
 
-	\dica{Porque a complexidade de configurar a gravação de video é alta, é recomendável baixar o projeto \texttt{Camera1} do repositório e estudar o código completo.}
+	\dica{Porque a complexidade de configurar a gravação de vídeo é alta, é recomendável baixar o projeto \texttt{Camera1} do repositório e estudar o código completo.}
 
 	\section{Usando um \texttt{Intent}}
 
@@ -1754,7 +1738,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 	\subsection{\texttt{Intent} de capturar foto}
 		
-		O \texttt{Intent} da câmera pode receber opcionalmente um objeto \texttt{Uri} que especifica o caminho e o nome do arquivo onde você gostaria que as fotos fossem salvas. Apesar de ser opcional, esse parâmetro é recomendavel. Caso não seja especificado a aplicação da câmera irá salvar a foto no local padrão com um nome padrão que pode ser visto no campo \texttt{Intent.getData()} que é retornado.
+		O \texttt{Intent} da câmera pode receber opcionalmente um objeto \texttt{Uri} que especifica o caminho e o nome do arquivo onde você gostaria que as fotos fossem salvas. Apesar de ser opcional, esse parâmetro é recomendável. Caso não seja especificado, a aplicação da câmera irá salvar a foto no local padrão com um nome padrão que pode ser visto no campo \texttt{Intent.getData()} que é retornado.
 
 		O código abaixo mostra como executar um \texttt{Intent} para capturar fotos.
 
@@ -1764,7 +1748,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:cameraintent}
 		\end{listing} 		
 
-		Primeiro cria-se um novo \texttt{Intent} e o parâmetro é \texttt{MediaStore.ACTION\_IMAGE\_CAPTURE} que configura uma \emph{activity} com câmera e que pode receber esse \texttt{Intent}. Depois usamos o método \texttt{getOutputMediaFileUri()} que apenas faz uma chamada ao método \texttt{getOutputMediaFile()} (algoritmo \ref{code:camera-getoutput}) que usamos na seção anterior porém retornando uma \texttt{Uri}, que é o caminho do arquivo. Colocamos como extra no \texttt{Intent} o caminho retornado em \texttt{fileUri}, nesse caso \texttt{MediaStore.EXTRA\_OUTPUT} é apenas uma convenção para ficar claro que o valor passado no extra é para ser usado na \emph{activity} de câmera para salvar o arquivo. Por fim chamamos \texttt{startActivityForResult()}, que recebe o \texttt{Intent} e um código que indica uma \emph{activity} que captura imagens.
+		Primeiro cria-se um novo \texttt{Intent} com parâmetro é \texttt{MediaStore.ACTION\_IMAGE\_CAPTURE} que configura uma \emph{activity} com câmera. Depois usamos o método \texttt{getOutputMediaFileUri()} que apenas faz uma chamada ao método \texttt{getOutputMediaFile()} (algoritmo \ref{code:camera-getoutput}) que usamos na seção anterior porém retornando uma \texttt{Uri}, que é o caminho do arquivo. Colocamos como extra no \texttt{Intent} o caminho retornado em \texttt{fileUri}, nesse caso \texttt{MediaStore.EXTRA\_OUTPUT} é apenas uma convenção para ficar claro que o valor passado no extra é para ser usado na \emph{activity} de câmera para salvar o arquivo. Por fim chamamos \texttt{startActivityForResult()}, que recebe o \texttt{Intent} e um código que indica uma \emph{activity} que captura imagens.
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/urifromfile.java}
@@ -1774,7 +1758,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 	\subsection{Recebendo resultado do \texttt{Intent}}
 		
-		Quando você chama \texttt{startActivityForResult()} significa que você espera uma resposta da \emph{activity} que chamou. Essa resposta será obtida no método \texttt{onActivityResult()} que você precisa escrever para manipular esses dados de resposta. O algoritmo \ref{code:requestresult} exemplifica esse método, que trata a resposta da câmera, isto é, se foi possível capturar a foto ou gravar o vídeo.
+		Quando você chama \texttt{startActivityForResult()} significa que você espera uma resposta da \emph{activity} que chamou. Essa resposta será obtida no método \texttt{onActivityResult()} que você precisa escrever para manipular esses dados da resposta. O algoritmo \ref{code:requestresult} exemplifica esse método, que trata a resposta da câmera, isto é, se foi possível capturar a foto ou gravar o vídeo.
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/requestresult.java}
@@ -1788,15 +1772,15 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 	\subsection{\texttt{Intent} de capturar vídeo}
 
-		Para requisitar uma \emph{activity} que grava vídeo, o processo é semelhante embora você pode passar um extra adicional ao \texttt{Intent} que informa a qualidade do vídeo.
+		Para requisitar uma \emph{activity} que grava vídeo, o processo é semelhante embora você possa passar um extra adicional ao \texttt{Intent} que informa a qualidade do vídeo.
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/recordintent.java}
 		\caption{Criando um \texttt{Intent} para vídeo}
-		\label{code:requestresult}
+		\label{code:recordintent}
 		\end{listing} 		
 		
-		Isso conclui o capítulo de câmera, passamos por todas as fases da criação de um aplicativo que usa a câmera como principal elemento mas também vimos como é simples utilizar a câmera como uma \emph{activity} secundária cuja função é apenas capturar uma imagem. Sempre que existirem dúvidas, faça o \emph{download} dos projetos do repositório para ver o código completo em funcionamento.
+		Isso conclui o capítulo de câmera, passamos por todas as fases da criação de um aplicativo que usa a câmera como principal elemento. Também vimos como é simples utilizar a câmera como uma \emph{activity} secundária cuja função é apenas capturar uma imagem. Sempre que existirem dúvidas, faça o \emph{download} dos projetos do repositório para ver o código completo em funcionamento.
 
 \chapter{Áudio}
 	\section{Gravando e tocando áudio}
@@ -2025,7 +2009,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:onlocmod}
 		\end{listing} 	
 		
-		Primeiro removemos o marcador anterior, depois adicionamos um novo marcador na posição obtida pelo \emph{listener}. Na linha 13 chamamos o método \texttt{moveCamera()} para colocar a camera na posição do marcador. 
+		Primeiro removemos o marcador anterior, depois adicionamos um novo marcador na posição obtida pelo \emph{listener}. Na linha 13 chamamos o método \texttt{moveCamera()} para colocar a câmera na posição do marcador. 
 
 		Para mais exemplos de mapas, você pode importar o projeto \emph{maps} da pasta \emph{samples} onde você obteve o \emph{libproject}.
 	 

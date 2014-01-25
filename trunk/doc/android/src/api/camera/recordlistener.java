@@ -6,12 +6,12 @@ mRecord.setOnClickListener(new OnClickListener() {
 		if(isRecording){
 			recorder.stop();
 			releaseMediaRecorder();
-			setRecordButtonText("Record");
+			((Button) v).setText("Record");
 			isRecording = false;	 			
 		} else {
 			if(prepareForRecording()) {
 				recorder.start();
-				setRecordButtonText("Stop");
+				((Button) v).setText("Stop");
 				isRecording = true;
 			} else {
 				releaseMediaRecorder();
