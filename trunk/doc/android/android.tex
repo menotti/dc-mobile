@@ -1022,7 +1022,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	
 	Primeiro obtemos as informações da aba que queremos do mapa com \texttt{mapTabInfo.get(tag)}, usamos a \emph{tag} para obter o objeto que queremos. Em seguida testamos para saber se a aba selecionada é a mesma que a anterior, pois não faria sentido recarregar a mesma aba. Na linha 9 testado para saber se a última aba não é nula, isso deve ser feito para evitar uma falha do aplicativo, testamos também se o fragmento é nulo para então usar \texttt{detach()} para retirar esse fragmento do \emph{layout}. 
 	
-	Fazemos o mesmo com a nova aba, caso o fragmento seja nulo isso quer dizer que ele não foi instanciado ainda, isto é, é a primeira vez que o usuário seleciona essa aba nesse ciclo de vida do aplicativo. Caso isso ocorra, então usamos \texttt{instantiate()} para instânciar esse novo fragmento e \texttt{add} para adiciona-lo ao \emph{layout}. Caso ele já tenha sido instânciado, então apenas usamos \texttt{attach()} para coloca-lo de volta no \emph{layout}.
+	Fazemos o mesmo com a nova aba, caso o fragmento seja nulo isso quer dizer que ele não foi instanciado ainda, isto é, é a primeira vez que o usuário seleciona essa aba nesse ciclo de vida do aplicativo. Caso isso ocorra, então usamos \texttt{instantiate()} para instanciar esse novo fragmento e \texttt{add} para adiciona-lo ao \emph{layout}. Caso ele já tenha sido instânciado, então apenas usamos \texttt{attach()} para coloca-lo de volta no \emph{layout}.
 	
 	Por final é preciso salvar a aba que estavamos caso o aplicativo fique em segundo plano. O método \texttt{onSaveInstanceState} fica encarregado disso.
 	
@@ -1787,9 +1787,9 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 		Gravar áudio é uma tarefa muito semelhante a gravar vídeos no Android. Usaremos a mesma classe: \texttt{MediaRecorder}, para configurar e gravar áudio do microfone do aparelho. Para tocar áudio veremos uma nova classe chamada \texttt{MediaPlayer}.
 
-		Para este exemplo criaremos um aplicativo simples com 2 botões, um para gravar e um para tocar a gravação. A fim de simplificar toda gravação será feita em apenas um arquivo, logo sempre que gravar algo novo estará sobreescrevendo o antigo. Entretanto, você pode modificar o método \texttt{getOutputMediaFile()} (algoritmo \ref{code:camera-getoutput}) que criamos no capítulo anterior para gravar em diferentes arquivos.
+		Para este exemplo criaremos um aplicativo simples com 2 botões, um para gravar e um para tocar a gravação. A fim de simplificar, toda gravação será feita em apenas um arquivo, logo sempre que gravar algo novo estará sobreescrevendo a gravação antiga. Entretanto, você pode modificar o método \texttt{getOutputMediaFile()} (algoritmo \ref{code:camera-getoutput}) que criamos no capítulo anterior para gravar em diferentes arquivos.
 
-		Iniciamos criando uma função que chamaremos de \texttt{prepareRecording()} que é similar aquela que fizemos para o vídeo.
+		Iniciaremos criando uma função que chamaremos de \texttt{prepareRecording()}, similar aquela que fizemos para no capítulo de vídeo.
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/audio/prepare.java}
@@ -1797,7 +1797,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:audioprepare}
 		\end{listing} 		
 
-		Assim como fizemos com o vídeo, a preparação precisa seguir passos determinados. Primeiro precisamos configurar a fonte com \texttt{setAudioSource()}, nesse caso passamos o \texttt{MIC}, o microfone do aparelho. O segundo passo e configurar o formato da saída com \texttt{setOutputFormat()} e nesse exemplo decidi pelo formato \texttt{3gp}. O terceiro passo é determinar o arquivo de saída com \texttt{setOutputFile()} e para esse passamos uma String que chamei de \texttt{testFilename}, o valor de \texttt{testFilename} para este exemplo é o caminho do armazenamento externo mais o nome do arquivo. Depois, \texttt{setAudioEncoder()} para selecionar a codificação do áudio. Por último chamar o método \texttt{prepare()} para consolidar as configurações.
+		Assim como fizemos no capítulo anterior, a preparação precisa seguir passos determinados. Primeiro precisamos configurar a fonte com \texttt{setAudioSource()}, nesse caso passamos o \texttt{MIC}, o microfone do aparelho. O segundo passo é configurar o formato da saída com \texttt{setOutputFormat()}, nesse exemplo optei pelo formato \texttt{3gp}. O terceiro passo é determinar o arquivo de saída com \texttt{setOutputFile()} e para esse método passamos uma \emph{string} que chamei de \texttt{testFilename}, o valor de \texttt{testFilename} neste exemplo é o caminho do armazenamento externo mais o nome do arquivo. Depois, \texttt{setAudioEncoder()} para selecionar a codificação do áudio. Por último chame o método \texttt{prepare()} para consolidar as configurações.
 
 		Também faça uma função \texttt{releaseRecorder()} para liberar o gravador quando terminar a gravação.
 
@@ -1807,7 +1807,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:audiorelease}
 		\end{listing} 		
 
-		Em seguida faça o \emph{listener} do botão de gravar da mesma forma do botão de gravar vídeo.
+		Em seguida faça o \emph{listener} do botão de gravar da mesma forma do botão de gravar vídeo do capítulo anterior.
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/audio/reclistener.java}
@@ -1815,7 +1815,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:audioreclistener}
 		\end{listing} 		
 
-		São necessárias apenas verificações simples para saber se está gravando ou não e se foi possível fazer a preparação do gravador ou não. Se está gravando e o usuário pressiona o botão então chamamos \texttt{stop()} para parar a gravação, trocamos o texto do botão e atribuímos \texttt{isRecording} como falso pois estamos parando de gravar. Caso contrário, ou seja, queremos gravar, então chamamos \texttt{start()} para iniciar a gravação, mudamos o texto e atribuímos verdadeiro para \texttt{isRecording}. Se a preparação falhar então chamamos \texttt{releaseRecorder()} para liberar o microfone.
+		São necessárias apenas verificações simples para saber se está gravando ou não e se foi possível fazer a preparação do gravador ou não. Se está gravando e o usuário pressiona o botão então chamamos \texttt{stop()} para parar a gravação, trocamos o texto do botão e atribuímos \texttt{isRecording} como falso, pois estamos parando de gravar. Caso contrário, ou seja, queremos gravar, então chamamos \texttt{start()} para iniciar a gravação, então mudamos o texto e atribuímos verdadeiro para \texttt{isRecording}. Se a preparação falhar chamamos \texttt{releaseRecorder()} para liberar o microfone.
 
 		Para o tocador, iremos usar a classe \texttt{MediaPlayer}, iniciaremos criando um método \texttt{startPlaying()} responsável por instanciar um \texttt{MediaPlayer} e configurá-lo. 
 		\begin{listing}[H]
@@ -1824,7 +1824,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:audiostartplaying}
 		\end{listing} 		
 
-		Na linha 4 você pode pode observar o uso de um \emph{listener} para o \texttt{MediaPlayer} chamado \texttt{OnCompletionListener}, podemos usar essa interface para saber quando o áudio acaba de tocar, nesse caso o estamos usando para poder configurar o botão. Dentro do bloco \texttt{try-catch} usamos \texttt{setDataSource()} para configurar o arquivo de áudio a ser tocado. Depois chamamos \texttt{prepare()} e finalmente \texttt{start()} para começar a tocar. 
+		Na linha 4 você pode pode observar o uso de um \emph{listener} para o \texttt{MediaPlayer} chamado \texttt{OnCompletionListener}, podemos usar essa interface para saber quando o áudio termina de tocar, nesse caso o estamos usando para poder configurar o botão. Dentro do bloco \texttt{try-catch} usamos \texttt{setDataSource()} para configurar o arquivo de áudio a ser tocado. Depois chamamos \texttt{prepare()} e finalmente \texttt{start()} para começar a tocar. 
 
 		Para complementar, a função \texttt{stopPlaying()} também é útil para quando quisermos parar de tocar o áudio.
 		
@@ -1854,17 +1854,17 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 		\dica{Não se esqueça das permissões no \emph{Manifest}!}
 
-		Com isso terminamos nosso aplicativo que não so faz uma simples gravação de áudio, mas que também nos permite escutá-la usando a classe \texttt{MediaPlayer}.
+		Com isso terminamos nosso aplicativo que não só faz uma simples gravação de áudio, mas que também nos permite escutá-la usando a classe \texttt{MediaPlayer}.
 
 \chapter{Localização e Mapas}
 
-		O Google já tem uma documentação muito boa que ensina como acessar a API do Google \emph{Maps} no seu aplicativo. Porém muitas vezes ela pode confusa e você sente que falta informações um pouco mais claras. Nesse capítulo iremos abordar tanto o acesso a localização do dispositivo usando \texttt{LocationManager} e colocar essas informações no Google \emph{Maps}.
+		O Google já tem uma extensa documentação que nos ensina como acessar a API do Google \emph{Maps} no seu aplicativo. Porém, muitas vezes ela pode confusa e você sente que faltam informações um pouco mais claras. Nesse capítulo iremos abordar tanto o acesso a localização do dispositivo usando \texttt{LocationManager} e colocar essas informações no Google \emph{Maps}.
 
 		Já existe uma nova API que utiliza o Google \emph{Play Services}, a documentação oficial pode ser vista \href{https://developer.android.com/google/play-services/location.html}{aqui}\footnote{\href{https://developer.android.com/google/play-services/location.html}{https://developer.android.com/google/play-services/location.html}}
 
 		\section{Acessando a localização}
 	
-		Antes de iniciar, você precisa definir se quer ter obter a localização usando GPS \emph{(Global Positioning System)} ou usando a Internet. Caso opte por usar o GPS, deve-se atentar ao fato que o GPS demora muito para inicializar e obter as coordenadas. Enquanto que usando a Internet isso é praticamente instantâneo, porém a localização não é tão precisa. Ou seja, se quer rapidez use a Internet como seu \emph{Location Provider}, se quer precisão use o GPS.
+		Antes de iniciar, você precisa definir se quer obter a localização usando GPS \emph{(Global Positioning System)} ou usando a Internet. Caso opte por usar o GPS, deve-se atentar ao fato que o GPS demora muito para inicializar e obter as coordenadas. Enquanto que usando a Internet isso é praticamente instantâneo, porém a localização não é tão precisa. Ou seja, se quer rapidez use a Internet como seu \emph{Location Provider}, se quer precisão use o GPS.
 
 		Sabendo disso então você deve colocar as permissões no \emph{Manifest}, mostradas abaixo.
 
@@ -1884,7 +1884,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:locationlistener}
 		\end{listing} 	
 
-		O método mais importante deste \emph{listener} é \texttt{onLocationChanged()}, toda vez que as coordenadas de sua posição forem alteradas, ele irá chamar este método. Para esse exemplo eu apenas atualizei o valor de duas variáveis, que podem ser utilizadas para atualizar a posição em um mapa, por exemplo. Já os métodos \texttt{onProviderDisabled()} e \texttt{onProviderEnabled()} realizam uma ação quando o provedor de localização é desativado ou ativado, isso irá depender muito de sua aplicação. Mas para um exemplo simples estou apenas mostrando um \texttt{Toast} com a mensagem de que ele foi desativado ou ativado. O método \texttt{onStatusChanged()} é chamado quando o estado do provedor muda, por exemplo se ele se torna disponível depois de um período de disponibilidade.
+		O método mais importante deste \emph{listener} é \texttt{onLocationChanged()}, toda vez que as coordenadas de sua posição forem alteradas, ele irá chamar este método. Para esse exemplo eu apenas atualizei o valor de duas variáveis, que podem ser utilizadas para atualizar a posição em um mapa, por exemplo. Já os métodos \texttt{onProviderDisabled()} e \texttt{onProviderEnabled()} realizam uma ação quando o provedor de localização é desativado ou ativado, isso irá depender muito de sua aplicação. Mas para um exemplo simples estou apenas mostrando um \texttt{Toast} com a mensagem de que ele foi desativado ou ativado. O método \texttt{onStatusChanged()} é chamado quando o estado do provedor muda, por exemplo se ele se torna disponível depois de um período de indisponibilidade.
 
 		O próximo passo é definir o \texttt{LocationListener} que criamos para um \texttt{LocationManager}. Que deve ser feito no \texttt{onCreate()}.
 
@@ -1894,11 +1894,11 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:locationmanager}
 		\end{listing} 	
 
-		A referência ao \texttt{LocationManager} deve ser obtida com o método \texttt{getSystemService()}. Em seguida criamos uma nova instância da classe \texttt{MyLocationListener} que criamos anteriormente. Depois deve-se registrar o \emph{listener} para receber atualizações usando \texttt{requestLocationUpdates()}. Os parâmetros são: o provedor que será usado, o intervalo mínimo entre atualizações (em ms), a disância mínima entre atualizações (em metros) e o \emph{listener}. Nesse exemplo, estamos usando o GPS, caso queira usar a Internet, deve-se usar \texttt{LocationManager.NETWORK\_PROVIDER}.
+		A referência ao \texttt{LocationManager} deve ser obtida com o método \texttt{getSystemService()}.Criamos uma nova instância da classe \texttt{MyLocationListener} que criamos anteriormente. Depois deve-se registrar o \emph{listener} para receber atualizações usando \texttt{requestLocationUpdates()}. Os parâmetros são: o provedor que será usado, o intervalo mínimo entre atualizações (em milissegundos), a distância mínima entre atualizações (em metros) e o \emph{listener}. Nesse exemplo, estamos usando o GPS, caso queira usar a Internet, deve-se usar \texttt{LocationManager.NETWORK\_PROVIDER}.
 
  		\section{Google \emph{Maps}}
 
-		Configurar o Google \emph{Maps} para uso pode ser complicado. Você deve registrar sua aplicação para obter uma chave para dar permissão ao seu aplicativo de usar o \emph{Maps}. Nessa seção faremos o passo a passo de como obter a chave e colocar um mapa na sua \emph{activity}.
+		Configurar o Google \emph{Maps} para uso é trabalhoso. Você deve registrar sua aplicação para obter uma chave que dá permissão ao seu aplicativo para usar o \emph{Maps}. Nessa seção faremos o passo a passo de como obter a chave e colocar um mapa na sua \emph{activity}.
 
 		Antes de iniciar, quero deixar claro que o Google \emph{Maps} não funciona no emulador Android. Isso é devido a utilização do Google \emph{Play Services} que não está disponível nos emuladores (até essa data). Existe sim a possibilidade de instalar o \emph{Play Services} nos emuladores, mas isso não está previsto pelo Google e pode não funcionar corretamente. 
 
@@ -1908,7 +1908,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 	 	Caso esteja usando o \emph{Eclipse}, a chave de certificação \emph{debug} pode ser obtida no menu \emph{Window} > \emph{Preferences} > \emph{Android}  > \emph{Build}, sob o campo \emph{SHA-1 fingerprint}.
 
-		Você pode obter pela linha de comando, usando o software \emph{keytool} que vem junto do JDK. Você irá precisar apontar para o arquivo \texttt{debug.keystore} que está na pasta \texttt{.android} em seu sistema. Basta executar o \emph{keytool} com o seguinte comando.
+		Você também pode adquirí-la pela linha de comando, usando o software \emph{keytool} que vem junto do JDK. Você irá precisar apontar para o arquivo \texttt{debug.keystore} que está na pasta \texttt{.android} do seu sistema. Basta executar o \emph{keytool} com o seguinte comando.
 
 		\texttt{keytool -list -v -keystore} \texttt{".android/debug.keystore"} \texttt{ -alias androiddebugkey} \texttt{ -storepass android} \texttt{ -keypass android}
 
@@ -1942,7 +1942,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		  \label{fig:apiconsole2}
 		\end{figure}
 	
-		Agora, com o código em mãos, você deve abrir seu \emph{Manifest} e adicionar a seguinte linha dentro da \emph{tag} \texttt{<application>}.
+		Agora, com o código em mãos, você deve abrir seu \emph{Manifest} e adicionar a seguinte linha dentro da \emph{tag} \texttt{<application>}. Onde \texttt{value} é a \emph{key} adquirida.
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/maps/apikey.xml}
@@ -1952,11 +1952,11 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 		\subsection{Configurando o Google  \emph{Play Services}}
 
-		Primeiro, você deve fazer \emph{download} do Google \emph{Play Services} no \emph{SDK Manager}. Após o término do \emph{download} é necessário importar a bilbioteca no Eclipse e referenciá-lo em seu projeto. 
+		Primeiro, você deve fazer \emph{download} do Google \emph{Play Services} no \emph{SDK Manager}. Após o término do \emph{download} é necessário importar a biblioteca no Eclipse e referenciá-la em seu projeto. 
 		
-		A pasta com a bibliotecla do Google \emph{Play Services} se encontrará na pasta \texttt{sdk/extras/google/google\_play\_services/libproject/} e se chama \texttt{google-play-services\_lib}. É necessário importar essa pasta como projeto existente no Eclipse, não se esqueça de marcar a opção para copiar o projeto para o seu \emph{workspace}. 
+		A pasta com a biblioteca do Google \emph{Play Services} se encontrará na pasta \texttt{sdk/extras/google/google\_play\_services/libproject/} e se chama \texttt{google-play-services\_lib}. É necessário importar essa pasta como projeto existente no Eclipse, não se esqueça de marcar a opção para copiar o projeto para o seu \emph{workspace}. 
 
-		Depois de importar, você deve abrir as propriedades do seu projeto, selecionar \emph{Android} no menu à esquerda. Na parte inferior onde está escrito \emph{Library} clique em \emph{Add...} e selecione o \texttt{google-play-services\_lib}. Se aparecer um símbolo verde de "correto", então deu certo.
+		Depois de importar, você deve abrir as propriedades do seu projeto e selecionar \emph{Android} no menu à esquerda. Na parte inferior onde está escrito \emph{Library} clique em \emph{Add...} e selecione o \texttt{google-play-services\_lib}. Se aparecer um símbolo verde de "correto", então deu certo.
 
 		\begin{figure}[H]
 		  \centering
@@ -1975,7 +1975,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:mapfrag}
 		\end{listing} 	
 
-		Agora que já obtemos a localização, podemos usá-la para marcar a posição no mapa. Existem diversas maneiras de adicionar um mapa em uma \emph{activity}. Nesse exemplo adicionaremos usando um \texttt{FrameLayout} para colocar o mapa dentro. Uma outra forma é simplesmente declarando um fragmento no XML do \emph{layout} como mostrado abaixo:
+		Agora que já obtemos a localização, podemos usá-la para marcar a posição no mapa. Existem diversas maneiras de adicionar um mapa em uma \emph{activity}. Nesse exemplo utilizaremos um \texttt{FrameLayout} para colocar o mapa dentro. Uma outra forma é simplesmente declarando um fragmento no XML do \emph{layout} como mostrado abaixo:
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/maps/frag.xml}
@@ -2038,7 +2038,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:createchooser}
 		\end{listing} 		
 
-		Você pode usar alguns \emph{extras} padrões nos \texttt{Intent}, tais como: \texttt{EXTRA\_EMAIL} para o texto ser o corpo do e-mail, \texttt{EXTRA\_SUBJECT} para o texto ser o assunto do e-mail. Porém o aplicativo que estiver recebendo o \texttt{Intent} deve estar preparado para esse tipo de \emph{extra}, se não nada vai acontecer. Existe ainda a opção de criar \emph{extras} personalizados, mas também so irá funcionar caso o aplicativo esteja projetado para esse tipo de \emph{extra}. Nesse caso é comum criar um \emph{extra} personalizado caso você tenha feito um conjunto de aplicativos que podem trocar informações através de \texttt{Intents} e que irão usar esse \emph{extra}.
+		Você pode usar alguns \emph{extras} padrões nos \texttt{Intent}, tais como: \texttt{EXTRA\_EMAIL} para o texto ser o corpo do e-mail, \texttt{EXTRA\_SUBJECT} para o texto ser o assunto do e-mail. Porém o aplicativo que estiver recebendo o \texttt{Intent} deve estar preparado para esse tipo de \emph{extra}, se não nada vai acontecer. Existe ainda a opção de criar \emph{extras} personalizados, mas também só irá funcionar caso o aplicativo esteja projetado para esse tipo de \emph{extra}. Nesse caso é comum criar um \emph{extra} personalizado caso você tenha feito um conjunto de aplicativos que podem trocar informações através de \texttt{Intents} e que irão usar esse \emph{extra}.
 
 		Além de texto é possível enviar dados binários ou até mesmo mais de um dado ao enviar uma lista. Para enviar uma foto que você tirou com a câmera, por exemplo, você deve usar o \emph{extra} chamado \texttt{EXTRA\_STREAM} e configurar o tipo do \texttt{Intent} para \texttt{"image/jpeg"}.
 
@@ -2058,7 +2058,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:sharingbtn}
 		\end{listing} 		
 
-		A parte mais importante é o método \texttt{setType}, ele recebe um \emph{MIME Type}\footnote{MIME: \href{http://en.wikipedia.org/wiki/MIME}{http://en.wikipedia.org/wiki/MIME}}, como é o caso de \texttt{text/plain} e \texttt{image/png}. Outros \emph{MIME Types} poderiam ser usados como \texttt{image/*} caso não soubéssemos o formato da imagem ou até mesmo \texttt{*/*} que representa qualquer tipo. O problema disso é que todos aplicativos irão aparecer na lista e alguns podem não receber o que você está tentando enviar! Portanto seja cauteloso.
+		A parte mais importante é o método \texttt{setType}, ele recebe um \emph{MIME Type}\footnote{MIME: \href{http://en.wikipedia.org/wiki/MIME}{http://en.wikipedia.org/wiki/MIME}}, como é o caso de \texttt{text/plain} e \texttt{image/png}. Outros \emph{MIME Types} poderiam ser usados como \texttt{image/*} caso não soubéssemos o formato da imagem ou até mesmo \texttt{*/*} que representa qualquer tipo de dado. O problema disso é que todos aplicativos irão aparecer na lista e alguns podem não receber o que você está tentando enviar! Portanto, seja cauteloso.
 
 		Já o segundo aplicativo irá receber tanto um texto como uma foto e mostrar ao usuário, apenas para exemplificar o recebimento de \texttt{Intents}. O primeiro passo é criar os \texttt{intent-filter} para receber os \emph{MIME Type} corretos.
 
@@ -2088,7 +2088,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 	O Android contém um repositório central onde estão armazenadas as informações dos contatos do usuário, incluindo os dados de redes sociais. Esse repositório se chama \emph{Contacts Provider}\footnote{\href{http://developer.android.com/guide/topics/providers/contacts-provider.html}{http://developer.android.com/guide/topics/providers/contacts-provider.html}}.	
 	
-	Seguindo as lições da documentação oficial, iremos criar uma pequena aplicação que obtém todos seus contatos e popula uma lista com eles. Mais detalhes do contato poderão ser obtidos ao se clicar no contato. O primeiro passo, sempre obrigatório para se acessar o repositório de contatos é adicionar permissão no \emph{Manifest}. Demonstrado no trecho abaixo:	
+	Seguindo as lições da documentação oficial, iremos criar uma pequena aplicação que obtém todos seus contatos e popula uma lista com eles. Mais detalhes do contato poderão ser obtidos ao se clicar no contato. O primeiro passo, sempre obrigatório para se acessar o repositório de contatos, é adicionar permissão no \emph{Manifest}. Demonstrado no trecho abaixo:	
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/contacts/permission.xml}
@@ -2098,9 +2098,9 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	
 	Em seguida precisamos de uma \emph{activity} com uma lista para conter os contatos. Nesse exemplo criamos um XML de \emph{layout} que só contenha uma \texttt{ListView} e em seguida um outro XML para definir o \emph{layout} de um item da lista, nesse caso será somente uma \texttt{TextView}. Você poderá obter mais detalhes no código do projeto disponível no repositório.
 
-	\dica{Você pode incementar essa lista adicionando outras informações do contato na lista, como a foto de cada um}
+	\dica{Você pode incementar essa lista adicionando outras informações do contato na lista, como a foto de cada um.}
 
-	Após ter definido o \emph{layout}, precisamos mostrar a lista de contatos, começe definindo a \emph{activity} que irá conter a lista. A lista deverá ser populada utilizando a classe \texttt{ContactsContract}\footnote{\href{http://developer.android.com/reference/android/provider/ContactsContract.html}{http://developer.android.com/reference/android/provider/ContactsContract.html}} que já nos providencia algumas constantes e métodos para acessar a lista de contatos.
+	Após ter definido o \emph{layout} precisamos mostrar a lista de contatos, comece definindo a \emph{activity} que irá conter a lista. A lista deverá ser populada utilizando a classe \texttt{ContactsContract}\footnote{\href{http://developer.android.com/reference/android/provider/ContactsContract.html}{http://developer.android.com/reference/android/provider/ContactsContract.html}} que já nos providencia algumas constantes e métodos para acessar a lista de contatos.
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/contacts/fragment.java}
@@ -2108,9 +2108,9 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:contactfragment}
 		\end{listing} 	
 	
-	Como pode ser observado no código \ref{code:contactfragment} estamos extendendo a classe \texttt{FragmentActivity}\footnote{\href{http://developer.android.com/reference/android/support/v4/app/FragmentActivity.html}{http://developer.android.com/reference/android/support/v4/app/FragmentActivity.html}} que nos permite usar o \texttt{Loader} em Android mais antigos. Além disso estamos implementando as interfaces \texttt{LoaderManager.LoaderCallbacks}\footnote{\href{http://developer.android.com/reference/android/app/LoaderManager.LoaderCallbacks.html}{http://developer.android.com/reference/android/app/LoaderManager.LoaderCallbacks.html}} que permite o carregamento de dados de forma assícrona. Estamos implementando também a interface \texttt{OnItemClickListener}\footnote{\href{http://developer.android.com/reference/android/widget/AdapterView.OnItemClickListener.html}{http://developer.android.com/reference/android/widget/AdapterView.OnItemClickListener.html}} para que possamos carregar mais informações do contato quando clicado na lista.
+	Como pode ser observado no código \ref{code:contactfragment} estamos extendendo a classe \texttt{FragmentActivity}\footnote{\href{http://developer.android.com/reference/android/support/v4/app/FragmentActivity.html}{http://developer.android.com/reference/android/support/v4/app/FragmentActivity.html}} que nos permite usar o \texttt{Loader} em Android mais antigos. Além disso estamos implementando as interfaces \texttt{LoaderManager.LoaderCallbacks}\footnote{\href{http://developer.android.com/reference/android/app/LoaderManager.LoaderCallbacks.html}{http://developer.android.com/reference/android/app/LoaderManager.LoaderCallbacks.html}} que permite o carregamento de dados de forma assíncrona. Estamos implementando também a interface \texttt{OnItemClickListener}\footnote{\href{http://developer.android.com/reference/android/widget/AdapterView.OnItemClickListener.html}{http://developer.android.com/reference/android/widget/AdapterView.OnItemClickListener.html}} para que possamos carregar mais informações do contato quando este é clicado na lista.
 	
-	Precisamos de algumas variáveis para auxiliar na seleção dos contatos e na criação do adaptador da lista. A variável \texttt{FROM\_COLUMNS}, abaixo, são os dados que serão mostrados e que nesse caso é apenas o nome do contato. Observe que estamos fazendo uma pequena comparação da versão do SDK pois depois da versão 3.0 do SDK, a classe \texttt{Contacts} foi alterada. Já a variável \texttt{TO\_IDS} serve para o adaptador saber onde colocar a informação, passamos para ele o \emph{id} do \texttt{TextView} que colocamos no XML. Como essa lição se baseia na lição da documentação oficial, estamos usando um dos \emph{ids} padrões do Android.
+	Precisamos de algumas variáveis para auxiliar na seleção dos contatos e na criação do adaptador da lista. A variável \texttt{FROM\_COLUMNS}, abaixo, são os dados que serão mostrados e que nesse caso é apenas o nome do contato. Observe que estamos fazendo uma pequena comparação da versão do SDK pois a partir da versão 3.0 do SDK, a classe \texttt{Contacts} foi alterada. Já a variável \texttt{TO\_IDS} serve para o adaptador saber onde colocar a informação, passamos para ele o \emph{id} do \texttt{TextView} que colocamos no XML. Como essa lição se baseia na lição da documentação oficial, estamos usando um dos \emph{ids} padrões do Android.
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/contacts/fromto.java}
@@ -2118,7 +2118,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:contactadaptervar}
 		\end{listing} 	
 
-	As próximas variáveis são aquelas da seleção dos contatos. Nesse exemplo vamos obter todos os contatos e portanto deixar a variável \texttt{mSearchString} vazia, mas caso queira obter contatos especificos, basta fazer algo que preencha essa variável. Temos a variável \texttt{SELECTION} que funciona como a parte \emph{WHERE} de uma consulta \texttt{SQL}, ela já está preparada para a busca por algum nome, caso queira. A variável \texttt{PROJECTION} é uma constante que define as colunas que você quer retornar das consultas, nesse caso queremos 3: o \emph{id} do contato, sua chave de busca \emph{(lookup key)} e o seu nome. Por fim, as variaveis \texttt{CONTACT\_ID\_INDEX} e \texttt{LOOKUP\_KEY\_INDEX} funcionam como ponteiros para o \texttt{Cursor} que irá se mover nos resultados da pesquisa, basta definir o valor da variável como sendo a posição da coluna na projeção. Como temos a coluna \emph{id} sendo a primeira e a \emph{lookup} sendo a segunda, colocamos os valores 0 e 1, respectivamente. Isso é necessário para se obter dados de uma coluna individual do \texttt{Cursor}.
+	As próximas variáveis são aquelas da seleção dos contatos. Nesse exemplo vamos obter todos os contatos e portanto deixar a variável \texttt{mSearchString} vazia, mas caso queira obter contatos específicos, basta fazer algo que preencha essa variável. Temos a variável \texttt{SELECTION} que funciona como a parte \emph{WHERE} de uma consulta \texttt{SQL}, ela já está preparada para a busca por algum nome, caso queira. A variável \texttt{PROJECTION} é uma constante que define as colunas que você quer retornar das consultas, nesse caso queremos 3: o \emph{id} do contato, sua chave de busca \emph{(lookup key)} e o seu nome. Por fim, as variáveis \texttt{CONTACT\_ID\_INDEX} e \texttt{LOOKUP\_KEY\_INDEX} funcionam como ponteiros para o \texttt{Cursor} que irá se mover nos resultados da pesquisa, basta definir o valor da variável como sendo a posição da coluna na projeção. Como temos a coluna \emph{id} sendo a primeira e a \emph{lookup} sendo a segunda, colocamos os valores 0 e 1, respectivamente. Isso é necessário para se obter dados de uma coluna individual do \texttt{Cursor}.
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/contacts/morevar.java}
@@ -2142,7 +2142,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:contactonactivity}
 		\end{listing} 	
 
-	Na linha 4 do algoritmo \ref{code:contactonactivity}, estamos criando o \texttt{SimpleCursorAdapter}, como já discutido na lição de listas, é necessário passar para o adaptador o \emph{layout} interno da lista assim como os mapas com os dados e os \emph{ids} das views em que esses dados serão inseridos, são esses parâmetros, as variáveis \texttt{FROM\_COLUMNS} e \texttt{TO\_IDS}. Na linha 10 determinamos o adaptador para a lista e na linha 11 determinamos que o listener da lista será a própria classe. Isso é possível pois estamos implementando a interface \texttt{OnItemClickListener}.
+	Na linha 4 do algoritmo \ref{code:contactonactivity}, estamos criando o \texttt{SimpleCursorAdapter}, como já discutido na lição de listas, é necessário passar para o adaptador o \emph{layout} interno da lista assim como os mapas com os dados e os \emph{ids} das \emph{views} em que esses dados serão inseridos. São esses parâmetros as variáveis \texttt{FROM\_COLUMNS} e \texttt{TO\_IDS}. Na linha 10 determinamos o adaptador para a lista e na linha 11 determinamos que o listener da lista será a própria classe. Isso é possível pois estamos implementando a interface \texttt{OnItemClickListener}.
 
 	Como estamos usando o \texttt{CursorLoader}\footnote{\href{http://developer.android.com/reference/android/content/CursorLoader.html}{http://developer.android.com/reference/android/content/CursorLoader.html}} para buscar os dados, nós precisamos inicializar a \emph{thread} que ficará no plano de fundo que irá controlar a busca de forma assíncrona. 
 
@@ -2187,7 +2187,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\end{listing} 	
 
 
-	Em seguida, construa o método \texttt{onCreate()}. A diferença é a obtenção dos dados do \texttt{Intent} e a referência ao \texttt{ViewGroup} que iremos utilizar mais tarde. 
+	Em seguida, construa o método \texttt{onCreate()}. A diferença dessa \emph{activity} para a anterior é a obtenção dos dados do \texttt{Intent} e a referência ao \texttt{ViewGroup} que iremos utilizar mais tarde. 
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/contacts/oncreate.java}
@@ -2203,7 +2203,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:contactdetailssetcontact}
 		\end{listing} 			
 		\interfootnotelinepenalty=10000
-	O método \texttt{hasPhone()}, que pode ser visto na linha 14 verifica se o contato tem algum número de telefone cadastrado. Esse método demonstra uma outra forma de se adquirir os dados de um contato, sem ser em outra \emph{thread}, mas na mesma \emph{thread} da \emph{UI (User Interface)}\footnote{Tudo que fizemos até agora (exceto o \texttt{AsyncTask} na lição de comunicação) está rodando na chamada \emph{UI thread}, isso significa que o Android está executando seu código na mesma \emph{thread} em que cria a interface do usuário. Usar o \texttt{Loader} implica em fazer com que as consultas rodem em uma outra \emph{thread}, liberando a \emph{UI thread} do serviço e impedindo que o aplicativo pareça estar travado enquanto busca informações. O \texttt{AsyncTask} é uma outra forma de executar \emph{background threads} de forma assícrona.}. 
+	O método \texttt{hasPhone()}, chamado na linha 14, verifica se o contato tem algum número de telefone cadastrado. Esse método demonstra uma outra forma de se adquirir os dados de um contato, sem ser em outra \emph{thread}, mas na mesma \emph{thread} da \emph{UI (User Interface)}\footnote{Tudo que fizemos até agora (exceto o \texttt{AsyncTask} na lição de comunicação) está rodando na chamada \emph{UI thread}, isso significa que o Android está executando seu código na mesma \emph{thread} em que cria a interface do usuário. Usar o \texttt{Loader} implica em fazer com que as consultas rodem em uma outra \emph{thread}, liberando a \emph{UI thread} do serviço e impedindo que o aplicativo pareça estar travado enquanto busca informações. O \texttt{AsyncTask} é uma outra forma de executar \emph{background threads} de forma assícrona.}. 
 
 	
 	Agora iremos implementar o método \texttt{onCreateLoader()}, de forma semelhante à última vez, mas agora iremos criar um \texttt{CursorLoader} diferente dependendo do \emph{id} que foi passado para o método - no caso é o \texttt{QUERY\_ID} que foi o parâmetro do método \texttt{restartLoader()}, visto no algoritmo \ref{code:contactdetailssetcontact}.
@@ -2214,7 +2214,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:contactdetailssoncreateloader}
 		\end{listing} 			
 	
-	Nesse método, nós estamos fazendo um \texttt{switch} para selecionar qual consulta iremos fazer e então usamos as projeções e seleções de cada interface para realizar a consulta. Se atente as diferenças entre cada um: no primeiro caso, nós usamos \texttt{mContactUri} no segundo parâmetro do construtor do \texttt{CursorLoader} pois nós já temos o "endereço" do nome do contato nesse atributo, não e preciso fazer uma seleção, nesse caso.
+	Nesse método, nós estamos fazendo um \texttt{switch} para selecionar qual consulta iremos fazer e então usamos as projeções e seleções de cada interface para realizar a consulta. Se atente as diferenças entre cada um: no primeiro caso, nós usamos \texttt{mContactUri} no segundo parâmetro do construtor do \texttt{CursorLoader} pois nós já temos o "endereço" do nome do contato nesse atributo, nesse caso não é preciso fazer uma seleção.
 
 	 No segundo e terceiro casos, no segundo parâmetro passamos o "endereço" da tabela dos endereços e telefones dos contatos, mas usamos a seleção para poder selecionar qual contato. A variável \texttt{addressArgs} contém o \emph{id} do contato que irá servir como parâmetro da seleção. Note que no Android essas informações dos contatos estão guardadas em um banco de dados e o que estamos fazendo na realidade são \emph{SELECT} comuns, mas usando as classes pré-definidas para nos auxiliar. O Android também já junta várias tabelas automaticamente para facilitar as buscas.
 
@@ -2232,7 +2232,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		Esse capítulo tentou dar uma introdução à obtenção dos contatos da agenda. É uma tema especialmente difícil por haver muito rigor nos detalhes. É altamente recomendável estudar mais a fundo a lição presente na documentação oficial e o exemplo oferecido por eles. 
 
 \chapter{Acelerômetro}
-	Os dispositivos Android contam com um sensor chamado acelerômetro que consegue captar o movimento do aparelho nos três eixos. É útil para fazer jogos, saber a orientação do aparelho, entre outras utilidades. Para isso o Android contém um \emph{framework} para os sensores, uma das classes é a \texttt{SensorManager} que contém vários métodos para acessar, registrar \emph{listeners} e constantes para calibrar os sensores, reportar a precisão do sensor e configurar a taxa de aquisição dos dados. Para saber mais sobre o \emph{framework}, acesse a \href{http://developer.android.com/guide/topics/sensors/sensors\_overview.html}{documentação oficial}\footnote{\href{http://developer.android.com/guide/topics/sensors/sensors\_overview.html}{http://developer.android.com/guide/topics/sensors/sensors\_overview.html}}.
+	Os dispositivos Android contam com um sensor chamado acelerômetro que consegue captar a aceleração do aparelho nos três eixos. É útil para fazer jogos, saber a orientação do aparelho, entre outras utilidades. Para isso o Android contém um \emph{framework} para os sensores, uma das classes é a \texttt{SensorManager} que contém vários métodos para acessar, registrar \emph{listeners} e constantes para calibrar os sensores, reportar a precisão do sensor e configurar a taxa de aquisição dos dados. Para saber mais sobre o \emph{framework}, acesse a \href{http://developer.android.com/guide/topics/sensors/sensors\_overview.html}{documentação oficial}\footnote{\href{http://developer.android.com/guide/topics/sensors/sensors\_overview.html}{http://developer.android.com/guide/topics/sensors/sensors\_overview.html}}.
 
 	Agora, para exemplificar vamos construir uma aplicação bem simples que apenas irá mostrar na tela os valores lidos do acelerômetro. Criaremos apenas uma \emph{activity} com três \texttt{TextView} para mostrar os valores lidos do acelerômetro.
 
@@ -2242,7 +2242,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	\label{code:accelactivity}
 	\end{listing} 			
 
-	Usaremos os dois \emph{arrays}, \texttt{gravity} e \texttt{acceleration} para guardar os valores lidos do sensor. Em seguida, no método \texttt{onCreate()}, você deverá obter uma referência ao \texttt{SensorManager} usando \texttt{getSystemService()}.
+	Usaremos os dois \emph{arrays}, \texttt{gravity} e \texttt{acceleration} para guardar os valores lidos do sensor. Em seguida, no método \texttt{onCreate()}, você deverá adquirir uma referência do \texttt{SensorManager} usando \texttt{getSystemService()}.
 
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/accelerometer/oncreate.java}
@@ -2250,7 +2250,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	\label{code:accelactivitycreate}
 	\end{listing} 			
 
-	É necessário, agora, criar o \emph{listener} que irá escutar o sensor e escrever os dados na tela. O método \texttt{onSensorChangend()} é chamado de acordo com o intervalo definido em \texttt{registerListener()} na linha 4 do algoritmo \ref{code:accelregister}.
+	É necessário agora criar o \emph{listener} que irá escutar o sensor e escrever os dados na tela. O método \texttt{onSensorChanged()} é chamado de acordo com o intervalo definido em \texttt{registerListener()} na linha 4 do algoritmo \ref{code:accelregister}.
 
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/accelerometer/listener.java}
@@ -2268,13 +2268,13 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	\label{code:accelregister}
 	\end{listing} 			
 
-	Quando registrar o \emph{listener}, é importante indicar o intervalo de atualização (terceiro parâmetro), \texttt{SENSOR\_DELAY\_NORMAL} é o mais lento. 
+	Quando registrar o \emph{listener}, é importante indicar o intervalo de atualização (terceiro parâmetro), estamos usando \texttt{SENSOR\_DELAY\_NORMAL} pois é o mais lento. 
 	
-	Esse capítulo buscou apenas dar uma introdução bem simples ao uso de sensores, mas mais especificamente o uso do acelerômetro. Todos os sensores podem ser programados de forma similar. 
+	Esse capítulo buscou apenas dar uma introdução bem simples ao uso de sensores, mas mais especificamente ao uso do acelerômetro. Todos os sensores podem ser programados de forma similar. 
 
 \chapter{Bluetooth}
 
-	O Android providencia uma API para conectar o aparelho em outros dispositivos \emph{Bluetooth}, sejam outros celulares, \emph{tablets}, fones de ouvido e até mesmo HDP \emph{(Health Device Profile)} que é um tipo de conexão \emph{Bluetooth} para aparelhos médicos. Com a API para \emph{Bluetooth} você pode: sondar outros dispositivos \emph{Bluetooth}, buscar por dispositivos já pareados, estabelecer conexão, transferir dados e gerenciar múltiplas conexões.
+	O Android providencia uma API para conectar o aparelho em outros dispositivos \emph{Bluetooth}, sejam outros celulares, \emph{tablets}, fones de ouvido e até mesmo HDP \emph{(Health Device Profile)} que é um tipo de conexão \emph{Bluetooth} para aparelhos médicos. Com a API para \emph{Bluetooth} você pode: sondar outros dispositivos \emph{Bluetooth}, buscar por dispositivos já pareados, estabelecer conexões, transferir dados e gerenciar múltiplas conexões.
 
 	Para exemplificar iremos construir uma pequena aplicação que envia uma mensagem para um dispositivo pareado. Esse exemplo irá introduzir diversos novos conceitos do sistema Android e do próprio Java, entre eles: \texttt{BroadcastReceiver}, \texttt{Thread}, \texttt{Handler}, \texttt{Runnable}, além claro, do \texttt{Bluetooth}.
  
@@ -2290,7 +2290,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 	Usaremos um \texttt{ArrayAdapter}\footnote{\href{http://developer.android.com/reference/android/widget/ArrayAdapter.html}{http://developer.android.com/reference/android/widget/ArrayAdapter.html}} para mostrar na lista o nome e o endereço MAC dos dispositivos. Além disso, a variável \texttt{BluetoothAdapter}\footnote{\href{http://developer.android.com/reference/android/bluetooth/BluetoothAdapter.html}{http://developer.android.com/reference/android/bluetooth/BluetoothAdapter.html}} é usada para iniciar a varredura por novos dispositivos, obter a lista de dispositivos pareados instanciar um \texttt{BluetoothDevice}\footnote{\href{http://developer.android.com/reference/android/bluetooth/BluetoothDevice.html}{http://developer.android.com/reference/android/bluetooth/BluetoothDevice.html}} e criar um \texttt{BluetoothServerSocket}\footnote{\href{http://developer.android.com/reference/android/bluetooth/BluetoothServerSocket.html}{http://developer.android.com/reference/android/bluetooth/BluetoothServerSocket.html}} que irá aceitar novas conexões. 
 
-	Agora já iremos para o método \texttt{onCreate()}, nesse método 4 importantes passos deverão ser seguidos. Os três primeiros estão sendo mostrados no código abaixo.
+	Agora já iremos para o método \texttt{onCreate()}, nesse método quatro importantes passos deverão ser seguidos. Os três primeiros estão sendo mostrados no código abaixo.
 
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/oncreate1.java}
@@ -2298,13 +2298,13 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	\label{code:bluetooth-oncreate1}
 	\end{listing} 			
 
-	O primeiro passo, marcado na linha 6, é obter a referência do adaptador \emph{bluetooth} com a chamada ao método \texttt{BluetoothAdapter.getDefaultAdapter()}. Caso esse método retorne \texttt{null} então o aparelho Android não \emph{hardware Bluetooth}. 
+	O primeiro passo, marcado na linha 6, é obter a referência do adaptador \emph{bluetooth} com a chamada ao método \texttt{BluetoothAdapter.getDefaultAdapter()}. Caso esse método retorne \texttt{null} então o aparelho Android não tem \emph{hardware Bluetooth} e, portanto, a aplicação não irá funcionar. 
 
-	O segundo passo é verificar se o \emph{Bluetooth} está ativado, essa verificação é feita com uma chamada ao método \texttt{isEnbaled()} como é feito na linha 13. Se o retorno for falso então nós iremos perguntao ao usuário se ele gostaria de ativar o adaptador \emph{Bluetooth}. Para isso é necessário lançar um \texttt{Intent} com \emph{action} igual à \texttt{BluetoothAdapter.ACTION\_REQUEST\_ENABLE}. Ao chamar \texttt{startActivityForResult()} um alerta irá perguntar ao usuário se ele quer ativar o \emph{Bluetooth}. A variável \texttt{REQUEST\_ENABLE\_BT} pode ser qualquer valor maior que 0.  
+	O segundo passo é verificar se o \emph{Bluetooth} está ativado, essa verificação é feita com uma chamada ao método \texttt{isEnabled()} como é feito na linha 13. Se o retorno for falso então nós iremos perguntar ao usuário se ele gostaria de ativar o adaptador \emph{Bluetooth}. Para isso é necessário lançar um \texttt{Intent} com \emph{action} igual à \texttt{BluetoothAdapter.ACTION\_REQUEST\_ENABLE}. Ao chamar o método \texttt{startActivityForResult()} um alerta irá perguntar ao usuário se ele quer ativar o \emph{Bluetooth}. A variável \texttt{REQUEST\_ENABLE\_BT} pode ser qualquer valor maior que 0.  
 
-	O terceiro passo é obter todos os dispositivos já pareados, a classe \texttt{BluetoothAdapter} mantém uma lista desses dispositivos que pode ser obtida com a chamada ao método \texttt{getBondedDevices()}. Depois, adicionaremos o nome e endereço MAC desses dispositivos pareados à \texttt{ListView} usando o \texttt{ArrayAdapter}. 
+	O terceiro passo é obter todos os dispositivos já pareados, a classe \texttt{BluetoothAdapter} mantém uma lista desses dispositivos que pode ser adquirida com a chamada ao método \texttt{getBondedDevices()}. Depois, adicionaremos o nome e endereço MAC desses dispositivos pareados à \texttt{ListView} usando o \texttt{ArrayAdapter}. 
 
-	O método \texttt{onActivityResult} não precisa de nada especial. Mostrar para o usuário um \emph{feedback} já é suficiente.
+	O método \texttt{onActivityResult()} não precisa de nada especial. Mostrar para o usuário um \emph{feedback} já é suficiente.
 
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/onactivityresult.java}
@@ -2340,9 +2340,9 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	\label{code:bluetooth-registerbroadcast}
 	\end{listing} 			
 
-	Agora, iremos criar três \emph{threads}. A primeira, chamada de \texttt{AcceptThread} será responsável por instânciar um \texttt{BluetoothSocketServer} e aceitar uma nova conexão vinda de um outro dispositivo. A segunda, \texttt{ConnectThread} será usada quando a aplicação funcionar como cliente, essa \emph{thread} irá tentar estabeceler uma conexão com outro dispositivo. Já a terceira, \texttt{ConnectedThread} será usada em ambos os casos, para gerenciar a conexão e a entrada e saída de dados. Todas essas \emph{threads} estão escritas como classes \emph{inline} (dentro da classe \texttt{DeviceListActivity}).
+	Agora, iremos criar três \emph{threads}. A primeira, chamada de \texttt{AcceptThread} será responsável por instanciar um \texttt{BluetoothSocketServer} e aceitar uma nova conexão vinda de um outro dispositivo. A segunda, \texttt{ConnectThread} será usada quando a aplicação funcionar como cliente, essa \emph{thread} irá tentar estabeceler uma conexão com outro dispositivo. Já a terceira, \texttt{ConnectedThread} será usada em ambos os casos, para gerenciar a conexão e a entrada e saída de dados. Todas essas \emph{threads} estão escritas como classes \emph{inline} (dentro da classe \texttt{DeviceListActivity}).
 
-	A primeira \emph{thread}, \texttt{AcceptThread}, irá instanciar um \texttt{BluetoothServerSocket}\footnote{\href{http://developer.android.com/reference/android/bluetooth/BluetoothServerSocket.html}{http://developer.android.com/reference/android/bluetooth/BluetoothServerSocket.html}}  usando o método \texttt{listenUsingRfcommWithServiceRecord()}, esse método cria um \emph{socket} seguro, toda informação será criptografada. Os parâmetros são \texttt{name} e \texttt{uuid}, \texttt{name} é o nome do serviço que nesse caso pode ser qualquer coisa. Já o \texttt{uuid} é um identificador universal único para ser usado com a aplicação, pode-se obter um número usando geradores aleatórios de UUID disponíveis na web. A \emph{thread} irá ficar tentando escutar uma conexão com o método \texttt{accept()}. Note que este método é bloqueante e irá retornar um \emph{socket} se a conexão foi aceita ou irá gerar uma exceção.
+	A primeira \emph{thread}, \texttt{AcceptThread}, irá instanciar um \texttt{BluetoothServerSocket}\footnote{\href{http://developer.android.com/reference/android/bluetooth/BluetoothServerSocket.html}{http://developer.android.com/reference/android/bluetooth/BluetoothServerSocket.html}}  usando o método \texttt{listenUsingRfcommWithServiceRecord()}, esse método cria um \emph{socket} seguro em um canal \emph{Bluetooth}, portanto toda informação será criptografada. Os parâmetros são \texttt{name} e \texttt{uuid}, \texttt{name} é o nome do serviço que nesse caso pode ser qualquer coisa. Já o \texttt{uuid} é um identificador universal único para ser usado com a aplicação, pode-se obter um número usando geradores aleatórios de UUID disponíveis na \emph{web}. A \emph{thread} irá ficar tentando escutar uma conexão com o método \texttt{accept()}. Note que este método é bloqueante e irá retornar um \emph{socket} se a conexão foi aceita ou irá gerar uma exceção.
 Como não queremos aceitar mais nenhuma conexão, chamamos \texttt{close()} que irá fechar o \texttt{BluetoothServerSocket} mas não irá fechar o \texttt{BluetoothSocket} criado, mantendo a conexão.
 
 Se o \emph{socket} conseguir ser instanciado corretamente, iremos chamar o método \texttt{manageConnection()}, responsável por instanciar a \emph{thread} que gerencia a conexão. 
@@ -2353,7 +2353,7 @@ Se o \emph{socket} conseguir ser instanciado corretamente, iremos chamar o méto
 	\label{code:bluetooth-acceptthread}
 	\end{listing} 			
 
-	O algoritmo \ref{code:bluetooth-connectthread} abaixo mostra a segunda \emph{thread}, essa \emph{thread} é responsável por estabelecer uma conexão com outro dispositivo que esteja rodando a mesma aplicação, por isso é usado o mesmo UUID. O construtor irá receber um \texttt{BluetoothDevice}, que foi selecionado da lista, e tentará criar a conexão com o método \texttt{createRfcommSocketToServiceRecord()}. A \emph{thread} irá cancelar a varredura e irá tentar conectar ao socket usando \texttt{connect()}, que também é uma chamada bloqueante. Se a conexão falhar ou ocorrer um \emph{timeout}, ele irá gerar uma exceção. Por segurança, chamamos \texttt{close()} dentro do bloco \texttt{catch} para tentar fechar o \emph{socket} e liberar os recursos do aparelho. Se tudo der certo, chamamos o método \texttt{manageConnection} que veremos logo. Por enquanto deixaremos a linha 29 em cheque, voltaremos logo nela.
+	O algoritmo \ref{code:bluetooth-connectthread} abaixo mostra a segunda \emph{thread}, essa \emph{thread} é responsável por estabelecer uma conexão com outro dispositivo que esteja rodando a mesma aplicação, por isso é usado o mesmo UUID. O construtor irá receber um \texttt{BluetoothDevice}, que foi selecionado da lista, e tentará criar a conexão com o método \texttt{createRfcommSocketToServiceRecord()}. A \emph{thread} irá cancelar a varredura e irá tentar conectar ao socket usando \texttt{connect()}, que também é uma chamada bloqueante. Se a conexão falhar ou ocorrer um \emph{timeout}, ele irá gerar uma exceção. Por segurança, chamamos \texttt{close()} dentro do bloco \texttt{catch} para tentar fechar o \emph{socket} e liberar os recursos do aparelho. Se tudo der certo, chamamos o método \texttt{manageConnection()} que veremos logo. Por enquanto deixaremos a explicação da linha 29 em espera, voltaremos logo nela.
 
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/connectthread.java}
@@ -2379,9 +2379,9 @@ Se o \emph{socket} conseguir ser instanciado corretamente, iremos chamar o méto
 
 	Primeiro obtemos o \texttt{InputStream} e \texttt{OutputStream} do \emph{socket} usando os métodos \texttt{getInputStream()} e \texttt{getOutputStream()}, respectivamente. Você pode ler e escrever o fluxo de dados usando \texttt{read()} e \texttt{write()}, é necessário fazer isso numa \emph{thread} pois essas chamadas são bloqueantes. O método \texttt{read()} irá bloquear enquanto não houver nada para ler e o método \texttt{write()} pode bloquear caso o outro lado esteja lendo os \emph{buffers} muito lentamente. 
 
-	A \emph{thread} irá repetir enquanto não houver excessão e ficará tentando ler do \emph{stream} usando \texttt{read()}. Aqui novamente colocaremos a linha 28 em cheque e voltaremos nela posteriormente. Faremos também um método \texttt{write()} para essa classe, para embrulhar o método do \emph{socket}, que poderá ser chamado da \emph{activity}.
+	A \emph{thread} irá repetir enquanto não houver exceção e ficará tentando ler do \emph{stream} usando \texttt{read()}. Aqui novamente colocaremos a explicação da linha 28 em espera e voltaremos nela posteriormente. Faremos também um método \texttt{write()} para essa classe, para embrulhar o método do \emph{socket}, que poderá ser chamado da \emph{activity}.
 
-	Agora, dois métodos, um para receber e mostrar a mensagem e outro para enviar a mensagem. O método \texttt{writeMessage()}, abaixo, abre um alerta com um \texttt{EditText} em que o usuário pode escrever a mensagem para ser enviada.
+	Agora temos dois métodos, um para receber e mostrar a mensagem e outro para enviar a mensagem. O método \texttt{writeMessage()}, abaixo, abre um alerta com um \texttt{EditText} em que o usuário pode escrever a mensagem para ser enviada.
 
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/writemessage.java}
@@ -2407,7 +2407,7 @@ Se o \emph{socket} conseguir ser instanciado corretamente, iremos chamar o méto
 
 	Os \texttt{Runnable} estão encarregados de executar os dois métodos, para mostrar e enviar a mensagem. O \texttt{Handler} irá chamar o \texttt{Runnable} quando estiver na \emph{UI thread}.
 
-	Agora é necessário implementar o método \texttt{onItemClick} para abrir a conexão com o dispositivo selecionado.
+	Agora é necessário implementar o método \texttt{onItemClick()} para abrir a conexão com o dispositivo selecionado.
 
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/onitemclick.java}
@@ -2427,12 +2427,14 @@ Se o \emph{socket} conseguir ser instanciado corretamente, iremos chamar o méto
 
 	Com isso, finalizamos a aplicação. É recomendável verificar o projeto completo no repositório caso ainda existam dúvidas. Qualquer tipo de dado em forma de um \emph{array} de \emph{bytes} pode ser enviado através do canal de comunicação \emph{Bluetooth}. Nesse exemplo estamos enviando apenas uma mensagem mas poderia ser qualquer tipo de arquivo.
 
+	Esse capítulo tentou mostrar uma simples aplicação que utiliza o \emph{Bluetooth} no envio de dados. Hoje o \emph{Bluetooth} está presente em diversos dispositivos: \emph{smartphones}, fones de ouvido, caixas de som, aparelhos médicos, entre outros. O Android, por exemplo, utiliza o NFC para abrir uma conexão \emph{Bluetooth} entre dois aparelhos e enviar dados. Isso é chamado \emph{Android Beam}. 
+
 
 \chapter{Internacionalização}
 
 	É possível fazer com que sua aplicação dê suporte a diversos idiomas, o Android fornece uma maneira fácil de internacionalizar suas \emph{strings} e \emph{bitmaps}. 
 
-	Antes nós usamos o arquivo de recursos \texttt{strings.xml} para armazenar qualquer tipo de texto dos nossos exemplos. Dessa forma você consegue manter esse tipo de informação separada do código. Isso permite separar os textos por idioma, quando isso acontece o Android muda automaticamente o idioma do aplicativo de acordo com o idioma do aparelho.
+	Antes, nós usamos o arquivo de recursos \texttt{strings.xml} para armazenar qualquer tipo de texto dos nossos exemplos. Dessa forma você consegue manter esse tipo de informação separada do código. Isso permite separar os textos por idioma, quando isso acontece o Android muda automaticamente o idioma do aplicativo de acordo com o idioma do aparelho.
 	
 	Para adicionar suporte a mais idiomas, crie diretórios \texttt{values/} adicionais dentro do diretório \texttt{res/} que incluam um hífen e o código ISO do país no final. Por exemplo, \texttt{values-es/} para espanhol ou \texttt{values-pt/} para português. Dentro de cada uma dessas pastas você deve ter um arquivo \texttt{string.xml} com os textos traduzidos. Por exemplo, em \texttt{values/string.xml} você deve manter o idioma padrão da aplicação, preferencialmente inglês:
 
@@ -2454,7 +2456,7 @@ Se o \emph{socket} conseguir ser instanciado corretamente, iremos chamar o méto
 
 	Os códigos do idioma seguem o padrão ISO-639-1\footnote{\href{http://en.wikipedia.org/wiki/List\_of\_ISO\_639-1\_codes}{http://en.wikipedia.org/wiki/List\_of\_ISO\_639-1\_codes}}.
 
-	Se você quiser separar por país, por exemplo entre português brasileiro e português de portugual, você deve adicionar o código do país ao nome da pasta, precedido por um \texttt{-r}. Português do brasil seria \texttt{values-pt-rBR/} e de portugual seria \texttt{values-pt-rPT/}.
+	Se você quiser separar por país, por exemplo entre português brasileiro e português de portugal, você deve adicionar o código do país ao nome da pasta, precedido por um \texttt{-r}. Português do brasil seria \texttt{values-pt-rBR/} e de portugal seria \texttt{values-pt-rPT/}.
 
 	
 
