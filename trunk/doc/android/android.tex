@@ -82,9 +82,13 @@ O Android hoje está em centenas de milhões de dispositivos móveis ao redor do
 
 Construído em uma colaboração \emph{open-source} com a comunidade de Linux, o Android se tornou a plataforma móvel mais utilizada e que mais cresce no mundo. Sua abertura o tornou o favorito de consumidores e desenvolvedores, levando a um rápido crescimento no número de aplicativos e jogos. Está disponível em centenas de dispositivos diferentes e de fabricantes diferentes em versões diferentes.
 
-Atualmente\footnote{Data em que foi escrito: 06/2013} existem 4 principais versões do Android, são elas da mais atual para mais antiga:
+%% Inicio da edição José Eduardo 14/04/2014
+
+Atualmente\footnote{Data em que foi escrito: 04/2014} existem 5 principais versões do Android, são elas da mais atual para mais antiga:
 \bi
-\item \emph{Jelly Bean} versão 4.2 e 4.1 que trouxe otimizações de performance, uma nova interface do sistema e outros
+\item \emph{KitKat} versão 4.4 que melhorou o gerenciamento de memória e reduziu o consumo, trazendo uma proteção agressiva da memória do sistema contra apps usando grandes quantidades de RAM além de introduzir uma nova interface.
+\footnote{\emph{KitKat}: \href{http://developer.android.com/about/versions/kitkat.html}{http://developer.android.com/about/versions/kitkat.html}}
+\item \emph{Jelly Bean} versão 4.1 à 4.3 que trouxe otimizações de performance, uma nova interface do sistema e outros
 \footnote{\emph{Jelly Bean}: \href{http://developer.android.com/about/versions/jelly-bean.html}{http://developer.android.com/about/versions/jelly-bean.html}}
 \item \emph{Ice Cream Sandwich} versão 4.0 trouxe uma interface refinada e unificada para \emph{smartphones} e \emph{tablets} além de facilidade com multitasking e outros
 \footnote{\emph{Ice Cream Sandwich}: \href{http://developer.android.com/about/versions/android-4.0-highlights.html}{http://developer.android.com/about/versions/android-4.0-highlights.html}}
@@ -100,18 +104,17 @@ O Google coletou os dados referentes a distribuição das versões do Android:
     \begin{tabular}{|l|l|l|l|}
      \rowcolor{Gray} \hline 
     Versão        & Codinome           & API & Distribuição \\ \hline
-    1.6           & Donut              & 4   & 0.1\%        \\ \hline
-    2.1           & Eclair             & 7   & 1.5\%        \\ \hline
-    2.2           & Froyo              & 8   & 3.2\%        \\ \hline
-    2.3 - 2.3.2   & Gingerbread        & 9   & 0.1\%        \\ \hline
-    2.3.3 - 2.3.7 & Gingerbread        & 10  & 36.4\%       \\ \hline
+    2.2           & Froyo              & 8   & 1.1\%        \\ \hline
+    2.3.3 - 2.3.7 & Gingerbread        & 10  & 17.8\%       \\ \hline
     3.2           & Honeycomb          & 13  & 0.1\%        \\ \hline
-    4.0.3 - 4.0.4 & Ice Cream Sandwich & 15  & 25.6\%       \\ \hline
-    4.1.x         & Jelly Bean         & 16  & 29.0\%       \\ \hline
-    4.2.x         & Jelly Bean         & 17  & 4.0\%        \\ \hline
+    4.0.3 - 4.0.4 & Ice Cream Sandwich & 15  & 14.3\%       \\ \hline
+    4.1.x         & Jelly Bean         & 16  & 34.4\%       \\ \hline
+    4.2.x         & Jelly Bean         & 17  & 18.1\%        \\ \hline
+    4.3         & Jelly Bean         & 18  & 8.9\%        \\ \hline
+    4.4         & KitKat        & 19  & 5.3\%        \\ \hline
     \end{tabular}
     % REITRADO DE: http://developer.android.com/about/dashboards/index.html
-    \caption{Tabela com as distribuições das versões do Android, todas as versões com menos de 0.1\% de participação foram desconsideradas}
+    \caption{Tabela com as distribuições das versões do Android, coletada durante um período de 7 dias acabando em 1 de abril de 2014. Como esses dados são adquiridos através do novo app da play store, o qual dá apenas suporte para o Android 2.2 e superior, versões mais antigas não estão inclusas. Todavia, em Agosto de 2013, versões mais antigas que o Android 2.2 somavam um total de 1\% dos dispositivos que logaram nos servidores da google}
 \end{table}
 
 \begin{figure}[H]
@@ -177,7 +180,7 @@ Dentre os diversos arquivos XML existentes na configuração de um aplicativo An
  
  A pasta \texttt{src/} contém o pacote com as classes do seu aplicativo isto é, o código fonte do seu aplicativo. Tanto \emph{activites} como classes de suporte devem estar dentro do pacote.
 
-Dentro da pasta \texttt{res/} de recursos, encontram-se outros arquivos, referentes à disposição do layout, valores de strings e imagens que sua aplicação irá utilizar. A pasta \texttt{layout/} junto com as pastas \texttt{drawable-*/} servem para dispor o layout. Cada \textit{drawable} comporta imagens para um tamanho diferente de tela, enquanto que a pasta de \textit{layout} contém a disposição geral do layout. São nesses arquivos que se colocam os itens \emph{(views)} que irão nas telas, como botões, caixas de texto, caixas de seleção, etc.
+Dentro da pasta \texttt{res/} de recursos, encontram-se outros arquivos, referentes à disposição do layout, valores de strings e imagens que sua aplicação irá utilizar. A pasta \texttt{layout/} junto com as pastas \texttt{drawable/} servem para dispor o layout. Cada \textit{drawable} comporta imagens para um tamanho diferente de tela, enquanto que a pasta de \textit{layout} contém a disposição geral do layout. São nesses arquivos que se colocam os itens \emph{(views)} que irão nas telas, como botões, caixas de texto, caixas de seleção, etc.
 
 Na pasta \texttt{values/} o mais importante é o arquivo \texttt{strings.xml} que contém os valores das strings do aplicativo. Sempre que você quiser referenciar alguma string, a mesma deverá estar expressa nesse arquivo. Fica fácil dessa forma fazer o aplicativo suportar múltiplos idiomas, pois basta traduzir esse único arquivo para alterar todos os textos do aplicativo.
 
