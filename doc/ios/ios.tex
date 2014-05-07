@@ -1,8 +1,7 @@
 \documentclass[a4paper,12pt,brazil,doubleside]{book}
 
-% tentei incluir o da pasta comum mas não funcionou
-% \include{../comum/header}
-\input{../comum/header.tex}
+%CAIO: movi o header.tex para pasta raiz do ios.tx (junto com o biblio.bib)
+\input{header.tex}
 
 \title{Título}
 
@@ -19,17 +18,21 @@
 \pagenumbering{arabic}
 
 \setcounter{tocdepth}{1} % 0 capítulos, 1 seções, 2 subseções
+
 \tableofcontents
+	
 \clearpage % se o verso ficar em branco...% VAI
 
 \lstset{language=[Objective]C}
 
 \listoffigures
+
 \addcontentsline{toc}{section}{Lista de Figuras}
 \clearpage % se o verso ficar em branco...% VAI
 \thispagestyle{empty}
 
 \listoflistings
+
 \addcontentsline{toc}{section}{Lista de Algoritmos}
 \clearpage % se o verso ficar em branco...% VAI
 \thispagestyle{empty}
@@ -49,14 +52,15 @@
 
 \paragraph{}O ambiente que utilizaremos é o XCode, da própria Apple. A instalação e configuração dele e do SDK é simples e automática, basta procurar por XCode na App Store ou no site da Apple para desenvolvedores (\texttt{developer.apple.com}).
 \paragraph{}Será feito o download do ambiente, de todas as bibliotecas necessárias e do simulador para a última versão do iOS para testar seus aplicativos. É possível, posteriormente, baixar pelo próprio XCode os simuladores de versões anteriores do iOS para garantir a compatibilidade do seu projeto com mais versões do sistema.\\
-\paragraph{}Este documento foi baseado no iOS 6.1 e XCode 4.5.
+\paragraph{}Este documento foi originalmente baseado no iOS 6.1 utilizando XCode 4.5 e atualizado para iOS 7.1 utilizando XCode 5.1.
 
 \bigskip
 
-\paragraph{}\textit{\textbf{\underline{Dica}}: Para entender melhor as funcionalidades da ferramenta, dê uma olhada na extensa documentação que a Apple disponibiliza em 
-XCode User Guide.\\
+\begin{framed}
+\paragraph{}\textbf{Dica}: Para entender melhor as funcionalidades da ferramenta, dê uma olhada na extensa documentação que a Apple disponibiliza em 
+\textit{XCode User Guide.\\
 \(developer.apple.com/library/ios/\#documentation/ToolsLanguages/Conceptual/\\Xcode\_User\_Guide\)}
-
+\end{framed}
 
 \chapter{Conhecendo a linguagem}
 
@@ -199,14 +203,10 @@ funcionario.sobrenome = "Silva";
 \paragraph{}Esse código mostra que estamos setando as variáveis nome e sobrenome do objeto funcionario do tipo \texttt{\textbf{Pessoa}} e usando-as como parâmetros para o método \emph{escreverString:comString:} da própria classe (\texttt{\textbf{self}} é o mesmo que \texttt{\textbf{this}} em C++ e Java).
 \paragraph{}Se fosse um método do objeto funcionario, o \texttt{\textbf{self}} seria trocado por \texttt{\textbf{funcionario}}.
 
-\bigskip
-
-\paragraph{}\textit{\textbf{\underline{Dica}}: A Apple disponibiliza uma extensa documentação sobre a\\linguagem em Programming with Objective-C\\ \(https://developer.apple.com/library/ios/\#documentation/Cocoa/Conceptual/\\ProgrammingWithObjectiveC/Introduction/Introduction.html \)\\
-Um estudo desse material será de grande ajuda para entender exatamente o que a linguagem permite.}
-
-\bigskip
-\bigskip
-
+\begin{framed}
+\paragraph{}\textbf{Dica}: A Apple disponibiliza uma extensa documentação sobre a \textit{\\linguagem em Programming with Objective-C\\ \(https://developer.apple.com/library/ios/\#documentation/Cocoa/Conceptual/\\ProgrammingWithObjectiveC/Introduction/Introduction.html \)\\}
+Um estudo desse material será de grande ajuda para entender exatamente o que a linguagem permite.
+\end{framed}
 
 \section{Foundation Framework}
 
@@ -238,11 +238,9 @@ Em conjunto com o \texttt{\textbf{NSDictionary}}, é recomendável também o est
 \emph{Foundation Framework Reference\\ \(http://developer.apple.com/library/ios/\#documentation/Cocoa/Reference/\\Foundation/ObjC\_classic/\_index.html\)}.
 \paragraph{}Essa documentação será importante ao longo do estudo de desenvolvimento para iOS. O Foundation é muito extenso e rico em possibilidades, já trazendo a implementação de diversas soluções que tomariam um bom tempo e algumas linhas de código a mais no seu projeto.
 
-\bigskip
-
-\paragraph{}\textit{\textbf{\underline{Dica}}: Nunca hesite em procurar na documentação da classe em questão algum método que possa resolver seu problema. Lidar com strings, arrays e dicionários, além de outras diversas estruturas, será muito mais prático a partir de agora.}
-
-\bigskip
+\begin{framed}
+\paragraph{}\textbf{Dica}: Nunca hesite em procurar na documentação da classe em questão algum método que possa resolver seu problema. Lidar com \textit{strings}, \textit{arrays} e dicionários, além de outras diversas estruturas, será muito mais prático a partir de agora.
+\end{framed}
 
 \paragraph{}As classes estão muito bem organizadas na documentação, com os métodos divididos de acordo com o tipo de operação. Vale a pena dar uma olhada por cima nas classes citadas para obter uma visão geral do que é possível fazer, alimentando aos poucos o seu repertório na linguagem, antes de seguir adiante com o tutorial.
 
@@ -254,18 +252,12 @@ Em conjunto com o \texttt{\textbf{NSDictionary}}, é recomendável também o est
 \paragraph{}Neste capítulo começaremos a ver como é feita a criação de telas no iOS. Utilizaremos um framework voltado especificamente para a construção da \emph{User Interface}, chamado \texttt{\textbf{UIKit Framework}}, em conjunto com a interface gráfica do XCode que auxilia a criação do layout.
 \paragraph{}Temos um conjunto de elementos gráficos já prontos, como botões, barras de ferramenta, rótulos, campos de texto, tabelas, telas com rolagem horizantal ou vertical, entre outros elementos que os usuário de iOS já estão familiarizados. Além disso, temos também disponíveis diversas ações e interações a serem relacionadas com esses elementos, como tipo e permissão de toque, tipo de rolagem, controle automático de animações, e controle dos elementos e das ações através do código, com métodos extremamente flexíveis que permitem uma ótima customização da interface e da lógica de eventos pelo programador.
 
-\bigskip
-
-\paragraph{}\textit{\textbf{\underline{Dica}}: A documentação completa das classes do UIKit está em 
-UIKit Framework Reference\\ \(http://developer.apple.com/library/ios/\#documentation/uikit/reference/\\UIKit\_Framework/\_index.html\).}
-
-\bigskip
+\begin{framed}
+\paragraph{}\textbf{Dica}:  A documentação completa das classes do \textit{UIKit} está em 
+\textit{ UIKit Framework Reference\\ \(http://developer.apple.com/library/ios/\#documentation/uikit/reference/\\UIKit\_Framework/\_index.html\)}.
+\end{framed}
 
 \paragraph{}Começaremos explicando como funcionam os diferentes componentes responsáveis pelos elementos gráficos no iOS.
-
-\bigskip
-\bigskip
-
 
 \section{Estrutura das telas}
 
@@ -294,16 +286,13 @@ UIKit Framework Reference\\ \(http://developer.apple.com/library/ios/\#documenta
 \paragraph{}Um objeto do tipo \texttt{\textbf{UIView}}, ou apenas \emph{View}, é onde colocamos de fato os elementos visuais. Ela representa uma determinada área que pode conter objetos como \texttt{\textbf{UIButton}}, \texttt{\textbf{UILabel}} e \texttt{\textbf{UITextField}}, além de outras \emph{Views} inseridas, formando uma hierarquia de objetos que vão se orientar diretamente pelo posicionamento e comportamento da \texttt{\textbf{UIView}} maior.
 \paragraph{}A grande ideia a ser entendida e que diferencia uma \emph{View} de uma \emph{View Controller} é que um objeto de \texttt{\textbf{UIView}} contém estritamente elementos gráficos, sem nenhuma lógica do comportamento. Um objeto de \texttt{\textbf{UIView}} não entende e não deve entender as consequências de suas ações. Um \texttt{\textbf{UIButton}}, por exemplo, sabe como reagir quando é acionado mas não sabe qual tipo de ação ou mensagem foi gerada e nem pra onde ela foi enviada a partir do seu toque. Essa reação pode ser chamar um alerta, uma nova tela, uma animação, ou um acesso a \emph{web service}, mas o que acionou a ação não é responsabilidade do componente.
 
-\bigskip
-
-\paragraph{}\textit{\textbf{\underline{Dica}}: Deixando algumas coisas claras, uma tela pode conter uma só \emph{View} tomando todo o espaço ou várias \emph{Views} se dividindo, sendo elas totalmente independentes ou aninhadas. Além disso, você pode criar novas classes herdando de \texttt{\textbf{UIView}} para serem estanciadas dentro de uma \texttt{\textbf{UIViewController}}.}
-
-\bigskip
+\begin{framed}
+\paragraph{}\textbf{Dica}: Deixando algumas coisas claras, uma tela pode conter uma só \emph{View} tomando todo o espaço ou várias \emph{Views} se dividindo, sendo elas totalmente independentes ou aninhadas. Além disso, você pode criar novas classes herdando de \texttt{\textbf{UIView}} para serem estanciadas dentro de uma \texttt{\textbf{UIViewController}}.
+\end{framed}
 
 \paragraph{}Uma \emph{View Controller} é o que gerencia a lógica e comportamento de um conjunto específico de uma ou mais \emph{Views}, e é responsável por carregar e interagir com as \emph{Views} no momento certo e da forma correta. Um \texttt{\textbf{UIButton}} acionado envia um sinal para a \emph{View Controller}, que tem o papel de entender qual deve ser a resposta para esse evento, que pode ser algo como envio de dados, interação com as \emph{Views}, ou criação de animações.
 \paragraph{}Uma \emph{View Controller} é criada com uma única \emph{View} atrelada, e dentro dela podemos inserir mais elementos visuais, como até mais mais \emph{Views}.
 
-\bigskip
 \bigskip
 
 \begin{figure}[H]
@@ -354,7 +343,9 @@ UIKit Framework Reference\\ \(http://developer.apple.com/library/ios/\#documenta
 
 \bigskip
 
-\paragraph{}\textit{\textbf{\underline{Dica}}: Lembrando que sempre podemos determinar o layout e a criação dos objetos diretamente no código, sendo o Interface Builder apenas um facilitador. Em diversos casos lidar com o código acaba sendo a melhor opção.}
+\begin{framed}
+\paragraph{}\textbf{Dica}:  Lembrando que sempre podemos determinar o layout e a criação dos objetos diretamente no código, sendo o Interface Builder apenas um facilitador. Em diversos casos lidar com o código acaba sendo a melhor opção.
+\end{framed}
 
 \bigskip
 
@@ -402,7 +393,9 @@ UIKit Framework Reference\\ \(http://developer.apple.com/library/ios/\#documenta
 
 \bigskip
 
-\paragraph{}\textit{\textbf{Dica:} Para melhor visualizar os arquivos do projeto, use os ícones acima de Editor no canto superior direito para escolher a forma da exibição do código.}
+\begin{framed}
+\paragraph{}\textbf{Dica}: Para melhor visualizar os arquivos do projeto, use os ícones acima de Editor no canto superior direito para escolher a forma da exibição do código.
+\end{framed}
 
 \bigskip
 \bigskip
@@ -1639,10 +1632,9 @@ if ([tableView isEqual:
 
 \paragraph{}Pronto, temos uma funcionalidade de busca prática e eficaz para a nossa agenda.
 
-\bigskip
-
-\paragraph{}\textit{\textbf{\underline{Dica}}: Agora que o aplicativo está do jeito que definimos, aproveite para revisar o funcionamento de todos os métodos que utilizamos até aqui. Estude o que pode ser feito com \texttt{\textbf{NSArray}}, \texttt{\textbf{NSString}} e \texttt{\textbf{NSDictionary}} e como seus métodos facilitaram as estruturas. Além disso, revise os métodos da \texttt{\textbf{UITableView}} e entenda melhor o que foi feito. Como desafio, implemente a adição de contatos, desde a tela de adição até a reorganização das estruturas e gravação no arquivo da \emph{Property List}.}
-
+\begin{framed}
+\paragraph{}\textbf{Dica}:Agora que o aplicativo está do jeito que definimos, aproveite para revisar o funcionamento de todos os métodos que utilizamos até aqui. Estude o que pode ser feito com \texttt{\textbf{NSArray}}, \texttt{\textbf{NSString}} e \texttt{\textbf{NSDictionary}} e como seus métodos facilitaram as estruturas. Além disso, revise os métodos da \texttt{\textbf{UITableView}} e entenda melhor o que foi feito. Como desafio, implemente a adição de contatos, desde a tela de adição até a reorganização das estruturas e gravação no arquivo da \emph{Property List}.
+\end{framed}
 
 \chapter{APIs e bibliotecas especiais}
 
@@ -1743,12 +1735,11 @@ NSString *string = [userDefaults stringForKey:@"StringTeste"];
 
 \bigskip
 
-\paragraph{}\textit{\textbf{\underline{Dica}}: Documentação oficial da Apple para a estrutura \texttt{\textbf{NSUserDefaults}}:\\
-\(https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/\\Classes/nsuserdefaults_Class/Reference/Reference.html
-\)}
-
-\bigskip
-\bigskip
+\begin{framed}
+\paragraph{}\textbf{Dica}: Documentação oficial da Apple para a estrutura \texttt{\textbf{NSUserDefaults}}:\\
+\(https://developer.apple.com/library/mac/documentation/Cocoa/Reference\\/Foundation/Classes/nsuserdefaults_Class/Reference/Reference.html
+\)
+\end{framed}
 
 
 \section{Contatos}
@@ -1779,7 +1770,8 @@ CFIndex nPeople = ABAddressBookGetPersonCount(m_addressbook);
 \caption{Extração da lista de contatos}
 \end{listing}
 
-\paragraph{}O objeto \texttt{\textbf{ABAddressBookRef}} é uma referência à lista de contatos com os seus dados completos. O método \texttt{\textbf{ABAddressBookCopyArrayOfAllPeople\(m_addressbook\)}} retorna um objeto \texttt{\textbf{CFArrayRef}}, que mantém a referência à lista mas organiza a estrutura em um array de contatos. Por último obtemos o número total de contatos com \texttt{\textbf{ABAddressBookGetPersonCount\(m_addressbook\)}} para utilizarmos na varredura dos dados, que será feita através de um loop pelo array de contatos.
+\paragraph{}O objeto \texttt{\textbf{ABAddressBookRef}} é uma referência à lista de contatos com os seus dados completos. O método \texttt{\textbf{ABAddressBookCopyArrayOfAllPeople\(m_addressbook\)}} retorna um objeto \texttt{\textbf{CFArrayRef}}, que mantém a referência à lista mas organiza a estrutura em um array de contatos. Por último obtemos o número total de contatos com
+\linebreak \texttt{\textbf{ABAddressBookGetPersonCount\(m_addressbook\)}} para utilizarmos na varredura dos dados, que será feita através de um loop pelo array de contatos.
 
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
@@ -1868,11 +1860,9 @@ if([mobileLabel isEqualToString:(NSString *)
 
 \bigskip
 
-\paragraph{}\textit{\textbf{\underline{Dica}}: Verifique todas as possibilidades de controle dos contatos no iOS com a documentação oficial da Apple em:\\ https://developer.apple.com/library/ios/documentation/ContactData/Conceptual/\\AddressBookProgrammingGuideforiPhone/Introduction.html}
-
-\bigskip
-\bigskip
-
+\begin{framed}
+\paragraph{}\textbf{Dica}: Verifique todas as possibilidades de controle dos contatos no iOS com a documentação oficial da Apple em:\\ https://developer.apple.com/library/ios/documentation/ContactData/Conceptual/\\AddressBookProgrammingGuideforiPhone/Introduction.html
+\end{framed}
 
 \section{Agenda de compromissos}
 
@@ -1990,11 +1980,9 @@ BOOL result = [eventStore saveEvent:event span:EKSpanThisEvent
 
 \bigskip
 
-\paragraph{}\textit{\textbf{\underline{Dica}}: Verifique todas as possibilidades para criação de agenda e eventos no iOS com a documentação oficial da Apple em:\\ https://developer.apple.com/library/mac/documentation/cocoa/conceptual/DatesAndTimes/\\Articles/dtCalendars.html}
-
-\bigskip
-\bigskip
-
+\begin{framed}
+\paragraph{}\textbf{Dica}:Verifique todas as possibilidades para criação de agenda e eventos no iOS com a documentação oficial da Apple em:\\ https://developer.apple.com/library/mac/documentation/cocoa/conceptual/DatesAndTimes/\\Articles/dtCalendars.html
+\end{framed}
 
 \section{Chamadas}
 
@@ -2012,12 +2000,9 @@ NSString *phoneString = @"tel:0123456789";
 
 \paragraph{}Basta substituir o número do exemplo pelo número real e manter o padrão na string. Lembrando que este método não terá efeito no iOS Simulator ou em um iPad, sendo que o único dispositivo iOS que efetua ligações é o iPhone.
 
-\bigskip
-
-\paragraph{}\textit{\textbf{\underline{Dica}}: Este método também funciona para abrir uma URL no Safari. Basta colocar no lugar da string "numero" uma string com a URL em questão, utilizando o formato "http://www.url.com".}
-
-\bigskip
-\bigskip
+\begin{framed}
+\paragraph{}\textbf{Dica}: Este método também funciona para abrir uma URL no Safari. Basta colocar no lugar da string "numero" uma string com a URL em questão, utilizando o formato "http://www.url.com".
+\end{framed}
 
 
 \section{SMS}
@@ -2091,11 +2076,10 @@ NSString *phoneString = @"tel:0123456789";
 
 \bigskip
 
-\paragraph{}\textit{\textbf{\underline{Dica}}: Para complementar as possibilidades da \texttt{\textbf{MFMessageComposeViewController}}, não deixe de estudar a documentação oficial da Apple:\\
-\(https://developer.apple.com/library/ios/documentation/MessageUI/Reference/\\MFMessageComposeViewController_class/Reference/Reference.html\)}
-
-\bigskip
-\bigskip
+\begin{framed}
+\paragraph{}\textbf{Dica}: Para complementar as possibilidades da \texttt{\textbf{MFMessageComposeViewController}}, não deixe de estudar a documentação oficial da Apple:\\
+\(https://developer.apple.com/library/ios/documentation/MessageUI/Reference/\\MFMessageComposeViewController_class/Reference/Reference.html\)
+\end{framed}
 
 
 \section{Compartilhamento em redes sociais}
@@ -2189,12 +2173,10 @@ NSString *phoneString = @"tel:0123456789";
 
 \bigskip
 
-\paragraph{}\textit{\textbf{\underline{Dica}}: Para informações detalhadas sobre integração com redes sociais veja a documentação oficial da Apple da biblioteca \texttt{\textbf{Social Framework}}:\\
-\(https://developer.apple.com/library/ios/documentation/Social/Reference/\\Social_Framework\)}
-
-\bigskip
-\bigskip
-
+\begin{framed}
+\paragraph{}\textbf{Dica}: Para informações detalhadas sobre integração com redes sociais veja a documentação oficial da Apple da biblioteca \texttt{\textbf{Social Framework}}:\\
+\(https://developer.apple.com/library/ios/documentation/Social/Reference/\\Social_Framework\)
+\end{framed}
 
 \section{Áudio}
 
@@ -2322,12 +2304,10 @@ NSString *phoneString = @"tel:0123456789";
 
 \bigskip
 
-\paragraph{}\textit{\textbf{\underline{Dica}}: Não deixe de estudar a documentação oficial da Apple para a biblioteca\\  \texttt{\textbf{AV Foundation}}:\\
-\(https://developer.apple.com/library/ios/documentation/AVFoundation/Reference/\\AVFoundationFramework\)}
-
-\bigskip
-\bigskip
-
+\begin{framed}
+\paragraph{}\textbf{Dica}: Não deixe de estudar a documentação oficial da Apple para a biblioteca\\  \texttt{\textbf{AV Foundation}}:\\
+\(https://developer.apple.com/library/ios/documentation/AVFoundation/Reference/\\AVFoundationFramework\)
+\end{framed}
 
 \section{Câmera}
 
@@ -2421,11 +2401,10 @@ NSString *phoneString = @"tel:0123456789";
 
 \bigskip
 
-\paragraph{}\textit{\textbf{\underline{Dica}}: Acompanhe a documentação oficial da Apple sobre boas práticas para trabalhar com fotos e vídeo através da câmera em:\\
-\(https://developer.apple.com/library/ios/documentation/AudioVideo/Conceptual/\\CameraAndPhotoLib_TopicsForIOS/Articles/TakingPicturesAndMovies.html\)}
-
-\bigskip
-\bigskip
+\begin{framed}
+\paragraph{}\textbf{Dica}: Acompanhe a documentação oficial da Apple sobre boas práticas para trabalhar com fotos e vídeo através da câmera em:\\
+\(https://developer.apple.com/library/ios/documentation/AudioVideo/Conceptual/\\CameraAndPhotoLib_TopicsForIOS/Articles/TakingPicturesAndMovies.html\)
+\end{framed}
 
 
 \section{Requisições HTTP}
@@ -2435,10 +2414,12 @@ NSString *phoneString = @"tel:0123456789";
 
 \bigskip
 
-\paragraph{}\textit{\textbf{\underline{Dica}}: Se não estiver familiarizado com o formato dos dados utilizados em um JSON, recomendo a leitura deste resumo:\\
-\(http://www.w3schools.com/json/json_syntax.asp\)}
+\begin{framed}
+\paragraph{}\textbf{Dica}:  Se não estiver familiarizado com o formato dos dados utilizados em um JSON, recomendo a leitura deste resumo:\\
+\(http://www.w3schools.com/json/json_syntax.asp\)
 
-\bigskip
+\end{framed}
+
 
 \paragraph{}Para efetuarmos requisições HTTP com arquivos JSON utilizaremos uma API externa muito popular chamada \texttt{\textbf{AFNetworking}}. Ela nos permite fazer requisições de forma simples e reutilizável em todo o projeto, lidando com o envio de estruturas do tipo \texttt{\textbf{NSDictionary}} e \texttt{\textbf{NSArray}} com conversão automática para JSON, e o recebimento de um arquivo JSON com conversão automática para um objeto \texttt{\textbf{NSDictionary}}.
 \paragraph{}Será feita uma abordagem simplificada da criação dos métodos de requisição e do uso deles na prática, adaptando o aplicativo de Agenda para que ele receba os dados a partir de um JSON na web ao invés da \texttt{\textbf{Property List}} local, mas mantendo a mesma estrutura de dados.
@@ -2453,10 +2434,10 @@ NSString *phoneString = @"tel:0123456789";
 
 \bigskip
 
-\paragraph{}\textit{\textbf{\underline{Dica}}: Para entender melhor o uso de blocks e seu funcionamento detalhado, estude este artigo contido na documentação da Apple:\\
-\(https://developer.apple.com/library/ios/documentation/cocoa/conceptual/\\ProgrammingWithObjectiveC/WorkingwithBlocks/WorkingwithBlocks.html\)}
-
-\bigskip
+\begin{framed}
+\paragraph{}\textbf{Dica}:  Para entender melhor o uso de blocks e seu funcionamento detalhado, estude este artigo contido na documentação da Apple:\\
+\(https://developer.apple.com/library/ios/documentation/cocoa/conceptual/\\ProgrammingWithObjectiveC/WorkingwithBlocks/WorkingwithBlocks.html\)
+\end{framed}
 
 \subsection{Criando a classe WebService}
 
@@ -2928,10 +2909,11 @@ self.motionManager.gyroUpdateInterval = .2;
 
 \bigskip
 
-\paragraph{}\textit{\textbf{\underline{Dica}}: Veja a documentação oficial da Apple sobre o \texttt{\textbf{Core Motion Framework}}:\\
-\(https://developer.apple.com/library/ios/documentation/CoreMotion/Reference/\\CoreMotion\_Reference/\_index.html\)}
+\begin{framed}
+\paragraph{}\textbf{Dica}: Veja a documentação oficial da Apple sobre o \texttt{\textbf{Core Motion Framework}}:\\
+\(https://developer.apple.com/library/ios/documentation/CoreMotion/Reference/\\CoreMotion\_Reference/\_index.html\)
 
-\bigskip
+\end{framed}
 
 \section{Localização}
 
@@ -3082,9 +3064,10 @@ self.motionManager.gyroUpdateInterval = .2;
 
 \bigskip
 
-\paragraph{}\textit{\textbf{\underline{Dica}}: Entenda melhor como trabalhar com a localização do usuário neste guia oficial da Apple:\\
-\(https://developer.apple.com/library/ios/documentation/userexperience/conceptual/\\LocationAwarenessPG/CoreLocation/CoreLocation.html\)}
-
+\begin{framed}
+\paragraph{}\textbf{Dica}: Entenda melhor como trabalhar com a localização do usuário neste guia oficial da Apple:\\
+\(https://developer.apple.com/library/ios/documentation/userexperience/conceptual/\\LocationAwarenessPG/CoreLocation/CoreLocation.html\)
+\end{framed}
 
 \chapter{Um pouco de MVC}
 
