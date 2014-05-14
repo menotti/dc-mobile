@@ -360,129 +360,340 @@ Em conjunto com o \texttt{\textbf{NSDictionary}}, é recomendável também o est
 
 \section{Seu primeiro aplicativo}
 
-\paragraph{}Agora vamos enfim colocar a mão na massa e colocar em prática tudo que foi falado até agora.
-\paragraph{}Abra o XCode e escolha a opção de criar um novo projeto. Na nova janela aberta, escolha a opção \emph{Single View Application} e siga em frente.
-
-\bigskip
-\bigskip
+\paragraph{}Agora vamos enfim colocar a mão na massa e colocar em prática tudo que foi falado até agora. Abra o XCode e escolha a opção \emph{Create a new XCode project}.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.4\textheight]{figuras/1/novo_projeto1.png}
-  \caption{Criação do novo projeto}
+  \includegraphics[totalheight=0.4\textheight]{figuras/caio/tela_boas_vindas_xcode.png}
+  \caption{Tela de boas vindas do XCode}
   \label{fig:a}
 \end{figure}
 
-\bigskip
-
-\paragraph{}Na próxima tela você pode escolher os detalhes do aplicativo. Tenha certeza que a opção \emph{Use Automatic Reference Counting} está marcada. Este componente, como já explicado, é reponsável pelo gerenciamento automático dos objetos alocados na memória.
-
-\bigskip
-\bigskip
+\paragraph{}Na nova janela aberta, escolha a opção \emph{Empty Application} e em seguida \emph{Next}.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.4\textheight]{figuras/1/novo_projeto2.png}
-  \caption{Criação do novo projeto}
+  \includegraphics[totalheight=0.4\textheight]{figuras/caio/tela_novo_projeto_1.png}
+  \caption{Criação de um novo projeto}
   \label{fig:a}
 \end{figure}
 
-\bigskip
+\paragraph{}Na próxima tela você pode escolher os detalhes do aplicativo. Os campos \emph{Product Name}, \emph{Organization Name} e \emph{Company Identifier} (nome do projeto, nome da organização e identificação da empresa, respectivamente) servem para escolhermos os detalhes do aplicativo, o campo \emph{Class Prefix} serve para que o XCode nomeie as classes iniciais com o prefixo indicado (caso deixe em branco será atribuido um nome padrão).
 
-\paragraph{}Conclua a criação do projeto, com a opção \emph{Create an .xib file} marcada. Podemos agora visualizar a classe mãe do projeto, que será responsável pela tela inicial do aplicativo.
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.4\textheight]{figuras/caio/tela_novo_projeto_2.png}
+  \caption{Criação de um novo projeto}
+  \label{fig:a}
+\end{figure}
 
-\bigskip
+\paragraph{}Deixe a opção \emph{Use Core Data} desmarcada, não iremos utilizar recursos referentes à armazenamento de dados nesse projeto.
 
 \begin{framed}
-\paragraph{}\textbf{Dica}: Para melhor visualizar os arquivos do projeto, use os ícones acima de Editor no canto superior direito para escolher a forma da exibição do código.
+\paragraph{}\textbf{Dica}: Caso já tenha utilizado o XCode 4.6 ou anterior, irá notar que as opções 
+\textit{ Use Automatic Reference Counting } e \textit{ Include Unit Tests } não estão presentes, isso porque já são definidas por padrão a partir do XCode 5.
 \end{framed}
 
-\bigskip
-\bigskip
+\paragraph{}O XCode irá perguntar em qual lugar deve ser salvo o projeto, selecione uma pasta desejada e em seguida clique em \emph{Create} para concluir. 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.3\textheight]{figuras/1/codigo_classe_mh.png}
-  \caption{Tela dividida com os dois arquivos de código da classe}
+  \includegraphics[totalheight=0.4\textheight]{figuras/caio/tela_novo_projeto_3.png}
+  \caption{Criação de um novo projeto}
   \label{fig:a}
 \end{figure}
 
-\bigskip
+XCode automaticamente cria o projeto "FirstApp" de acordo com as opções selecionadas.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.35\textheight]{figuras/caio/tela_novo_projeto_4.png}
+  \caption{Tela principal do projeto}
+  \label{fig:a}
+\end{figure}
+
+\begin{framed}
+\paragraph{}\textbf{Dica}: Para melhor visualizar os arquivos do projeto, use os ícones do canto superior direito para alterar a exibição dos códigos.
+\end{framed}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=1]{figuras/caio/tela_opcao_exibicao.png}
+  \caption{Opções para exibição do código na tela}
+  \label{fig:a}
+\end{figure}
 
 \subsection{Primeira tela}
 
-\paragraph{}No lado esquerdo está o navegador dos arquivos do projeto. Selecione o arquivo .xib da classe para abrir o Interface Builder.
-
-\bigskip
-\bigskip
+\paragraph{}Primeiramente, vamos dar uma pequena olhada no ambiente do XCode. Na esquerda temos o \emph{Project Navigator}, podemos achar todos os arquivos do projeto nessa área. A parte central é a \emph{Editor Area}, faremos todas as edições (propriedades do projeto, códigos, interface, etc.) nessa área. Na área de baixo temos o \emph{Debug Area}, é exibida quando o aplicativo está sendo compilado. Na área da direita temos a \emph{Utility Area}, nela temos as propriedades dos arquivos e na parte inferior a lista de componentes para serem utilizados no projeto.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.5\textheight]{figuras/1/xib.png}
-  \caption{Arquivo xib da primeira tela}
+  \includegraphics[totalheight=0.35\textheight]{figuras/caio/tela_principal_xcode.png}
+  \caption{Classe principal do projeto}
   \label{fig:a}
 \end{figure}
 
-\bigskip
-
-\paragraph{}No canto superior direito temos 3 conjuntos de ícones. No conjunto \emph{View}, clique no ícone da direita para abrir a seção de opções do Interface Builder. Nessa parte poderemos ver e editar as características de qualquer objeto selecionado da tela, desde um botão a uma View, e alternar as opções entre as abas.
-
-\bigskip
-\bigskip
+\paragraph{}Na parte superior temos mais algumas funções, podemos iniciar o aplicativo no simulador através do \emph{Run button}. Em \emph{Select iphone simulador} é possível alterar a versão do simulador para testarmos a aplicação em diversos modelos de dispositivos. O \emph{Editor buttons} altera a visualização dos códigos na tela, preferencialmente utilizaremos a tela dividida (opção central). Em \emph{View selections} é possível ativar ou desativar a exibição de segmentos da tela do XCode.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.7\textheight]{figuras/1/xib_opcoes.png}
+  \includegraphics[totalheight=0.1\textheight]{figuras/caio/tela_principal_xcode_run.png}
+  \caption{Classe principal do projeto}
+  \label{fig:a}
+\end{figure}
+
+\begin{framed}
+\paragraph{}\textbf{Dica}: Caso o XCode não exiba nenhuma informação na
+\textit{Utility Area}, tente clicar no projeto principal ou no arquivo desejado presente no \textit{Project Navigator}.
+\end{framed}
+
+\paragraph{} Selecione o arquivo \emph{FirstAppAppDelegate.h}. Na tela dividida vemos a classe principal (O arquivo .h e .m), será utilizada posteriormente para chamarmos a tela inicial do aplicativo.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.35 \textheight]{figuras/caio/tela_novo_projeto_5.png}
+  \caption{Classe principal do projeto}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Para prosseguir precisamos criar uma tela inicial para o aplicativo, clique com o botão direito na pasta do projeto (pasta \emph{FirstApp} localizada no \emph{Project Navigator}) e em seguida na opção \emph{New File}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.15 \textheight]{figuras/caio/tela_novo_projeto_6.png}
+  \caption{Adicionando uma nova interface ao projeto}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Selecione a opção \emph{Objective-C class} dentro da categoria \emph{Cocoa Touch}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.4 \textheight]{figuras/caio/tela_novo_projeto_7.png}
+  \caption{Adicionando uma nova interface ao projeto}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Em \emph{Class} deixe com o nome padrão de \emph{FirstAppViewController} e em \emph{Subclass of} deixe como \texttt{\textbf{UIViewController}}. Marque a opção \emph{Also create XIB file} e clique em \emph{Next}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.4 \textheight]{figuras/caio/tela_novo_projeto_8.png}
+  \caption{Adicionando uma nova interface ao projeto}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Na próxima tela clique em \emph{Create} para finalizar.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.4 \textheight]{figuras/caio/tela_novo_projeto_9.png}
+  \caption{Adicionando uma nova interface ao projeto}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Foram gerados 3 novos arquivos referentes à tela inicial do aplicativo: \emph{FirstAppViewController.h}, \emph{FirstAppViewController.m} e \emph{FirstAppViewController.xib}. Se selecionarmos o \emph{FirstAppViewController.xib} veremos uma tela em branco.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.35 \textheight]{figuras/caio/tela_novo_projeto_10.png}
+  \caption{Interface builder no Xcode}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Arquivos .xib são arquivos de construção de interface (Interface builder) que armazenam a interface do usuário do aplicativo. Ao clicar neles o XCode automaticamente exibirá a interface para que você possa edita-lá através do método \emph{drag-and-drop} (arrastar e soltar).
+Os arquivos .h se referem aos arquivos de cabeçalho (header files) e os .m aos arquivos de implementação (implementation files).
+
+\paragraph{}No canto superior direito temos 3 conjuntos de ícones. No conjunto dos botões \emph{View Selections}, clique no ícone da direita para abrir a seção de opções do Interface Builder (a \emph{Utility Area}). Nessa parte poderemos ver e editar as características de qualquer objeto selecionado da tela, desde um botão a uma View, e alternar as opções entre as abas.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.35\textheight]{figuras/caio/tela_novo_projeto_11.png}
   \caption{Barra lateral de opções do Interface Builder}
   \label{fig:a}
 \end{figure}
 
-\bigskip
-
-\paragraph{}No canto inferior esquerdo está presente a seção de \emph{Objetos}, os quais podem ser selecionados e arrastados à tela.
-
-\bigskip
-\bigskip
+\paragraph{}No canto inferior direito está presente a seção de \emph{Objetos}, os quais podem ser selecionados e arrastados para a interface do aplicativo.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.4\textheight]{figuras/1/xib_objetos.png}
+  \includegraphics[totalheight=0.20\textheight]{figuras/caio/tela_novo_projeto_12.png}
   \caption{Objetos disponíveis no Interface Builder}
   \label{fig:a}
 \end{figure}
 
-\bigskip
-
-\paragraph{}Vamos inicialmente adicionar um \texttt{\textbf{UILabel}} e um \texttt{\textbf{UIButton}} com textos de exemplo à tela. Arraste os objetos de forma a obter um layout parecido com o mostrado na figura abaixo.
-
-\bigskip
-\bigskip
+\begin{framed}
+\paragraph{}\textbf{Dica}: Para visualizar melhor os componentes, clique no ícone localizado no canto inferior esquerdo da seção de objetos.
+\end{framed}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.4\textheight]{figuras/1/xib_tela1.png}
+  \includegraphics[totalheight=0.1\textheight]{figuras/caio/tela_novo_projeto_13.png}
+  \caption{Alterar modo de exibição da seção de objetos}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Outro item a ser configurado encontra-se na tela central do XCode, não é um item necessário mas irá facilitar os próximos passos do desenvolvimento. Verifique que ao lado esquerdo da tela central do aplicativo (\emph{Editor Area}) existem 2 blocos e uma caixa circulada de cinza, bem ao lado direito desses itens existe uma barra cinza claro vertical, clique nessa barra e arraste-a para a direita de forma a expandir essa área.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.2\textheight]{figuras/caio/tela_novo_projeto_14.png}
+  \caption{Alterar modo de exibição do \emph{Placeholders}}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}O resultado final é uma exibição mais detalhada dos itens. Utilizaremos esse item mais tarde para fazer a ligação dos componentes da interface com os do código.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.2\textheight]{figuras/caio/tela_novo_projeto_15.png}
+  \caption{Alterar modo de exibição do \emph{Placeholders}}
+  \label{fig:a}
+\end{figure}
+
+
+\paragraph{}Vamos inicialmente adicionar um \texttt{\textbf{UILabel}} e um \texttt{\textbf{UIButton}} com textos de exemplo à tela. Arraste os objetos de forma a obter um layout parecido com o mostrado na figura abaixo.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.4\textheight]{figuras/caio/tela_novo_projeto_19.png}
+  \caption{Arrastando componentes para interface do aplicativo}
+  \label{fig:a}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.4\textheight]{figuras/caio/tela_novo_projeto_16.png}
   \caption{Interface com os primeiros objetos criados}
   \label{fig:a}
 \end{figure}
 
 \bigskip
 
-\paragraph{}Com os objetos adicionados, devemos ligá-los ao código. Para isso, basta selecionar o objeto e arrastá-lo ao código da classe enquanto segura a tecla Control.
-\paragraph{}No pop-up é possível escolher se é um \texttt{\textbf{IBOutlet}} ou uma \texttt{\textbf{IBAction}}, mas por enquanto criaremos só os \texttt{\textbf{IBOutlets}}. Escolha um nome apropriado ao objeto, que o diferencie mas também deixe claro o seu tipo para facilitar a leitura do código, como \texttt{\textbf{okButton}}.
+\paragraph{}Se tentar rodar o aplicativo agora, será exibida uma tela em branco. Isso porque o aplicativo não foi configurado para carregar a nova tela criada. É necessário inserir a importação da classe da interface no arquivo \emph{FirstAppAppDelegate.h}.
 
-\bigskip
-\bigskip
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+#import "FirstAppViewController.h"
+\end{minted}
+\caption{Importando a classe da interface inicial}
+\end{listing}
+
+\paragraph{}Selecionando o \emph{FirstAppAppDelegate.m} temos o método \emph{didFinishLaunchingWithOptions}, adicione o seguinte código logo após \emph{self.window.backgroundColor = [UIColor whiteColor];}:
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+FirstAppViewController *viewController = [[FirstAppViewController alloc] 
+		initWithNibName:@"FirstAppViewController" bundle:nil];
+		
+self.window.rootViewController = viewController;    
+\end{minted}
+\caption{Configurando a tela inicial do aplicativo}
+\end{listing}
+
+\paragraph{}Cria-se, na linha 1, um objeto do tipo \texttt{\textbf{FirstAppViewController}} e na linha 4 definimos como a tela principal que será carregada quando o aplicativo for inicializado. Após a edição a estrutura do código deve ser similar à foto abaixo.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.3\textheight]{figuras/1/link_outlet_button.png}
-  \caption{IBOutlets: ligação dos objetos com o código}
+  \includegraphics[totalheight=0.4\textheight]{figuras/caio/tela_novo_projeto_17.png}
+  \caption{Configurando a tela inicial do aplicativo}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Nesse momento, executando o aplicativo através do \emph{Run Button} será exibida a tela do \emph{FirstAppViewController} e não mais uma tela em branco.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.55\textheight]{figuras/caio/tela_novo_projeto_18.png}
+  \caption{Exibindo tela inicial do aplicativo no simulador}
+  \label{fig:a}
+\end{figure}
+
+\begin{framed}
+\paragraph{}\textbf{Dica}: Os simuladores do iOS 6.0 e 6.1 apresentam o visual de um iphone, essa característica não está presente nas versões 7.0 e 7.1 (apesar de ainda ser possível alterar o tamanho da tela do simulador pressionando a tecla \textit{Comando} e as teclas 1, 2 ou 3). Para utilizar o simulador da versão 6 é necessário instalar o componente referente a essa versão, alterar o \textit{Deployment Target} localizado nas propriedades do projeto (clicando no ícone do projeto no \textit{Project Navigator}) e por fim alterar o dispositivo do simulador para um que utilize o iOS 6.\end{framed}
+
+\paragraph{}Clicando 2 vezes no \emph{button} é possível editar o texto que está sendo exibido, colocaremos como sendo \emph{Primeiro Botão}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=1]{figuras/caio/tela_novo_projeto_20.png}
+  \caption{Editando o texto do botão criado}
   \label{fig:a}
 \end{figure}
 
 \bigskip
 
-\paragraph{}Agora precisamos definir o funcionamento da \emph{Navigation Controller}, responsável pela navegação entre as telas do aplicativo. Abra o arquivo FirstAppAppDelegate.h e adicione a seguinte propriedade:
+\paragraph{}Para que o botão execute uma ação, é necessário criar uma \texttt{\textbf{IBAction}}. Selecione o arquivo \emph{FirstAppViewController.h} para adicionar o seguinte trecho de código:
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+-(IBAction)mostrarMsg;
+\end{minted}
+\caption{Adicionando uma \texttt{\textbf{IBAction}} para exibir uma mensagem na tela}
+\end{listing}
+
+\paragraph{}O código deve ficar como mostrado na imagem abaixo.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.2\textheight]{figuras/caio/tela_novo_projeto_21.png}
+  \caption{Adicionando uma \texttt{\textbf{IBAction}} para exibir uma mensagem na tela}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Em sequência, selecione o arquivo \emph{FirstAppViewController.m} para adicionar o  trecho de código a seguir:
+
+\begin{listing}
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+-(IBAction)mostrarMsg {
+    UIAlertView *AlertaOlaMundo = [[UIAlertView alloc] 
+    	initWithTitle:@"Meu primeiro app" message:@"Ola mundo!" 
+	delegate:nil cancelButtonTitle:@"Fechar" otherButtonTitles:nil];
+    
+	[AlertaOlaMundo show];
+}
+\end{minted}
+\caption{Adicionando uma \emph{IBAction}}
+\end{listing}
+
+\paragraph{}O código cria um objeto do tipo \texttt{\textbf{UIAlertView}} na linha 2, já inicializando-o com alguns textos para exibição. Na linha 6 é invocado um método da classe para que o alerta seja exibido na tela. A estrutura do código é mostrada na imagem abaixo.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.5\textheight]{figuras/caio/tela_novo_projeto_22.png}
+  \caption{Adicionando uma \emph{IBAction} para exibir uma mensagem na tela}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Agora clicando novamente no arquivo \emph{FirstAppViewController.xib} localizado na \emph{Project Navigator}, vemos a tela com a \emph{label} e o \emph{button} criados anteriormente. O botão não realiza nenhuma ação no momento, nesse caso deseja-se que ele execute a \texttt{\textbf{IBAction}} \emph{mostraMsg}, para ligar o botão à essa ação basta segurar a tecla \emph{Ctrl} esquerda, clicar no objeto \emph{button} da tela e mover o mouse sobre o \emph{File's Owner}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.5\textheight]{figuras/caio/tela_novo_projeto_23.png}
+  \caption{Conectando o \emph{button} com a \texttt{\textbf{IBAction}}}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Ao soltar o click será exibida a opção para conectar o botão à \texttt{\textbf{IBAction}}, basta clicar na opção \emph{mostrarMsg} para concluir.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=1]{figuras/caio/tela_novo_projeto_24.png}
+  \caption{Conectando o \emph{button} com a \texttt{\textbf{IBAction}}}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Clicando no \emph{Run Button} o projeto será iniciado no simulador e o botão, ao ser clicado, exibirá uma mensagem na tela.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.55\textheight]{figuras/caio/tela_novo_projeto_25.png}
+  \caption{Exibindo a mensagem na tela do aplicativo}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Agora precisamos definir o funcionamento da \emph{Navigation Controller}, responsável pela navegação entre as telas do aplicativo. Abra o arquivo \emph{FirstAppAppDelegate.h} e adicione a seguinte propriedade:
 
 \begin{listing}
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
@@ -492,23 +703,30 @@ Em conjunto com o \texttt{\textbf{NSDictionary}}, é recomendável também o est
 \caption{Definição da \emph{Navigation Controller}}
 \end{listing}
 
-\paragraph{}Esta propriedade representa a \emph{Navigation Controller} em si. No arquivo FirstAppAppDelegate.m, deixaremos o primeiro método deste jeito:
+\paragraph{}Esta propriedade representa a \emph{Navigation Controller} em si. No arquivo \emph{FirstAppAppDelegate.m}, deixaremos o primeiro método deste jeito:
 
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
-- (BOOL)application:(UIApplication *)application
-didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    self.window = [[UIWindow alloc] initWithFrame:
-                  [[UIScreen mainScreen] bounds]];
+- (BOOL)application:(UIApplication *)application 
+	didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
+    self.window = [[UIWindow alloc] 
+    		initWithFrame:[[UIScreen mainScreen] bounds]];
+
+    self.window.backgroundColor = [UIColor whiteColor];
     
-    self.viewController = [[FirstAppViewController alloc]
-                initWithNibName:@"FirstAppViewController"
-                bundle:nil];
-    self.navController = [[UINavigationController alloc]
-                initWithRootViewController:self.viewController];
-   
+    self.window = [[UIWindow alloc] 
+    		initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    FirstAppViewController *viewController =[[FirstAppViewController alloc] 
+    		initWithNibName:@"FirstAppViewController" bundle:nil];
+    
+    self.window.rootViewController = viewController;
+
+    self.navController = [[UINavigationController alloc] 
+    		initWithRootViewController:viewController];
+    
     self.window.rootViewController = self.navController;
+    
     [self.window makeKeyAndVisible];
     
     return YES;
@@ -517,55 +735,92 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 \caption{Definições do \emph{AppDelegate}}
 \end{listing}
 
-\paragraph{}Nesse arquivo é inicializado a \texttt{\textbf{UIWindow}} sendo apontada para \texttt{\textbf{UIScreen}} na linha 4. Como foi dito, a \texttt{\textbf{UIWindow}} é a reponsável por chamar a primeira tela do aplicativo. Nesse código é criado a Navigation Controller que utilizaremos para navegar entre as telas do aplicativo, e definimos qual será a primeira tela, chamada \texttt{\textbf{RootNavigationController}}. Na linha 7 é inicializada a \texttt{\textbf{UIViewController}} inicial, e na linha 9 a definimos como a primeira tela da \emph{Navigation Controller}. Na linha 12 fazemos o apontamento final da \texttt{\textbf{UIWindow}} à \emph{Navigation Controller}, que a partir de então será a responsável por todo o gerenciamento das telas do aplicativo.
+\paragraph{}Nesse arquivo é inicializado a \texttt{\textbf{UIWindow}} sendo apontada para \texttt{\textbf{UIScreen}} na linha 3. Como foi dito, a \texttt{\textbf{UIWindow}} é a reponsável por chamar a primeira tela do aplicativo. Nesse código é criado a \emph{Navigation Controller} que utilizaremos para navegar entre as telas do aplicativo, e definimos qual será a primeira tela, chamada \texttt{\textbf{RootNavigationController}}. Na linha 11 é criada e inicializada a \texttt{\textbf{UIViewController}} inicial, e na linha 16 a definimos como a primeira tela da \emph{Navigation Controller}. Na linha 20 fazemos o apontamento final da \texttt{\textbf{UIWindow}} à \emph{Navigation Controller}, que a partir de então será a responsável por todo o gerenciamento das telas do aplicativo.
 \paragraph{}E pronto, com a \emph{Navigation Controller} criada não modificaremos mais esse arquivo.
 
 \bigskip
 
-\paragraph{}Voltando à classe da primeira tela, podemos agora criar um título para a tela, que aparecerá na barra de navegação. No método \texttt{\textbf{viewDidLoad}} adicione o seguinte código.
+\paragraph{}Voltando à classe da primeira tela (\emph{FirstAppViewController.m}), podemos agora criar um título para a tela, que aparecerá na barra de navegação. No método \texttt{\textbf{viewDidLoad}} deixe como a imagem abaixo.
 
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 - (void)viewDidLoad
 {
-	self.navigationItem.title = @"Tela 1";
+    [super viewDidLoad];
+    self.navigationItem.title = @"Tela 1";
 }
 \end{minted}
-\caption{Definição do título de uma tela}
+\caption{Definição do título da primeira tela do aplicativo}
 \end{listing}
 
 \paragraph{}O método \texttt{\textbf{viewDidLoad}} é onde colocaremos tudo que será definido no carregamento da tela, pois este é o método de inicialização gráfica. Há um grande número de métodos do \texttt{\textbf{UIViewController}} que podemos sobrescrever de acordo com a nossa necessidade. Eles têm a função de controlar o comportamento da tela durante toda a sua existência, desde sua inicialização até finalização, podendo prever respostas a qualquer ação do usuário.
-\paragraph{}Agora o aplicativo ainda está extremamente cru, mas já podemos executá-lo no \emph{iOS Simulator} para ver sua primeira aparência. Basta apertar o botão Play no canto superior esquerdo. A figura abaixo mostra a tela do simulador com o aplicativo rodando.
+\paragraph{}Agora o aplicativo ainda está extremamente cru, mas já podemos executá-lo no \emph{iOS Simulator} para ver sua primeira aparência. Basta apertar o \emph{Run Button} no canto superior esquerdo. A figura abaixo mostra a tela do simulador com o aplicativo rodando.
 
 \bigskip
 \bigskip
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.5\textheight]{figuras/1/simulador1_tela1.png}
+  \includegraphics[totalheight=0.55\textheight]{figuras/caio/tela_novo_projeto_26.png}
   \caption{Aplicativo executando no iOS Simulator}
   \label{fig:a}
 \end{figure}
 
 \bigskip
 
-\paragraph{}Podemos agora começar a adicionar funcionalidades com o código. Vamos criar uma \texttt{\textbf{IBAction}} bem simples para testar o comportamento do aplicativo com o simulador. Para isso basta arrastar o botão para o código segurando Control, e escolher a opção \texttt{\textbf{IBAction}}, e criar um nome para ela, como \texttt{\textbf{okTouched}}. A intenção da nossa primeira \texttt{\textbf{IBAction}} é que os textos do botão e do rótulo troquem quando clicarmos no botão.
-\paragraph{}Com a \texttt{\textbf{IBAction}} criada, veja que no código de implementação da classe (arquivo .m) já será criado o esqueleto do método que será chamado, onde colocaremos nossa lógica.
+\paragraph{}Podemos agora começar a adicionar funcionalidades com o código. Vamos criar outra \texttt{\textbf{IBAction}} bem simples para testar o comportamento do aplicativo com o simulador. Uma maneira mais prática para isso (ao invés de declarar a \texttt{\textbf{IBAction}} antes e depois conectá-la ao botão como feito com o \emph{mostrarMensagem}) é arrastar o botão para o código do arquivo.h segurando \emph{Ctrl}, escolher a opção \texttt{\textbf{IBAction}} e criar um nome para ela, como \texttt{\textbf{okTouched}}. A intenção da nossa \texttt{\textbf{IBAction}} é que os textos do botão e da label troquem quando clicarmos no botão.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.45\textheight]{figuras/caio/tela_novo_projeto_27.png}
+  \caption{Adicionando uma \texttt{\textbf{IBAction}} diretamente no código}
+  \label{fig:a}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.2\textheight]{figuras/caio/tela_novo_projeto_28.png}
+  \caption{Nomeando a \texttt{\textbf{IBAction}}}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Além da \texttt{\textbf{IBAction}} precisamos criar 2 \texttt{\textbf{IBOutlets}}, um para a label e outro para o novo botão, possibilitando que alterações sejam feitas nas propriedades (texto, visibilidade, etc.) dos objetos da interface através da manipulação dos objetos do código.
+Da mesma forma que a \texttt{\textbf{IBAction}} anterior foi criada, é possível criar a \texttt{\textbf{IBOutlet}} segurando a tecla \emph{Ctrl} esquerdo e levando o mouse até o arquivo.h da classe da interface, o campo \emph{Connection} deve ser selecionado com \texttt{\textbf{IBOutlet}}.
+Os nomes dos  \texttt{\textbf{IBOutlet}} devem ter ligação com os objetos da interface para facilitar o uso, o referente ao botão foi nomeado de \emph{botaoAlteraTexto} e da label de \emph{labelExemplo}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.2\textheight]{figuras/caio/tela_novo_projeto_29.png}
+  \caption{Adicionando a \texttt{\textbf{IBOutlet}} ao código}
+  \label{fig:a}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.45\textheight]{figuras/caio/tela_novo_projeto_30.png}
+  \caption{Estrutura do código com as texttt{\textbf{IBOutlet's}} criadas}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Veja que no código de implementação da classe da interface (arquivo .m) já será criado o esqueleto do método que será chamado, onde colocaremos nossa lógica.
 
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 - (IBAction)okTouched:(id)sender {
     
-    NSString *aux = [[NSString alloc] initWithString:
-                    self.exemploLabel.text];
-    self.exemploLabel.text = self.okButton.currentTitle;
-    [self.okButton setTitle:aux forState:UIControlStateNormal];
+    NSString *aux = [[NSString alloc] 
+    		initWithString:self.botaoAlteraTexto.currentTitle];
+    
+    [self.botaoAlteraTexto setTitle:self.labelExemplo.text 
+    		forState:UIControlStateNormal];
+    
+    self.labelExemplo.text = aux;
 }
 \end{minted}
 \caption{Implementação de uma \emph{IBAction}}
 \end{listing}
 
-\paragraph{}O código funciona como uma troca simples. Na linha 3 inicializamos uma variável local com o texto do label; na linha 4 atribuimos o texto do botão ao texto do rótulo; e na linha 5 chamamos o método da classe \texttt{\textbf{UIButton}} responsável por modificar o texto do botão, que no caso será o texto salvo na variável auxiliar.
+\paragraph{}O código funciona como uma troca simples. Na linha 3 inicializamos uma variável local com o texto da label, na linha 6 chamamos o método da classe \texttt{\textbf{UIButton}} responsável por modificar o texto do botão pelo texto presente na label e no final o texto salvo do botão é atribuído à label.
 \paragraph{}Rode o aplicativo no simulador para verificar o funcionamento do botão.
 
 \bigskip
