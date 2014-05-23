@@ -1,0 +1,4 @@
+FirstApp - Versão 1
+
+- Versão do projeto até o efeito de trocar texto da label/botão, evento exibirMensagem
+e exibição da barra de navegação.

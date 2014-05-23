@@ -1,0 +1,3 @@
+﻿FirstApp - Versão 1
+
+- Versão do projeto até o efeito de trocar texto da label/botão, evento exibirMensagem, exibição da barra de navegação, recurso se mudar pra outras telas, passagem de informações entre elas e recurso do delegate.
