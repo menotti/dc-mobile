@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E4B12F51939758D00E2A50B /* LogoDC.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7E4B12F41939758D00E2A50B /* LogoDC.jpg */; };
 		7ED0DD6D1920084C002896AB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ED0DD6C1920084C002896AB /* Foundation.framework */; };
 		7ED0DD6F1920084C002896AB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ED0DD6E1920084C002896AB /* CoreGraphics.framework */; };
 		7ED0DD711920084C002896AB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ED0DD701920084C002896AB /* UIKit.framework */; };
@@ -23,7 +24,6 @@
 		7ED0DD9F19205375002896AB /* FirstAppViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ED0DD9D19205375002896AB /* FirstAppViewController.xib */; };
 		7EFDF1E119242FD50059D095 /* SecondScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EFDF1DF19242FD50059D095 /* SecondScreenViewController.m */; };
 		7EFDF1E219242FD50059D095 /* SecondScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EFDF1E019242FD50059D095 /* SecondScreenViewController.xib */; };
-		7EFDF1E4192435570059D095 /* LogoDC.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7EFDF1E3192435570059D095 /* LogoDC.jpg */; };
 		7EFDF1E8192441B70059D095 /* ThirdScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EFDF1E6192441B70059D095 /* ThirdScreenViewController.m */; };
 		7EFDF1E9192441B70059D095 /* ThirdScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EFDF1E7192441B70059D095 /* ThirdScreenViewController.xib */; };
 /* End PBXBuildFile section */
@@ -39,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7E4B12F41939758D00E2A50B /* LogoDC.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = LogoDC.jpg; path = ../LogoDC.jpg; sourceTree = SOURCE_ROOT; };
 		7ED0DD691920084C002896AB /* FirstApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirstApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7ED0DD6C1920084C002896AB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7ED0DD6E1920084C002896AB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -61,7 +62,6 @@
 		7EFDF1DE19242FD50059D095 /* SecondScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondScreenViewController.h; sourceTree = "<group>"; };
 		7EFDF1DF19242FD50059D095 /* SecondScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondScreenViewController.m; sourceTree = "<group>"; };
 		7EFDF1E019242FD50059D095 /* SecondScreenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondScreenViewController.xib; sourceTree = "<group>"; };
-		7EFDF1E3192435570059D095 /* LogoDC.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = LogoDC.jpg; path = ../../../../../../../../LogoDC.jpg; sourceTree = "<group>"; };
 		7EFDF1E5192441B70059D095 /* ThirdScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdScreenViewController.h; sourceTree = "<group>"; };
 		7EFDF1E6192441B70059D095 /* ThirdScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdScreenViewController.m; sourceTree = "<group>"; };
 		7EFDF1E7192441B70059D095 /* ThirdScreenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThirdScreenViewController.xib; sourceTree = "<group>"; };
@@ -144,7 +144,7 @@
 		7ED0DD731920084C002896AB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				7EFDF1E3192435570059D095 /* LogoDC.jpg */,
+				7E4B12F41939758D00E2A50B /* LogoDC.jpg */,
 				7ED0DD741920084C002896AB /* FirstApp-Info.plist */,
 				7ED0DD751920084C002896AB /* InfoPlist.strings */,
 				7ED0DD781920084C002896AB /* main.m */,
@@ -249,10 +249,10 @@
 			files = (
 				7EFDF1E9192441B70059D095 /* ThirdScreenViewController.xib in Resources */,
 				7ED0DD771920084C002896AB /* InfoPlist.strings in Resources */,
-				7EFDF1E4192435570059D095 /* LogoDC.jpg in Resources */,
 				7ED0DD7F1920084C002896AB /* Images.xcassets in Resources */,
 				7EFDF1E219242FD50059D095 /* SecondScreenViewController.xib in Resources */,
 				7ED0DD9F19205375002896AB /* FirstAppViewController.xib in Resources */,
+				7E4B12F51939758D00E2A50B /* LogoDC.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

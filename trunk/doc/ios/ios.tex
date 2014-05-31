@@ -270,14 +270,14 @@ Em conjunto com o \texttt{\textbf{NSDictionary}}, é recomendável também o est
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.35\textheight]{figuras/apple_window_view_controller_screen.png}
+  \includegraphics[width=.75\textwidth]{figuras/apple_window_view_controller_screen.png}
   \caption{Esquema relacionando os elementos da UI}
-  \label{fig:a}
+  \label{fig:relacionamento_UI}
 \end{figure}
 
 \bigskip
 
-\paragraph{}Esta figura representa as ligações entre os elementos de interface no iOS. A \texttt{\textbf{UIWindow}} aponta para a \texttt{\textbf{UIScreen}}, que representa a tela e seus limites, e aponta para  \texttt{\textbf{UIViewController}} inicial do aplicativo, que recebe o nome especial de \texttt{\textbf{RootViewController}}. A \texttt{\textbf{UIView}}, que representa os elementos gráficos da tela, e é controlada pela \texttt{\textbf{UIViewController}} inicial, é então adicionada à \texttt{\textbf{UIWindow}}, e assim temos a referência à controladora inicial e sua tela. Veremos a seguir a relação entre uma \texttt{\textbf{UIViewController}} e uma \texttt{\textbf{UIView}} com mais detalhes a seguir.
+\paragraph{}A figura \ref{fig:relacionamento_UI} representa as ligações entre os elementos de interface no iOS. A \texttt{\textbf{UIWindow}} aponta para a \texttt{\textbf{UIScreen}}, que representa a tela e seus limites, e aponta para  \texttt{\textbf{UIViewController}} inicial do aplicativo, que recebe o nome especial de \texttt{\textbf{RootViewController}}. A \texttt{\textbf{UIView}}, que representa os elementos gráficos da tela, e é controlada pela \texttt{\textbf{UIViewController}} inicial, é então adicionada à \texttt{\textbf{UIWindow}}, e assim temos a referência à controladora inicial e sua tela. Veremos a seguir a relação entre uma \texttt{\textbf{UIViewController}} e uma \texttt{\textbf{UIView}} com mais detalhes a seguir.
 
 \bigskip
 
@@ -297,7 +297,7 @@ Em conjunto com o \texttt{\textbf{NSDictionary}}, é recomendável também o est
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.55\textheight]{figuras/screen_hierarchy.png}
+  \includegraphics[width=.75\textwidth]{figuras/screen_hierarchy.png}
   \caption{Hierarquia dos componentes da tela}
   \label{fig:a}
 \end{figure}
@@ -311,8 +311,8 @@ Em conjunto com o \texttt{\textbf{NSDictionary}}, é recomendável também o est
 
 \begin{figure}[h]
   \centering
-  \includegraphics[totalheight=0.35\textheight]{figuras/apple_navigation_interface.png}
-  \caption{Esquema do funcionamento do Navigation Controller}
+  \includegraphics[width=.75\textwidth]{figuras/apple_navigation_interface.png}
+  \caption{Funcionamento do Navigation Controller}
   \label{fig:a}
 \end{figure}
 
@@ -325,12 +325,12 @@ Em conjunto com o \texttt{\textbf{NSDictionary}}, é recomendável também o est
 
 \begin{figure}[h]
   \centering
-  \includegraphics[totalheight=0.4\textheight]{figuras/apple_tabbar_interface.png}
+  \includegraphics[width=.75\textwidth]{figuras/apple_tabbar_interface.png}
   \caption{Esquema do funcionamento do Tab Bar Controller}
-  \label{fig:a}
+  \label{fig:tab_bar_controller}
 \end{figure}
 
-\paragraph{}Esta imagem é um modelo do funcionamento de uma \emph{Tab Bar Controller}. Diferente da \emph{Navigation Controller}, que funciona como uma pilha de telas, a \emph{Tab Bar Controller} aponta para todas as telas diretamente, e disponibiliza a escolha das telas astravés das abas. Na figura vemos a distinção do que consiste cada elemento graficamente.
+\paragraph{}Esta imagem é um modelo do funcionamento de uma \emph{Tab Bar Controller}. Diferente da \emph{Navigation Controller}, que funciona como uma pilha de telas, a \emph{Tab Bar Controller} aponta para todas as telas diretamente, e disponibiliza a escolha das telas astravés das abas. Na figura \ref{fig:tab_bar_controller} vemos a distinção do que consiste cada elemento graficamente.
 
 \bigskip
 \bigskip
@@ -364,7 +364,7 @@ Em conjunto com o \texttt{\textbf{NSDictionary}}, é recomendável também o est
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.4\textheight]{figuras/3/tela_boas_vindas_xcode.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_boas_vindas_xcode.png}
   \caption{Tela de boas vindas do XCode}
   \label{fig:a}
 \end{figure}
@@ -373,7 +373,7 @@ Em conjunto com o \texttt{\textbf{NSDictionary}}, é recomendável também o est
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.4\textheight]{figuras/3/tela_novo_projeto_1.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_1.png}
   \caption{Criação de um novo projeto}
   \label{fig:a}
 \end{figure}
@@ -398,7 +398,7 @@ Em conjunto com o \texttt{\textbf{NSDictionary}}, é recomendável também o est
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.4\textheight]{figuras/3/tela_novo_projeto_3.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_3.png}
   \caption{Criação de um novo projeto}
   \label{fig:a}
 \end{figure}
@@ -407,7 +407,7 @@ XCode automaticamente cria o projeto "FirstApp" de acordo com as opções seleci
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.35\textheight]{figuras/3/tela_novo_projeto_4.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_4.png}
   \caption{Tela principal do projeto}
   \label{fig:a}
 \end{figure}
@@ -429,7 +429,7 @@ XCode automaticamente cria o projeto "FirstApp" de acordo com as opções seleci
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.35\textheight]{figuras/3/tela_principal_xcode.png}
+  \includegraphics[width=.85\textwidth]{figuras/3/tela_principal_xcode.png}
   \caption{Classe principal do projeto}
   \label{fig:a}
 \end{figure}
@@ -438,7 +438,7 @@ XCode automaticamente cria o projeto "FirstApp" de acordo com as opções seleci
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.1\textheight]{figuras/3/tela_principal_xcode_run.png}
+  \includegraphics[width=.85\textwidth]{figuras/3/tela_principal_xcode_run.png}
   \caption{Classe principal do projeto}
   \label{fig:a}
 \end{figure}
@@ -452,7 +452,7 @@ XCode automaticamente cria o projeto "FirstApp" de acordo com as opções seleci
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.35 \textheight]{figuras/3/tela_novo_projeto_5.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_5.png}
   \caption{Classe principal do projeto}
   \label{fig:a}
 \end{figure}
@@ -461,7 +461,7 @@ XCode automaticamente cria o projeto "FirstApp" de acordo com as opções seleci
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.15 \textheight]{figuras/3/tela_novo_projeto_6.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_6.png}
   \caption{Adicionando uma nova interface ao projeto}
   \label{fig:a}
 \end{figure}
@@ -470,7 +470,7 @@ XCode automaticamente cria o projeto "FirstApp" de acordo com as opções seleci
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.4 \textheight]{figuras/3/tela_novo_projeto_7.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_7.png}
   \caption{Adicionando uma nova interface ao projeto}
   \label{fig:a}
 \end{figure}
@@ -479,7 +479,7 @@ XCode automaticamente cria o projeto "FirstApp" de acordo com as opções seleci
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.4 \textheight]{figuras/3/tela_novo_projeto_8.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_8.png}
   \caption{Adicionando uma nova interface ao projeto}
   \label{fig:a}
 \end{figure}
@@ -488,7 +488,7 @@ XCode automaticamente cria o projeto "FirstApp" de acordo com as opções seleci
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.4 \textheight]{figuras/3/tela_novo_projeto_9.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_9.png}
   \caption{Adicionando uma nova interface ao projeto}
   \label{fig:a}
 \end{figure}
@@ -497,7 +497,7 @@ XCode automaticamente cria o projeto "FirstApp" de acordo com as opções seleci
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.35 \textheight]{figuras/3/tela_novo_projeto_10.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_10.png}
   \caption{Interface builder no Xcode}
   \label{fig:a}
 \end{figure}
@@ -509,7 +509,7 @@ Os arquivos .h se referem aos arquivos de cabeçalho (header files) e os .m aos 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.35\textheight]{figuras/3/tela_novo_projeto_11.png}
+  \includegraphics[scale=1]{figuras/3/tela_novo_projeto_11.png}
   \caption{Barra lateral de opções do Interface Builder}
   \label{fig:a}
 \end{figure}
@@ -518,7 +518,7 @@ Os arquivos .h se referem aos arquivos de cabeçalho (header files) e os .m aos 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.20\textheight]{figuras/3/tela_novo_projeto_12.png}
+  \includegraphics[scale=1]{figuras/3/tela_novo_projeto_12.png}
   \caption{Objetos disponíveis no Interface Builder}
   \label{fig:a}
 \end{figure}
@@ -529,7 +529,7 @@ Os arquivos .h se referem aos arquivos de cabeçalho (header files) e os .m aos 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.1\textheight]{figuras/3/tela_novo_projeto_13.png}
+  \includegraphics[scale=1]{figuras/3/tela_novo_projeto_13.png}
   \caption{Alterar modo de exibição da seção de objetos}
   \label{fig:a}
 \end{figure}
@@ -538,7 +538,7 @@ Os arquivos .h se referem aos arquivos de cabeçalho (header files) e os .m aos 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.2\textheight]{figuras/3/tela_novo_projeto_14.png}
+  \includegraphics[scale=1]{figuras/3/tela_novo_projeto_14.png}
   \caption{Alterar modo de exibição do \emph{Placeholders}}
   \label{fig:a}
 \end{figure}
@@ -547,24 +547,24 @@ Os arquivos .h se referem aos arquivos de cabeçalho (header files) e os .m aos 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.2\textheight]{figuras/3/tela_novo_projeto_15.png}
+  \includegraphics[scale=1]{figuras/3/tela_novo_projeto_15.png}
   \caption{Alterar modo de exibição do \emph{Placeholders}}
   \label{fig:a}
 \end{figure}
 
 
-\paragraph{}Vamos inicialmente adicionar um \texttt{\textbf{UILabel}} e um \texttt{\textbf{UIButton}} com textos de exemplo à tela. Arraste os objetos de forma a obter um layout parecido com o mostrado na figura abaixo.
+\paragraph{}Vamos inicialmente adicionar um \texttt{\textbf{UILabel}} e um \texttt{\textbf{UIButton}} com textos de exemplo à tela. Arraste os objetos de forma a obter um layout parecido com o mostrado na figura \ref{fig:arrastando_itens}.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.4\textheight]{figuras/3/tela_novo_projeto_19.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_19.png}
   \caption{Arrastando componentes para interface do aplicativo}
-  \label{fig:a}
+  \label{fig:arrastando_itens}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.4\textheight]{figuras/3/tela_novo_projeto_16.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_16.png}
   \caption{Interface com os primeiros objetos criados}
   \label{fig:a}
 \end{figure}
@@ -596,7 +596,7 @@ self.window.rootViewController = viewController;
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.4\textheight]{figuras/3/tela_novo_projeto_17.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_17.png}
   \caption{Configurando a tela inicial do aplicativo}
   \label{fig:a}
 \end{figure}
@@ -605,7 +605,7 @@ self.window.rootViewController = viewController;
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.55\textheight]{figuras/3/tela_novo_projeto_18.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_18.png}
   \caption{Exibindo tela inicial do aplicativo no simulador}
   \label{fig:a}
 \end{figure}
@@ -638,13 +638,13 @@ self.window.rootViewController = viewController;
 \caption{Adicionando uma \texttt{\textbf{IBAction}} para exibir uma mensagem na tela}
 \end{listing}
 
-\paragraph{}O código deve ficar como mostrado na imagem abaixo.
+\paragraph{}O código deve ficar como mostrado na imagem \ref{fig:IBAction_msg}.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.2\textheight]{figuras/3/tela_novo_projeto_21.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_21.png}
   \caption{Adicionando uma \texttt{\textbf{IBAction}} para exibir uma mensagem na tela}
-  \label{fig:a}
+  \label{fig:IBAction_msg}
 \end{figure}
 
 \paragraph{}Em sequência, selecione o arquivo \emph{FirstAppViewController.m} para adicionar o  trecho de código a seguir:
@@ -662,13 +662,13 @@ self.window.rootViewController = viewController;
 \caption{Adicionando uma \emph{IBAction}}
 \end{listing}
 
-\paragraph{}O código cria um objeto do tipo \texttt{\textbf{UIAlertView}} na linha 2, já inicializando-o com alguns textos para exibição. Na linha 6 é invocado um método da classe para que o alerta seja exibido na tela. A estrutura do código é mostrada na imagem abaixo.
+\paragraph{}O código cria um objeto do tipo \texttt{\textbf{UIAlertView}} na linha 2, já inicializando-o com alguns textos para exibição. Na linha 6 é invocado um método da classe para que o alerta seja exibido na tela. A estrutura do código é mostrada na imagem \ref{fig:IBAction_msg2}.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.5\textheight]{figuras/3/tela_novo_projeto_22.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_22.png}
   \caption{Adicionando uma \emph{IBAction} para exibir uma mensagem na tela}
-  \label{fig:a}
+  \label{fig:IBAction_msg2}
 \end{figure}
 
 \paragraph{}Agora clicando novamente no arquivo \emph{FirstAppViewController.xib} localizado na \emph{Project Navigator}, vemos a tela com a \emph{label} e o \emph{button} criados anteriormente. O botão não realiza nenhuma ação no momento, nesse caso deseja-se que ele execute a \texttt{\textbf{IBAction}} \emph{mostraMsg}, para ligar o botão à essa ação basta segurar a tecla \emph{Control}, clicar no objeto \emph{button} da tela e mover o mouse sobre o \emph{File's Owner}.
@@ -679,7 +679,7 @@ self.window.rootViewController = viewController;
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.5\textheight]{figuras/3/tela_novo_projeto_23.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_23.png}
   \caption{Conectando o \emph{button} com a \texttt{\textbf{IBAction}}}
   \label{fig:a}
 \end{figure}
@@ -697,7 +697,7 @@ self.window.rootViewController = viewController;
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.55\textheight]{figuras/3/tela_novo_projeto_25.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_25.png}
   \caption{Exibindo a mensagem na tela do aplicativo}
   \label{fig:a}
 \end{figure}
@@ -750,7 +750,7 @@ self.window.rootViewController = viewController;
 
 \bigskip
 
-\paragraph{}Voltando à classe da primeira tela (\emph{FirstAppViewController.m}), podemos agora criar um título para a tela, que aparecerá na barra de navegação. No método \texttt{\textbf{viewDidLoad}} deixe como a imagem abaixo.
+\paragraph{}Voltando à classe da primeira tela (\emph{FirstAppViewController.m}), podemos agora criar um título para a tela, que aparecerá na barra de navegação. No método \texttt{\textbf{viewDidLoad}} deixe como abaixo:
 
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
@@ -764,16 +764,16 @@ self.window.rootViewController = viewController;
 \end{listing}
 
 \paragraph{}O método \texttt{\textbf{viewDidLoad}} é onde colocaremos tudo que será definido no carregamento da tela, pois este é o método de inicialização gráfica. Há um grande número de métodos do \texttt{\textbf{UIViewController}} que podemos sobrescrever de acordo com a nossa necessidade. Eles têm a função de controlar o comportamento da tela durante toda a sua existência, desde sua inicialização até finalização, podendo prever respostas a qualquer ação do usuário.
-\paragraph{}Agora o aplicativo ainda está extremamente cru, mas já podemos executá-lo no \emph{iOS Simulator} para ver sua primeira aparência. Basta apertar o \emph{Run Button} no canto superior esquerdo. A figura abaixo mostra a tela do simulador com o aplicativo rodando.
+\paragraph{}Agora o aplicativo ainda está extremamente cru, mas já podemos executá-lo no \emph{iOS Simulator} para ver sua primeira aparência. Basta apertar o \emph{Run Button} no canto superior esquerdo. A figura \ref{fig:app_executanto1} mostra a tela do simulador com o aplicativo rodando.
 
 \bigskip
 \bigskip
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.55\textheight]{figuras/3/tela_novo_projeto_26.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_26.png}
   \caption{Aplicativo executando no iOS Simulator}
-  \label{fig:a}
+  \label{fig:app_executanto1}
 \end{figure}
 
 \bigskip
@@ -782,14 +782,14 @@ self.window.rootViewController = viewController;
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.45\textheight]{figuras/3/tela_novo_projeto_27.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_27.png}
   \caption{Adicionando uma \texttt{\textbf{IBAction}} diretamente no código}
   \label{fig:a}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.2\textheight]{figuras/3/tela_novo_projeto_28.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_28.png}
   \caption{Nomeando a \texttt{\textbf{IBAction}}}
   \label{fig:a}
 \end{figure}
@@ -800,14 +800,14 @@ Os nomes dos  \texttt{\textbf{IBOutlet}} devem ter ligação com os objetos da i
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.2\textheight]{figuras/3/tela_novo_projeto_29.png}
+  \includegraphics[width=.65\textwidth]{figuras/3/tela_novo_projeto_29.png}
   \caption{Adicionando a \texttt{\textbf{IBOutlet}} ao código}
   \label{fig:a}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.45\textheight]{figuras/3/tela_novo_projeto_30.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_30.png}
   \caption{Estrutura do código com as \texttt{\textbf{IBOutlet's}} criadas}
   \label{fig:a}
 \end{figure}
@@ -844,7 +844,7 @@ Os nomes dos  \texttt{\textbf{IBOutlet}} devem ter ligação com os objetos da i
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.55\textheight]{figuras/3/tela_novo_projeto_31.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_31.png}
   \caption{Primeira tela com o botão de chamada para segunda tela}
   \label{fig:a}
 \end{figure}
@@ -853,32 +853,32 @@ Os nomes dos  \texttt{\textbf{IBOutlet}} devem ter ligação com os objetos da i
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.25\textheight]{figuras/3/tela_novo_projeto_32.png}
+  \includegraphics[width=.65\textwidth]{figuras/3/tela_novo_projeto_32.png}
   \caption{Criação da segunda tela do aplicativo}
   \label{fig:a}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.4\textheight]{figuras/3/tela_novo_projeto_33.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_33.png}
   \caption{Configuração da segunda tela do aplicativo}
   \label{fig:a}
 \end{figure}
 
-\paragraph{}A tela do projeto deve estar como a figura abaixo.
+\paragraph{}A tela do projeto deve estar como a figura \ref{fig:app_com_duas_telas}.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.4\textheight]{figuras/3/tela_novo_projeto_34.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_34.png}
   \caption{Aplicativo com as duas telas criadas}
-  \label{fig:a}
+  \label{fig:app_com_duas_telas}
 \end{figure}
 
 \paragraph{}Nessa segunda tela vamos colocar uma \texttt{\textbf{UIImageView}}, arrastando da mesma forma que os outros objetos, e por enquanto mais um botão que fará a chamada de uma terceira tela.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.55\textheight]{figuras/3/tela_novo_projeto_35.png}
+  \includegraphics[width=.55\textwidth]{figuras/3/tela_novo_projeto_35.png}
   \caption{Tela 2 com UIImage ainda sem imagem definida}
   \label{fig:a}
 \end{figure}
@@ -889,22 +889,38 @@ Os nomes dos  \texttt{\textbf{IBOutlet}} devem ter ligação com os objetos da i
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.35\textheight]{figuras/3/tela_novo_projeto_36.png}
+  \includegraphics[width=.65\textwidth]{figuras/3/tela_novo_projeto_36.png}
   \caption{Adicionando arquivos ao projeto}
   \label{fig:a}
 \end{figure}
 
-\bigskip
+\paragraph{}Selecione uma imagem (nesse caso foi a de nome \emph{LogoDC.jpg}), agora temos a nova imagem disponível no \emph{Project Navigator}.
 
-\paragraph{}Adicionamos a imagem LogoDC.jpg contida no repositório deste turorial. Depois de adicionada, selecionamos a \texttt{\textbf{UIImageView}} e digitamos o nome da imagem na barra lateral de opções.
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=1]{figuras/3/tela_novo_projeto_50.png}
+  \caption{Nova imagem adicionada ao projeto}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Clicando no nome da imagem é possível alterar suas propriedades nesse projeto (as opções são exibidas no lado direito da tela do XCode). Altere a propriedade \emph{Type} de \emph{Relative to Group} para \emph{Relative to Project}, desse modo o caminho da imagem será relativo ao diretório onde se encontra o projeto.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=1]{figuras/3/tela_novo_projeto_51.png}
+  \caption{Definindo o caminho da imagem relativo ao projeto}
+  \label{fig:a}
+\end{figure}
+
+\paragraph{}Adicionamos a imagem LogoDC.jpg contida no repositório deste turorial. Depois de adicionada,voltando à segunda tela do projeto (\emph{SeCondScreenViewController.xib}), selecionamos a \texttt{\textbf{UIImageView}} e selecionamos a imagem para ser exibida.
 
 \bigskip
 \bigskip
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.35\textheight]{figuras/3/tela_novo_projeto_37.png}
-  \caption{Definindo a imagem}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_37.png}
+  \caption{Selecionando a nova imagem}
   \label{fig:a}
 \end{figure}
 
@@ -914,7 +930,7 @@ Os nomes dos  \texttt{\textbf{IBOutlet}} devem ter ligação com os objetos da i
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.35\textheight]{figuras/3/tela_novo_projeto_38.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_38.png}
   \caption{Criando uma \texttt{\textbf{IBAction}} diretamente}
   \label{fig:a}
 \end{figure}
@@ -924,7 +940,7 @@ Os nomes dos  \texttt{\textbf{IBOutlet}} devem ter ligação com os objetos da i
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.2\textheight]{figuras/3/tela_novo_projeto_39.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_39.png}
   \caption{Definindo a propriedade da \texttt{\textbf{IBAction}}}
   \label{fig:a}
 \end{figure} 
@@ -977,7 +993,7 @@ Os nomes dos  \texttt{\textbf{IBOutlet}} devem ter ligação com os objetos da i
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.55\textheight]{figuras/3/tela_novo_projeto_40.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_40.png}
   \caption{Segunda tela do aplicativo}
   \label{fig:a}
 \end{figure} 
@@ -1001,7 +1017,7 @@ Os nomes dos  \texttt{\textbf{IBOutlet}} devem ter ligação com os objetos da i
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.2\textheight]{figuras/3/tela_novo_projeto_41.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_41.png}
   \caption{Criação da variável NSString na tela 3}
   \label{fig:a}
 \end{figure} 
@@ -1013,14 +1029,14 @@ Os nomes dos  \texttt{\textbf{IBOutlet}} devem ter ligação com os objetos da i
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.4\textheight]{figuras/3/tela_novo_projeto_45.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_45.png}
   \caption{Criação do \texttt{\textbf{IBOutlet}} da caixa de texto da tela 3}
   \label{fig:a}
 \end{figure} 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.18\textheight]{figuras/3/tela_novo_projeto_46.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_46.png}
   \caption{Configuração do \texttt{\textbf{IBOutlet}} da caixa de texto da tela 3}
   \label{fig:a}
 \end{figure} 
@@ -1032,14 +1048,14 @@ Os nomes dos  \texttt{\textbf{IBOutlet}} devem ter ligação com os objetos da i
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.4\textheight]{figuras/3/tela_novo_projeto_42.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_42.png}
   \caption{Criação da \texttt{\textbf{IBOutlet}} da caixa de texto}
   \label{fig:a}
 \end{figure} 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.18\textheight]{figuras/3/tela_novo_projeto_43.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_43.png}
   \caption{Configuraçao da \texttt{\textbf{IBOutlet}} da caixa de texto}
   \label{fig:a}
 \end{figure} 
@@ -1049,7 +1065,7 @@ Os nomes dos  \texttt{\textbf{IBOutlet}} devem ter ligação com os objetos da i
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.4\textheight]{figuras/3/tela_novo_projeto_44.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_44.png}
   \caption{Tela 2 e seus atributos. Repare nos pontos que definem as ligações dos \texttt{\textbf{IBOutlets}} com a interface.}
   \label{fig:a}
 \end{figure}
@@ -1105,7 +1121,7 @@ Os nomes dos  \texttt{\textbf{IBOutlet}} devem ter ligação com os objetos da i
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.55\textheight]{figuras/3/tela_novo_projeto_47.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_47.png}
   \caption{Tela 2 completa}
   \label{fig:a}
 \end{figure}
@@ -1137,7 +1153,7 @@ self.nameTextField.delegate = self;
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.45\textheight]{figuras/3/tela_novo_projeto_48.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_48.png}
   \caption{\emph{SecondScreenViewController} .h e .m}
   \label{fig:a}
 \end{figure}
@@ -1203,7 +1219,7 @@ Este é o método da \texttt{\textbf{IBAction}} que criamos, e é acionado quand
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.55\textheight]{figuras/3/tela_novo_projeto_49.png}
+  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_49.png}
   \caption{Tela 3 com o botão para enviar mensagem}
   \label{fig:a}
 \end{figure}
@@ -1282,7 +1298,7 @@ Este é o método da \texttt{\textbf{IBAction}} que criamos, e é acionado quand
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.5\textheight]{figuras/apple_table_view_controller_contatos.png}
+  \includegraphics[width=.75\textwidth]{figuras/apple_table_view_controller_contatos.png}
   \caption{Exemplo de tela com lista de contatos que chama tela com lista de atributos}
   \label{fig:a}
 \end{figure}
@@ -1552,7 +1568,7 @@ NSArray * descriptors =
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.2\textheight]{figuras/table/table8.png}
+  \includegraphics[width=.75\textwidth]{figuras/table/table8.png}
   \caption{UITableViewController nos Objetos}
   \label{fig:a}
 \end{figure}
@@ -1561,7 +1577,7 @@ NSArray * descriptors =
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.5\textheight]{figuras/table/table9.png}
+  \includegraphics[width=.75\textwidth]{figuras/table/table9.png}
   \caption{UITableViewController dentro da View principal}
   \label{fig:a}
 \end{figure}
@@ -1655,7 +1671,7 @@ NSArray * descriptors =
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.3\textheight]{figuras/table/table3.png}
+  \includegraphics[width=.75\textwidth]{figuras/table/table3.png}
   \caption{Lista de contatos no simulador}
   \label{fig:a}
 \end{figure}
@@ -1773,7 +1789,7 @@ NSArray * descriptors =
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.3\textheight]{figuras/table/table5.png}
+  \includegraphics[width=.75\textwidth]{figuras/table/table5.png}
   \caption{Tela de detalhes no simulador}
   \label{fig:a}
 \end{figure}
@@ -1788,7 +1804,7 @@ NSArray * descriptors =
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.3\textheight]{figuras/table/table2.png}
+  \includegraphics[width=.75\textwidth]{figuras/table/table2.png}
   \caption{UISearchDisplayController nos Objetos}
   \label{fig:a}
 \end{figure}
@@ -1797,7 +1813,7 @@ NSArray * descriptors =
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.45\textheight]{figuras/table/table1.png}
+  \includegraphics[width=.75\textwidth]{figuras/table/table1.png}
   \caption{UISearchDisplayController junto da lista de contatos na View}
   \label{fig:a}
 \end{figure}
@@ -1812,7 +1828,7 @@ NSArray * descriptors =
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.25\textheight]{figuras/table/table7.png}
+  \includegraphics[width=.75\textwidth]{figuras/table/table7.png}
   \caption{Busca automática por substring}
   \label{fig:a}
 \end{figure}
@@ -2035,7 +2051,7 @@ if ([tableView isEqual:
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.15\textheight]{figuras/framework1.png}
+  \includegraphics[width=.75\textwidth]{figuras/framework1.png}
   \caption{Tela do Target do projeto}
   \label{fig:a}
 \end{figure}
@@ -2049,7 +2065,7 @@ if ([tableView isEqual:
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.4\textheight]{figuras/framework2.png}
+  \includegraphics[width=.75\textwidth]{figuras/framework2.png}
   \caption{Frameworks contidos no projeto}
   \label{fig:a}
 \end{figure}
@@ -3438,7 +3454,7 @@ self.motionManager.gyroUpdateInterval = .2;
 
 \begin{figure}[H]
   \centering
-  \includegraphics[totalheight=0.15\textheight]{figuras/location.png}
+  \includegraphics[width=.75\textwidth]{figuras/location.png}
   \caption{Simulando a localização no XCode}
   \label{fig:a}
 \end{figure}
