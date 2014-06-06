@@ -186,6 +186,40 @@ Na pasta \texttt{values/} o mais importante é o arquivo \texttt{strings.xml} qu
 
 A pasta \texttt{menu/} contém os \emph{layouts} do menus do aplicativo, esses são aqueles que podem ser acessados através da \emph{Action Bar}\footnote{\emph{ActionBar}: \href{http://developer.android.com/design/patterns/actionbar.html}{http://developer.android.com/design/patterns/actionbar.html}} ou através dos botões físicos do aparelho.
 
+%%NÃO COMPILA%%
+
+%%IGNORAR TUDO ATE O \fi
+
+\section{Alguns arquivos importantes:}
+
+\textbf{/res/layout/activity\_main.xml:}
+
+O arquivo \emph{activity\_main.xml} localizado na pasta \emph{layout} define a interface gráfica da tela. Por padrão, ao criar o projeto esse arquivo contém uma tag \emph{<TextView>} para exibir um simples texto na tela. Essa tag define o atributo \emph{android:text="\@string/hello"}, que utiliza uma mensagem identificada pela chave hello localizada no arquivo \emph{strings.xml}.
+
+\textbf{/res/values/strings.xml:}
+
+O arquivo \emph{strings.xml} localizado na pasta \emph{values} contém as mensagens da aplicação para organizar os textos em um único arquivo centralizado, o que é uma boa prática de programação. Desta forma podemos facilmente traduzir este arquivo para diversos idiomas e tornar nossa aplicação bastante internacionalizáveis.
+Por padrão, esse arquivo contém o nome da aplicação que digitamos ao criar o projeto e a mensagem que aparece na tela principal definida pelo arquivo \emph{main.xml}.
+O nome da aplicação é definido pela chave \emph{app\_name}, e o texto que aparece na tela é definido pela chave \emph{hello}.  O padrão para acessar essas mensagens é @string/nomeDaChave.
+Se for necessário mais de um idioma no aplicativo, basta criar uma pasta /res/values/values-(codigo do idioma) e traduzir o arquivo \emph{strings.xml} desta pasta.
+
+\textbf{R.java:}
+
+A classe \emph{R} tem constantes para facilitar acesso aos recursos do projeto, como por exemplo, um arquivo XML que define uma tela ou uma imagem localizada na pasta \emph{drawable}.
+Sempre que um recurso é adicionado no projeto, como por exemplo, uma nova imagem, essa classe é gerada automaticamente pelo Eclipse para conter uma constante para o novo recurso criado. \textbf{NUNCA ALTERE A CLASSE R MANUALMENTE.} 
+
+\textbf{MainActivity.java:}
+
+Esta é a classe principal do projeto e representa a tela inicial da aplicação. Observe que essa classe é filha de \emph{android.app.Activity}.
+A classe \emph{android.app.Activity} representa uma tela da aplicação e é responsável por controlar o estado e os eventos da tela. Assim, para cada tela da aplicação você criará uma classe-filha de \emph{Activity}. O método \emph{onCreate(bundle)} precisa ser implementado obrigatóriamente e é chamado de forma automática pelo Android quando a tela é criada. No entanto, a classe \emph{android.app.Activity} não sabe desenhar nada na tela e para isso precisa da ajuda da classe \emph{android.view.View} que, por sua vez, se encarrega de desenhar os componentes visuais, como campos de texto, botões e imagens. Para isso, existem diversas subclasses especializadas de \emph{android.view.View}.
+
+
+\textbf{AndroidManifest.xml:}
+
+O arquivo \emph{AndroidManifest.xml} é o arquivo principal do projeto e centraliza as configurações da aplicação. Note que existe, no arquivo xml a tag \emph{uses-sdk} a qual é utilizada para informar o level mínimo da API exigido pela aplicação. Por exemplo, uma aplicação pode ser compatível com a API level 8 mas otimizado para a 19, isto é, o Android 4.4: \emph{<uses-sdk android:minSdkVersion="8"   android:targetSkdVersion="19"  />}
+
+
+
 \newpage
 \textbf{Resumindo:}
 \begin{itemize}[noitemsep, nolistsep]
