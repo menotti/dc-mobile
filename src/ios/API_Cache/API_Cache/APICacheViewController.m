@@ -18,7 +18,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
     }
     return self;
 }
@@ -26,28 +25,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    
     self.textField.delegate = self;
-    
     //Inicialização do objeto NSUserDefaults
     self.userDefaults = [NSUserDefaults standardUserDefaults];
-    
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)saveText:(id)sender {
     
     [self.userDefaults setObject:self.textField.text forKey:@"StringTeste"];
     [self.userDefaults synchronize];
-    
-    [self.textField resignFirstResponder];
-    [self.textField setText:@""];
     
     UIAlertView *alertaOk = [[UIAlertView alloc] initWithTitle:@"iOS Cache" message:@"Armazenado no cache com sucesso!" delegate:nil cancelButtonTitle:@"Fechar" otherButtonTitles:nil];
     
@@ -59,7 +50,6 @@
     NSString *string = [self.userDefaults stringForKey:@"StringTeste"];
     
     [self.textField setText:string];
-    [self.textField resignFirstResponder];
 }
 
 - (IBAction)clearBox:(id)sender {
@@ -72,14 +62,8 @@
     }
 }
 
-
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    
     [textField resignFirstResponder];
-    
     return YES;
 }
-
-
-
 @end
