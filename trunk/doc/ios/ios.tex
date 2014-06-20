@@ -71,17 +71,9 @@ Objective-C é a linguagem de programação utilizada no ecossistema de produtos
 
 Para o desenvolvimento de aplicativos para iOS, utiliza-se o Objective-C em conjunto com a Cocoa Touch, API derivada da Cocoa (usado nos OS X), que por sua vez é derivada do NextSTEP e OpenStep, e que é formada por um grupo de frameworks que possibilitam a construção dos aplicativos. Nesse capítulo teremos uma visão geral de Objective-C em si, com o básico da sintaxe e os extras que a linguagem agrega ao C em termos de Orientação a Objetos, e também uma pincelada no primeiro framework do conjunto, o Foundation Framework, passando pelas principais classes, métodos e possibilidades que esse poderoso framework oferece para o ambiente de desenvolvimento.
 
-
-
-\bigskip
-
-
 \section{Objective-C}
 
-
 Veremos as alterações e adições do Objective-C em relação ao C puro, destacando as características mais notáveis e as explicando em seguida.
-
-\bigskip
 
 \subsection{Tempo de execução dinâmico}
 
@@ -90,11 +82,7 @@ O Objective-C tem tempo de execução dinâmico, o que significa que diversas de
 
 A opção de tipagem fraca aparece com o novo tipo chamado \texttt{\textbf{id}}. O \texttt{\textbf{id}} é um tipo genérico de objeto, o que permite que qualquer tipo de objeto seja atribuído, muito útil em casos que não podemos garantir de antemão qual será o tipo do objeto utilizado.
 
-
-
-
 \subsection{Classes}
-
 
 Quando criamos uma classe pelo XCode, automaticamente é criado um arquivo *.m para implementação e um *.h para o header, assim como o .c e o .h em C. Porém, em Objective-C eles também servem para diferenciar contéudo público e privado da classe, sendo tudo que for declarado no .h público e visível para todos, e tudo que estiver no .m privado e acessível somente para membros da classe. Sendo assim, não existe o conceito de atributo \emph{protected} existente em C++ e Java. Um atributo de classe é chamado de \texttt{\textbf{Property}}, e tem a funcionalidade de construir automaticamente um método setter e um getter, tornando-a global e protegida dentro da classe. Veremos o seu uso com mais detalhes mais pra frente.
 
@@ -251,8 +239,6 @@ O \texttt{\textbf{Foundation Framework}} é o que dá a base para a linguagem. �
 
 A seguir, veremos uma introdução às classes que utilizaremos em Objective-C, presentes no \texttt{\textbf{Foundation}}.
 
-\bigskip
-
 \begin{description}
 \item{\textbf{NSObject:} é a classe raiz de todas as classes em Objective-C. Ela cria uma interface para que os objetos possam se comportar como um objeto de Objective-C, definindo algumas propriedades básicas.
 
@@ -268,8 +254,6 @@ Em conjunto com o \texttt{\textbf{NSDictionary}}, é recomendável também o est
 
 \item{\textbf{NSNumber:} tem a função de simplesmente transformar tipos básicos de número do C (\texttt{\textbf{int}}, \texttt{\textbf{float}}, e \texttt{\textbf{double}}) em objetos. A ideia é que em Objective-C lidemos sempre com objetos, já que o Foundation Framework já tem a base pronta para as operações. Ao utilizarmos números e tipos básicos como objetos, aumentamos o nível de abstração e a responsabilidade passa ser do framework, minimizando o uso incorreto de dados e operações na memória, e evitando interferências nos processos em execução.}
 \end{description}
-
-\bigskip
 
 \subsection{Documentação}
 
@@ -315,9 +299,6 @@ No topo da hierarquia temos a \texttt{\textbf{UIWindow}}, que serve para dar sup
 
 Onde realmente atuaremos será nos objetos do tipo \texttt{\textbf{UIView}}, ligados diretamente à \texttt{\textbf{UIWindow}}, e nos objetos do tipo \texttt{\textbf{UIViewController}}, que gerenciam a \texttt{\textbf{UIView}}.
 
-\bigskip
-\bigskip
-
 \begin{figure}[H]
   \centering
   \includegraphics[width=.75\textwidth]{figuras/apple_window_view_controller_screen.png}
@@ -325,12 +306,7 @@ Onde realmente atuaremos será nos objetos do tipo \texttt{\textbf{UIView}}, lig
   \label{fig:relacionamento_UI}
 \end{figure}
 
-\bigskip
-
-
 A figura \ref{fig:relacionamento_UI} representa as ligações entre os elementos de interface no iOS. A \texttt{\textbf{UIWindow}} aponta para a \texttt{\textbf{UIScreen}}, que representa a tela e seus limites, e aponta para  \texttt{\textbf{UIViewController}} inicial do aplicativo, que recebe o nome especial de \texttt{\textbf{RootViewController}}. A \texttt{\textbf{UIView}}, que representa os elementos gráficos da tela, e é controlada pela \texttt{\textbf{UIViewController}} inicial, é então adicionada à \texttt{\textbf{UIWindow}}, e assim temos a referência à controladora inicial e sua tela. Veremos a seguir a relação entre uma \texttt{\textbf{UIViewController}} e uma \texttt{\textbf{UIView}} com mais detalhes a seguir.
-
-\bigskip
 
 \subsection{UIView x UIViewController}
 
@@ -349,8 +325,6 @@ Uma \emph{View Controller} é o que gerencia a lógica e comportamento de um con
 
 Uma \emph{View Controller} é criada com uma única \emph{View} atrelada, e dentro dela podemos inserir mais elementos visuais, como até mais mais \emph{Views}.
 
-\bigskip
-
 \begin{figure}[H]
   \centering
   \includegraphics[width=.75\textwidth]{figuras/screen_hierarchy.png}
@@ -363,8 +337,6 @@ Sabendo que é possível criar uma classe para uma \emph{View} genérica, sem po
 
 Primeiramente seguimos a regra de que para cada tela completa criamos uma \emph{View Controller} para gerenciá-la, e nessa classe podemos inserir todos os elementos da tela. Porém há os casos em que a ideia é criar uma \emph{View} genérica a ser inserida no contexto de uma tela completa, \emph{View} essa que pode ser desde uma célula customizada para uma tabela até uma tabela completa, aí então devemos pensar se essa mesma \emph{View} terá algum comportamento ou se será unicamente visual. No caso de uma célula customizada, por exemplo, ela será apenas visual e assim deve ser uma simples classe de \texttt{\textbf{UIView}}; já no caso de uma tabela completa, ela vai precisar de um grande conjunto de lógica para o seu comportamento, portanto precisará de uma \emph{View Controller} própria, que no caso de tabelas tem uma classe especial chamada \texttt{\textbf{UITableViewController}}.
 
-\bigskip
-
 \subsection{Navegação entre telas}
 
 \begin{figure}[h]
@@ -374,15 +346,11 @@ Primeiramente seguimos a regra de que para cada tela completa criamos uma \emph{
   \label{fig:a}
 \end{figure}
 
-
 Conforme vamos criando novas telas, precisamos de um modo de chamá-las e de retornar delas para a tela anterior. O iOS permite mais de um tipo de gerenciamento de navegação das telas, mas na maioria dos casos faremos uso do \emph{Navigation Controller}.
 
 O \emph{Navigation Controller} funciona como uma pilha de \emph{View Controllers} que tem início sempre na já citada \texttt{\textbf{RootNavigationController}}, que será a tela inicial do aplicativo. Nós definimos uma única vez pelo código qual será nossa \texttt{\textbf{RootNavigationController}}, após isso trabalharemos apenas com métodos de \emph{push} e \emph{pop} para carregar e descarregar as telas. Graficamente, o \emph{Navigation Controller} é a barra superior nas telas dos aplicativos e que contém um botão de retorno e outros botões auxiliares.
 
 Há um outro tipo de navegação complementar chamado \emph{Tab Bar Controller}, que nada mais é que uma nova tela, que pode inclusive estar contida na pilha do \emph{Navigation Controller}, e que traz duas ou mais telas divididas por abas.
-
-\bigskip
-\bigskip
 
 \begin{figure}[h]
   \centering
@@ -394,36 +362,22 @@ Há um outro tipo de navegação complementar chamado \emph{Tab Bar Controller},
 
 Esta imagem é um modelo do funcionamento de uma \emph{Tab Bar Controller}. Diferente da \emph{Navigation Controller}, que funciona como uma pilha de telas, a \emph{Tab Bar Controller} aponta para todas as telas diretamente, e disponibiliza a escolha das telas astravés das abas. Na figura \ref{fig:tab_bar_controller} vemos a distinção do que consiste cada elemento graficamente.
 
-\bigskip
-\bigskip
-
-
 \section{Interface Builder}
-
 
 Para nos auxiliar na construção das telas, utilizeremos o \emph{Interface Builder} do XCode. Na criação de uma nova \emph{View Controller}, é criado um arquivo .xib atrelado a essa classe, que ligará automaticamente os objetos criados na interface ao código da classe.
 
 O \emph{Interface Builder} é uma ferramenta muito poderosa e o utilizaremos principalmente para definir o posicionamento dos objetos, como as \emph{Views} e seus componentes, e para fazer a ligação dos \texttt{\textbf{IBOutlets}} e \texttt{\textbf{IBActions}} ao código.
-
-\bigskip
 
 \begin{framed}
 
 \textbf{Dica}:  Lembrando que sempre podemos determinar o layout e a criação dos objetos diretamente no código, sendo o Interface Builder apenas um facilitador. Em diversos casos lidar com o código acaba sendo a melhor opção.
 \end{framed}
 
-\bigskip
-
 \subsection{IBOutlets e IBActions}
-
 
 \texttt{\textbf{IBOutlets}} representam uma ligação entre um objeto criado na interface pelo Interface Builder, como um botão ou um texto, e uma instância criada no código. Funciona como um ponteiro de um objeto do código para a sua representação gráfica, e assim podemos nos referenciar a esse elemento no código do \emph{View Controller} para definirmos seu comportamento e possíveis mudanças nas suas características.
 
 Já uma \texttt{\textbf{IBAction}} representa uma mensagem enviada por um objeto da interface. A \texttt{\textbf{IBAction}} define o método que será chamado e que conterá o código com o comportamento desejado.
-
-\bigskip
-\bigskip
-
 
 \section{Seu primeiro aplicativo}
 
@@ -437,26 +391,23 @@ Agora vamos enfim colocar a mão na massa e colocar em prática tudo que foi fal
   \label{fig:a}
 \end{figure}
 
-
 Na nova janela aberta, escolha a opção \emph{Empty Application} e em seguida \emph{Next}.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_1.png}
-  \caption{Criação de um novo projeto}
+  \caption{Criação de uma \emph{Empty Application}}
   \label{fig:a}
 \end{figure}
-
 
 Na próxima tela você pode escolher os detalhes do aplicativo. Os campos \emph{Product Name}, \emph{Organization Name} e \emph{Company Identifier} (nome do projeto, nome da organização e identificação da empresa, respectivamente) servem para escolhermos os detalhes do aplicativo, o campo \emph{Class Prefix} serve para que o XCode nomeie as classes iniciais com o prefixo indicado (caso deixe em branco será atribuido um nome padrão).
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_2.png}
-  \caption{Criação de um novo projeto}
+  \caption{Opções para configuração do novo projeto}
   \label{fig:a}
 \end{figure}
-
 
 Deixe a opção \emph{Use Core Data} desmarcada, não iremos utilizar recursos referentes à armazenamento de dados nesse projeto.
 
@@ -466,13 +417,12 @@ Deixe a opção \emph{Use Core Data} desmarcada, não iremos utilizar recursos r
 \textit{ Use Automatic Reference Counting } e \textit{ Include Unit Tests } não estão presentes, isso porque já são definidas por padrão a partir do XCode 5.
 \end{framed}
 
-
 O XCode irá perguntar em qual lugar deve ser salvo o projeto, selecione uma pasta desejada e em seguida clique em \emph{Create} para concluir. 
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_3.png}
-  \caption{Criação de um novo projeto}
+  \caption{Finalizando a criação do novo projeto}
   \label{fig:a}
 \end{figure}
 
@@ -505,7 +455,7 @@ Primeiramente, vamos dar uma pequena olhada no ambiente do XCode. Na esquerda te
 \begin{figure}[H]
   \centering
   \includegraphics[width=.99\textwidth]{figuras/3/tela_principal_xcode.png}
-  \caption{Classe principal do projeto}
+  \caption{Organização do ambiente de desenvolvimento}
   \label{fig:a}
 \end{figure}
 
@@ -515,7 +465,7 @@ Na parte superior temos mais algumas funções, podemos iniciar o aplicativo no 
 \begin{figure}[H]
   \centering
   \includegraphics[width=.85\textwidth]{figuras/3/tela_principal_xcode_run.png}
-  \caption{Classe principal do projeto}
+  \caption{Estruturas de controle para o novo projeto}
   \label{fig:a}
 \end{figure}
 
@@ -541,7 +491,7 @@ Para prosseguir precisamos criar uma tela inicial para o aplicativo, clique com 
 \begin{figure}[H]
   \centering
   \includegraphics[width=.35\textwidth]{figuras/3/tela_novo_projeto_6.png}
-  \caption{Adicionando uma nova interface ao projeto}
+  \caption{Adicionando um novo arquivo ao projeto}
   \label{fig:a}
 \end{figure}
 
@@ -561,7 +511,7 @@ Em \emph{Class} deixe com o nome padrão de \emph{FirstAppViewController} e em \
 \begin{figure}[H]
   \centering
   \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_8.png}
-  \caption{Adicionando uma nova interface ao projeto}
+  \caption{Configurando as opções para a nova interface}
   \label{fig:a}
 \end{figure}
 
@@ -571,7 +521,7 @@ Na próxima tela clique em \emph{Create} para finalizar.
 \begin{figure}[H]
   \centering
   \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_9.png}
-  \caption{Adicionando uma nova interface ao projeto}
+  \caption{Finalizando a adição da nova interface ao projeto}
   \label{fig:a}
 \end{figure}
 
@@ -614,19 +564,11 @@ No canto inferior direito está presente a seção de \emph{Objetos}, os quais p
 \textbf{Dica}: Para visualizar melhor os componentes, clique no ícone localizado no canto inferior esquerdo da seção de objetos.
 \end{framed}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[scale=1]{figuras/3/tela_novo_projeto_13.png}
-  \caption{Alterar modo de exibição da seção de objetos}
-  \label{fig:a}
-\end{figure}
-
-
 Outro item a ser configurado encontra-se na tela central do XCode, não é um item necessário mas irá facilitar os próximos passos do desenvolvimento. Verifique que ao lado esquerdo da tela central do aplicativo (\emph{Editor Area}) existem 2 blocos e uma caixa circulada de cinza, bem ao lado direito desses itens existe uma barra cinza claro vertical, clique nessa barra e arraste-a para a direita de forma a expandir essa área.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=1]{figuras/3/tela_novo_projeto_14.png}
+  \includegraphics[scale=0.5]{figuras/3/tela_novo_projeto_14.png}
   \caption{Alterar modo de exibição do \emph{Placeholders}}
   \label{fig:a}
 \end{figure}
@@ -636,8 +578,8 @@ O resultado final é uma exibição mais detalhada dos itens. Utilizaremos esse 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=1]{figuras/3/tela_novo_projeto_15.png}
-  \caption{Alterar modo de exibição do \emph{Placeholders}}
+  \includegraphics[scale=0.7]{figuras/3/tela_novo_projeto_15.png}
+  \caption{Novo modo de exibição do \emph{Placeholders}}
   \label{fig:a}
 \end{figure}
 
@@ -658,9 +600,6 @@ Vamos inicialmente adicionar um \texttt{\textbf{UILabel}} e um \texttt{\textbf{U
   \caption{Interface com os primeiros objetos criados}
   \label{fig:a}
 \end{figure}
-
-\bigskip
-
 
 Se tentar rodar o aplicativo agora, será exibida uma tela em branco. Isso porque o aplicativo não foi configurado para carregar a nova tela criada. É necessário inserir a importação da classe da interface no arquivo \emph{FirstAppAppDelegate.h}.
 
@@ -685,15 +624,7 @@ self.window.rootViewController = viewController;
 \end{listing}
 
 
-Cria-se, na linha 1, um objeto do tipo \texttt{\textbf{FirstAppViewController}} e na linha 4 definimos como a tela principal que será carregada quando o aplicativo for inicializado. Após a edição a estrutura do código deve ser similar à foto abaixo.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=.90\textwidth]{figuras/3/tela_novo_projeto_17.png}
-  \caption{Configurando a tela inicial do aplicativo}
-  \label{fig:a}
-\end{figure}
-
+Cria-se, na linha 1, um objeto do tipo \texttt{\textbf{FirstAppViewController}} e na linha 4 definimos como a tela principal que será carregada quando o aplicativo for inicializado. 
 
 Nesse momento, executando o aplicativo através do \emph{Run Button} será exibida a tela do \emph{FirstAppViewController} e não mais uma tela em branco.
 
@@ -713,19 +644,15 @@ Clicando 2 vezes no \emph{button} é possível editar o texto que está sendo ex
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=1]{figuras/3/tela_novo_projeto_20.png}
+  \includegraphics[scale=0.7]{figuras/3/tela_novo_projeto_20.png}
   \caption{Editando o texto do botão criado}
   \label{fig:a}
 \end{figure}
-
-\bigskip
 
 \begin{framed}
 
 \textbf{Dica}: Caso esteja utilizando o MAC OS X em um computador com um teclado padrão Windows, a tecla \textit{Windows }é equivalente a tecla \textit{Comando}.
 \end{framed}
-
-
 
 Para que o botão execute uma ação, é necessário criar uma \texttt{\textbf{IBAction}}. Selecione o arquivo \emph{FirstAppViewController.h} para adicionar o seguinte trecho de código:
 
@@ -736,18 +663,7 @@ Para que o botão execute uma ação, é necessário criar uma \texttt{\textbf{I
 \caption{Adicionando uma \texttt{\textbf{IBAction}} para exibir uma mensagem na tela}
 \end{listing}
 
-
-O código deve ficar como mostrado na imagem \ref{fig:IBAction_msg}.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_21.png}
-  \caption{Adicionando uma \texttt{\textbf{IBAction}} para exibir uma mensagem na tela}
-  \label{fig:IBAction_msg}
-\end{figure}
-
-
-Em sequência, selecione o arquivo \emph{FirstAppViewController.m} para adicionar o  trecho de código a seguir:
+Em seguida, selecione o arquivo \emph{FirstAppViewController.m} para adicionar o  trecho de código a seguir:
 
 \begin{listing}
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
@@ -763,15 +679,7 @@ Em sequência, selecione o arquivo \emph{FirstAppViewController.m} para adiciona
 \end{listing}
 
 
-O código cria um objeto do tipo \texttt{\textbf{UIAlertView}} na linha 2, já inicializando-o com alguns textos para exibição. Na linha 6 é invocado um método da classe para que o alerta seja exibido na tela. A estrutura do código é mostrada na imagem \ref{fig:IBAction_msg2}.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=.99\textwidth]{figuras/3/tela_novo_projeto_22.png}
-  \caption{Adicionando uma \emph{IBAction} para exibir uma mensagem na tela}
-  \label{fig:IBAction_msg2}
-\end{figure}
-
+O código cria um objeto do tipo \texttt{\textbf{UIAlertView}} na linha 2, já inicializando-o com alguns textos para exibição. Na linha 6 é invocado um método da classe para que o alerta seja exibido na tela. 
 
 Agora clicando novamente no arquivo \emph{FirstAppViewController.xib} localizado na \emph{Project Navigator}, vemos a tela com a \emph{label} e o \emph{button} criados anteriormente. O botão não realiza nenhuma ação no momento, nesse caso deseja-se que ele execute a \texttt{\textbf{IBAction}} \emph{mostraMsg}, para ligar o botão à essa ação basta segurar a tecla \emph{Control}, clicar no objeto \emph{button} da tela e mover o mouse sobre o \emph{File's Owner}.
 
@@ -782,7 +690,7 @@ Agora clicando novamente no arquivo \emph{FirstAppViewController.xib} localizado
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=.99\textwidth]{figuras/3/tela_novo_projeto_23.png}
+  \includegraphics[width=0.7\textwidth]{figuras/3/tela_novo_projeto_23.png}
   \caption{Conectando o \emph{button} com a \texttt{\textbf{IBAction}}}
   \label{fig:a}
 \end{figure}
@@ -793,7 +701,7 @@ Ao soltar o click será exibida a opção para conectar o botão à \texttt{\tex
 \begin{figure}[H]
   \centering
   \includegraphics[scale=1]{figuras/3/tela_novo_projeto_24.png}
-  \caption{Conectando o \emph{button} com a \texttt{\textbf{IBAction}}}
+  \caption{Finalizando a conexão do \emph{button} com a \texttt{\textbf{IBAction}}}
   \label{fig:a}
 \end{figure}
 
@@ -857,9 +765,6 @@ Nesse arquivo é inicializado a \texttt{\textbf{UIWindow}} sendo apontada para \
 
 E pronto, com a \emph{Navigation Controller} criada não modificaremos mais esse arquivo.
 
-\bigskip
-
-
 Voltando à classe da primeira tela (\emph{FirstAppViewController.m}), podemos agora criar um título para a tela, que aparecerá na barra de navegação. No método \texttt{\textbf{viewDidLoad}} deixe como abaixo:
 
 \begin{listing}[H]
@@ -878,18 +783,12 @@ O método \texttt{\textbf{viewDidLoad}} é onde colocaremos tudo que será defin
 
 Agora o aplicativo ainda está extremamente cru, mas já podemos executá-lo no \emph{iOS Simulator} para ver sua primeira aparência. Basta apertar o \emph{Run Button} no canto superior esquerdo. A figura \ref{fig:app_executanto1} mostra a tela do simulador com o aplicativo rodando.
 
-\bigskip
-\bigskip
-
 \begin{figure}[H]
   \centering
   \includegraphics[width=.55\textwidth]{figuras/3/tela_novo_projeto_26.png}
   \caption{Aplicativo executando no iOS Simulator}
   \label{fig:app_executanto1}
 \end{figure}
-
-\bigskip
-
 
 Podemos agora começar a adicionar funcionalidades com o código. Vamos criar outra \texttt{\textbf{IBAction}} bem simples para testar o comportamento do aplicativo com o simulador. Uma maneira mais prática para isso (ao invés de declarar a \texttt{\textbf{IBAction}} antes e depois conectá-la ao botão como feito com o \emph{mostrarMensagem}) é arrastar o botão para o código do arquivo.h segurando \emph{Ctrl}, escolher a opção \texttt{\textbf{IBAction}} e criar um nome para ela, como \texttt{\textbf{okTouched}}. A intenção da nossa \texttt{\textbf{IBAction}} é que os textos do botão e da label troquem quando clicarmos no botão.
 
@@ -914,7 +813,7 @@ Os nomes dos  \texttt{\textbf{IBOutlet}} devem ter ligação com os objetos da i
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=.65\textwidth]{figuras/3/tela_novo_projeto_29.png}
+  \includegraphics[width=.45\textwidth]{figuras/3/tela_novo_projeto_29.png}
   \caption{Adicionando a \texttt{\textbf{IBOutlet}} ao código}
   \label{fig:a}
 \end{figure}
@@ -949,8 +848,6 @@ Veja que no código de implementação da classe da interface (arquivo .m) já s
 O código funciona como uma troca simples. Na linha 3 inicializamos uma variável local com o texto da label, na linha 6 chamamos o método da classe \texttt{\textbf{UIButton}} responsável por modificar o texto do botão pelo texto presente na label e no final o texto salvo do botão é atribuído à label.
 
 Rode o aplicativo no simulador para verificar o funcionamento do botão.
-
-\bigskip
 
 \subsection{Manipulando a Navigation Controller}
 
@@ -1007,8 +904,6 @@ Nessa segunda tela vamos colocar uma \texttt{\textbf{UIImageView}}, arrastando d
 
 
 Devemos agora definir uma imagem para a \texttt{\textbf{UIImageView}}, mas antes devemos adicionar a imagem que queremos na pasta \emph{Supporting Files} do projeto. Para isso, basta clicar com o botão direito na pasta e selecionar a opção \emph{Add Files to "First App"...}, sendo \emph{"First App"} o nome dado ao projeto.
-\bigskip
-\bigskip
 
 \begin{figure}[H]
   \centering
@@ -1040,18 +935,12 @@ Clicando no nome da imagem é possível alterar suas propriedades nesse projeto 
 
 Adicionamos a imagem LogoDC.jpg contida no repositório deste turorial. Depois de adicionada,voltando à segunda tela do projeto (\emph{SeCondScreenViewController.xib}), selecionamos a \texttt{\textbf{UIImageView}} e selecionamos a imagem para ser exibida.
 
-\bigskip
-\bigskip
-
 \begin{figure}[H]
   \centering
   \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_37.png}
   \caption{Selecionando a nova imagem}
   \label{fig:a}
 \end{figure}
-
-\bigskip
-
 
 Com a segunda tela criada, voltemos para a primeira (\emph{FirstAppViewController.xib}) para configurar o botão \emph{Ir para tela 2}. Para isso vamos criar uma \texttt{\textbf{IBAction}}, segurando a tecla \emph{Ctrl} esquerdo clique no botão e arraste para a parte de código do arquivo \emph{FirstAppViewController.h}.
 
@@ -1062,19 +951,12 @@ Com a segunda tela criada, voltemos para a primeira (\emph{FirstAppViewControlle
   \label{fig:a}
 \end{figure}
 
-\bigskip
-\bigskip
-
 \begin{figure}[H]
   \centering
   \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_39.png}
   \caption{Definindo a propriedade da \texttt{\textbf{IBAction}}}
   \label{fig:a}
 \end{figure} 
-
-\bigskip
-\bigskip
-
 
 Com a \texttt{\textbf{IBAction}} criada, vamos para o arquivo \emph{FirstAppViewController.m} onde já foi criado automaticamente o esqueleto dessa ação. Para chamar a segunda tela primeiramente inclua nesse arquivo .m a importação da classe referente à segunda tela:
 
@@ -1134,10 +1016,7 @@ Rode o aplicativo para testar a função, quando estiver na tela 2 é possível 
 
 Para dar funcionalidade ao botão \emph{Ir para tela 3}, crie a terceira tela com o nome \emph{ThirdScreenViewController}, seguindo o exemplo, e faça a chamada da mesma forma que foi feito na primeira tela. Faça os testes e verifique o funcionamento. É possível retornar às telas anteriores, pois a \emph{Navigation Controller} cria um botão de retorno automaticamente.
 
-\bigskip
-
 \subsection{Trocando informação entre telas}
-
 
 Ao inicializarmos uma instância de uma \emph{View Controller}, podemos atribuir valores às suas \emph{Properties} antes de fazer o \emph{push} da tela. Dessa forma bem simples, é possível levar informação de uma tela existente para uma tela nova, podendo exibir ou tratar esses dados convenientemente na \emph{View Controller} da próxima tela. Para exemplificar, vamos criar um campo de texto na segunda tela e exibir o seu conteúdo em um rótulo (\emph{label}) na terceira tela.
 
@@ -1151,17 +1030,6 @@ A \texttt{\textbf{Property}} da string é criada no arquivo de header da classe 
 \end{minted}
 \caption{Propriedade do tipo \emph{NSString}}
 \end{listing}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=.75\textwidth]{figuras/3/tela_novo_projeto_41.png}
-  \caption{Criação da variável NSString na tela 3}
-  \label{fig:a}
-\end{figure} 
-
-\bigskip
-\bigskip
-
 
 Além da variável NSString é necessário criar o \texttt{\textbf{IBOutlet}} da \emph{label} da tela 3. Dessa forma o valor será passado da tela 2 para a variável NSString e então passado para a label da interface.
 
@@ -1182,9 +1050,6 @@ Além da variável NSString é necessário criar o \texttt{\textbf{IBOutlet}} da
 
 Na segunda tela deve ser adicionado um \emph{text} que será utilizado para digitar o texto, em seguida criado um \texttt{\textbf{IBOutlet}} para esse \emph{text}.
 
-\bigskip
-\bigskip
-
 \begin{figure}[H]
   \centering
   \includegraphics[width=.99\textwidth]{figuras/3/tela_novo_projeto_42.png}
@@ -1199,8 +1064,6 @@ Na segunda tela deve ser adicionado um \emph{text} que será utilizado para digi
   \label{fig:a}
 \end{figure} 
 
-\bigskip
-\bigskip
 
 \begin{figure}[H]
   \centering
@@ -1208,9 +1071,6 @@ Na segunda tela deve ser adicionado um \emph{text} que será utilizado para digi
   \caption{Tela 2 e seus atributos. Repare nas as ligações dos \texttt{\textbf{IBOutlets}} com a interface.}
   \label{fig:a}
 \end{figure}
-
-\bigskip
-
 
 E o método com a chamada da terceira tela será semelhante, apenas com a adição da passagem da variável na linha 7 do código a seguir.
 
@@ -1260,9 +1120,6 @@ Note que há ainda um problema gráfico: após a edição do campo de texto na s
 
 A imagem a seguir mostra a segunda tela no simulador.
 
-\bigskip
-\bigskip
-
 \begin{figure}[H]
   \centering
   \includegraphics[width=.55\textwidth]{figuras/3/tela_novo_projeto_47.png}
@@ -1270,10 +1127,7 @@ A imagem a seguir mostra a segunda tela no simulador.
   \label{fig:a}
 \end{figure}
 
-\bigskip
-
 \subsection{O uso do protocolo Delegate}
-
 
 O protocolo \texttt{\textbf{Delegate}} é uma das ferramentas mais importantes do Objective-C. Na execução do código de um objeto, este não tem como ter acesso ao código do objeto que o instanciou. Com o uso do \texttt{\textbf{Delegate}} um objeto pode enviar dados para um segundo objeto que enxerga o primeiro mas não pode ser enxergado por ele. Assim é possível determinar que a partir de um evento ou uma condição, será enviada uma mensagem, que pode ser uma notificação ou um dado, a partir de um método \texttt{\textbf{Delegate}} que vai saber como e onde encontrar o destino dessa mensagem.
 
@@ -1298,14 +1152,6 @@ self.nameTextField.delegate = self;
 \end{minted}
 \caption{Definição do \emph{delegate}}
 \end{listing}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=.99\textwidth]{figuras/3/tela_novo_projeto_48.png}
-  \caption{\emph{SecondScreenViewController} .h e .m}
-  \label{fig:a}
-\end{figure}
-
 
 Pronto, agora é possível que o objeto \texttt{\textbf{UITextField}}, que foi instanciado na classe da tela e consequentemente não enxerga os elementos dessa classe, como o teclado, envie informações à mesma. No caso, queremos que o teclado seja dispensado no momento que terminarmos de editar o campo de texto, e quando isso ocorre há um método a ser chamado. Vamos implementar este método com a lógica que queremos no arquivo de implementação da classe.
 
@@ -1368,9 +1214,6 @@ Definimos o \texttt{\textbf{Delegate}} e seu método, agora basta definir onde s
 \end{listing}
 
 Este é o método da \texttt{\textbf{IBAction}} que criamos, e é acionado quando o botão "Enviar Mensagem" é tocado. Dentro dele fazemos a chamada do método \texttt{\textbf{sendMessageFromTextField}} definido no \texttt{\textbf{MessageDelegate}}, que vai buscar a implementação do método em qualquer classe que tenha referenciado o \texttt{\textbf{MessageDelegate}}.
-
-\bigskip
-\bigskip
 
 \begin{figure}[H]
   \centering
@@ -1445,12 +1288,7 @@ Tudo pronto, agora basta implementar o método. Nossa intenção é que a segund
 
 Na linha 3 chamamos a tela 3 para a \emph{Navigation Controller}, e na linha 6 salvamos a mensagem que escrevemos como conteúdo do campo de texto criado na tela 3, na segunda tela foi criado um \emph{Text field} ligado através de uma \texttt{\textbf{IBOutlet}} chamada de \emph{textoSegundaTela} .
 
-\bigskip
-\bigskip
-
-
 \section{Criando uma agenda}
-
 
 Entre os tipos de \emph{Views} mais utilizadas no iOS, temos as tabelas. Qualquer tela exibindo informações bem divididas como playlist de músicas, lista contatos, ou informações estruturadas em linhas, é do tipo \texttt{\textbf{UITableView}} se for uma \emph{View}, ou \texttt{\textbf{UITableViewController}} se for uma controladora. Como já explicado, se for preciso apenas exibir informações estáticas sem interação com o usuário, criamos uma classe herdando de \texttt{\textbf{UITableView}}, porém na maioria dos casos vamos precisar de tabelas com dados dinâmicos e possibilidade de interação por toque, então criamos um classe herdando de \texttt{\textbf{UITableViewController}}.
 
@@ -1458,18 +1296,12 @@ A classe \texttt{\textbf{UITableViewController}} possui diversos métodos para g
 
 Vamos implementar um exemplo simples de uma lista de contatos, exibindo-os em ordem alfabética a partir de um pré-determinado \emph{array} de objetos do tipo \texttt{\textbf{Contato}}, que será a classe modelo que criaremos para contatos com informações como nome completo e número.
 
-\bigskip
-\bigskip
-
 \begin{figure}[H]
   \centering
   \includegraphics[width=.75\textwidth]{figuras/apple_table_view_controller_contatos.png}
   \caption{Exemplo de tela com lista de contatos que chama tela com lista de atributos}
   \label{fig:a}
 \end{figure}
-
-\bigskip
-
 
 É interessante que você acompanhe o tutorial junto com a documentação da Apple sobre \texttt{\textbf{UITableViewController}}, e no final busque novos tipos de interação com o usuário e customização da tabela. Não é a toa que essa estrutura é tão explorada nos aplicativos, há uma gama muito grande de possibilidades para seu uso.
 
@@ -1511,8 +1343,6 @@ Que retorna o número de linhas por seção. E esse:
 Que é chamado no carregamento de cada célula da tabela e retorna um objeto \texttt{\textbf{UITableViewCell}} que contém as definições dessa celula, como texto, imagem de fundo, ou uma imagem miniatura. O endereço da célula é obtido pelo parâmetro \texttt{\textbf{indexPath}}, que contém dois valores: a seção (\texttt{\textbf{section}}) e a linha (\texttt{\textbf{row}}).
 
 Vamos carregar os dados dos contatos a partir de uma property list chamada \texttt{\textbf{contatos.plist}} já criada e presente no repositório. Adicione este arquivo no projeto e abra-o para entender como os contatos estão estruturados. A ideia é dividir os contatos pela letra inicial, tornando cada letra existente uma chave primária para a estrutura. Dessa forma podemos montar esses dados em um dicionário e facilitar a busca e a ordenação dos contatos.
-
-\bigskip
 
 \subsection{Classe de modelo dos contatos}
 
@@ -1756,9 +1586,6 @@ Com a nossa estrutura de dados pronta, podemos enfim criar um objeto \texttt{\te
 
 Adicione a tabela pelo \emph{Interface Builder} da mesma forma que já fizemos. Apague tudo que já existir na tela, selecione \texttt{\textbf{Table View}} entre os objetos e arraste para a tela. Então selecione a tabela adicionada e arraste-a com o Control apertado para o código do \emph{header} ao lado para criar um \texttt{\textbf{IBOutlet}}. Crie-o com o nome \texttt{\textbf{table}}. Além disso, é preciso fazer a ligação com o \emph{File's Owner} para indicar que as alterações feitas no código da \texttt{\textbf{UITableViewController}} terão efeito na tabela. Para isso, basta selecionar a tabela e arrastar com o Ctrl apertado até o quadrado amarelo no lado esquerdo. Selecione \texttt{\textbf{dataSource}}, e faça mais uma vez para selecionar \texttt{\textbf{delegate}}.
 
-\bigskip
-\bigskip
-
 \begin{figure}[H]
   \centering
   \includegraphics[width=.75\textwidth]{figuras/table/table8.png}
@@ -1766,17 +1593,12 @@ Adicione a tabela pelo \emph{Interface Builder} da mesma forma que já fizemos. 
   \label{fig:a}
 \end{figure}
 
-\bigskip
-
 \begin{figure}[H]
   \centering
   \includegraphics[width=.75\textwidth]{figuras/table/table9.png}
   \caption{UITableViewController dentro da View principal}
   \label{fig:a}
 \end{figure}
-
-\bigskip
-
 
 Agora temos nossa tabela pronta para uso, devemos então customizá-la sobrescrevendo seus métodos. Para definir características de exibição da tabela, utilizaremos por enquanto 5 métodos básicos: número de seções (total de letras), número de linhas por seção (total de contatos por letra), título de cada seção (cada letra), o índice de seções na lateral (o \emph{array} de letras), e o que será exibido em cada célula (cada contato). Vamos passar devagar por cada um dos métodos.
 
@@ -1869,9 +1691,6 @@ Este método é chamado na criação de cada célula da tabela, e retorna o obje
 Vamos então instanciar um objeto \texttt{\textbf{DataContato}} de acordo com os valores de \texttt{\textbf{section}} e \texttt{\textbf{row}}, que darão a posição do objeto em \texttt{\textbf{contatoObjArray}}. Então salvamos apenas a \emph{string} do primeiro nome em \texttt{\textbf{cell.textLabel.text}}, onde \texttt{\textbf{textLabel}} é um atributo do tipo \texttt{\textbf{UILabel}} que determina o texto que é exibido na célula e suas características.
 
 Além disso, vamos determinar uma imagem a ser exibida na célula. No caso utilizei uma imagem bem simples, contida no repositório, com o logo da Apple, mas você pode colocar outra imagem em .png se quiser, bastando colocar o nome da imagem no parâmetro correspondente. Essa imagem será então salva em \texttt{\textbf{cell.imageView.image}}. Note que, se cada contato tiver uma imagem customizada, é possível determinar um \texttt{\textbf{NSArray}} com o nome da imagem correspondente a cada contato, e utilizar o \texttt{\textbf{indexPath}} da mesma forma que o utilizamos para determinar o texto da célula.
-
-\bigskip
-\bigskip
 
 \begin{figure}[H]
   \centering
@@ -2000,9 +1819,6 @@ Na linha 4 colocamos a condição de que o dispositivo é um iPhone, pois iPad, 
 
 O método da \texttt{\textbf{UITableView}} chamado por último serve apenas para que a célula não permaneça selecionada após o toque, é um detalhe puramente visual.
 
-\bigskip
-\bigskip
-
 \begin{figure}[H]
   \centering
   \includegraphics[width=.75\textwidth]{figuras/table/table5.png}
@@ -2017,17 +1833,12 @@ A essa altura já temos o aplicativo funcionando do jeito planejado, visualizand
 
 O primeiro passo para a busca é adicionar uma \texttt{\textbf{SearchDisplayController}} através do Interface Builder na classe \texttt{\textbf{TableViewController}}. Selecione o elemento em \emph{Objects} no Interface Builder, e posicione-o dentro da \texttt{\textbf{View}}, acima da \texttt{\textbf{UITableView}}. Com a barra de busca posicionada, pressione a tecla Control e arraste-a até o cubo laranja (File's Owner), assim como fez com a tabela no início, e clique em \texttt{\textbf{delegate}}. Faça o mesmo processo novamente, mas arrastando para o arquivo .h, e salve o \texttt{\textbf{IBOutlet}} como \texttt{\textbf{searchBar}}.
 
-\bigskip
-\bigskip
-
 \begin{figure}[H]
   \centering
   \includegraphics[width=.75\textwidth]{figuras/table/table2.png}
   \caption{UISearchDisplayController nos Objetos}
   \label{fig:a}
 \end{figure}
-
-\bigskip
 
 \begin{figure}[H]
   \centering
@@ -2036,14 +1847,8 @@ O primeiro passo para a busca é adicionar uma \texttt{\textbf{SearchDisplayCont
   \label{fig:a}
 \end{figure}
 
-\bigskip
-
-
 Agora podemos partir para o código de implementação da classe \texttt{\textbf{TableViewController}} para determinar a lógica da busca com os métodos o \texttt{\textbf{Delegate}} da\\
 \texttt{\textbf{UISearchDisplayController}}. Vamos implementar apenas 3 métodos do \texttt{\textbf{Delegate}}, os quais serão responsáveis pelo comportamento de busca automática, bastando que o usuário comece a digitar para exibir os resultados na tela.
-
-\bigskip
-\bigskip
 
 \begin{figure}[H]
   \centering
@@ -2051,8 +1856,6 @@ Agora podemos partir para o código de implementação da classe \texttt{\textbf
   \caption{Busca automática por substring}
   \label{fig:a}
 \end{figure}
-
-\bigskip
 
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
@@ -2067,8 +1870,6 @@ Agora podemos partir para o código de implementação da classe \texttt{\textbf
 \end{minted}
 \caption{Método para busca automática dos contatos com botão}
 \end{listing}
-
-\bigskip
 
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
@@ -2148,8 +1949,6 @@ Certo, temos o array de busca sendo preenchido, mas como exibiremos o resultado 
 \caption{Comportamento da tabela com busca}
 \end{listing}
 
-\bigskip
-
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 - (NSInteger)tableView:(UITableView *)tableView
@@ -2165,8 +1964,6 @@ Certo, temos o array de busca sendo preenchido, mas como exibiremos o resultado 
 \end{minted}
 \caption{Definição do tamanho da tabela com busca}
 \end{listing}
-
-\bigskip
 
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
@@ -2264,61 +2061,37 @@ Pronto, temos uma funcionalidade de busca prática e eficaz para a nossa agenda.
 
 \chapter{APIs e bibliotecas especiais}
 
-
 Nesta parte do documento faremos uso de APIs do Objective-C que tratam de implementações mais específicas para os aplicativos, nos dando a possibilidade de uso de elementos básicos do sistema assim como a integração com partes internas dos dispositivos iOS. Faremos uso de algumas bibliotecas externas bastante utilizadas pela comunidade, assim como APIs do próprio sistema que adicionaremos ao projeto com apenas alguns cliques.
 
-\bigskip
-\bigskip
-
-
 \section{Adicionando uma API do sistema}
-
 
 O SDK do iOS possui um extenso pacote de bibliotecas de integração com o sistema, porém o XCode adiciona a um novo projeto apenas os 3 frameworks básicos: \emph{Foundation Framework}, \emph{UIKit Framework} e \emph{QuartzCore Framework}. Isso evita um peso desnecessário ao projeto já que as outras bibliotecas são voltadas para o acesso a elementos específicos. Como o foco deste capítulo é justamente esse uso específico, em alguns casos será necessário adicionar manualmente um framework do sistema ao projeto.
 
 Para adicionar um framework, selecione seu projeto em \texttt{Project Navigator} e na janela ao lado selecione o seu \texttt{target}.
 
-\bigskip
-\bigskip
-
 \begin{figure}[H]
   \centering
-  \includegraphics[width=.75\textwidth]{figuras/framework1.png}
+  \includegraphics[width=.75\textwidth]{figuras/framework3.png}
   \caption{Tela do Target do projeto}
   \label{fig:a}
 \end{figure}
 
-\bigskip
-
-
 Na aba \emph{Build Phases}, desça até \emph{Link Binaries With Libraries} e clique no símbolo de \texttt{+}.
-
-\bigskip
-\bigskip
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=.75\textwidth]{figuras/framework2.png}
-  \caption{Frameworks contidos no projeto}
+  \includegraphics[width=.45\textwidth]{figuras/framework4.png}
+  \caption{Frameworks que podem ser adicionados ao projeto}
   \label{fig:a}
 \end{figure}
 
-\bigskip
-
-
 Esta é a lista de todos os frameworks do iOS, bastando pesquisar o nome do framework desejado para adicioná-lo ao projeto. Constará no documento quando isso for necessário e o nome do framework a ser adicionado.
 
-\bigskip
-\bigskip
-
-
 \section{Armazenamento em cache}
-
 
 Existem muitos casos em que precisamos guardar informação em um cache e recuperá-la em outro momento, mesmo após fechar o aplicativo. Podemos ter um formulário não finalizado, ou então dados que devem ser enviados a um web service mas não há conexão no momento. Para estes e diversos outros casos o iOS nos oferece uma estrutura chamada \texttt{\textbf{NSUserDefaults}}.
 
 O \texttt{\textbf{NSUserDefaults}} funciona exatamente como um \texttt{\textbf{NSDictionary}}, seguindo a lógica de valores associados a chaves, porém só aceita dados básicos, como strings, arrays, valores núméricos, além de outros dicionários. Os dados dessa estrutura permanecem salvos e acessíveis a qualquer aplicativo, bastante buscar a informação de acordo com a chave determinada.
-
 
 Construimos a interface do aplicativo da forma como ilustrado na imagem \ref{fig:app_interface_cache}.
 
@@ -2329,7 +2102,6 @@ Construimos a interface do aplicativo da forma como ilustrado na imagem \ref{fig
   \label{fig:app_interface_cache}
 \end{figure}
 
-
 Salvar e recuperar informação da estrutura \texttt{\textbf{NSUserDefaults}} é algo bem simples e direto, e lidamos com seus dados de forma parecida com um \texttt{\textbf{NSDictionary}}. Primeiro criamos uma variável de ponteiro para a estrutura no arquivo.h da interface do aplicativo.
 
 \begin{listing}[H]
@@ -2339,7 +2111,6 @@ Salvar e recuperar informação da estrutura \texttt{\textbf{NSUserDefaults}} é
 \caption{Declaração do objeto \emph{NSUserDefaults}}
 \end{listing}
 
-
 Adicionamos um \texttt{\textbf{IBOutlet}} chamado \emph{*textField} que está conectado ao textbox da interface, além de duas \texttt{\textbf{IBActions}}, a \emph{saveText} para o botão Salvar e \texttt{\textbf{retrieveText}} para o botão Recuperar.
 As \texttt{\textbf{IBActions}} nomeadas de \emph{clearBox} e \emph{completeBox} são auxiliares e servirão para manipular o conteúdo da textbox.
 
@@ -2347,18 +2118,14 @@ As \texttt{\textbf{IBActions}} nomeadas de \emph{clearBox} e \emph{completeBox} 
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 - (IBAction)saveText:(id)sender;
-
 - (IBAction)retrieveText:(id)sender;
-
 - (IBAction)clearBox:(id)sender;
-
 - (IBAction)completeBox:(id)sender;
 \end{minted}
 \caption{Declaração do \texttt{\textbf{IBOutlet}} e das \texttt{\textbf{IBActions}} para armazenamento em cache}
 \end{listing}
 
-
-Adicione também a referência ao \emph{AppDelegate} para que seja possível utilizar o recurso de fechar o teclado após digitar o texto na textbox.
+Adicione também a referência ao \emph{AppDelegate} para que seja possível utilizar o recurso de ocultar o teclado após digitar o texto na textbox.
 
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
@@ -2368,17 +2135,6 @@ Adicione também a referência ao \emph{AppDelegate} para que seja possível uti
 \caption{Referência ao \emph{AppDelegate}}
 \end{listing}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\textwidth]{figuras/4/app_interface_estrutura_h.png}
-  \caption{Arquivo.h da interface do aplicativo para armazenamento em cache}
-  \label{fig:app_interface_estrutura_h}
-\end{figure}
-
-
-A imagem \ref{fig:app_interface_estrutura_h} mostra a estrutura final do arquivo.h da interface.
-
-
 No arquivo.m da interface temos a estrutura das \texttt{\textbf{IBActions}} criadas.
 Modifique o método \emph{viewDidLoad}:
 
@@ -2387,18 +2143,14 @@ Modifique o método \emph{viewDidLoad}:
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     self.textField.delegate = self;
-  
     self.userDefaults = [NSUserDefaults standardUserDefaults];
 }
 \end{minted}
 \caption{Método \emph{viewDidLoad} da interface do aplicativo para armazenamento em cache}
 \end{listing}
 
-
-Na linha 7 inicializamos o objeto \emph{NSUserDefaults}.
-
+Na linha 5 inicializamos o objeto \emph{NSUserDefaults}.
 
 Para salvar temos um método de setter para objetos e um método para cada tipo de valor númerico. O método para objetos aceita strings, arrays e dicionários.
 
@@ -2452,14 +2204,10 @@ Para recuperar é o mesmo esquema, com a diferença que temos métodos de getter
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 NSString *string = [userDefaults stringForKey:@"StringTeste"];
-
 NSArray *array = [userDefaults arrayForKey:@"ArrayTeste"];
-
 NSDictionary *dictionary = [userDefaults dictionaryForKey:
                                          @"DictionaryTeste"];
-
 NSInteger int = [userDefaults integerForKey:@"InteiroTeste"];
-
 NSString *string = [userDefaults stringForKey:@"StringTeste"];
 \end{minted}
 \caption{Recuperação dos dados salvos em cache}
@@ -2520,16 +2268,6 @@ Um último método que deve inserido é o \emph{textFieldShouldReturn}, é utili
 \caption{Método \emph{textFieldShouldReturn} para controlar quando o teclado deve ser ocultado na interface}
 \end{listing}
 
-
-A estrutura do arquivo.m da interface deve estar como ilustrado na figura .
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=.90\textwidth]{figuras/4/app_interface_estrutura_m.png}
-  \caption{Arquivo.m da interface do aplicativo para armazenamento em cache}
-  \label{fig:app_interface_estrutura_m}
-\end{figure}
-
 \begin{framed}
 
 \textbf{Dica}: Documentação oficial da Apple para a estrutura \texttt{\textbf{NSUserDefaults}}:\\
@@ -2537,9 +2275,7 @@ A estrutura do arquivo.m da interface deve estar como ilustrado na figura .
 \)
 \end{framed}
 
-
 \section{Contatos}
-
 
 É possível acessar os dados dos contatos salvos em um dispositivo iOS e manipulá-los como for conveniente através das classes de \texttt{\textbf{AddressBook Framework}}. Adicione esse framework ao projeto, e em seguida importe as seguintes classes:
 
@@ -2662,10 +2398,7 @@ Obtemos o número de telefone em formato de \texttt{\textbf{NSString}}. Com o di
 \caption{Gravação do contato completo ao \emph{array}}
 \end{listing}
 
-
 Ao final do processo teremos um array com os dados em formato puro, facilitando o uso desses dados em outras estruturas do aplicativo.
-
-\bigskip
 
 \begin{framed}
 
@@ -2683,7 +2416,6 @@ O iOS permite que um aplicativo crie agendas e compromissos de modo simplificand
 \end{minted}
 \caption{Importação do \emph{EventKit}}
 \end{listing}
-
 
 Agora vamos construir dois métodos básicos: criar calendário e adicionar evento. Um evento é adicionado a um dado calendário através do identificador desse calendário, e deixaremos isso explicito ao criarmos um calendário novo e adicionarmos um evento com o identificador gerado. Crie um novo \texttt{\textbf{UIButton}} e ligue a ele uma nova \texttt{\textbf{IBAction}} chamada \texttt{\textbf{createCalendar}}.
 
@@ -2797,10 +2529,7 @@ BOOL result = [eventStore saveEvent:event span:EKSpanThisEvent
 \caption{Gravação do novo evento}
 \end{listing}
 
-
 Se a variável \texttt{\textbf{result}} retornar verdadeiro então o evento foi adicionado com sucesso ao nosso recém criado calendário.
-
-\bigskip
 
 \begin{framed}
 
@@ -2808,7 +2537,6 @@ Se a variável \texttt{\textbf{result}} retornar verdadeiro então o evento foi 
 \end{framed}
 
 \section{Chamadas}
-
 
 O código para efetuar uma chamada no iOS é bem simples. Já utilizamos este recurso na tela de detalhes do aplicativo de Agenda, mas falaremos desta ação rapidamente por aqui.
 Dentro do método chamado como \texttt{\textbf{IBAction}} de um \texttt{\textbf{UIButton}} criado para efetuar a chamada, execute o seguinte método:
@@ -2909,8 +2637,6 @@ Para finalizar, utilizaremos o seguinte método:
 
 Este método é chamado quando confirmamos ou cancelamos o envio da mensagem. Com ele podemos utilizar o método \texttt{\textbf{dismissViewControllerAnimated:completion:}} para que o \texttt{\textbf{ModalViewController}} desapareça e retornemos à tela anterior, de forma similar com que fazemos quando voltamos de uma tela em uma \texttt{Navigation Controller}, utilizando o método \texttt{\textbf{popToViewController}}. Além de fechar o \texttt{\textbf{ModalViewController}}, podemos utilizar este método para retornar mensagens ao usuário, notificando o sucesso ou cancelamento do envio do SMS.
 
-\bigskip
-
 \begin{framed}
 
 \textbf{Dica}: Para complementar as possibilidades da \texttt{\textbf{MFMessageComposeViewController}}, não deixe de estudar a documentação oficial da Apple:\\
@@ -2948,8 +2674,6 @@ Agora crie no \texttt{\textbf{Interface Builder}} um \texttt{\textbf{UITextField
 
 Usamos os mesmos métodos para os dois serviços, mudando apenas um parâmetro que indica qual serviço queremos usar.
 
-\bigskip
-
 \subsection{Twitter}
 
 
@@ -2978,8 +2702,6 @@ Faremos uma postatem no \emph{Twitter} a partir do \texttt{\textbf{UIButton}} qu
 
 
 A verificação inicial serve apenas para garantir que o \emph{Twitter} está configurado na versão do iOS do dispositivo. Em seguida criamos a tela de composição da mensagem a ser postada e definimos o tipo de serviço com \texttt{\textbf{SLServiceTypeTwitter}} como parâmetro. Na linha 9 o método \texttt{\textbf{setInitialText:}} define o texto inicial da mensagem, que será o conteúdo de \texttt{\textbf{twitterField}}. Na linha 11 finalizamos ao chamar a tela de composição na forma de um \texttt{\textbf{ModalViewController}}.
-
-\bigskip
 
 \subsection{Facebook}
 
@@ -3013,8 +2735,6 @@ A postagem no \emph{Facebook} seguirá exatamente o mesmo modelo, apenas com dua
 
 
 Para definir o serviço, mudamos o parâmetro na linha 8 para \texttt{\textbf{SLServiceTypeFacebook}}. Na linha 10 definimos o texto inicial, assim como feito com o \emph{Twitter}. Na linha 11 o método \texttt{\textbf{addURL:}} recebe um objeto \texttt{\textbf{NSURL}} para adicionar um link à postagem, e na linha 13 o método \texttt{\textbf{addImage:}} recebe uma \texttt{\textbf{UIImage}} para adicionar uma imagem à postagem. Terminamos o método chamando a tela de composição da mensagem como um um \texttt{\textbf{ModalViewController}}.
-
-\bigskip
 
 \begin{framed}
 
@@ -3162,8 +2882,6 @@ Pronto, agora basta fazer a chamada dos métodos dentro de \texttt{\textbf{viewD
 
 Na última linha utilizamos a classe \texttt{\textbf{NSTimer}} para programar o tempo de chamada do método \texttt{\textbf{updateSoundMeter}}. Este método será chamado a cada décimo de segundo para atualizar a barra de progresso, dando um efeito visual de acompanhamento da música.
 
-\bigskip
-
 \begin{framed}
 
 \textbf{Dica}: Não deixe de estudar a documentação oficial da Apple para a biblioteca\\  \texttt{\textbf{AV Foundation}}:\\
@@ -3273,8 +2991,6 @@ Como último detalhe, podemos definir um segundo método do\\ \texttt{\textbf{UI
 
 Este método é chamado caso o usuário cancele a ação sem tirar nenhuma foto. Isso fará simplesmente com que o \texttt{\textbf{ModalViewController}} seja fechado e o usuário retorne à tela principal do aplicativo.
 
-\bigskip
-
 \begin{framed}
 
 \textbf{Dica}: Acompanhe a documentação oficial da Apple sobre boas práticas para trabalhar com fotos e vídeo através da câmera em:\\
@@ -3288,8 +3004,6 @@ Este método é chamado caso o usuário cancele a ação sem tirar nenhuma foto.
 O iOS permite nativamente a comunicação com \emph{web services} a partir requisições HTTP do tipo GET e POST, e existem diversas APIs externas que extendem essas classes de forma a complementar a ferramenta e facilitar o seu uso. Para lidar com recebimento e envio de dados básicos (do tipo string, inteiro, ou booleano), utiliza-se principalmente arquivos no modelo JSON.
 
 Um arquivo JSON define uma hierarquia de dados isolados e sem significado agregado, permitindo uma comunicação HTTP eficiente pela simplicidade da sua estrutura. Dessa forma é necessário apenas saber previamente a estrutura dos dados a serem recebidos, para então fazer o \emph{parsing} local dos dados de acordo com a necessidade.
-
-\bigskip
 
 \begin{framed}
 
@@ -3308,14 +3022,10 @@ Na página do \texttt{\textbf{AFNetworking}} no \emph{Github} (\textit{github.co
 
 lembre-se que tudo que for feito aqui terá o aplicativo Agenda como base, assim como as classes já existentes no projeto.
 
-\bigskip
-
 \subsection{Uso de blocks}
 
 
 Os métodos da \texttt{\textbf{AFNetworking}} utilizam um elemento muito utilizado em Objective-C chamado \texttt{\textbf{block}}. Um \texttt{\textbf{block}} consiste em um trecho de código passado como parâmetro para métodos como se fosse uma variável única. Este trecho de código possui seus próprios parâmetros, funcionando como um método \texttt{\textbf{void}} separado, que roda em uma \emph{thread} separada da \emph{thread} principal. Com um \texttt{\textbf{block}} podemos executar ações de forma assíncrona enquanto a \emph{thread} principal continua executando as ações normais do aplicativo, sem alterar o fluxo normal. No caso de uma requisição HTTP, precisamos esperar o tempo de resposta do \emph{web service} e tratar os dados recebidos caso a requisição obtiver sucesso, sem que o aplicativo pare para esperar essa resposta, ou que ele tente gerar as mudanças para o usuário sem ter recebido os dados.
-
-\bigskip
 
 \begin{framed}
 
@@ -3508,8 +3218,6 @@ O método segue as opções que já definimos na classe. Aqui definimos mais uma
 
 Não se esqueça de declarar o método no header da classe \texttt{\textbf{WebService}} pois precisamos enxergá-lo de fora da classe.
 
-\bigskip
-
 \subsection{Requisição e parsing dos dados}
 
 
@@ -3571,8 +3279,6 @@ Chamamos o método a partir de \texttt{\textbf{sharedInstance}}, que cria a inst
 
 Na linha 4 temos a verificação de sucesso, garantindo que só vamos tratar a variável \texttt{\textbf{data}} se ela recebeu mesmo os dados do servidor. Nas linha 5 e 6 definimos essa variável como um \texttt{\textbf{NSDictionary}}, o que ela é de fato, e salvamos esses dados na propriedade \texttt{\textbf{dictionary}} que já existia no projeto. Dessa forma, o nosso \emph{parsing} vai manter a mesma lógica do projeto original, já que só mudamos o modo de obter os dados que continuam sendo salvos em \texttt{\textbf{dictionary}}. Assim, na linha 8 chamamos o método \texttt{\textbf{setDictionaryArray}}, responsável por ler a estrutura salva e exibir os dados na \texttt{\textbf{UITableView}}.
 
-\bigskip
-
 \section{Acelerômetro e giroscópio}
 
 
@@ -3589,8 +3295,6 @@ O iOS possui um conjunto de bibliotecas chamado \texttt{\textbf{Core Motion Fram
 
 Como ocorre em outras APIs que dependem do \emph{hardware}, temos a limitação de não ser possível testar o acelerômetro e o giroscópio no simulador, então será preciso um dispositivo iOS real para verificar a leitura dos valores.
 
-\bigskip
-
 \subsection{Explicando a função de cada sensor}
 
 
@@ -3599,22 +3303,15 @@ Como ocorre em outras APIs que dependem do \emph{hardware}, temos a limitação 
 
 O acelerômetro mede a aceleração do dispositivo, em cada um dos 3 eixos, em relação ao valor da gravidade. Se o dispositivo estiver numa mesa, por exemplo, o acelerômetro vai ler o valor \emph{1g} para cada eixo, sendo positivo ou negativo de acordo com a orientação do respectivo eixo, e em queda livre o acelerômetro vai ler o valor \emph{0g}.
 
-Com esses valores é possível identificar a orientação exata do dispositivo e as forças aplicadas a ele, indicando a inclinação de cada eixo.
-
-\bigskip	
-
+Com esses valores é possível identificar a orientação exata do dispositivo e as forças aplicadas a ele, indicando a inclinação de cada eixo.	
 
 \textbf{Giroscópio}
-
 
 A adição do giroscópio a um dispositivo com acelerômetro ajuda nas medidas de inclinação do dispositivo, permitindo que a orientação do dispositivo seja identificada com muito mais precisão. Isso vem do fato do giroscópio identificar o movimentos em torno do próprio eixo do dispositivo, medindo a velocidade e angulação da rotação.
 
 Essa nova medida garante que a orientação será precisa mesmo quando os eixos do dispositivos estiverem em rotação, já que o acelerômetro não consegue identificar essa acerelação em torno do eixo central.
 
-\bigskip
-
 \subsection{Obtendo as medidas}
-
 
 Em nosso exemplo vamos obter 2 medidas diferentes para cada um dos 3 eixos: aceleração e rotação. Além disso faremos o controle dessas medidas marcando os valores máximos obtidos de cada uma.
 
@@ -3834,8 +3531,6 @@ A leitura dos valores está pronto. Para finalizar, adicione um \texttt{\textbf{
 \caption{Método que zera os valores máximos obtidos}
 \end{listing}
 
-\bigskip
-
 \begin{framed}
 
 \textbf{Dica}: Veja a documentação oficial da Apple sobre o \texttt{\textbf{Core Motion Framework}}:\\
@@ -3995,17 +3690,12 @@ Na segunda parte, na linha 16 chamamos o método\\ \texttt{\textbf{reverseGeocod
 
 Com o aplicativo em execução, defina uma localização no XCode para testar a exibição dos valores com o simulador.
 
-\bigskip
-\bigskip
-
 \begin{figure}[H]
   \centering
   \includegraphics[width=.75\textwidth]{figuras/location.png}
   \caption{Simulando a localização no XCode}
   \label{fig:a}
 \end{figure}
-
-\bigskip
 
 \begin{framed}
 
@@ -4014,7 +3704,6 @@ Com o aplicativo em execução, defina uma localização no XCode para testar a 
 \end{framed}
 
 \chapter{Um pouco de MVC}
-
 
 O MVC, ou \emph{Model-View-Controller}, é um tipo de estrutura muito utilizada no desenvolvimento de software com interface. Nele temos uma divisão clara entre a informação vista pelo usuário e os dados em si, utilizando uma controladora para gerenciar todo o processo. O conceito de MVC é primordial para que o desenvolvimento de projetos para plataformas móveis seja bem estruturado e livre de conflitos.
 

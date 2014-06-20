@@ -1,0 +1,467 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7E6EF1751953EA370075F58F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E6EF1741953EA370075F58F /* Foundation.framework */; };
+		7E6EF1771953EA370075F58F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E6EF1761953EA370075F58F /* CoreGraphics.framework */; };
+		7E6EF1791953EA370075F58F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E6EF1781953EA370075F58F /* UIKit.framework */; };
+		7E6EF17F1953EA370075F58F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7E6EF17D1953EA370075F58F /* InfoPlist.strings */; };
+		7E6EF1811953EA370075F58F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E6EF1801953EA370075F58F /* main.m */; };
+		7E6EF1851953EA370075F58F /* FirstAppAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E6EF1841953EA370075F58F /* FirstAppAppDelegate.m */; };
+		7E6EF1871953EA380075F58F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E6EF1861953EA380075F58F /* Images.xcassets */; };
+		7E6EF18E1953EA380075F58F /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E6EF18D1953EA380075F58F /* XCTest.framework */; };
+		7E6EF18F1953EA380075F58F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E6EF1741953EA370075F58F /* Foundation.framework */; };
+		7E6EF1901953EA380075F58F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E6EF1781953EA370075F58F /* UIKit.framework */; };
+		7E6EF1981953EA380075F58F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7E6EF1961953EA380075F58F /* InfoPlist.strings */; };
+		7E6EF19A1953EA380075F58F /* API_AgendaCompromissosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E6EF1991953EA380075F58F /* API_AgendaCompromissosTests.m */; };
+		7E6EF1A61953EA5A0075F58F /* AgendaCompromissosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E6EF1A41953EA5A0075F58F /* AgendaCompromissosViewController.m */; };
+		7E6EF1A71953EA5A0075F58F /* AgendaCompromissosViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E6EF1A51953EA5A0075F58F /* AgendaCompromissosViewController.xib */; };
+		7E6EF1A91953EB050075F58F /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E6EF1A81953EB050075F58F /* EventKit.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7E6EF1911953EA380075F58F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7E6EF1691953EA370075F58F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7E6EF1701953EA370075F58F;
+			remoteInfo = API_AgendaCompromissos;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		7E6EF1711953EA370075F58F /* API_AgendaCompromissos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = API_AgendaCompromissos.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E6EF1741953EA370075F58F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		7E6EF1761953EA370075F58F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		7E6EF1781953EA370075F58F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		7E6EF17C1953EA370075F58F /* API_AgendaCompromissos-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "API_AgendaCompromissos-Info.plist"; sourceTree = "<group>"; };
+		7E6EF17E1953EA370075F58F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7E6EF1801953EA370075F58F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7E6EF1821953EA370075F58F /* API_AgendaCompromissos-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "API_AgendaCompromissos-Prefix.pch"; sourceTree = "<group>"; };
+		7E6EF1831953EA370075F58F /* FirstAppAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstAppAppDelegate.h; sourceTree = "<group>"; };
+		7E6EF1841953EA370075F58F /* FirstAppAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstAppAppDelegate.m; sourceTree = "<group>"; };
+		7E6EF1861953EA380075F58F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		7E6EF18C1953EA380075F58F /* API_AgendaCompromissosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = API_AgendaCompromissosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E6EF18D1953EA380075F58F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		7E6EF1951953EA380075F58F /* API_AgendaCompromissosTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "API_AgendaCompromissosTests-Info.plist"; sourceTree = "<group>"; };
+		7E6EF1971953EA380075F58F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7E6EF1991953EA380075F58F /* API_AgendaCompromissosTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = API_AgendaCompromissosTests.m; sourceTree = "<group>"; };
+		7E6EF1A31953EA5A0075F58F /* AgendaCompromissosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendaCompromissosViewController.h; sourceTree = "<group>"; };
+		7E6EF1A41953EA5A0075F58F /* AgendaCompromissosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendaCompromissosViewController.m; sourceTree = "<group>"; };
+		7E6EF1A51953EA5A0075F58F /* AgendaCompromissosViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AgendaCompromissosViewController.xib; sourceTree = "<group>"; };
+		7E6EF1A81953EB050075F58F /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7E6EF16E1953EA370075F58F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E6EF1A91953EB050075F58F /* EventKit.framework in Frameworks */,
+				7E6EF1771953EA370075F58F /* CoreGraphics.framework in Frameworks */,
+				7E6EF1791953EA370075F58F /* UIKit.framework in Frameworks */,
+				7E6EF1751953EA370075F58F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7E6EF1891953EA380075F58F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E6EF18E1953EA380075F58F /* XCTest.framework in Frameworks */,
+				7E6EF1901953EA380075F58F /* UIKit.framework in Frameworks */,
+				7E6EF18F1953EA380075F58F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7E6EF1681953EA370075F58F = {
+			isa = PBXGroup;
+			children = (
+				7E6EF17A1953EA370075F58F /* API_AgendaCompromissos */,
+				7E6EF1931953EA380075F58F /* API_AgendaCompromissosTests */,
+				7E6EF1731953EA370075F58F /* Frameworks */,
+				7E6EF1721953EA370075F58F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7E6EF1721953EA370075F58F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7E6EF1711953EA370075F58F /* API_AgendaCompromissos.app */,
+				7E6EF18C1953EA380075F58F /* API_AgendaCompromissosTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7E6EF1731953EA370075F58F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7E6EF1A81953EB050075F58F /* EventKit.framework */,
+				7E6EF1741953EA370075F58F /* Foundation.framework */,
+				7E6EF1761953EA370075F58F /* CoreGraphics.framework */,
+				7E6EF1781953EA370075F58F /* UIKit.framework */,
+				7E6EF18D1953EA380075F58F /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7E6EF17A1953EA370075F58F /* API_AgendaCompromissos */ = {
+			isa = PBXGroup;
+			children = (
+				7E6EF1831953EA370075F58F /* FirstAppAppDelegate.h */,
+				7E6EF1841953EA370075F58F /* FirstAppAppDelegate.m */,
+				7E6EF1861953EA380075F58F /* Images.xcassets */,
+				7E6EF17B1953EA370075F58F /* Supporting Files */,
+				7E6EF1A31953EA5A0075F58F /* AgendaCompromissosViewController.h */,
+				7E6EF1A41953EA5A0075F58F /* AgendaCompromissosViewController.m */,
+				7E6EF1A51953EA5A0075F58F /* AgendaCompromissosViewController.xib */,
+			);
+			path = API_AgendaCompromissos;
+			sourceTree = "<group>";
+		};
+		7E6EF17B1953EA370075F58F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7E6EF17C1953EA370075F58F /* API_AgendaCompromissos-Info.plist */,
+				7E6EF17D1953EA370075F58F /* InfoPlist.strings */,
+				7E6EF1801953EA370075F58F /* main.m */,
+				7E6EF1821953EA370075F58F /* API_AgendaCompromissos-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7E6EF1931953EA380075F58F /* API_AgendaCompromissosTests */ = {
+			isa = PBXGroup;
+			children = (
+				7E6EF1991953EA380075F58F /* API_AgendaCompromissosTests.m */,
+				7E6EF1941953EA380075F58F /* Supporting Files */,
+			);
+			path = API_AgendaCompromissosTests;
+			sourceTree = "<group>";
+		};
+		7E6EF1941953EA380075F58F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7E6EF1951953EA380075F58F /* API_AgendaCompromissosTests-Info.plist */,
+				7E6EF1961953EA380075F58F /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7E6EF1701953EA370075F58F /* API_AgendaCompromissos */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7E6EF19D1953EA380075F58F /* Build configuration list for PBXNativeTarget "API_AgendaCompromissos" */;
+			buildPhases = (
+				7E6EF16D1953EA370075F58F /* Sources */,
+				7E6EF16E1953EA370075F58F /* Frameworks */,
+				7E6EF16F1953EA370075F58F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = API_AgendaCompromissos;
+			productName = API_AgendaCompromissos;
+			productReference = 7E6EF1711953EA370075F58F /* API_AgendaCompromissos.app */;
+			productType = "com.apple.product-type.application";
+		};
+		7E6EF18B1953EA380075F58F /* API_AgendaCompromissosTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7E6EF1A01953EA380075F58F /* Build configuration list for PBXNativeTarget "API_AgendaCompromissosTests" */;
+			buildPhases = (
+				7E6EF1881953EA380075F58F /* Sources */,
+				7E6EF1891953EA380075F58F /* Frameworks */,
+				7E6EF18A1953EA380075F58F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7E6EF1921953EA380075F58F /* PBXTargetDependency */,
+			);
+			name = API_AgendaCompromissosTests;
+			productName = API_AgendaCompromissosTests;
+			productReference = 7E6EF18C1953EA380075F58F /* API_AgendaCompromissosTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7E6EF1691953EA370075F58F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = FirstApp;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = Ufscar;
+				TargetAttributes = {
+					7E6EF18B1953EA380075F58F = {
+						TestTargetID = 7E6EF1701953EA370075F58F;
+					};
+				};
+			};
+			buildConfigurationList = 7E6EF16C1953EA370075F58F /* Build configuration list for PBXProject "API_AgendaCompromissos" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7E6EF1681953EA370075F58F;
+			productRefGroup = 7E6EF1721953EA370075F58F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7E6EF1701953EA370075F58F /* API_AgendaCompromissos */,
+				7E6EF18B1953EA380075F58F /* API_AgendaCompromissosTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7E6EF16F1953EA370075F58F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E6EF1A71953EA5A0075F58F /* AgendaCompromissosViewController.xib in Resources */,
+				7E6EF17F1953EA370075F58F /* InfoPlist.strings in Resources */,
+				7E6EF1871953EA380075F58F /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7E6EF18A1953EA380075F58F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E6EF1981953EA380075F58F /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7E6EF16D1953EA370075F58F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E6EF1811953EA370075F58F /* main.m in Sources */,
+				7E6EF1851953EA370075F58F /* FirstAppAppDelegate.m in Sources */,
+				7E6EF1A61953EA5A0075F58F /* AgendaCompromissosViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7E6EF1881953EA380075F58F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E6EF19A1953EA380075F58F /* API_AgendaCompromissosTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7E6EF1921953EA380075F58F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7E6EF1701953EA370075F58F /* API_AgendaCompromissos */;
+			targetProxy = 7E6EF1911953EA380075F58F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		7E6EF17D1953EA370075F58F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7E6EF17E1953EA370075F58F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		7E6EF1961953EA380075F58F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7E6EF1971953EA380075F58F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7E6EF19B1953EA380075F58F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		7E6EF19C1953EA380075F58F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7E6EF19E1953EA380075F58F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "API_AgendaCompromissos/API_AgendaCompromissos-Prefix.pch";
+				INFOPLIST_FILE = "API_AgendaCompromissos/API_AgendaCompromissos-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		7E6EF19F1953EA380075F58F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "API_AgendaCompromissos/API_AgendaCompromissos-Prefix.pch";
+				INFOPLIST_FILE = "API_AgendaCompromissos/API_AgendaCompromissos-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		7E6EF1A11953EA380075F58F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/API_AgendaCompromissos.app/API_AgendaCompromissos";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "API_AgendaCompromissos/API_AgendaCompromissos-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "API_AgendaCompromissosTests/API_AgendaCompromissosTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		7E6EF1A21953EA380075F58F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/API_AgendaCompromissos.app/API_AgendaCompromissos";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "API_AgendaCompromissos/API_AgendaCompromissos-Prefix.pch";
+				INFOPLIST_FILE = "API_AgendaCompromissosTests/API_AgendaCompromissosTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7E6EF16C1953EA370075F58F /* Build configuration list for PBXProject "API_AgendaCompromissos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7E6EF19B1953EA380075F58F /* Debug */,
+				7E6EF19C1953EA380075F58F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7E6EF19D1953EA380075F58F /* Build configuration list for PBXNativeTarget "API_AgendaCompromissos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7E6EF19E1953EA380075F58F /* Debug */,
+				7E6EF19F1953EA380075F58F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		7E6EF1A01953EA380075F58F /* Build configuration list for PBXNativeTarget "API_AgendaCompromissosTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7E6EF1A11953EA380075F58F /* Debug */,
+				7E6EF1A21953EA380075F58F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7E6EF1691953EA370075F58F /* Project object */;
+}
