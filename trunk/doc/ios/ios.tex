@@ -781,7 +781,7 @@ Voltando à classe da primeira tela (\emph{FirstAppViewController.m}), podemos a
 
 O método \texttt{\textbf{viewDidLoad}} é onde colocaremos tudo que será definido no carregamento da tela, pois este é o método de inicialização gráfica. Há um grande número de métodos do \texttt{\textbf{UIViewController}} que podemos sobrescrever de acordo com a nossa necessidade. Eles têm a função de controlar o comportamento da tela durante toda a sua existência, desde sua inicialização até finalização, podendo prever respostas a qualquer ação do usuário.
 
-Agora o aplicativo ainda está extremamente cru, mas já podemos executá-lo no \emph{iOS Simulator} para ver sua primeira aparência. Basta apertar o \emph{Run Button} no canto superior esquerdo. A figura \ref{fig:app_executanto1} mostra a tela do simulador com o aplicativo rodando.
+Agora o aplicativo ainda está com uma estrutura bem básica, mas já podemos executá-lo no \emph{iOS Simulator} para ver sua primeira aparência. Basta apertar o \emph{Run Button} no canto superior esquerdo. A figura \ref{fig:app_executanto1} mostra a tela do simulador com o aplicativo rodando.
 
 \begin{figure}[H]
   \centering
@@ -2289,116 +2289,256 @@ Um último método que deve inserido é o \emph{textFieldShouldReturn}, é utili
 
 
 Essa biblioteca nos permite obter a lista de completa dos contatos, retirar dados como nome, e-mail, e telefone do contato, e então armazená-los em um array apenas com os dados retirados.
-
-Começamos extraindo a lista de contatos.
-
-\begin{listing}[H]
-\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
-CFErrorRef err;
-ABAddressBookRef m_addressbook =
-                 ABAddressBookCreateWithOptions(NULL, &err);
-    
-CFArrayRef allPeople =
-           ABAddressBookCopyArrayOfAllPeople(m_addressbook);
-CFIndex nPeople = ABAddressBookGetPersonCount(m_addressbook);
-\end{minted}
-\caption{Extração da lista de contatos}
-\end{listing}
-
-
-O objeto \texttt{\textbf{ABAddressBookRef}} é uma referência à lista de contatos com os seus dados completos. O método \texttt{\textbf{ABAddressBookCopyArrayOfAllPeople\(m_addressbook\)}} retorna um objeto \texttt{\textbf{CFArrayRef}}, que mantém a referência à lista mas organiza a estrutura em um array de contatos. Por último obtemos o número total de contatos com
-\linebreak \texttt{\textbf{ABAddressBookGetPersonCount\(m_addressbook\)}} para utilizarmos na varredura dos dados, que será feita através de um loop pelo array de contatos.
+ 
+Antes de acessar a lista de contatos precisamos obter a permissão do usuário, caso contrário o aplicativo não vai ser capaz de obter os dados da lista de contatos.
 
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
-self.contactList = [[NSMutableArray alloc] init];
-
-for (int i=0;i<nPeople; i++) {
-    
-}
-\end{minted}
-\caption{Obtenção do número total de contatos}
-\end{listing}
-
-
-Dentro desse loop vamos extrair \texttt{nome}, \texttt{email} e \texttt{telefone}, guardá-los em um \texttt{\textbf{NSDictionary}} para o contato e adicionar a um \texttt{\textbf{NSArray}} geral para todos os contatos extraídos da varredura.
-
-\begin{listing}[H]
-\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
-NSMutableDictionary *dOfPerson=[NSMutableDictionary dictionary];
-ABRecordRef ref = CFArrayGetValueAtIndex(allPeople,i);
-\end{minted}
-\caption{Definição de um \emph{array} de contatos}
-\end{listing}
-
-
-Na segunda linha o objeto \texttt{\textbf{ABRecordRef}} guarda uma referência ao contato do índice atual através do método \texttt{\textbf{CFArrayGetValueAtIndex(allPeople,i)}}, que recebe o array de referências a todos os contatos e o índice desejado.
-
-Extrairemos então o nome completo do contato.
-
-\begin{listing}[H]
-\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
-// nome
-ABMultiValueRef phones =
-                ABRecordCopyValue(ref, kABPersonPhoneProperty);
-CFStringRef firstName, lastName;
-firstName = ABRecordCopyValue(ref, kABPersonFirstNameProperty);
-lastName  = ABRecordCopyValue(ref, kABPersonLastNameProperty);
-[dOfPerson setObject:[NSString stringWithFormat:@"%@ %@",
-                               firstName, lastName]
-                               forKey:@"nome"];
-\end{minted}
-\caption{Obtenção do nome completo do contato}
-\end{listing}
-
-
-Partimos agora para o e-mail.
-
-\begin{listing}[H]
-\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
-// email
-ABMutableMultiValueRef eMail = ABRecordCopyValue
-                              (ref, kABPersonEmailProperty);
-if(ABMultiValueGetCount(eMail)>0) {
-    [dOfPerson setObject:(__bridge NSString *)
-               ABMultiValueCopyValueAtIndex(eMail, 0)
-               forKey:@"email"];
-}
-\end{minted}
-\caption{Obtenção do email do contato}
-\end{listing}
-
-
-E por último para o número de telefone.
-    
-\begin{listing}[H]
-\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
-// telefone
-NSString* mobileLabel;
-mobileLabel = (__bridge NSString*)ABMultiValueCopyLabelAtIndex
-                                 (phones, 0);
-if([mobileLabel isEqualToString:(NSString *)
-                                kABPersonPhoneMobileLabel])
+- (BOOL)application:(UIApplication *)application
+didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [dOfPerson setObject:(__bridge NSString*)
-               ABMultiValueCopyValueAtIndex(phones, 0)
-               forKey:@"fone"];
+self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] 
+                                                                                          bounds]];
+self.window.backgroundColor = [UIColor whiteColor];
+ABAddressBookRef referenciaContatos = 
+ABAddressBookCreateWithOptions(NULL, NULL);
+    
+if (ABAddressBookGetAuthorizationStatus() == 
+						kABAuthorizationStatusNotDetermined) {
+						
+  ABAddressBookRequestAccessWithCompletion(referenciaContatos, 
+  							^(bool granted, CFErrorRef error) {
+if (granted) {
+ ApiContatosViewController *viewController = [[ApiContatosViewController 
+      alloc] initWithNibName:@"ApiContatosViewController" bundle:nil];
+  self.window.rootViewController = viewController;
+  [self.window makeKeyAndVisible]; 
+  });
+ }
+else if (ABAddressBookGetAuthorizationStatus() == 
+   							kABAuthorizationStatusAuthorized) {
+							
+ ApiContatosViewController *viewController = [[ApiContatosViewController 
+     alloc] initWithNibName:@"ApiContatosViewController" bundle:nil];
+  self.window.rootViewController = viewController;
+  [self.window makeKeyAndVisible];
+ }
+  return YES;
 }
 \end{minted}
-\caption{Obtenção do número de telefone do contato}
+\caption{Obtendo permissão para acessar dados dos contatos salvos no aparelho}
+\label{cod:permissao1}
 \end{listing}
 
+Deixe o método \emph{didFinishLaunchingWithOptions} da classe principal como descrito no algoritmo \ref{cod:permissao1}.
 
-Obtemos o número de telefone em formato de \texttt{\textbf{NSString}}. Com o dicionário do contato completo, podemos finalizar o loop adicionando o contato ao nosso array.
+Na linha 7 criamos uma variável para fazer referência a lista de contatos, na linha 10 verificamos se o usuário não definiu a permissão ainda,na linha 13 chamamos um método para exibir o alerta pedindo permissão, se o acesso for autorizado o aplicativo carrega a tela onde faremos as operações com a agenda de contatos. Uma vez liberado o acesso as outras vezes em que o aplicativo for iniciado não será exibido o aviso pedindo novamente a permissão, isso porque na linha 21 checa-se se já foi autorizado o acesso previamente, se foi o aplicativo também irá carregar a próxima tela.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.55\textheight]{figuras/4/api_contatos2.png}
+  \caption{Tela do pedido de permissão do aplicativo para acessar os contatos salvos.}
+  \label{fig:permissaoApp2}
+\end{figure}
+
+A figura \ref{fig:permissaoApp2} mostra o pedido de permissão para que o aplicativo possa acessar a lista de contatos do aparelho.
+
+Para organizar melhor os dados vamos criar um objeto chamado pessoa, os atributos serão correspondentes aos dados que escolhermos para extrair da agenda de contatos.
+Crie um novo arquivo para o projeto, do tipo \emph{Objective-C Class}.
+
+No arquivo Pessoa.h deixe como o algoritmo \ref{cod:objetoPessoaH}.
 
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
-[self.contactList addObject:dOfPerson];
+#import <Foundation/Foundation.h>
+@interface Pessoa : NSObject
+
+@property (nonatomic, strong) NSString *primeiroNome;
+@property (nonatomic, strong) NSString *ultimoNome;
+@property (nonatomic, strong) NSString *nomeCompleto;
+@property (nonatomic, strong) NSString *email;
+@property (nonatomic, strong) NSString *celular;
+
+@end
 \end{minted}
-\caption{Gravação do contato completo ao \emph{array}}
+\caption{Implementação dos atributos da classe Pessoa}
+\label{cod:objetoPessoaH}
 \end{listing}
 
-Ao final do processo teremos um array com os dados em formato puro, facilitando o uso desses dados em outras estruturas do aplicativo.
+E no arquivo Pessoa.m deixe como o algoritmo \ref{cod:objetoPessoaM}.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+#import "Pessoa.h"
+@implementation Pessoa : NSObject
+- (id)init
+{
+    self = [super init];
+    if (self) {        
+    }
+    return self;
+}
+@end
+\end{minted}
+\caption{Implementação do método da classe Pessoa}
+\label{cod:objetoPessoaM}
+\end{listing}
+
+Em seguida arraste um objeto do tipo \emph{table view} para a interface da tela que exibirá os contatos da agenda. Faça as conexões da \emph{table view} com \emph{delegate} e \emph{dataSource} (do mesmo modo que se adicionaria uma conexão com um \emph{IBOutlet}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.55\textheight]{figuras/4/api_contatos1.png}
+  \caption{Ligação do \emph{table view} com o \emph{delegate} e \emph{dataSource}.}
+  \label{fig:a}
+\end{figure}
+
+Agora no arquivo.m da interface que adicionamos o \emph{table view} precisamos adicionar os protocolos \emph{delegate} e \emph{dataSource}, incluir o arquivo \emph{Pessoa.h} para utilizar o objetvo que criamos e criar um vetor que irá salvar a lista de contatos do aparelho.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+#import "ApiContatosViewController.h"
+#import <AddressBook/AddressBook.h>
+#import "Pessoa.h"
+
+@interface ApiContatosViewController () 
+				<UITableViewDataSource, UITableViewDelegate>
+@property (nonatomic, strong) NSMutableArray *tabelaPessoas;
+@end
+\end{minted}
+\caption{Adição dos protocolos \emph{dataSource}, \emph{delegate} e outras referências.}
+\end{listing}
+
+Em seguida criaremos o método que vai acessar a lista de contatos e para salvar cada um no vetor criado anteriormente.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (void)listarContatosSalvos
+{
+CFErrorRef erro = NULL;
+ABAddressBookRef contatos = ABAddressBookCreateWithOptions(NULL, &erro);
+if (contatos != nil)
+ {
+ NSArray *todosContatos = 
+ (__bridge_transfer NSArray *)ABAddressBookCopyArrayOfAllPeople(contatos);
+        NSUInteger i = 0;
+    for (i = 0; i < [todosContatos count]; i++)
+    {
+     Pessoa *pessoa = [[Pessoa alloc] init];
+     ABRecordRef contatoPessoa = (__bridge ABRecordRef)todosContatos[i];
+            
+       NSString *primeiroNome = 
+ 	 (__bridge_transfer NSString *)ABRecordCopyValue(contatoPessoa, 
+	      								kABPersonFirstNameProperty);
+       NSString *ultimoNome =  
+       (__bridge_transfer NSString *)ABRecordCopyValue(contatoPessoa, 
+            								kABPersonLastNameProperty);
+       NSString *nomeCompleto = 
+       [NSString stringWithFormat:@"%@ %@", primeiroNome, ultimoNome];
+            
+       pessoa.primeiroNome = primeiroNome;
+       pessoa.ultimoNome = ultimoNome;
+       pessoa.nomeCompleto = nomeCompleto;
+            
+       ABMultiValueRef emails = ABRecordCopyValue(contatoPessoa, 
+         								kABPersonEmailProperty);
+       pessoa.email = 
+   (__bridge_transfer NSString *)ABMultiValueCopyValueAtIndex(emails, 0);
+            
+       ABMultiValueRef celulares = 
+      	 ABRecordCopyValue(contatoPessoa, kABPersonPhoneProperty);
+			
+       pessoa.celular = 
+   (__bridge_transfer NSString *)ABMultiValueCopyValueAtIndex(celulares,0);
+            
+       [self.tabelaPessoas addObject:pessoa];   
+        }
+    }
+    CFRelease(contatos);
+}
+\end{minted}
+\caption{Implementação do método para acessar a lista de contatos salvos}
+\end{listing}
+
+Na linha 4 inicializamos a variável que referencia a agenda de contatos salvos, na linha 7 copiamos todos os contatos para um vetor, na 10 iniciamos o processo de acessar cada posição do vetor e criar um objeto do tipo Pessoa para cada contato existente, nas linhas 15, 18, 20, 28, 30, 33 e 36 acessamos as informações detalhadas do contato.
+No caso do email e do número do telefone pode ser que existam mais de um, nesse caso pegamos o principal cadastrado de cada um deles, os adicionais são armazenados nas outras posições do vetor.
+Na linha 39 adicionamos a nova Pessoa ao vetor chamado \emph{tabelaPessoas}.
+
+No método \emph{viewDidLoad} devemos inicializar o vetor e incluir a chamada para a função \emph{listarContatosSalvos}.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.title = @"Contatos";
+    self.tabelaPessoas = [[NSMutableArray alloc] init];
+    [self listarContatosSalvos];   
+}
+\end{minted}
+\caption{Implementação do método da classe Pessoa}
+\end{listing}
+
+Na linha 5 inicializamos o vetor que receberá os contatos e, na linha 6, chamamos o método que vai acessar a agenda do dispositivo. 
+
+O último passo é implementar os métodos \emph{delegate} da \emph{tableView}.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (NSInteger)tableView:(UITableView *)tableView 
+				numberOfRowsInSection:(NSInteger)section
+{
+    return [self.tabelaPessoas count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView 
+			cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellIdentifier = @"Identificador";
+    UITableViewCell *cell = 
+    [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] 
+        initWithStyle:UITableViewCellStyleDefault 
+         reuseIdentifier:cellIdentifier];
+    }
+    Pessoa *pessoa = 
+    	[self.tabelaPessoas objectAtIndex:indexPath.row];
+    cell.textLabel.text = pessoa.nomeCompleto;
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView 
+	didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Pessoa *pessoa = [self.tabelaPessoas objectAtIndex:indexPath.row];
+    
+    NSString *detalhesContato = 
+    [NSString stringWithFormat:
+     @"NOME: %@\n CEL: %@\n EMAIL: %@\n",
+     pessoa.nomeCompleto,pessoa.celular,pessoa.email];
+    
+    UIAlertView *detalhesBox = [[UIAlertView alloc] 
+    initWithTitle:@"Contato selecionado" message:detalhesContato
+     delegate:self cancelButtonTitle:@"Sair" otherButtonTitles:nil];    
+     
+    [detalhesBox show];   
+}
+\end{minted}
+\caption{Implementação dos métodos da \emph{tableView}.}
+\end{listing}
+
+Na linha 19 pegamos a Pessoa armazenada no vetor e na linha 21 adicionamos o atributo \emph{nomeCompleto} em uma das linhas da tabela que é exibida na interface da aplicação. Na linha 25 está o método que é chamado quando selecionamos uma das linhas da tabela, a função vai exibir um \emph{alert box} contendo informações detalhadas do contato, na linha 30 formamos a \emph{NSString} que será exibida e na linha 39 chamamos o método para exibir o alerta na tela.
+
+O resultado final é um aplicativo que lista os contatos em uma tabela, quando uma linha for selecionada exibe um \emph{alert box} com outras informações do contato, conforme mostrado na figura \ref{fig:detalhesContato}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[totalheight=0.55\textheight]{figuras/4/api_contatos3.png}
+  \caption{Dados adicionais do contato salvo na agenda}
+  \label{fig:detalhesContato}
+\end{figure}
 
 \begin{framed}
 

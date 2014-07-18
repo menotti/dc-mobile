@@ -7,121 +7,23 @@
 //
 
 #import "ApiContatosViewController.h"
+#import <AddressBook/AddressBook.h>
+#import "Pessoa.h"
 
-@interface ApiContatosViewController ()
+@interface ApiContatosViewController () <UITableViewDataSource, UITableViewDelegate>
+@property (nonatomic, strong) NSMutableArray *tabelaPessoas;
 
 @end
 
 @implementation ApiContatosViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    self.title = @"Contatos";
+    self.tabelaPessoas = [[NSMutableArray alloc] init];
+    [self listarContatosSalvos];
     
-    CFErrorRef err;
-    ABAddressBookRef m_addressbook = ABAddressBookCreateWithOptions(NULL, &err);
-    
-    CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(m_addressbook);
-    CFIndex nPeople = ABAddressBookGetPersonCount(m_addressbook);
-
-    self.contactList = [[NSMutableArray alloc] init];
-    
-    for (int i=0;i<nPeople; i++) {
-        NSMutableDictionary *dOfPerson=[NSMutableDictionary dictionary];
-        ABRecordRef ref = CFArrayGetValueAtIndex(allPeople,i);
-        
-        // nome
-        ABMultiValueRef phones = ABRecordCopyValue(ref, kABPersonPhoneProperty);
-        CFStringRef firstName, lastName;
-        firstName = ABRecordCopyValue(ref, kABPersonFirstNameProperty);
-        lastName  = ABRecordCopyValue(ref, kABPersonLastNameProperty);
-        [dOfPerson setObject:[NSString stringWithFormat:@"%@ %@", firstName, lastName] forKey:@"nome"];
-        
-        // email
-        ABMutableMultiValueRef eMail  = ABRecordCopyValue(ref, kABPersonEmailProperty);
-        if(ABMultiValueGetCount(eMail)>0) {
-            [dOfPerson setObject:(__bridge NSString *)ABMultiValueCopyValueAtIndex(eMail, 0) forKey:@"email"];
-        }
-        
-        // telefone
-        NSString* mobileLabel;
-        mobileLabel = (__bridge NSString*)ABMultiValueCopyLabelAtIndex(phones, 0);
-        if([mobileLabel isEqualToString:(NSString *)kABPersonPhoneMobileLabel])
-        {
-            [dOfPerson setObject:(__bridge NSString*)ABMultiValueCopyValueAtIndex(phones, 0) forKey:@"fone"];
-        }
-        
-        [self.contactList addObject:dOfPerson];
-        CFRelease(ref);
-        CFRelease(firstName);
-        CFRelease(lastName);
-    }
-    
-    NSLog(@"Contatos:%@",self.contactList);
-    
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView
- numberOfRowsInSection:(NSInteger)section
-{
-    return [self.contactList count];
-}
-
-- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return @"Contatos";
-}
-
-- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    // Identifier for retrieving reusable cells. static NSString
-    static NSString *MyIdentifier = @"MyIdentifier";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
-    // No cell available - create one.
-    if(cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                      reuseIdentifier:MyIdentifier];
-    }
-    
-    // Set the text of the cell to the row index.
-    NSString *texto;
-    
-    texto = [[self.contactList objectAtIndex:indexPath.row] objectForKey:@"nome"];
-    cell.textLabel.text = texto;
-    
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    NSString *email = [[self.contactList objectAtIndex:indexPath.row] objectForKey:@"email"];
-    NSString *fone = [[self.contactList objectAtIndex:indexPath.row] objectForKey:@"fone"];
-    NSString *texto = [NSString stringWithFormat:@"Email: %@ - Telefone: %@",email,fone];
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Contato"
-                                                    message:texto
-                                                   delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles: nil];
-    
-    [alert show];
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -129,5 +31,78 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)listarContatosSalvos
+{
+    CFErrorRef erro = NULL;
+    
+    ABAddressBookRef contatos = ABAddressBookCreateWithOptions(NULL, &erro);
+    
+    if (contatos != nil)
+    {
+        //Existem contatos salvos
+        NSArray *todosContatos = (__bridge_transfer NSArray *)ABAddressBookCopyArrayOfAllPeople(contatos);
+        
+        NSUInteger i = 0;
+        for (i = 0; i < [todosContatos count]; i++)
+        {
+            Pessoa *pessoa = [[Pessoa alloc] init];
+            
+            ABRecordRef contatoPessoa = (__bridge ABRecordRef)todosContatos[i];
+            
+            NSString *primeiroNome = (__bridge_transfer NSString *)ABRecordCopyValue(contatoPessoa, kABPersonFirstNameProperty);
+            NSString *ultimoNome =  (__bridge_transfer NSString *)ABRecordCopyValue(contatoPessoa, kABPersonLastNameProperty);
+            NSString *nomeCompleto = [NSString stringWithFormat:@"%@ %@", primeiroNome, ultimoNome];
+            
+            pessoa.primeiroNome = primeiroNome;
+            pessoa.ultimoNome = ultimoNome;
+            pessoa.nomeCompleto = nomeCompleto;
+            
+            //código para pegar o email cadastrado
+            ABMultiValueRef emails = ABRecordCopyValue(contatoPessoa, kABPersonEmailProperty);
+            pessoa.email = (__bridge_transfer NSString *)ABMultiValueCopyValueAtIndex(emails, 0);
+            
+            //código para pegar o celular cadastrado
+            ABMultiValueRef celulares = ABRecordCopyValue(contatoPessoa, kABPersonPhoneProperty);
+            pessoa.celular = (__bridge_transfer NSString *)ABMultiValueCopyValueAtIndex(celulares, 0);
+            
+            [self.tabelaPessoas addObject:pessoa];
+            
+            
+        }
+    }
+    
+    CFRelease(contatos);
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.tabelaPessoas count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellIdentifier = @"Identificador";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    }
+    
+    Pessoa *pessoa = [self.tabelaPessoas objectAtIndex:indexPath.row];
+    cell.textLabel.text = pessoa.nomeCompleto;
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Pessoa *pessoa = [self.tabelaPessoas objectAtIndex:indexPath.row];
+    
+    NSString *detalhesContato = [NSString stringWithFormat:@"NOME: %@\n CEL: %@\n EMAIL: %@\n",pessoa.nomeCompleto,pessoa.celular,pessoa.email];
+    UIAlertView *detalhesBox = [[UIAlertView alloc] initWithTitle:@"Contato selecionado" message:detalhesContato delegate:self cancelButtonTitle:@"Sair" otherButtonTitles:nil];
+    
+    [detalhesBox show];
+    
+}
+
 
 @end

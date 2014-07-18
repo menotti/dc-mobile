@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E39970C19665B6A000FB4E8 /* Pessoa.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E39970B19665B6A000FB4E8 /* Pessoa.m */; };
 		7E6EF1331953CEDD0075F58F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E6EF1321953CEDD0075F58F /* Foundation.framework */; };
 		7E6EF1351953CEDD0075F58F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E6EF1341953CEDD0075F58F /* CoreGraphics.framework */; };
 		7E6EF1371953CEDD0075F58F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E6EF1361953CEDD0075F58F /* UIKit.framework */; };
@@ -35,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7E39970A19665B6A000FB4E8 /* Pessoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pessoa.h; sourceTree = "<group>"; };
+		7E39970B19665B6A000FB4E8 /* Pessoa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pessoa.m; sourceTree = "<group>"; };
 		7E6EF12F1953CEDD0075F58F /* API_Contatos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = API_Contatos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E6EF1321953CEDD0075F58F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7E6EF1341953CEDD0075F58F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -123,6 +126,8 @@
 				7E6EF1611953CF320075F58F /* ApiContatosViewController.h */,
 				7E6EF1621953CF320075F58F /* ApiContatosViewController.m */,
 				7E6EF1631953CF320075F58F /* ApiContatosViewController.xib */,
+				7E39970A19665B6A000FB4E8 /* Pessoa.h */,
+				7E39970B19665B6A000FB4E8 /* Pessoa.m */,
 			);
 			path = API_Contatos;
 			sourceTree = "<group>";
@@ -255,6 +260,7 @@
 			files = (
 				7E6EF13F1953CEDD0075F58F /* main.m in Sources */,
 				7E6EF1431953CEDD0075F58F /* FirstAppAppDelegate.m in Sources */,
+				7E39970C19665B6A000FB4E8 /* Pessoa.m in Sources */,
 				7E6EF1641953CF320075F58F /* ApiContatosViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -375,6 +381,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "API_Contatos/API_Contatos-Prefix.pch";
 				INFOPLIST_FILE = "API_Contatos/API_Contatos-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -388,6 +395,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "API_Contatos/API_Contatos-Prefix.pch";
 				INFOPLIST_FILE = "API_Contatos/API_Contatos-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -452,6 +460,7 @@
 				7E6EF15D1953CEDE0075F58F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7E6EF15E1953CEDE0075F58F /* Build configuration list for PBXNativeTarget "API_ContatosTests" */ = {
 			isa = XCConfigurationList;
@@ -460,6 +469,7 @@
 				7E6EF1601953CEDE0075F58F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
