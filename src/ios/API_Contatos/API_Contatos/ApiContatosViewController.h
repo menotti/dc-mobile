@@ -7,14 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <AddressBook/AddressBook.h>
-#import <AddressBook/ABPerson.h>
 
-@interface ApiContatosViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
-
-@property (weak, nonatomic) IBOutlet UILabel *progressLabel;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-@property (nonatomic, strong) NSMutableArray *contactList;
+@interface ApiContatosViewController : UIViewController
 
 @end

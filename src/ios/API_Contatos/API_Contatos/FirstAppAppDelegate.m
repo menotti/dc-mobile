@@ -13,14 +13,34 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
-    ApiContatosViewController *viewController = [[ApiContatosViewController alloc] initWithNibName:@"ApiContatosViewController" bundle:nil];
+    //Cria variável para referenciar a lista de contatos
+    ABAddressBookRef referenciaContatos = ABAddressBookCreateWithOptions(NULL, NULL);
     
-    self.window.rootViewController = viewController;
-    
-    [self.window makeKeyAndVisible];
+    if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined) {
+        ABAddressBookRequestAccessWithCompletion(referenciaContatos, ^(bool granted, CFErrorRef error) {
+            if (granted) {
+                //Acesso garantido na primeira chamada
+                ApiContatosViewController *viewController = [[ApiContatosViewController alloc] initWithNibName:@"ApiContatosViewController" bundle:nil];
+                self.window.rootViewController = viewController;
+                [self.window makeKeyAndVisible];
+                
+            } else {
+                //Usuario negou o acesso aos dados da lista de contato
+            }
+        });
+    }
+    else if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized) {
+        // O usuario já permitiu o acesso a lista de contatos
+        ApiContatosViewController *viewController = [[ApiContatosViewController alloc] initWithNibName:@"ApiContatosViewController" bundle:nil];
+        self.window.rootViewController = viewController;
+        [self.window makeKeyAndVisible];
+        
+    }
+    else {
+        //Usuario já tinha negado o acesso aos dados da lista de contato
+    }
     return YES;
 }
 
