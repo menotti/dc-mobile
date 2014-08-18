@@ -18,13 +18,13 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
     }
     return self;
 }
 
 - (void)viewDidLoad
 {
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.timeField.delegate = self;
@@ -38,6 +38,11 @@
 
 - (IBAction)createCalendar:(id)sender {
     EKEventStore *eventStore = [[EKEventStore alloc] init];
+    
+    [eventStore requestAccessToEntityType:EKEntityTypeEvent
+                               completion:^(BOOL granted,NSError* error){
+                                   
+    
     EKCalendar *calendar = [EKCalendar calendarForEntityType:EKEntityTypeEvent eventStore:eventStore];
     calendar.title = @"Meu calendário";
     
@@ -54,9 +59,8 @@
     }
     
     // salvando calendário
-    NSError *error = nil;
     BOOL result = [eventStore saveCalendar:calendar commit:YES error:&error];
-    if (result) {
+    if (result && granted) { //granted eh retornado de acordo com a resposta do usuário ao pedido de permissao de acesso ao calendário
         NSLog(@"Saved calendar to event store.");
         self.calendarIdentifier = calendar.calendarIdentifier;
         
@@ -79,23 +83,27 @@
     
     [self.timeField resignFirstResponder];
 
+ }];
 }
 
 - (IBAction)addEvent:(id)sender {
+    
     EKEventStore *eventStore = [[EKEventStore alloc] init];
+    [eventStore requestAccessToEntityType:EKEntityTypeEvent
+                               completion:^(BOOL granted,NSError* error){
+                                   
     EKEvent *event = [EKEvent eventWithEventStore:eventStore];
     EKCalendar *calendar = [eventStore calendarWithIdentifier:self.calendarIdentifier];
     event.calendar = calendar;
-    
+
     NSDate *startDate = [NSDate date];
     event.startDate = startDate;
     float time = [self.timeField.text floatValue]*3600;
     event.endDate = [startDate dateByAddingTimeInterval:time];
     
     // salvando evento
-    NSError *error = nil;
     BOOL result = [eventStore saveEvent:event span:EKSpanThisEvent commit:YES error:&error];
-    if (result) {
+    if (result && granted) {
         NSLog(@"Saved event to event store.");
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sucesso"
@@ -115,6 +123,7 @@
     }
     
     [self.timeField resignFirstResponder];
+  }];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
