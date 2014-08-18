@@ -1886,7 +1886,6 @@ Agora podemos partir para o código de implementação da classe \texttt{\textbf
 \caption{Método que executa a busca automática ao digitar}
 \end{listing}
 
-
 O primeiro método é chamado se adicionarmos um botão junto da\\
 \texttt{\textbf{UISearchDisplayController}}, o que não é o caso, mas é bom já deixar o método implementado. O segundo método é o verdadeiro responsável pela mágica que queremos, e que vai forçar a atualização da tabela sempre que o texto na barra de busca for alterado. Os dois métodos chamam um terceiro método, que é onde vai a lógica da busca.
 
@@ -2568,20 +2567,22 @@ Agora vamos construir dois métodos básicos: criar calendário e adicionar even
 \caption{Declaração do método de criação do novo calendário}
 \end{listing}
 
-
 Começamos então com as especificações do calendário.
 
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 EKEventStore *eventStore = [[EKEventStore alloc] init];
+[eventStore requestAccessToEntityType:EKEntityTypeEvent
+                               completion:^(BOOL granted,NSError* error){
 EKCalendar *calendar = [EKCalendar calendarForEntityType:
 						EKEntityTypeEvent eventStore:eventStore];
 \end{minted}
 \caption{Especificações do novo calendário}
 \end{listing}
 
-
 Na linha 1 é alocado um objeto \texttt{\textbf{EKEventStore}} que será responsável por salvar o calendário quando ele estiver pronto. Em seguida é criado um objeto \texttt{\textbf{EKCalendar}} que representa o calendário em si, e nos seus parâmetros definimos que o calendário será para eventos, e além disso definimos o objeto responsável por controlar esse calendário, no caso o objeto \texttt{\textbf{EKEventStore}} que acabamos de criar.
+
+Na linha 2 solicitamos a permissão do usuário para obter acesso ao calendário.
 
 Em seguida temos que definir qual será o \texttt{\textbf{EKSource}}, que é a fonte do calendário. Temos as seguintes possibilidades: \texttt{\textbf{EKSourceTypeLocal}}, \texttt{\textbf{EKSourceTypeExchange}},\\ \texttt{\textbf{EKSourceTypeCalDAV}}, \texttt{\textbf{EKSourceTypeMobileMe}}, \texttt{\textbf{EKSourceTypeSubscribed}},\\ e \texttt{\textbf{EKSourceTypeBirthdays}}. Para o nosso caso usaremos \texttt{\textbf{EKSourceTypeLocal}}, o que significa que nosso calendário será local, que é o mais comum para eventos.
 
@@ -2609,7 +2610,6 @@ Com as especificações do calendário definidas, basta salvá-lo efetivamente.
 
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
-NSError *error = nil;
 BOOL result = [eventStore saveCalendar:calendar commit:YES
                                  error:&error];
 
@@ -2640,6 +2640,8 @@ Como fizemos para o calendário, devemos primeiro definir as especificações in
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 EKEventStore *eventStore = [[EKEventStore alloc] init];
+[eventStore requestAccessToEntityType:EKEntityTypeEvent
+                               completion:^(BOOL granted,NSError* error){
 EKEvent *event = [EKEvent eventWithEventStore:eventStore];
 EKCalendar *calendar = [eventStore calendarWithIdentifier:
                                    self.calendarIdentifier];
@@ -2654,7 +2656,7 @@ event.endDate = [startDate dateByAddingTimeInterval:time];
 \end{listing}
 
 
-Alocamos um objeto \texttt{\textbf{EKEventStore}} para controlar o evento, e um objeto \texttt{\textbf{EKEvent}} representando o evento em si. Na linha 3 vamos instanciar um objeto \texttt{\textbf{EKCalendar}} que vai representar o calendário que vamos criar com o primeiro método, utilizando o identificador salvo, e na linha 4 definimos que o calendário do evento sendo criado é o calendário instanciado.
+Alocamos um objeto \texttt{\textbf{EKEventStore}} para controlar o evento, e um objeto \texttt{\textbf{EKEvent}} representando o evento em si. Na linha 5 vamos instanciar um objeto \texttt{\textbf{EKCalendar}} que vai representar o calendário que vamos criar com o primeiro método, utilizando o identificador salvo, e na linha 4 definimos que o calendário do evento sendo criado é o calendário instanciado.
 
 Na segunda parte definimos a data inicial e a data final do evento utilizando a classe \texttt{\textbf{NSDate}}. O método \texttt{\textbf{date}} retorna a data e horário atual do sistema, que será o nosso horário inicial para o evento. A variável do tipo float \texttt{\textbf{time}} vai salvar o valor em horas inserido pelo usuário e converter a unidade para segundos. Por último, com o método \texttt{\textbf{dateByAddingTimeInterval:}}, definimos que o horário final será o horário inicial somado ao tempo em segundos salvo na variável \texttt{\textbf{time}}.
 
