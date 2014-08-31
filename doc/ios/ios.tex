@@ -695,7 +695,6 @@ Agora clicando novamente no arquivo \emph{FirstAppViewController.xib} localizado
   \label{fig:a}
 \end{figure}
 
-
 Ao soltar o click será exibida a opção para conectar o botão à \texttt{\textbf{IBAction}}, basta clicar na opção \emph{mostrarMsg} para concluir.
 
 \begin{figure}[H]
@@ -705,6 +704,14 @@ Ao soltar o click será exibida a opção para conectar o botão à \texttt{\tex
   \label{fig:a}
 \end{figure}
 
+Há outra forma de conectar uma \texttt{\textbf{IBAction}} à um botão (também vale para outros tipos), basta clicar em \texttt{\textbf{File's Owner}} e arrastar a opção desejada dentre as listadas no lado direito da interface do XCode até o componente.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{figuras/3/tela_novo_projeto_52.png}
+  \caption{Maneira alternativa para conectar o \emph{button} com a \texttt{\textbf{IBAction}}}
+  \label{fig:a}
+\end{figure}
 
 Clicando no \emph{Run Button} o projeto será iniciado no simulador e o botão, ao ser clicado, exibirá uma mensagem na tela.
 
@@ -3844,6 +3851,101 @@ Com o aplicativo em execução, defina uma localização no XCode para testar a 
 \textbf{Dica}: Entenda melhor como trabalhar com a localização do usuário neste guia oficial da Apple:\\
 \(https://developer.apple.com/library/ios/documentation/userexperience/conceptual/\\LocationAwarenessPG/CoreLocation/CoreLocation.html\)
 \end{framed}
+
+\chapter{Desenvolvimento de aplicações}
+
+\section{Cardápio online}
+É comum a prática de centralizar dados em uma base única de forma que todas aplicações acessem a mesma fonte, ou no caso de não existir um banco de dados simplesmente um \emph{web service} recebe solicitações para fornecer informações ou executar alguma ação pré determinada, sendo que o mesmo \emph{web service} pode ser utilizado por plataformas distintas.
+
+O cardápio online vai utilizar-se de um web service para recuperar os dados que estão presentes em uma base de dados externa,
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.45\textwidth]{figuras/5/APP_Cardapio1.png}
+  \caption{Tela do aplicativo de cardápio online}
+  \label{fig:app_cardapio1}
+\end{figure}
+
+Inicialmente crie um novo projeto e adicione uma tela inicial e preencha com \emph{Label's} de acordo com mostrado na figura \ref{fig:app_cardapio1}, adicione também um \emph{button} que será utilizado para atualizar os itens de forma manual.
+
+Adicione no arquivo.h da interface as \emph{IBOutlets} correspondentes aos componentes criados.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@property (nonatomic, strong) IBOutlet UILabel *principal;
+@property (nonatomic, strong) IBOutlet UILabel *guarnicao;
+@property (nonatomic, strong) IBOutlet UILabel *arroz;
+@property (nonatomic, strong) IBOutlet UILabel *feijao;
+@property (nonatomic, strong) IBOutlet UILabel *saladas;
+@property (nonatomic, strong) IBOutlet UILabel *sobremesa;
+@property (nonatomic, strong) IBOutlet UILabel *bebida;
+\end{minted}
+\caption{\emph{IBOutlets} da interface do cardápio online}
+\end{listing}
+
+Criaremos um método para atualizar os itens do cardápio,
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (IBAction)atualizarCardapio;
+{
+NSURL *url = 
+	[NSURL URLWithString:@"http://10.0.2.2/WebServiceUfscar"];
+NSURLRequest *request = [NSURLRequest requestWithURL:url];
+[NSURLConnection sendAsynchronousRequest:request
+                     queue:[NSOperationQueue mainQueue]
+                     completionHandler:^(NSURLResponse *response,
+                     NSData *data, NSError *connectionError)
+ {
+   if (data.length > 0 && connectionError == nil)
+     {
+
+NSDictionary *objetoRecebido = 
+[NSJSONSerialization JSONObjectWithData:data options:0
+ 	error:NULL];
+             
+self.principal.text = [objetoRecebido objectForKey:@"principal"];
+self.guarnicao.text = [objetoRecebido objectForKey:@"guarnicao"];
+self.arroz.text = [objetoRecebido objectForKey:@"arroz"];
+self.feijao.text = [objetoRecebido objectForKey:@"feijao"];
+self.saladas.text = [objetoRecebido objectForKey:@"saladas"];
+self.sobremesa.text = [objetoRecebido objectForKey:@"sobremesa"];
+self.bebida.text = [objetoRecebido objectForKey:@"bebida"];
+      }
+  }];
+}
+\end{minted}
+\caption{Implementação do método que atualiza os itens do cardápio}
+\end{listing}
+
+Na linha 3 inicializamos uma variável do tipo \emph{url} contendo o endereço onde está hospedado o \emph{web service} (nesse caso em um servidor local). Na linha 5 definimos um tipo \emph{request} indicando o endereço \emph{url} já definido. Na linha 6 é efetuada a requisição e nesse caso o nosso \emph{web service} irá retornar um conjunto de dados formatados no padrão JSON que serão capturados via \emph{HTTP Request}. na linha 14 é construído o objeto \emph{NSDictionary} para armazenagem dos dados para em seguida serem atribuídos às \emph{IBOutlets} correspondentes.
+
+ O próximo passo é ligar cada \emph{Label} criada à sua \emph{IBOutlet} e o botão na \emph{IBAction}. Também é possível chamar o método automaticamente durante o carregamento da tela adicionando uma chamada no método \emph{viewDidLoad}.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+[self atualizarCardapio];
+\end{minted}
+\caption{Chamada do método para atualizar o cardápio automaticamente}
+\end{listing}
+
+Quando o aplicativo abrir a tela inicial os dados do cardápio já serão exibidos nas \emph{Label's}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.55\textwidth]{figuras/5/APP_Cardapio2.png}
+  \caption{Tela final do aplicativo de cardápio online}
+  \label{fig:app_cardapio2}
+\end{figure}
+
+Como favor de complementação do projeto, o código do \emph{web service} foi feito em \emph{PHP} e a exibição no padrão JSON pode ser vista acessando o endereço direto (desse modo qualquer outra plataforma pode fazer sua própria leitura dos dados).
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.75\textwidth]{figuras/5/APP_Cardapio3.png}
+  \caption{Dados gerados pelo \emph{web service} no formado JSON}
+  \label{fig:a}
+\end{figure}
 
 \chapter{Um pouco de MVC}
 

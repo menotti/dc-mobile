@@ -82,7 +82,6 @@
     }
     
     [self.timeField resignFirstResponder];
-
  }];
 }
 
