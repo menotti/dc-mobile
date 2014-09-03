@@ -2,21 +2,15 @@
 //  AgendaCompromissosViewController.h
 //  API_AgendaCompromissos
 //
-//  Created by Caio Pegoraro on 20/06/14.
+//  Created by Caio Pegoraro on 02/09/14.
 //  Copyright (c) 2014 Ufscar. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import <EventKit/EventKit.h>
 
-@interface AgendaCompromissosViewController : UIViewController <UITextFieldDelegate>
+@interface AgendaCompromissosViewController : UIViewController
 
-@property (nonatomic, strong) NSString *calendarIdentifier;
-@property (weak, nonatomic) IBOutlet UILabel *progressLabel;
-@property (weak, nonatomic) IBOutlet UITextField *timeField;
-
-- (IBAction)createCalendar:(id)sender;
-- (IBAction)addEvent:(id)sender;
-
+- (IBAction)telaCalendario:(id)sender;
+- (IBAction)telaEvento:(id)sender;
 
 @end
