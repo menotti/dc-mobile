@@ -2554,7 +2554,7 @@ O resultado final é um aplicativo que lista os contatos em uma tabela, quando u
 \section{Agenda de compromissos}
 
 
-O iOS permite que um aplicativo crie agendas e compromissos de modo simplificando especificando título e horário. Devemos adicionar \texttt{\textbf{EventKit Framework}} ao projeto, e então importar a seguinte biblioteca na sua classe.
+O iOS permite que um aplicativo crie agendas e compromissos de modo simplificado especificando título e horário. Devemos adicionar \texttt{\textbf{EventKit Framework}} ao projeto, e então importar a seguinte biblioteca na sua classe.
 
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
@@ -2583,13 +2583,14 @@ EKEventStore *eventStore = [[EKEventStore alloc] init];
                                completion:^(BOOL granted,NSError* error){
 EKCalendar *calendar = [EKCalendar calendarForEntityType:
 						EKEntityTypeEvent eventStore:eventStore];
+calendar.title = self.calendarTitle.text;
 \end{minted}
 \caption{Especificações do novo calendário}
 \end{listing}
 
 Na linha 1 é alocado um objeto \texttt{\textbf{EKEventStore}} que será responsável por salvar o calendário quando ele estiver pronto. Em seguida é criado um objeto \texttt{\textbf{EKCalendar}} que representa o calendário em si, e nos seus parâmetros definimos que o calendário será para eventos, e além disso definimos o objeto responsável por controlar esse calendário, no caso o objeto \texttt{\textbf{EKEventStore}} que acabamos de criar.
 
-Na linha 2 solicitamos a permissão do usuário para obter acesso ao calendário.
+Na linha 2 solicitamos a permissão do usuário para obter acesso ao calendário e na linha 3 definimos o nome do calendário como sendo o valor inserido na \emph{textbox};
 
 Em seguida temos que definir qual será o \texttt{\textbf{EKSource}}, que é a fonte do calendário. Temos as seguintes possibilidades: \texttt{\textbf{EKSourceTypeLocal}}, \texttt{\textbf{EKSourceTypeExchange}},\\ \texttt{\textbf{EKSourceTypeCalDAV}}, \texttt{\textbf{EKSourceTypeMobileMe}}, \texttt{\textbf{EKSourceTypeSubscribed}},\\ e \texttt{\textbf{EKSourceTypeBirthdays}}. Para o nosso caso usaremos \texttt{\textbf{EKSourceTypeLocal}}, o que significa que nosso calendário será local, que é o mais comum para eventos.
 
@@ -2610,7 +2611,6 @@ if (theSource) {
 \caption{Definição da fonte do novo calendário}
 \end{listing}
 
-
 Não se instancia um \texttt{\textbf{EKSource}}, nós apenas definimos qual o tipo e utilizamos o mesmo para todos, e por isso devemos procurá-lo para então utilizá-lo. É o que temos da linha 1 à linha 7. E finalizamos com a definição da fonte escolhida para o calendário.
 
 Com as especificações do calendário definidas, basta salvá-lo efetivamente.
@@ -2619,66 +2619,142 @@ Com as especificações do calendário definidas, basta salvá-lo efetivamente.
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
 BOOL result = [eventStore saveCalendar:calendar commit:YES
                                  error:&error];
-
-if (result) {
-	self.calendarIdentifier = calendar.calendarIdentifier;
-}
 \end{minted}
 \caption{Gravação do novo calendário}
 \end{listing}
 
+Se estiver tudo certo, o método retornará verdadeiro, e com isso podemos salvar o identificador do calendário em uma propriedade da classe.
 
-Se estiver tudo certo, o método retornará verdadeiro, e com isso podemos salvar o identificador do calendário em uma propriedade da classe. Com o identificador salvo podemos tratar de criar novos eventos para o novo calendário.
-
-Da mesma forma que fizemos com a criação do calendário, criamos uma \texttt{\textbf{IBAction}} chamada \texttt{\textbf{addEvent}}.
+Criamos outra tela para adicionar eventos aos calendários, será possível selecionar detalhes como tempo, data, título e em qual calendário será adicionado cada evento.
+O primeiro passo é definir o cabeçalho das \emph{IBOutlets} e \emph{IBActions} no arquivo.h.
 
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
-- (IBAction)addEvent:(id)sender
-{
-}
+@interface AddEventoViewController : UIViewController 
+	<UITextFieldDelegate, UIPickerViewDelegate,
+		 UIPickerViewDataSource>
+- (IBAction)addEvent:(id)sender;
+@property (weak, nonatomic) IBOutlet UIPickerView *calendarList;
+@property (nonatomic, strong) NSString *calendarIdentifier;
+@property (weak, nonatomic) IBOutlet UITextField *eventTitle;
+@property (weak, nonatomic) IBOutlet UITextField *timeField;
+@property (weak, nonatomic) IBOutlet UITextField *day;
+@property (weak, nonatomic) IBOutlet UITextField *month;
+@property (weak, nonatomic) IBOutlet UITextField *year;
 \end{minted}
-\caption{Declaração do método para adicionar novos eventos}
+\caption{Implementação dos elementos da tela de adição de eventos}
 \end{listing}
 
+As referência \emph{UIPickerViewDataSource} e \emph{UIPickerViewDelegate} são necessárias na medida em que faremos a listagem de todos os calendários já cadastrados no aparelho. Na linha 4 definimos a função que irá salvar o evento. Na linha 5 o elemento referenciado é uma espécie de \emph{list box} que irá exibir todos os dados de calendários.
+Nas linhas restantes apenas temos \emph{IBOutlets} para capturar alguns textos da tela e para utilizar como  auxiliar para outra operação.
 
-Como fizemos para o calendário, devemos primeiro definir as especificações iniciais do evento.
+Quando salvamos um calendário ele possui um nome e um identificador, este é utilizado para o cadastro de eventos pois é com ele que encontra-se o calendário correspondente. Cada vez que a tela carregar faremos uma varredura por todos os calendários já salvos e vamos guardar os valores lidos em vetores de string.
 
 \begin{listing}[H]
 \begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
-EKEventStore *eventStore = [[EKEventStore alloc] init];
-[eventStore requestAccessToEntityType:EKEntityTypeEvent
+@interface AddEventoViewController ()
+{
+    NSMutableArray *_pickerData;
+    NSMutableArray *_identifierData;
+}
+@end
+\end{minted}
+\caption{Implementação dos vetores para recuperar os calendários salvos}
+\end{listing}
+
+Nas linhas 3 e 4 definimos os vetores mutáveis que vão ser utilizados posteriormente.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    EKEventStore * eventStore = [[EKEventStore alloc] init];
+    [eventStore requestAccessToEntityType:EKEntityTypeEvent 
+    		completion:^(BOOL granted,NSError* error){
+        
+EKEntityType type = EKEntityTypeEvent;
+NSArray * calendars = [eventStore 
+        			calendarsForEntityType:type];
+EKCalendar *thisCalendar;
+      
+  _pickerData = [[NSMutableArray alloc] init];
+  _identifierData = [[NSMutableArray alloc]init];
+       
+  for(thisCalendar in calendars){
+  [_pickerData addObject:thisCalendar.title];
+  [_identifierData addObject:thisCalendar.calendarIdentifier];
+ }
+   self.calendarList.dataSource = self;
+   self.calendarList.delegate = self;
+}];
+self.eventTitle.delegate = self;
+self.timeField.delegate = self;
+self.day.delegate = self;
+self.month.delegate = self;
+self.year.delegate = self;
+}
+\end{minted}
+\caption{Método para atualizar a lista de cardápios cadastrados}
+\end{listing}
+
+Na linha 16 i \emph{loop} vai adicionar um título de calendário cadastrado a cada passagem, esse texto será utilizado para preencher a \emph{UIPickerView}. Em conjunto também são salvos os identificadores de cada calendário para que possamos adicionar um evento personalizado no mesmo, cada vez que essa tela for aberta a lista será atualizada e recarregada.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+-(int)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+-(int)pickerView:(UIPickerView *)pickerView 
+	numberOfRowsInComponent:(NSInteger)component{
+    return _pickerData.count;
+}
+-(NSString*)pickerView:(UIPickerView*)pickerView 
+titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    return _pickerData[row];
+}
+- (void)pickerView:(UIPickerView *)pickerView 
+didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+    self.calendarIdentifier = _identifierData[row];
+}
+\end{minted}
+\caption{Declaração dos métodos visando o \emph{UIPickerView}}
+\end{listing}
+
+Esses métodos são utilizados as vezes de forma implícita, o declarado na linha 11 será acionado cada vez que uma linha da lista de calendários é selecionada e então salvamos o identificador do mesmo calendário (lendo a posição correspondente no vetor de identificadores) em uma variável local.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+- (IBAction)addEvent:(id)sender {
+ EKEventStore *eventStore = [[EKEventStore alloc] init];
+ [eventStore requestAccessToEntityType:EKEntityTypeEvent
                                completion:^(BOOL granted,NSError* error){
+
 EKEvent *event = [EKEvent eventWithEventStore:eventStore];
-EKCalendar *calendar = [eventStore calendarWithIdentifier:
-                                   self.calendarIdentifier];
-event.calendar = calendar;
-    
-NSDate *startDate = [NSDate date];
+EKCalendar *calendar = [eventStore 
+				calendarWithIdentifier:self.calendarIdentifier];
+                                   event.calendar = calendar;
+
+NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+dateComponents.day = [self.day.text intValue];
+dateComponents.year = [self.year.text intValue];
+NSDate *startDate = [[NSCalendar currentCalendar] 
+				dateFromComponents:dateComponents];
 event.startDate = startDate;
 float time = [self.timeField.text floatValue]*3600;
 event.endDate = [startDate dateByAddingTimeInterval:time];
+event.title = self.eventTitle.text;
+BOOL result = [eventStore 
+	saveEvent:event span:EKSpanThisEvent commit:YES error:&error];
+  }];
+}
 \end{minted}
-\caption{Especificações do novo evento}
+\caption{Declaração do método \emph{addEvent}}
 \end{listing}
 
-
-Alocamos um objeto \texttt{\textbf{EKEventStore}} para controlar o evento, e um objeto \texttt{\textbf{EKEvent}} representando o evento em si. Na linha 5 vamos instanciar um objeto \texttt{\textbf{EKCalendar}} que vai representar o calendário que vamos criar com o primeiro método, utilizando o identificador salvo, e na linha 4 definimos que o calendário do evento sendo criado é o calendário instanciado.
-
-Na segunda parte definimos a data inicial e a data final do evento utilizando a classe \texttt{\textbf{NSDate}}. O método \texttt{\textbf{date}} retorna a data e horário atual do sistema, que será o nosso horário inicial para o evento. A variável do tipo float \texttt{\textbf{time}} vai salvar o valor em horas inserido pelo usuário e converter a unidade para segundos. Por último, com o método \texttt{\textbf{dateByAddingTimeInterval:}}, definimos que o horário final será o horário inicial somado ao tempo em segundos salvo na variável \texttt{\textbf{time}}.
-
-Agora basta salvar o evento.
-
-\begin{listing}[H]
-\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
-NSError *error = nil;
-BOOL result = [eventStore saveEvent:event span:EKSpanThisEvent
-                             commit:YES error:&error];
-\end{minted}
-\caption{Gravação do novo evento}
-\end{listing}
-
-Se a variável \texttt{\textbf{result}} retornar verdadeiro então o evento foi adicionado com sucesso ao nosso recém criado calendário.
+Alocamos um objeto EKEventStore para controlar o evento e um objeto EKEvent representando o evento em si. Na linha 7 instanciamos um objeto  \texttt{\textbf{EKCalendar}} que vai representar o calendário que vamos criar com o primeiro método, utilizando o identificador salvo.
+Nas linhas seguintes capturamos os dados referentes à data do evento e por fim o comando para salvar no calendário, se a variável \texttt{\textbf{result}} retornar verdadeiro então o evento foi adicionado com sucesso ao nosso recém criado calendário.
 
 \begin{framed}
 

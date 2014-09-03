@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7E6EF1701953EA370075F58F"
+               BlueprintIdentifier = "7ED1296719B684EF00136360"
                BuildableName = "API_AgendaCompromissos.app"
                BlueprintName = "API_AgendaCompromissos"
                ReferencedContainer = "container:API_AgendaCompromissos.xcodeproj">
@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7E6EF18B1953EA380075F58F"
+               BlueprintIdentifier = "7ED1298219B684EF00136360"
                BuildableName = "API_AgendaCompromissosTests.xctest"
                BlueprintName = "API_AgendaCompromissosTests"
                ReferencedContainer = "container:API_AgendaCompromissos.xcodeproj">
@@ -42,7 +42,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7E6EF1701953EA370075F58F"
+            BlueprintIdentifier = "7ED1296719B684EF00136360"
             BuildableName = "API_AgendaCompromissos.app"
             BlueprintName = "API_AgendaCompromissos"
             ReferencedContainer = "container:API_AgendaCompromissos.xcodeproj">
@@ -61,7 +61,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7E6EF1701953EA370075F58F"
+            BlueprintIdentifier = "7ED1296719B684EF00136360"
             BuildableName = "API_AgendaCompromissos.app"
             BlueprintName = "API_AgendaCompromissos"
             ReferencedContainer = "container:API_AgendaCompromissos.xcodeproj">
@@ -79,7 +79,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7E6EF1701953EA370075F58F"
+            BlueprintIdentifier = "7ED1296719B684EF00136360"
             BuildableName = "API_AgendaCompromissos.app"
             BlueprintName = "API_AgendaCompromissos"
             ReferencedContainer = "container:API_AgendaCompromissos.xcodeproj">
