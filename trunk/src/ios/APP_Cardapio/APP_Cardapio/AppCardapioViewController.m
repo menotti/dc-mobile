@@ -32,7 +32,7 @@
 
 - (IBAction)atualizarCardapio;
 {
-    NSURL *url = [NSURL URLWithString:@"http://10.0.2.2/WebServiceUfscar"];
+    NSURL *url = [NSURL URLWithString:@"http://mobile.dc.ufscar.br/backend/"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[NSOperationQueue mainQueue]
