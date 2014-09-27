@@ -272,6 +272,20 @@ Essa documentação será importante ao longo do estudo de desenvolvimento para 
 As classes estão muito bem organizadas na documentação, com os métodos divididos de acordo com o tipo de operação. Vale a pena dar uma olhada por cima nas classes citadas para obter uma visão geral do que é possível fazer, alimentando aos poucos o seu repertório na linguagem, antes de seguir adiante com o tutorial.
 
 
+
+\section{Um pouco de MVC}
+
+O MVC, ou \emph{Model-View-Controller}, é um tipo de estrutura muito utilizada no desenvolvimento de software com interface. Nele temos uma divisão clara entre a informação vista pelo usuário e os dados em si, utilizando uma controladora para gerenciar todo o processo. O conceito de MVC é primordial para que o desenvolvimento de projetos para plataformas móveis seja bem estruturado e livre de conflitos.
+
+Vamos definir os três componentes do MVC dentro do contexto de plataforma móvel:
+\begin{itemize}
+\item \emph{Model}: é onde ficam os dados em si, junto da lógica do sistema e das regras de negócios, representando uma estrutura de dados que dão sentido a algo. Um exemplo é uma classe que define um contato da agenda, que contém dados como nome e número de telefone, e além disso pode ser categorizado de acordo com condições como tipo de telefone ou profissão do contato.
+\item \emph{View}: é literalmente o que é exibido para o usuário. Como já explicado neste documento, os elementos de uma tela não sabem quem chamou eles e o que vai acontecer em caso de interação. Tudo que um botão sabe, por exemplo, é que se for tocado ele deve enviar uma mensagem a outro objeto, mas o que essa mensagem causará não é responsabilidade dele.
+\item \emph{Controller}: é o responsável por gerenciar todas as ações e determinar o que deve acontecer. É o elemento que faz a ligação entre o \emph{Model} e a \emph{View}, lendo e definindo dados de acordo com as regras de negócio do \emph{Model}, e interagindo com o usuário enviando notificações e recebendo ações de toque na \emph{View}.
+\end{itemize}
+
+Esta divisão se tornou necessária a partir do aumento da complexidade as aplicações, em que é necessário lidar com estruturas de dados ao mesmo tempo que o usuário interage com a aplicação. Seria impraticável se fosse preciso alterar o layout para modificar a consequência do toque em um botão, por exemplo. Determinar uma abstração para dados e uma para elementos visuais possibilitou que os dois se mantivessem separados e sem consciência um do outro, dando o poder da interação a um terceiro componente que não recebe interações e nem agrega informação, mas sabe como ligar um ao outro sem causar conflitos.
+
 \chapter{Design}
 
 \section{UIKit Framework}
@@ -3966,7 +3980,7 @@ Criaremos um método para atualizar os itens do cardápio,
 - (IBAction)atualizarCardapio;
 {
 NSURL *url = 
-	[NSURL URLWithString:@"http://10.0.2.2/WebServiceUfscar"];
+	[NSURL URLWithString:@"http://mobile.dc.ufscar.br/backend/"];
 NSURLRequest *request = [NSURLRequest requestWithURL:url];
 [NSURLConnection sendAsynchronousRequest:request
                      queue:[NSOperationQueue mainQueue]
@@ -4023,25 +4037,402 @@ Como favor de complementação do projeto, o código do \emph{web service} foi f
   \label{fig:a}
 \end{figure}
 
-\chapter{Um pouco de MVC}
 
-O MVC, ou \emph{Model-View-Controller}, é um tipo de estrutura muito utilizada no desenvolvimento de software com interface. Nele temos uma divisão clara entre a informação vista pelo usuário e os dados em si, utilizando uma controladora para gerenciar todo o processo. O conceito de MVC é primordial para que o desenvolvimento de projetos para plataformas móveis seja bem estruturado e livre de conflitos.
+\chapter{Desenvolvimento de jogos e animações}
 
-Vamos definir os três componentes do MVC dentro do contexto de plataforma móvel:
-\begin{itemize}
-\item \emph{Model}: é onde ficam os dados em si, junto da lógica do sistema e das regras de negócios, representando uma estrutura de dados que dão sentido a algo. Um exemplo é uma classe que define um contato da agenda, que contém dados como nome e número de telefone, e além disso pode ser categorizado de acordo com condições como tipo de telefone ou profissão do contato.
-\item \emph{View}: é literalmente o que é exibido para o usuário. Como já explicado neste documento, os elementos de uma tela não sabem quem chamou eles e o que vai acontecer em caso de interação. Tudo que um botão sabe, por exemplo, é que se for tocado ele deve enviar uma mensagem a outro objeto, mas o que essa mensagem causará não é responsabilidade dele.
-\item \emph{Controller}: é o responsável por gerenciar todas as ações e determinar o que deve acontecer. É o elemento que faz a ligação entre o \emph{Model} e a \emph{View}, lendo e definindo dados de acordo com as regras de negócio do \emph{Model}, e interagindo com o usuário enviando notificações e recebendo ações de toque na \emph{View}.
-\end{itemize}
+\section{Flappy plane}
 
-Esta divisão se tornou necessária a partir do aumento da complexidade as aplicações, em que é necessário lidar com estruturas de dados ao mesmo tempo que o usuário interage com a aplicação. Seria impraticável se fosse preciso alterar o layout para modificar a consequência do toque em um botão, por exemplo. Determinar uma abstração para dados e uma para elementos visuais possibilitou que os dois se mantivessem separados e sem consciência um do outro, dando o poder da interação a um terceiro componente que não recebe interações e nem agrega informação, mas sabe como ligar um ao outro sem causar conflitos.
+O famoso jogo chamado \emph{Flapply bird} atraiu atenção de muita gente, um dos principais pontos está nas mecânicas relativamente simples que são envolvidas para o desenvolvimento.
+A \emph{Sprite kit framework} será utilizada para dar vida ao \emph{Flapply plane}, trata-se de um conjunto de ferramentas que vão ajudar de modo com que precisaremos lidar com questões de mais alto nível (facilita em questões como detecção de colisões, onde precisaremos apenas definir algumas regras e definir os espaços e objetos envolvidos).
+
+Criaremos um novo projeto mas dessa vez selecionando a opção \emph{SpriteKiT Game}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\textwidth]{figuras/6/plane1.png}
+  \caption{Criação de um novo jogo}
+  \label{fig:a}
+\end{figure}
+
+A tela inicial do projeto segue os mesmos padrões anteriores, salvo algumas exceções (que serão explicadas), o principal arquivo que iremos trabalhar é o \emph{MyScene.m}, nele é possível controlar todo ciclo de execução do jogo.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\textwidth]{figuras/6/plane2.png}
+  \caption{Tela inicial do projeto de um novo jogo}
+  \label{fig:a}
+\end{figure}
+
+O novo projeto acompanha alguns elementos exemplos que não utilizaremos, o primeiro passo é deletar a imagem \emph{Spaceship.png} e os códigos de dois métodos do \emph{MyScene.m} chamados de \emph{initWithSize} e \emph{touchesBegan}.
+
+Em seguida iremos importar para o projeto as imagens que serão utilizadas (já estão pré-criadas e na pasta do repositório),
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{figuras/6/plane3.png}
+  \caption{Adicionando as imagens ao jogo}
+  \label{fig:a}
+\end{figure}
+
+No arquivo \emph{MyScene.m} iremos criar a sprite do avião e adiciona-lá a cena.
+Nesse caso vamos declarar em um escopo global, para facilitar o uso por outros métodos que serão implementados.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+@interface MyScene () {
+    SKSpriteNode* _plane;
+}
+@end
+\end{minted}
+\caption{Declaração da sprite do avião}
+\end{listing}
+
+No método \emph{initWithSize} criaremos um novo objeto para carregar a textura do avião.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+SKTexture *planeTexture1 = [SKTexture textureWithImageNamed:@"Plane1"];
+planeTexture1.filteringMode = SKTextureFilteringNearest;
+_plane = [SKSpriteNode spriteNodeWithTexture:planeTexture1];
+[_plane setScale:0.4];
+_plane.position = CGPointMake(self.frame.size.width / 4, 
+					CGRectGetMidY(self.frame));
+[self addChild:_plane];
+\end{minted}
+\caption{Carregando uma nova textura para a sprite do avião}
+\end{listing}
+
+Na linha 1 definimos qual a imagem será utilizada como textura (nesse caso o nome se refere a \emph{Plane1.png}), a linha 2 indica uma propriedade para, como nesse caso, a área da sprite desenhada com a textura não vai ser no tamanho nativo.
+Na linha 3 carregamos a textura na sprite, na linha 4 diminuímos o tamanho da sprite e na linha 5 a posicionamos no lado esquerdo superior da tela (através de um posicionamento baseado em duas coordenadas) e na linha 7 adicionamos o avião a cena do jogo.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.75\textwidth]{figuras/6/plane4.png}
+  \caption{Exibindo a sprite na tela do jogo}
+  \label{fig:a}
+\end{figure}
+
+No estado atual o avião é um objeto estático na tela, vamos adicionar uma animação que consiste em ficar alterando a imagem (para o exemplo usaremos duas) para dar a sensação de movimento.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+SKTexture *planeTexture2 = [SKTexture textureWithImageNamed:@"Plane2"];
+planeTexture2.filteringMode = SKTextureFilteringNearest;
+SKAction *animePlane;
+animePlane = [SKAction repeatActionForever:[SKAction animateWithTextures:
+				@[planeTexture1, planeTexture2] timePerFrame:0.2]];
+[_plane runAction:animePlane];
+\end{minted}
+\caption{Criando uma animação para a sprite existente}
+\end{listing}
+
+Na linha 1 e 2 fizemos o mesmo passo que na primeira textura, a diferença é que nesse caso a imagem carregada foi a \emph{Plane2.png}. Na linha 3 declaramos a ação que será responsável pela animação do avião. Na linha 4 definimos o efeito da animação (uma transição de imagens a cada intervalo de tempo) e na linha 5 invocamos o método indicando que a ação criada deve ser iniciada.
+
+Agora vamos configurar o fundo do jogo, primeiramente definiremos outra cor como padrão.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+SKColor* _skyColor;
+_skyColor = [SKColor colorWithRed:113.0/255.0 green:197.0/255.0 
+							blue:207.0/255.0 alpha:1.0];
+[self setBackgroundColor:_skyColor];
+\end{minted}
+\caption{Configurando a cor de fundo do jogo}
+\end{listing}
+
+O próximo passo envolve carregar a imagem do fundo e do chão, usaremos uma técnica de animação para criar a sensação de movimento desenhando as partes do fundo no sentido inverso ao do avião, de forma contínua, ou seja, ao invés de movermos o avião para frente moveremos o cenário para trás.
+Quanto aos efeitos de movimento, precisamos criar uma variável do tipo \emph{SKNode*}, dessa forma será possível controlar períodos de pausa e os elementos que serão exibidos a cada instante.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+SKNode* _moving;
+SKTexture* groundTexture = 
+	[SKTexture textureWithImageNamed:@"Ground"];
+groundTexture.filteringMode = SKTextureFilteringNearest;
+        
+SKAction* moveGroundSprite = 
+[SKAction moveByX:-groundTexture.size.width*2
+ y:0 duration:0.02 * groundTexture.size.width*2];
+ 
+SKAction* resetGroundSprite = 
+[SKAction moveByX:groundTexture.size.width*2 
+y:0 duration:0];
+
+SKAction* moveGroundSpritesForever = 
+[SKAction repeatActionForever:[SKAction 
+sequence:@[moveGroundSprite, resetGroundSprite]]];
+           
+for( int i = 0; i < 2 + self.frame.size.width / 
+					( groundTexture.size.width * 2 ); ++i ) {
+SKSpriteNode* sprite = [SKSpriteNode 
+				spriteNodeWithTexture:groundTexture];
+[sprite setScale:2.0];
+sprite.position = 
+	CGPointMake(i * sprite.size.width, sprite.size.height / 2);
+[sprite runAction:moveGroundSpritesForever];
+[_moving addChild:sprite];
+}
+\end{minted}
+\caption{Configurando o chao do jogo}
+\end{listing}
+
+Na linha 1 criamos um \emph{node} onde serão adicionados as \emph{sprites} que criam a sensação de movimento, dessa forma podemos controlar mais facilmente uma ação de pausa de toda a cena. Em seguida na linha 2 inicializamos a textura correspondente ao chão e na linha 6 e 10 é definido a ação de movimento das imagens (mover para a esquerda a cada intervalo de tempo de forma com que ao chegar no final da tela, retorna na outra extremidade, na linha 14 chamamos as ações criadas para serem executadas continuamente enquanto o jogo estiver executando.
+A partir da linha 18 fazemos a inicialização de todas as \emph{sprites} que irão compor o chão (são várias em sequência) e adicionamos cada uma na lista de movimentações.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+SKTexture* skylineTexture = 
+	[SKTexture textureWithImageNamed:@"Skyline"];
+skylineTexture.filteringMode = SKTextureFilteringNearest;
+        
+SKAction* moveSkylineSprite = [
+SKAction moveByX:-skylineTexture.size.width*2 
+y:0 duration:0.1 * skylineTexture.size.width*2];
+
+SKAction* resetSkylineSprite = 
+[SKAction moveByX:skylineTexture.size.width*2 
+y:0 duration:0];
+
+SKAction* moveSkylineSpritesForever =
+ [SKAction repeatActionForever:[SKAction 
+ sequence:@[moveSkylineSprite, resetSkylineSprite]]];
+        
+for( int i = 0; i < 2 + self.frame.size.width / 
+			( skylineTexture.size.width * 2 ); ++i ) {
+SKSpriteNode* sprite = 
+[SKSpriteNode spriteNodeWithTexture:skylineTexture];
+[sprite setScale:2.0];
+sprite.zPosition = -20;
+sprite.position = 
+CGPointMake(i * sprite.size.width, sprite.size.height / 2 
+				+ groundTexture.size.height * 2);
+[sprite runAction:moveSkylineSpritesForever];
+[_moving addChild:sprite];
+}
+\end{minted}
+\caption{Configurando o fundo do jogo}
+\end{listing}
+
+Para as imagens do fundo o processo é o mesmo, a única alteração, além do posicionamento, está no intervalo de tempo entre as transições de imagens.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.75\textwidth]{figuras/6/plane5.png}
+  \caption{Configurando e animando as imagens de fundo do jogo}
+  \label{fig:a}
+\end{figure}
+
+Com o cenário já montado precisamos configurar as mecânicas do jogo, isto é, definir um movimento para o avião e o sistema de colisões para com os demais elementos da tela.
+Primeiramente vamos adicionar a referência ao  \emph{delegate} responsável pela detecção de colisão, logo no inicio do código, modificando o seguinte cabeçalho: \emph{@interface MyScene () <SKPhysicsContactDelegate>}
+ 
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+self.physicsWorld.gravity = CGVectorMake( 0.0, -5.0 );
+self.physicsWorld.contactDelegate = self;
+        
+static const uint32_t planeCategory = 1 << 0;
+static const uint32_t worldCategory = 1 << 1;
+
+_plane.physicsBody = 
+ [SKPhysicsBody bodyWithCircleOfRadius:_plane.size.height / 2];
+_plane.physicsBody.dynamic = YES;
+_plane.physicsBody.allowsRotation = NO;
+_plane.physicsBody.categoryBitMask = planeCategory;
+_plane.physicsBody.collisionBitMask = worldCategory;
+ 
+SKNode* dummy = [SKNode node];
+dummy.position = CGPointMake(0, groundTexture.size.height);
+dummy.physicsBody = 
+[SKPhysicsBody bodyWithRectangleOfSize:
+	CGSizeMake(self.frame.size.width, groundTexture.size.height * 2)];
+dummy.physicsBody.dynamic = NO;
+dummy.physicsBody.categoryBitMask = worldCategory;
+[self addChild:dummy];       
+}
+\end{minted}
+\caption{Configurando a mecânica de colisão do jogo}
+\end{listing}
+
+Nas linhas 1 redefinimos o efeito da gravidade no jogo. Na linha 4 e 5 temos a definição de duas categorias de colisões (com elas poderemos controlar quando uma colisão deve acionar algum método ou ação especial). Em seguida configuramos o avião para que ele seja visto como um objeto sólido (que pode colidir com os demais). Na linha 14 criamos a configuração de física para o chão, sem isso o avião iria cair além dos limites da tela do jogo.
+
+A parte interativa do jogo é controlar a altura do avião de acordo com o toque na tela, para isso vamos modificar o método \emph{touchesBegan} e incluir um reajuste da posição.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+ if( _moving.speed > 0 ) {
+   _plane.physicsBody.velocity = CGVectorMake(0, 0);
+  [_plane.physicsBody applyImpulse:CGVectorMake(0, 4)];
+ }  
+}
+\end{minted}
+\caption{Configurando a mecânica de movimento do avião}
+\end{listing}
+
+A parte seguinte é criar os obstáculos que serão exibidos na tela, nesse caso serão vários se movimentando para o lado esquerdo da tela mas gerados em diferentes níveis de altura.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+SKTexture* _pipeTexture1;
+SKTexture* _pipeTexture2;
+SKAction* _movePipesAndRemove;
+    
+static const uint32_t pipeCategory = 1 << 2;
+static NSInteger const kVerticalPipeGap = 100;
+
+_pipes = [SKNode node];
+[_moving addChild:_pipes];
+
+_pipeTexture1 = [SKTexture textureWithImageNamed:@"Pipe1"];
+_pipeTexture1.filteringMode = SKTextureFilteringNearest;
+_pipeTexture2 = [SKTexture textureWithImageNamed:@"Pipe2"];
+_pipeTexture2.filteringMode = SKTextureFilteringNearest;
+        
+CGFloat distanceToMove = self.frame.size.width + 
+					2 * _pipeTexture1.size.width;
+SKAction* movePipes = 
+[SKAction moveByX:-distanceToMove y:0 duration:0.01 * distanceToMove];
+SKAction* removePipes = [SKAction removeFromParent];
+_movePipesAndRemove = 
+[SKAction sequence:@[movePipes, removePipes]];
+        
+SKAction* spawn = 
+[SKAction performSelector:@selector(spawnPipes) onTarget:self];
+SKAction* delay = [SKAction waitForDuration:2.0];
+SKAction* spawnThenDelay = [SKAction sequence:@[spawn, delay]];
+spawnThenDelayForever = 
+[SKAction repeatActionForever:spawnThenDelay];       
+\end{minted}
+\caption{Configurando a mecânica dos obstáculos do jogo}
+\end{listing}
+
+Assim como nos casos anteriores, aqui criamos uma categoria de colisão especial para os obstáculos, inicializamos as texturas e a animação do movimento, em seguida chamamos um método (\emph{spawnPipes}) responsável por gerar infinitamente uma sequência de objetos do tipo.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+-(void)spawnPipes {
+    SKNode* pipePair = [SKNode node];
+    pipePair.position = CGPointMake( self.frame.size.width + 
+    								_pipeTexture1.size.width, 0 );
+    pipePair.zPosition = -10;
+    
+    CGFloat y = arc4random() % (NSInteger)( self.frame.size.height / 3 );
+    
+    SKSpriteNode* pipe1 = 
+    			[SKSpriteNode spriteNodeWithTexture:_pipeTexture1];
+    [pipe1 setScale:2];
+    pipe1.position = CGPointMake( 0, y );
+    pipe1.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:pipe1.size];
+    pipe1.physicsBody.dynamic = NO;
+    pipe1.physicsBody.categoryBitMask = pipeCategory;
+    pipe1.physicsBody.contactTestBitMask = planeCategory;
+    
+    [pipePair addChild:pipe1];
+    
+    SKSpriteNode* pipe2 = 
+    			[SKSpriteNode spriteNodeWithTexture:_pipeTexture2];
+    [pipe2 setScale:2];
+    pipe2.position = 
+    			CGPointMake( 0, y + pipe1.size.height + kVerticalPipeGap );
+    pipe2.physicsBody = [
+    			SKPhysicsBody bodyWithRectangleOfSize:pipe2.size];
+    pipe2.physicsBody.dynamic = NO;
+    pipe2.physicsBody.categoryBitMask = pipeCategory;
+    pipe2.physicsBody.contactTestBitMask = planeCategory;
+    [pipePair addChild:pipe2];
+    
+    SKNode* contactNode = [SKNode node];
+    contactNode.position = 
+    	CGPointMake( pipe1.size.width + 
+		_plane.size.width / 2, CGRectGetMidY( self.frame ) );
+    contactNode.physicsBody = 
+    	[SKPhysicsBody bodyWithRectangleOfSize:
+		CGSizeMake(pipe2.size.width, self.frame.size.height)];
+    contactNode.physicsBody.dynamic = NO;
+    contactNode.physicsBody.categoryBitMask = scoreCategory;
+    contactNode.physicsBody.contactTestBitMask = planeCategory;
+    [pipePair addChild:contactNode];
+    
+    [pipePair runAction:_movePipesAndRemove];
+    [_pipes addChild:pipePair];
+}
+\end{minted}
+\caption{Método para gerar os obstáculos do jogo}
+\end{listing}
+
+Já configuramos o cenário,o contador de pontuação, o avião e os obstáculos, agora precisamos disparar uma ação para quando houver uma colisão entre os elementos.
+
+\begin{listing}[H]
+\begin{minted}[linenos=true,frame=lines,framesep=2mm,tabsize=2,numbersep=5pt]{objective-c}
+BOOL _canRestart;
+SKLabelNode* _scoreLabelNode;
+NSInteger _score;
+BOOL _canStart;
+
+static const uint32_t scoreCategory = 1 << 3;
+
+_score = 0;
+_scoreLabelNode = [SKLabelNode 
+	labelNodeWithFontNamed:@"MarkerFelt-Wide"];
+_scoreLabelNode.position = 
+	CGPointMake( CGRectGetMidX( self.frame ),
+		 3 * self.frame.size.height / 4 );
+_scoreLabelNode.zPosition = 100;
+_scoreLabelNode.text = [NSString stringWithFormat:@"%d", _score];
+[self addChild:_scoreLabelNode];
+       
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    if(_canStart==YES){
+        _canStart=NO;
+        [self runAction:spawnThenDelayForever];
+    }
+    [_plane runAction:animePlane];
+    
+    if( _moving.speed > 0 ) {
+        _plane.physicsBody.velocity = CGVectorMake(0, 0);
+        [_plane.physicsBody applyImpulse:CGVectorMake(0, 4)];
+    } else if( _canRestart ) {
+        [self resetScene];
+    }
+}
+
+-(void)resetScene {
+_plane.position = CGPointMake(self.frame.size.width / 4, 
+					CGRectGetMidY(self.frame));
+_plane.physicsBody.velocity = CGVectorMake( 0, 0 );
+_plane.physicsBody.collisionBitMask = worldCategory | pipeCategory;
+_plane.speed = 1.0;
+_plane.zRotation = 0.0;
+    
+[_pipes removeAllChildren];
+_canRestart = NO;
+_moving.speed = 1;
+_score = 0;
+_scoreLabelNode.text = [NSString stringWithFormat:@"%d", _score];
+}
+\end{minted}
+\caption{Método para reiniciar o jogo quando há uma colisão}
+\end{listing}
+
+Novamente as mesmas práticas são utilizadas, definimos um objeto visual para exibir o placar, configuramos uma categoria de colisão e algumas variáveis de controle, com isso podemos reiniciar os elementos da tela, controlando o ciclo de vida do jogo, a diferença nessa parte fica por conta da detecção da colisão entre o avião e o placar, ele é detectado mas não vai disparar uma ação indicando o fim do jogo.
+
+Com isso nosso jogo está em um bom nível de jogabilidade, as práticas descritas fazem uso das ferramentas de detecção de colisões e movimentações de objetos (basicamente falando), podem facilmente ser aplicadas em outros modelos de jogos e animações de maneira funcional e prática.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.75\textwidth]{figuras/6/plane6.png}
+  \caption{Tela final do primeiro jogo criado}
+  \label{fig:a}
+\end{figure}
+
+\begin{framed}
+\paragraph{}\textbf{Dica}: As informações e práticas para o desenvolvimento desse jogo foram extraídas com base no material disponível em:
+\textit{ \\\(http://digitalbreed.com/category/game-development\)}
+\end{framed}
 
 \end{singlespace}
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \singlespace
 \selectlanguage{brazil}
 \cleardoublepage
