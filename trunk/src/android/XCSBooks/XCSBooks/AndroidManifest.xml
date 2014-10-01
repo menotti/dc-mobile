@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.xcsbooks"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="19" />
+
+    <application
+        android:name="com.example.xcsbooks.control.MyApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.example.xcsbooks.HomeActivity"
+            android:allowTaskReparenting="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.xcsbooks.BuscarActivity"
+            android:allowTaskReparenting="true"
+            android:label="@string/title_activity_buscar"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name="com.example.xcsbooks.LogarActivity"
+            android:label="@string/title_activity_logar"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name="com.example.xcsbooks.CarrinhoActivity"
+            android:label="@string/title_activity_carrinho"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name="com.example.xcsbooks.DetalhesLivroActivity"
+            android:label="@string/title_activity_detalhes_livro"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name="com.example.xcsbooks.CadastrarClienteActivity"
+            android:label="@string/title_activity_cadastrar"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name="com.example.xcsbooks.BaseActivity"
+            android:label="@string/title_activity_base" >
+        </activity>
+        <activity
+            android:name="com.example.xcsbooks.CadastrarEnderecoActivity"
+            android:label="@string/title_activity_cadastrar_endereco" >
+        </activity>
+        <activity
+            android:name="com.example.xcsbooks.BasicFragment"
+            android:label="@string/title_activity_basic_fragment" >
+        </activity>
+        <activity
+            android:name="com.example.xcsbooks.ComprarActivity"
+            android:label="@string/title_activity_comprar"
+            android:launchMode="singleTop" >
+        </activity>
+        <activity
+            android:name="com.example.xcsbooks.CadastrarLivroUsadoActivity"
+            android:label="@string/title_activity_cadastrar_livro_usado" >
+        </activity>
+        <activity
+            android:name="com.example.xcsbooks.AcompanharPedidoActivity"
+            android:label="@string/title_activity_acompanhar_pedido" >
+        </activity>
+        <activity
+            android:name="com.example.xcsbooks.DetalhesPedidoActivity"
+            android:label="@string/title_activity_detalhes_pedido" >
+        </activity>
+        <activity
+            android:name="com.example.xcsbooks.AlterarCadastroClienteActivity"
+            android:label="@string/title_activity_alterar_cadastro_cliente" >
+        </activity>
+        <activity
+            android:name="com.example.xcsbooks.AlterarCadastroEnderecoActivity"
+            android:label="@string/title_activity_alterar_cadastro_endereco" >
+        </activity>
+        <activity
+            android:name="com.example.xcsbooks.AlterarSenhaActivity"
+            android:label="@string/title_activity_alterar_senha" >
+        </activity>
+        <activity
+            android:name="com.example.xcsbooks.AlterarSelecionarActivity"
+            android:label="@string/title_activity_alterar_selecionar" >
+        </activity>
+    </application>
+
+</manifest>

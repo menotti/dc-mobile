@@ -1,0 +1,64 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/cadastrarEndereco_txtLogradouro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/logradouro"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/cadastrarEndereco_txtNumero"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/numero"
+        android:ems="10" />
+
+    <EditText
+        android:id="@+id/cadastrarEndereco_txtComplemento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/complemento"
+        android:ems="10" />
+
+    <EditText
+        android:id="@+id/cadastrarEndereco_txtBairro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/bairro"
+        android:ems="10" />
+
+    <EditText
+        android:id="@+id/cadastrarEndereco_txtCidade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/cidade"
+        android:ems="10" />
+
+    <EditText
+        android:id="@+id/cadastrarEndereco_txtEstado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/estado"
+        android:ems="10" />
+
+    <EditText
+        android:id="@+id/cadastrarEndereco_txtCep"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/cep"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/cadastrarEndereco_btnCadastrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cadastrar" />
+
+</LinearLayout>

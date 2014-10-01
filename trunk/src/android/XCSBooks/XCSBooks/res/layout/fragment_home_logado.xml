@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:gravity="center" >
+	        
+			<TextView
+			    android:id="@+id/fragLogado_txtMsgNomeUsuario"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+				android:paddingTop="50dp"
+				android:paddingLeft="50dp"
+			    android:textSize="24sp"
+			    android:text="@string/msgBemVindo"/>
+	
+	</LinearLayout>

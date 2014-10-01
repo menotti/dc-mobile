@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">XCSBooks</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_buscar">Buscar</string>
+    <string name="title_activity_home">Home</string>
+    <string name="title_activity_logar">Logar</string>
+    <string name="title_activity_carrinho">Carrinho</string>
+    <string name="title_activity_detalhes_livro">Detalhes do Livro</string>
+    <string name="title_activity_cadastrar">Cadastrar</string>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="title_activity_cadastrar_endereco">Cadastrar Endereço</string>
+    <string name="title_activity_cadastrar_livro_usado">Cadastrar Livro Usado</string>
+    <string name="title_alterar_cadastro">Alterar Cadastro</string>
+    <string name="title_activity_acompanhar_pedido">Acompanhar Pedido</string>
+    <string name="title_activity_detalhes_pedido">Detalhes do Pedido</string>
+    <string name="username">Usuário</string>
+    <string name="password">Senha</string>
+    <string name="logar">Logar</string>
+    <string name="deslogar">Deslogar</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="icone_home">Icone da HomeScreen</string>
+    <string name="buscar">Buscar</string>
+    <string name="buscar_livro">Buscar Livros</string>
+    <string name="carrinho">Carrinho</string>
+    <string name="sair">Sair</string>
+    <string name="nome">Nome</string>
+    <string name="cpf">CPF</string>
+    <string name="email">Email</string>
+    <string name="telefone1">Telefone</string>
+    <string name="telefone2">Celular</string>
+    <string name="valide_password">Confirmar senha</string>
+    <string name="proximo">Próximo</string>
+    <string name="logradouro">Logradouro</string>
+    <string name="numero">Numero</string>
+    <string name="complemento">Complemento</string>
+    <string name="bairro">Bairro</string>
+    <string name="cidade">Cidade</string>
+    <string name="estado">UF</string>
+    <string name="cep">CEP</string>
+    <string name="comprar">Comprar</string>
+    <string name="addCarrinho">Adicionar ao Carrinho</string>
+    <string name="incremento">+</string>
+    <string name="decremento">-</string>
+    <string name="login_erro">Não foi possível logar</string>
+    <string name="login_erro_info">Usuário ou senha errados</string>
+    <string name="ok">OK</string>
+    <string name="msgBemVindo">Bem-Vindo(a) </string>
+
+    <string-array name="desricao_home">
+        <item>@string/buscar</item>
+        <item>@string/logar</item>
+        <item>@string/carrinho</item>
+        <item>@string/sair</item>
+    </string-array>
+
+    <string name="ja_registrou">Já se registrou?</string>
+    <string name="logue_para_comprar">Logue para poder comprar</string>
+    <string name="title_activity_basic_fragment">BasicFragment</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_comprar">Confirmar Compra</string>
+    <string name="autor">Autor</string>
+    <string name="preco">Preço</string>
+    <string name="editora">Editora</string>
+    <string name="isbn">ISBN</string>
+    <string name="titulo">Título</string>
+    <string name="pedidoid">Código</string>
+    <string name="status">Estado</string>
+    <string name="data">Data</string>
+    <string name="hora">Hora</string>
+    <string name="total">Total</string>
+    <string name="atualizar">Atualizar</string>
+    <string name="quantidade">Quantidade</string>
+    <string name="usado">Usado</string>
+    <string name="confirmar_compra">Confirmar Compra</string>
+    <string name="confirmar_compra_botao">Confirmar</string>
+    <string name="lblquantidade">Quantidade:</string>
+    <string name="lbltotalitem">Total item:</string>
+    <string name="title_activity_alterar_cadastro_cliente">Alterar dados</string>
+    <string name="title_activity_alterar_cadastro_endereco">Alterar Endereco</string>
+    <string name="title_activity_alterar_senha">Alterar Senha</string>
+    <string name="title_activity_alterar_selecionar">AlterarSelecionarActivity</string>
+
+</resources>
