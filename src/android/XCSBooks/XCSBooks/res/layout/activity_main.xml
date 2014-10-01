@@ -1,0 +1,58 @@
+<ScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="#EFEFEF">
+	
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#EFEFEF" >
+
+    <ImageView 
+        android:id="@+id/home_imagem"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/book_icon"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"/>
+    
+    <ImageView 
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:src="@drawable/dotted"
+        android:layerType="software"/>
+    
+    <EditText
+        android:id="@+id/home_txtBusca"
+        android:layout_width="340dp"
+        android:layout_height="50dp"
+        android:hint="@string/buscar_livro"
+        android:padding="5dip"
+        android:singleLine="true"
+        android:background="@drawable/edit_custom"
+        android:textColor="#555555"
+        android:textSize="25sp"
+        android:layout_gravity="center"                  
+        android:layout_marginTop="20dp"        
+        android:drawableLeft="@android:drawable/ic_menu_search" />
+
+    <Button
+        android:id="@+id/home_btnBuscar"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:text="@string/buscar"
+        android:textColor="#000000" />
+    
+    <FrameLayout
+		android:id="@+id/home_fragment"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" />
+    	    
+     	   
+</LinearLayout>
+</ScrollView>

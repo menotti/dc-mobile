@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content" >
+	   
+	<TextView
+	    android:id="@+id/frag_lblIntro"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="@string/ja_registrou"
+	    android:layout_marginTop="15dp"
+	    android:paddingTop="10dp"
+	    android:layout_marginLeft="35dp"
+	    android:textSize="20sp" />
+
+	<TextView
+	    android:id="@+id/frag_lblLogin"
+	    android:layout_width="150dp"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="35dp"
+	    android:layout_below="@id/frag_lblIntro"
+	    android:layout_marginTop="35dp"
+	    android:text="@string/logue_para_comprar"
+	    android:textColor="#666666"
+	    android:textSize="20sp" />
+
+	<Button
+	    android:id="@+id/frag_btnCadastrar"
+	    android:layout_width="110dp"
+	    android:layout_height="wrap_content"
+	    android:layout_toRightOf="@id/frag_lblIntro"
+	    android:layout_marginTop="15dp"
+	    android:layout_marginLeft="50dp"
+	    android:text="@string/cadastrar"
+	    android:textColor="#000000" />
+
+	<Button
+	    android:id="@+id/frag_btnLogar"
+	    android:layout_width="110dp"
+	    android:layout_height="wrap_content"
+	    android:layout_toRightOf="@id/frag_lblLogin"
+	    android:layout_below="@id/frag_btnCadastrar"
+	    android:layout_alignLeft="@id/frag_btnCadastrar"
+	    android:layout_marginTop="15dp"
+	    android:text="@string/logar"
+	    android:textColor="#000000" />
+
+</RelativeLayout>

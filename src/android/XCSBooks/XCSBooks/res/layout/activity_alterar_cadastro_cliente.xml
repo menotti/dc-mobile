@@ -1,0 +1,47 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/alterarCliente_txtName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/nome"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/alterarCliente_txtEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/email"
+        android:ems="10"
+        android:inputType="textEmailAddress" />
+    
+    <EditText
+        android:id="@+id/alterarCliente_txtTel1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/telefone2"
+        android:ems="10"
+        android:inputType="phone" />
+    
+    <EditText
+        android:id="@+id/alterarCliente_txtTel2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/telefone1"
+        android:ems="10"
+        android:inputType="phone" />
+
+    <Button
+        android:id="@+id/alterarCliente_btnContinue"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/proximo" />
+
+</LinearLayout>

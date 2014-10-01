@@ -1,0 +1,59 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_home"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/title_activity_home"/>
+    
+	<item 
+	    android:id="@+id/action_busca"
+	    android:orderInCategory="1" 
+	    android:showAsAction="always"
+	    android:title="@string/buscar"
+	    android:icon="@android:drawable/ic_menu_search"/>
+	
+    <item
+        android:id="@+id/action_carrinho"
+        android:orderInCategory="2"
+        android:showAsAction="always"
+        android:icon="@drawable/cart"
+        android:title="@string/title_activity_carrinho"/>
+    
+    <item
+        android:id="@+id/action_logar"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/title_activity_logar"/>
+    
+    <item 
+        android:id="@+id/action_deslogar"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/deslogar"/>
+    
+    <item 
+        android:id="@+id/action_acompanhar_pedido"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/title_activity_acompanhar_pedido"/>
+    
+    <item 
+        android:id="@+id/action_cadastrar_livro_usado"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/title_activity_cadastrar_livro_usado"/>
+    
+     <item
+        android:id="@+id/action_alterar_cadastro"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/title_alterar_cadastro"/>
+     
+     <item
+        android:id="@+id/action_alterar_senha"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/title_activity_alterar_senha"/>
+    
+</menu>

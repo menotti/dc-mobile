@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_marginTop="40dp"
+        android:id="@+id/alterarSenhaTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Alterar senha"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:layout_marginTop="20dp"
+        android:id="@+id/prevSenha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="Senha antiga" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:layout_marginTop="10dp"
+        android:id="@+id/newSenha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="Senha nova" />
+
+    <Button
+        android:layout_marginTop="20dp"
+        android:id="@+id/submitNewSenha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Alterar" 
+        android:layout_gravity="center"/>
+
+</LinearLayout>

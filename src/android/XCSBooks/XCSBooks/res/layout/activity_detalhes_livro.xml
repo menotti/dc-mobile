@@ -1,0 +1,107 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+    <LinearLayout 
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    
+	    <ImageView
+	        android:id="@+id/detalheLivro_imagemLivro" 
+	        android:layout_width="150dp"
+	        android:layout_height="150dp"
+	        android:layout_marginTop="8dp" >
+	     </ImageView>
+	    
+	    <LinearLayout 
+	        android:orientation="vertical"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content">
+	     
+		    <TextView 
+		        android:id="@+id/detalheLivro_txtTitulo"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="5dp"
+		        android:layout_marginLeft="2dp"
+		        android:textSize="20sp" >    
+		    </TextView>
+		    
+		    <TextView 
+		        android:id="@+id/detalheLivro_txtAutor"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="2dp"
+		        android:layout_marginTop="5dp"
+		        android:textSize="16sp" >    
+		    </TextView>
+		    
+		    <TextView 
+		        android:id="@+id/detalheLivro_txtEditora"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="10dp"
+		        android:layout_marginLeft="2dp"
+		        android:textSize="15sp" >    
+		    </TextView>
+		    
+		    <TextView 
+		        android:id="@+id/detalheLivro_txtIsbn"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="2dp"
+		        android:layout_marginLeft="2dp"
+		        android:textSize="15sp" >    
+		    </TextView>
+		    
+		    <TextView 
+		        android:id="@+id/detalheLivro_txtUsado"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="2dp"
+		        android:layout_marginLeft="2dp"
+		        android:textSize="15sp" >    
+		    </TextView>
+		    
+		    <LinearLayout
+		        android:layout_width="180dp"
+		        android:layout_height="50dp"
+		  		android:layout_marginRight="15dp"
+		  		android:layout_marginTop="10dp"
+		        android:orientation="horizontal"
+		        android:background="#ffbb66"
+		        android:layout_gravity="right"
+				android:gravity="center" >
+		        
+			    <TextView 
+			        android:id="@+id/detalheLivro_txtPreco"
+			        android:layout_gravity="center_vertical|center_horizontal"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:textSize="22sp" >    
+			    </TextView>
+			    
+		    </LinearLayout>
+	    
+	    </LinearLayout>
+	    
+    </LinearLayout>
+
+    <LinearLayout 
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+	    	
+	    <Button
+	        android:id="@+id/detalheLivro_btnAdicionarCarrinho"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/addCarrinho" />
+    
+    </LinearLayout>
+
+</LinearLayout>
