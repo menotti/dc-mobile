@@ -1,0 +1,486 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7ED0108419DCB44E00B6101F /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ED0108319DCB44E00B6101F /* FacebookSDK.framework */; };
+		7ED86B2019DC38850094A54F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ED86B1F19DC38850094A54F /* Foundation.framework */; };
+		7ED86B2219DC38850094A54F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ED86B2119DC38850094A54F /* CoreGraphics.framework */; };
+		7ED86B2419DC38850094A54F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ED86B2319DC38850094A54F /* UIKit.framework */; };
+		7ED86B2A19DC38860094A54F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7ED86B2819DC38860094A54F /* InfoPlist.strings */; };
+		7ED86B2C19DC38860094A54F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ED86B2B19DC38860094A54F /* main.m */; };
+		7ED86B3019DC38860094A54F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ED86B2F19DC38860094A54F /* AppDelegate.m */; };
+		7ED86B3219DC38870094A54F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7ED86B3119DC38870094A54F /* Images.xcassets */; };
+		7ED86B3919DC38870094A54F /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ED86B3819DC38870094A54F /* XCTest.framework */; };
+		7ED86B3A19DC38870094A54F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ED86B1F19DC38850094A54F /* Foundation.framework */; };
+		7ED86B3B19DC38870094A54F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ED86B2319DC38850094A54F /* UIKit.framework */; };
+		7ED86B4319DC38870094A54F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7ED86B4119DC38870094A54F /* InfoPlist.strings */; };
+		7ED86B4519DC38870094A54F /* FaceMalaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ED86B4419DC38870094A54F /* FaceMalaTests.m */; };
+		7ED86B5419DCB3590094A54F /* FirstAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ED86B4F19DCB3590094A54F /* FirstAppViewController.m */; };
+		7ED86B5519DCB3590094A54F /* FirstAppViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ED86B5019DCB3590094A54F /* FirstAppViewController.xib */; };
+		7ED86B5619DCB3590094A54F /* SecondScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ED86B5219DCB3590094A54F /* SecondScreenViewController.m */; };
+		7ED86B5719DCB3590094A54F /* SecondScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ED86B5319DCB3590094A54F /* SecondScreenViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7ED86B3C19DC38870094A54F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7ED86B1419DC38850094A54F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7ED86B1B19DC38850094A54F;
+			remoteInfo = FaceMala;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		7ED0108319DCB44E00B6101F /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		7ED86B1C19DC38850094A54F /* FaceMala.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FaceMala.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7ED86B1F19DC38850094A54F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		7ED86B2119DC38850094A54F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		7ED86B2319DC38850094A54F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		7ED86B2719DC38850094A54F /* FaceMala-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FaceMala-Info.plist"; sourceTree = "<group>"; };
+		7ED86B2919DC38860094A54F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7ED86B2B19DC38860094A54F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7ED86B2D19DC38860094A54F /* FaceMala-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FaceMala-Prefix.pch"; sourceTree = "<group>"; };
+		7ED86B2E19DC38860094A54F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		7ED86B2F19DC38860094A54F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		7ED86B3119DC38870094A54F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		7ED86B3719DC38870094A54F /* FaceMalaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FaceMalaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7ED86B3819DC38870094A54F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		7ED86B4019DC38870094A54F /* FaceMalaTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FaceMalaTests-Info.plist"; sourceTree = "<group>"; };
+		7ED86B4219DC38870094A54F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7ED86B4419DC38870094A54F /* FaceMalaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FaceMalaTests.m; sourceTree = "<group>"; };
+		7ED86B4E19DCB3590094A54F /* FirstAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstAppViewController.h; sourceTree = "<group>"; };
+		7ED86B4F19DCB3590094A54F /* FirstAppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstAppViewController.m; sourceTree = "<group>"; };
+		7ED86B5019DCB3590094A54F /* FirstAppViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirstAppViewController.xib; sourceTree = "<group>"; };
+		7ED86B5119DCB3590094A54F /* SecondScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondScreenViewController.h; sourceTree = "<group>"; };
+		7ED86B5219DCB3590094A54F /* SecondScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondScreenViewController.m; sourceTree = "<group>"; };
+		7ED86B5319DCB3590094A54F /* SecondScreenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondScreenViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7ED86B1919DC38850094A54F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7ED86B2219DC38850094A54F /* CoreGraphics.framework in Frameworks */,
+				7ED0108419DCB44E00B6101F /* FacebookSDK.framework in Frameworks */,
+				7ED86B2419DC38850094A54F /* UIKit.framework in Frameworks */,
+				7ED86B2019DC38850094A54F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7ED86B3419DC38870094A54F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7ED86B3919DC38870094A54F /* XCTest.framework in Frameworks */,
+				7ED86B3B19DC38870094A54F /* UIKit.framework in Frameworks */,
+				7ED86B3A19DC38870094A54F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7ED86B1319DC38850094A54F = {
+			isa = PBXGroup;
+			children = (
+				7ED86B2519DC38850094A54F /* FaceMala */,
+				7ED86B3E19DC38870094A54F /* FaceMalaTests */,
+				7ED86B1E19DC38850094A54F /* Frameworks */,
+				7ED86B1D19DC38850094A54F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7ED86B1D19DC38850094A54F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7ED86B1C19DC38850094A54F /* FaceMala.app */,
+				7ED86B3719DC38870094A54F /* FaceMalaTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7ED86B1E19DC38850094A54F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7ED0108319DCB44E00B6101F /* FacebookSDK.framework */,
+				7ED86B1F19DC38850094A54F /* Foundation.framework */,
+				7ED86B2119DC38850094A54F /* CoreGraphics.framework */,
+				7ED86B2319DC38850094A54F /* UIKit.framework */,
+				7ED86B3819DC38870094A54F /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7ED86B2519DC38850094A54F /* FaceMala */ = {
+			isa = PBXGroup;
+			children = (
+				7ED86B2E19DC38860094A54F /* AppDelegate.h */,
+				7ED86B2F19DC38860094A54F /* AppDelegate.m */,
+				7ED86B4E19DCB3590094A54F /* FirstAppViewController.h */,
+				7ED86B4F19DCB3590094A54F /* FirstAppViewController.m */,
+				7ED86B5019DCB3590094A54F /* FirstAppViewController.xib */,
+				7ED86B5119DCB3590094A54F /* SecondScreenViewController.h */,
+				7ED86B5219DCB3590094A54F /* SecondScreenViewController.m */,
+				7ED86B5319DCB3590094A54F /* SecondScreenViewController.xib */,
+				7ED86B3119DC38870094A54F /* Images.xcassets */,
+				7ED86B2619DC38850094A54F /* Supporting Files */,
+			);
+			path = FaceMala;
+			sourceTree = "<group>";
+		};
+		7ED86B2619DC38850094A54F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7ED86B2719DC38850094A54F /* FaceMala-Info.plist */,
+				7ED86B2819DC38860094A54F /* InfoPlist.strings */,
+				7ED86B2B19DC38860094A54F /* main.m */,
+				7ED86B2D19DC38860094A54F /* FaceMala-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7ED86B3E19DC38870094A54F /* FaceMalaTests */ = {
+			isa = PBXGroup;
+			children = (
+				7ED86B4419DC38870094A54F /* FaceMalaTests.m */,
+				7ED86B3F19DC38870094A54F /* Supporting Files */,
+			);
+			path = FaceMalaTests;
+			sourceTree = "<group>";
+		};
+		7ED86B3F19DC38870094A54F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7ED86B4019DC38870094A54F /* FaceMalaTests-Info.plist */,
+				7ED86B4119DC38870094A54F /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7ED86B1B19DC38850094A54F /* FaceMala */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7ED86B4819DC38870094A54F /* Build configuration list for PBXNativeTarget "FaceMala" */;
+			buildPhases = (
+				7ED86B1819DC38850094A54F /* Sources */,
+				7ED86B1919DC38850094A54F /* Frameworks */,
+				7ED86B1A19DC38850094A54F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FaceMala;
+			productName = FaceMala;
+			productReference = 7ED86B1C19DC38850094A54F /* FaceMala.app */;
+			productType = "com.apple.product-type.application";
+		};
+		7ED86B3619DC38870094A54F /* FaceMalaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7ED86B4B19DC38870094A54F /* Build configuration list for PBXNativeTarget "FaceMalaTests" */;
+			buildPhases = (
+				7ED86B3319DC38870094A54F /* Sources */,
+				7ED86B3419DC38870094A54F /* Frameworks */,
+				7ED86B3519DC38870094A54F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7ED86B3D19DC38870094A54F /* PBXTargetDependency */,
+			);
+			name = FaceMalaTests;
+			productName = FaceMalaTests;
+			productReference = 7ED86B3719DC38870094A54F /* FaceMalaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7ED86B1419DC38850094A54F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = Ufscar;
+				TargetAttributes = {
+					7ED86B3619DC38870094A54F = {
+						TestTargetID = 7ED86B1B19DC38850094A54F;
+					};
+				};
+			};
+			buildConfigurationList = 7ED86B1719DC38850094A54F /* Build configuration list for PBXProject "FaceMala" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7ED86B1319DC38850094A54F;
+			productRefGroup = 7ED86B1D19DC38850094A54F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7ED86B1B19DC38850094A54F /* FaceMala */,
+				7ED86B3619DC38870094A54F /* FaceMalaTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7ED86B1A19DC38850094A54F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7ED86B2A19DC38860094A54F /* InfoPlist.strings in Resources */,
+				7ED86B3219DC38870094A54F /* Images.xcassets in Resources */,
+				7ED86B5719DCB3590094A54F /* SecondScreenViewController.xib in Resources */,
+				7ED86B5519DCB3590094A54F /* FirstAppViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7ED86B3519DC38870094A54F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7ED86B4319DC38870094A54F /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7ED86B1819DC38850094A54F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7ED86B5419DCB3590094A54F /* FirstAppViewController.m in Sources */,
+				7ED86B3019DC38860094A54F /* AppDelegate.m in Sources */,
+				7ED86B5619DCB3590094A54F /* SecondScreenViewController.m in Sources */,
+				7ED86B2C19DC38860094A54F /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7ED86B3319DC38870094A54F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7ED86B4519DC38870094A54F /* FaceMalaTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7ED86B3D19DC38870094A54F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7ED86B1B19DC38850094A54F /* FaceMala */;
+			targetProxy = 7ED86B3C19DC38870094A54F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		7ED86B2819DC38860094A54F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7ED86B2919DC38860094A54F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		7ED86B4119DC38870094A54F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7ED86B4219DC38870094A54F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7ED86B4619DC38870094A54F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		7ED86B4719DC38870094A54F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7ED86B4919DC38870094A54F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FaceMala/FaceMala-Prefix.pch";
+				INFOPLIST_FILE = "FaceMala/FaceMala-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		7ED86B4A19DC38870094A54F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FaceMala/FaceMala-Prefix.pch";
+				INFOPLIST_FILE = "FaceMala/FaceMala-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		7ED86B4C19DC38870094A54F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FaceMala.app/FaceMala";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FaceMala/FaceMala-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "FaceMalaTests/FaceMalaTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		7ED86B4D19DC38870094A54F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FaceMala.app/FaceMala";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FaceMala/FaceMala-Prefix.pch";
+				INFOPLIST_FILE = "FaceMalaTests/FaceMalaTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7ED86B1719DC38850094A54F /* Build configuration list for PBXProject "FaceMala" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7ED86B4619DC38870094A54F /* Debug */,
+				7ED86B4719DC38870094A54F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7ED86B4819DC38870094A54F /* Build configuration list for PBXNativeTarget "FaceMala" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7ED86B4919DC38870094A54F /* Debug */,
+				7ED86B4A19DC38870094A54F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7ED86B4B19DC38870094A54F /* Build configuration list for PBXNativeTarget "FaceMalaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7ED86B4C19DC38870094A54F /* Debug */,
+				7ED86B4D19DC38870094A54F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7ED86B1419DC38850094A54F /* Project object */;
+}

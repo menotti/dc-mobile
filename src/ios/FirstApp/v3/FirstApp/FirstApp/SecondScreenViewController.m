@@ -45,6 +45,7 @@
     
     ThirdViewController.textLabel = self.labelTexto2.text;
     
+   //
     ThirdViewController.delegate = self;
     
     [self.navigationController pushViewController:ThirdViewController animated:true];
