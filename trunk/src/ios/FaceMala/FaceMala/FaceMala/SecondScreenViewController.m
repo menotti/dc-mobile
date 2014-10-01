@@ -1,0 +1,110 @@
+//
+//  SecondScreenViewController.m
+//  FaceMala
+//
+//  Created by Caio Pegoraro on 30/09/14.
+//  Copyright (c) 2014 Ufscar. All rights reserved.
+//
+
+#import "SecondScreenViewController.h"
+#import "FirstAppViewController.h"
+
+@interface SecondScreenViewController ()
+
+@end
+
+@implementation SecondScreenViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.lblUsername.text = self.profileName;
+    self.lblEmail.text = self.profileEmail;
+    self.profilePicture.profileID = self.profilePic;
+    
+    self.navigationItem.title = @"User";
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)compartilharAuto:(id)sender {
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                   @"Face Mala <auto>", @"name",
+                                   @"Testando 123", @"caption",
+                                   @"test descricao.", @"description",
+                                   @"http://mobile.dc.ufscar.br/", @"link",
+                                   @"http://mobile.dc.ufscar.br/img/LogoDC.jpg", @"picture",
+                                   nil];
+    
+    [FBRequestConnection startWithGraphPath:@"/me/feed"
+                                 parameters:params
+                                 HTTPMethod:@"POST"
+                          completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                              if (!error) {
+                                  
+                                  NSLog(@"result: %@", result);
+                              } else {
+                                  
+                                  NSLog(@"%@", error.description);
+                              }
+                          }];
+}
+
+- (IBAction)compartilharManual:(id)sender {
+   
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                   @"FACE MALA", @"name",
+                                   @"Testes automatizados.", @"caption",
+                                   @"Seu aliado nas postagens", @"description",
+                                   @"http://mobile.dc.ufscar.br", @"link",
+                                   @"http://mobile.dc.ufscar.br/img/LogoDC.jpg", @"picture",
+                                   nil];
+    
+    // Show the feed dialog
+    [FBWebDialogs presentFeedDialogModallyWithSession:nil
+     parameters:params handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
+         if (error) {
+                 NSLog(@"Error publishing story: %@", error.description);
+         } else {
+                if (result == FBWebDialogResultDialogNotCompleted) {
+                   NSLog(@"User cancelled.");
+                } else {
+                    NSDictionary *urlParams = [self parseURLParams:[resultURL query]];
+                         if (![urlParams valueForKey:@"post_id"]) {
+                            NSLog(@"User cancelled.");
+                        } else {
+                            NSString *result = [NSString stringWithFormat: @"Posted story, id: %@", [urlParams valueForKey:@"post_id"]];
+                            NSLog(@"result %@", result);
+                         }
+                    }
+                 }
+           }];
+    
+}
+
+- (NSDictionary*)parseURLParams:(NSString *)query {
+    NSArray *pairs = [query componentsSeparatedByString:@"&"];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    for (NSString *pair in pairs) {
+        NSArray *kv = [pair componentsSeparatedByString:@"="];
+        NSString *val =
+        [kv[1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        params[kv[0]] = val;
+    }
+    return params;
+}
+
+@end
