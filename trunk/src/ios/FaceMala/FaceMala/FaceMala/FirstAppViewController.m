@@ -103,6 +103,7 @@
     secondScreen.profileName = self.lblUsername.text;
     secondScreen.profileEmail = self.lblEmail.text;
     secondScreen.profilePic = self.profilePicture.profileID;
+    secondScreen.profileId = self.profilePicture.profileID;
     
     [self.navigationController pushViewController:secondScreen animated:true];
 }
