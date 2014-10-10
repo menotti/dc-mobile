@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E12F83619DCEF04006D1502 /* SuggestionScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E12F83419DCEF04006D1502 /* SuggestionScreenViewController.m */; };
+		7E12F83719DCEF04006D1502 /* SuggestionScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E12F83519DCEF04006D1502 /* SuggestionScreenViewController.xib */; };
 		7ED0108419DCB44E00B6101F /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ED0108319DCB44E00B6101F /* FacebookSDK.framework */; };
 		7ED86B2019DC38850094A54F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ED86B1F19DC38850094A54F /* Foundation.framework */; };
 		7ED86B2219DC38850094A54F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ED86B2119DC38850094A54F /* CoreGraphics.framework */; };
@@ -37,6 +39,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7E12F83319DCEF04006D1502 /* SuggestionScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionScreenViewController.h; sourceTree = "<group>"; };
+		7E12F83419DCEF04006D1502 /* SuggestionScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionScreenViewController.m; sourceTree = "<group>"; };
+		7E12F83519DCEF04006D1502 /* SuggestionScreenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuggestionScreenViewController.xib; sourceTree = "<group>"; };
 		7ED0108319DCB44E00B6101F /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		7ED86B1C19DC38850094A54F /* FaceMala.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FaceMala.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7ED86B1F19DC38850094A54F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -131,6 +136,9 @@
 				7ED86B5319DCB3590094A54F /* SecondScreenViewController.xib */,
 				7ED86B3119DC38870094A54F /* Images.xcassets */,
 				7ED86B2619DC38850094A54F /* Supporting Files */,
+				7E12F83319DCEF04006D1502 /* SuggestionScreenViewController.h */,
+				7E12F83419DCEF04006D1502 /* SuggestionScreenViewController.m */,
+				7E12F83519DCEF04006D1502 /* SuggestionScreenViewController.xib */,
 			);
 			path = FaceMala;
 			sourceTree = "<group>";
@@ -241,6 +249,7 @@
 			files = (
 				7ED86B2A19DC38860094A54F /* InfoPlist.strings in Resources */,
 				7ED86B3219DC38870094A54F /* Images.xcassets in Resources */,
+				7E12F83719DCEF04006D1502 /* SuggestionScreenViewController.xib in Resources */,
 				7ED86B5719DCB3590094A54F /* SecondScreenViewController.xib in Resources */,
 				7ED86B5519DCB3590094A54F /* FirstAppViewController.xib in Resources */,
 			);
@@ -262,6 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7ED86B5419DCB3590094A54F /* FirstAppViewController.m in Sources */,
+				7E12F83619DCEF04006D1502 /* SuggestionScreenViewController.m in Sources */,
 				7ED86B3019DC38860094A54F /* AppDelegate.m in Sources */,
 				7ED86B5619DCB3590094A54F /* SecondScreenViewController.m in Sources */,
 				7ED86B2C19DC38860094A54F /* main.m in Sources */,

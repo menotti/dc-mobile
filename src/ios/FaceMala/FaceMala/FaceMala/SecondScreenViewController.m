@@ -30,6 +30,9 @@
     self.lblUsername.text = self.profileName;
     self.lblEmail.text = self.profileEmail;
     self.profilePicture.profileID = self.profilePic;
+    self.lblProfileId.text = self.profileId;
+    
+    [self.lblProfileId setFont:[UIFont systemFontOfSize:9]];
     
     self.navigationItem.title = @"User";
 }
@@ -63,36 +66,18 @@
                           }];
 }
 
-- (IBAction)compartilharManual:(id)sender {
+- (IBAction)manualShare:(id)sender {
    
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                   @"FACE MALA", @"name",
-                                   @"Testes automatizados.", @"caption",
-                                   @"Seu aliado nas postagens", @"description",
-                                   @"http://mobile.dc.ufscar.br", @"link",
-                                   @"http://mobile.dc.ufscar.br/img/LogoDC.jpg", @"picture",
-                                   nil];
+  
     
-    // Show the feed dialog
-    [FBWebDialogs presentFeedDialogModallyWithSession:nil
-     parameters:params handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
-         if (error) {
-                 NSLog(@"Error publishing story: %@", error.description);
-         } else {
-                if (result == FBWebDialogResultDialogNotCompleted) {
-                   NSLog(@"User cancelled.");
-                } else {
-                    NSDictionary *urlParams = [self parseURLParams:[resultURL query]];
-                         if (![urlParams valueForKey:@"post_id"]) {
-                            NSLog(@"User cancelled.");
-                        } else {
-                            NSString *result = [NSString stringWithFormat: @"Posted story, id: %@", [urlParams valueForKey:@"post_id"]];
-                            NSLog(@"result %@", result);
-                         }
-                    }
-                 }
-           }];
+}
+
+- (IBAction)openSuggestionScreen:(id)sender {
+    SuggestionScreenViewController *suggestionScreen = [[SuggestionScreenViewController alloc] initWithNibName:@"SuggestionScreenViewController" bundle:nil];
     
+    suggestionScreen.profileId = self.profileId;
+    
+    [self.navigationController pushViewController:suggestionScreen animated:true];
 }
 
 - (NSDictionary*)parseURLParams:(NSString *)query {
