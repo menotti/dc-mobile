@@ -12,8 +12,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
     FirstAppViewController *viewController = [[FirstAppViewController alloc] initWithNibName:@"FirstAppViewController" bundle:nil];
@@ -26,6 +27,25 @@
     return YES;
 }
 
+-(void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    NSLog(@"Background Fetch!");
+    
+ /*
+    if(failedFetch) { // use your own flag here
+        completionHandler(UIBackgroundFetchResultFailed);
+    }
+    else {
+        if(newDataFetched) { // use your own flag here
+            completionHandler(UIBackgroundFetchResultNewData);
+        }
+        else {
+            completionHandler(UIBackgroundFetchResultNoData);
+        }
+    }
+*/
+    
+}
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

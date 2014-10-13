@@ -219,6 +219,13 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Ufscar;
 				TargetAttributes = {
+					7ED86B1B19DC38850094A54F = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
 					7ED86B3619DC38870094A54F = {
 						TestTargetID = 7ED86B1B19DC38850094A54F;
 					};
