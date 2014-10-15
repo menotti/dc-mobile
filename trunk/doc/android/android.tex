@@ -1,8 +1,5 @@
-% !TEX program = xelatexmk
-\documentclass[a4paper,12pt,brazil]{book}
+\documentclass[a4paper,12pt,brazil,oneside]{book}
 
-% tentei incluir o da pasta comum mas não funcionou
-% \include{../comum/header}
 \input{header.tex}
 
 \title{Título}
@@ -22,36 +19,19 @@
 \pagestyle{plain}
 \pagenumbering{roman}
 
-\setcounter{tocdepth}{1} % 0 capítulos, 1 seções, 2 subseções
-\tableofcontents
-\clearpage % se o verso ficar em branco...% VAI
+\chapter*{Sobre este documento}
+\addcontentsline{toc}{chapter}{Sobre}
+Os seguintes autores contribuíram para a elaboração deste material, a revisão indicada é a última realizada por cada um deles:
+  \begin{itemize}
+	\item Caio Cesar Almeida Pegoraro \dotfill r112
+	\item José Eduardo da Silva Teixeira Junior \dotfill r98
+    \item Matheus Fernando Finatti \dotfill r86
+  \end{itemize}
+O código fonte do material, bem como de todos os exemplos usados, encontra-se disponível em \href{http://mobile.dc.ufscar.br/}{http://mobile.dc.ufscar.br/}.
 \thispagestyle{empty}
-
-\listoffigures
-\addcontentsline{toc}{section}{Lista de Figuras}
-\clearpage % se o verso ficar em branco...% VAI
-\thispagestyle{empty}
-
-\listoftables
-\addcontentsline{toc}{section}{Lista de Tabelas}
-\clearpage % se o verso ficar em branco...% VAI
-\thispagestyle{empty}
-
-\listoflistings
-\addcontentsline{toc}{section}{Lista de Algoritmos}
-\clearpage % se o verso ficar em branco...% VAI
-\thispagestyle{empty}
-
-\chapter*{Lista de Abreviaturas}
-\addcontentsline{toc}{section}{Lista de Abreviaturas}
-\begin{longtable}{ll}
-\end{longtable}
-
-\usemintedstyle{perldoc}
-
 
 \chapter*{Resumo}
-\addcontentsline{toc}{section}{Resumo}
+\addcontentsline{toc}{chapter}{Resumo}
 
 \begin{singlespace}
 Esse material didático oferece uma visão geral de como programar para o sistema móvel Android e utilizar suas APIs nativas na criação de aplicativos. O material tentará cobrir desde o básico, como a configuração do ambiente de desenvolvimento, criação de layouts básicos e complexos, estrutura geral de um aplicativo e, finalmente, apresentar a programação de aplicativos mais complexos que utilizam APIs nativas.
@@ -59,17 +39,36 @@ Esse material didático oferece uma visão geral de como programar para o sistem
 O objetivo é fornecer noções sobre como utilizar as ferramentas do Android, introduzir os conceitos sem entrar em detalhes aprofundados do sistema operacional e assim disponibilizar uma visão básica sobre o assunto.
 Após a leitura desse material e realização da prática o leitor deverá estar preparado para construir seus próprios aplicativos nativos, e poderá até monetizá-los se desejar.
 \end{singlespace}
-
-\clearpage % se o verso ficar em branco...
 \thispagestyle{empty}
+
+
+\setcounter{tocdepth}{1} % 0 capítulos, 1 seções, 2 subseções
+\tableofcontents
+\thispagestyle{empty}
+
+\listoffigures
+\addcontentsline{toc}{chapter}{Lista de Figuras}
+\thispagestyle{empty}
+
+\listoftables
+\addcontentsline{toc}{chapter}{Lista de Tabelas}
+\thispagestyle{empty}
+
+\listoflistings
+\thispagestyle{empty}
+
+%\chapter*{Lista de Abreviaturas}
+%\addcontentsline{toc}{section}{Lista de Abreviaturas}
+%\begin{longtable}{ll}
+%\end{longtable}
+
+\usemintedstyle{perldoc}
 
 \thispagestyle{empty}
 
 \doublespace
 %\onehalfspace
 %\singlespace
-
-\clearpage
 
 \pagestyle{body}
 \pagenumbering{arabic}
@@ -81,8 +80,6 @@ Após a leitura desse material e realização da prática o leitor deverá estar
 O Android hoje está em centenas de milhões de dispositivos móveis ao redor do mundo, e vem crescendo. É uma plataforma para desenvolvimento em dispositivos móveis como \emph{smartphones}, \emph{tablets} e outros. 
 
 Construído em uma colaboração \emph{open-source} com a comunidade de Linux, o Android se tornou a plataforma móvel mais utilizada e que mais cresce no mundo. Sua abertura o tornou o favorito de consumidores e desenvolvedores, levando a um rápido crescimento no número de aplicativos e jogos. Está disponível em centenas de dispositivos diferentes e de fabricantes diferentes em versões diferentes.
-
-%% Inicio da edição José Eduardo 14/04/2014
 
 Atualmente\footnote{Data em que foi escrito: 04/2014} existem 5 principais versões do Android, são elas da mais atual para mais antiga:
 \bi
