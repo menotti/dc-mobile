@@ -61,20 +61,27 @@
    }
 
    if($found==FALSE){
-       $post_id        =   0;
+       $post_id        =   "0";
        $post_name      =   "Oh";
-       $post_caption   =   "no posts";
-       $post_description = "for you :(";
+       $post_caption   =   "for you";
+       $post_description = "no posts :(";
        $post_link      = "http://mobile.dc.ufscar.br";
        $post_picture   = "https://cdn4.iconfinder.com/data/icons/windev-contacts-2/512/cry-512.png";
    }
+
+    mysql_free_result(categorySearch);
+    mysql_free_result(preferenceSearch);
+    mysql_free_result(postSearch);
+    mysql_free_result(categorySearchForName);
+
+    mysql_close ($link);
 ?>
 
-{"post_id":<?php echo $post_id ?>,
+{"post_id":"<?php echo $post_id ?>",
 "post_name":"<?php echo $post_name ?>",
 "post_caption":"<?php echo $post_caption ?>",
 "post_description":"<?php echo $post_description ?>",
 "post_link":"<?php echo $post_link ?>",
 "post_picture":"<?php echo $post_picture ?>",
 "post_category":"<?php echo $post_category ?>",
-"post_category_id":<?php echo $temp ?>}
+"post_category_id":"<?php echo $temp ?>"}
