@@ -11,10 +11,27 @@
 \usepackage{bookman}                        %%% Fonte de Letras
 \usepackage{enumerate}
 \usepackage{lettrine}
+
+	
+\usepackage{framed}
+\usepackage{enumitem}
+\usepackage[htt]{hyphenat}
+
+\usepackage{hyperref}
+\hypersetup{
+%  backref, %omitir na versão final
+  pdfsubject =	{...},
+  pdftitle =	{...},
+  pdfkeywords = {...},
+  pdfauthor =	{Ricardo Menotti, Daniel Lucrédio, ...},
+  colorlinks =	{true}, %true na versão final
+  linkcolor =	{black!50!blue},
+  citecolor =	{black!50!blue},
+  urlcolor =	{black!50!blue},
+}
+
 \usepackage[chapter]{minted}
 \usepackage{caption}
-
-\usepackage{framed}
 
 %\usepackage{listings}
 %\lstset{
@@ -70,7 +87,6 @@
 \renewcommand\listoflistingscaption{Lista de Algoritmos}
 
 \renewcommand{\listoflistings}{%
-  \cleardoublepage
   \addcontentsline{toc}{chapter}{\listoflistingscaption}%
   \listof{listing}{\listoflistingscaption}%
 }
@@ -90,18 +106,6 @@
 \usepackage[sort]{natbib}
 \usepackage[a4paper,top=30mm,bottom=20mm,left=30mm,right=20mm]{geometry}
 
-\usepackage{hyperref}
-\hypersetup{
-%  backref, %omitir na versão final
-  pdfsubject =	{...},
-  pdftitle =	{...},
-  pdfkeywords = {...},
-  pdfauthor =	{Ricardo Menotti, Daniel Lucrédio, ...},
-  colorlinks =	{true}, %true na versão final
-  linkcolor =	{black!50!blue},
-  citecolor =	{black!50!blue},
-  urlcolor =	{black!50!blue},
-}
 
 \exhyphenpenalty = 10000
 
@@ -115,6 +119,8 @@
 \newcommand{\ei}{\end{itemize}}
 \newcommand{\be}{\begin{enumerate}}
 \newcommand{\ee}{\end{enumerate}}
+
+\definecolor{Gray}{gray}{0.9}
 
 % using \autoref{} instead
 %\newcommand{\reffig}[1]{Figura~\ref{fig:#1}}
@@ -138,6 +144,13 @@
   \caption{#2}
   \label{fig:#1}
 \end{figure}
+}
+
+%%DICA
+\newcommand{\dica}[1]{
+\begin{framed}
+\textbf{Dica:} #1
+\end{framed}
 }
 
 \newcommand{\ew}[1]{\selectlanguage{english}\emph{#1}\selectlanguage{brazil}}

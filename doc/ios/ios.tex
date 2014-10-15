@@ -1,6 +1,5 @@
-\documentclass[a4paper,12pt,brazil,doubleside]{book}
+\documentclass[a4paper,12pt,brazil,oneside]{book}
 
-%CAIO: movi o header.tex para pasta raiz do ios.tx (junto com o biblio.bib)
 \input{header.tex}
 
 \title{Título}
@@ -10,36 +9,72 @@
 
 \include{capa}
 
-\cleardoublepage
+\pagestyle{empty}
 
+\clearpage
+
+\selectlanguage{brazil}
 \onehalfspace
 
 \pagestyle{plain}
-\pagenumbering{arabic}
+\pagenumbering{roman}
+
+\chapter*{Sobre este documento}
+\addcontentsline{toc}{chapter}{Sobre}
+Os seguintes autores contribuíram para a elaboração deste material, a revisão indicada é a última realizada por cada um deles:
+  \begin{itemize}
+	\item Caio Cesar Almeida Pegoraro \dotfill r112
+    \item Régis Magno Zangirolami \dotfill r77
+  \end{itemize}
+O código fonte do material, bem como de todos os exemplos usados, encontra-se disponível em \href{http://mobile.dc.ufscar.br/}{http://mobile.dc.ufscar.br/}.
+\thispagestyle{empty}
+
+\chapter*{Resumo}
+\addcontentsline{toc}{chapter}{Resumo}
+
+\begin{singlespace}
+Esse material didático oferece uma visão geral de como programar para o sistema móvel iOS e utilizar suas APIs nativas na criação de aplicativos. O material tentará cobrir desde o básico, como a configuração do ambiente de desenvolvimento, criação de layouts básicos e complexos, estrutura geral de um aplicativo e, finalmente, apresentar a programação de aplicativos mais complexos que utilizam APIs nativas.
+
+O objetivo é fornecer noções sobre como utilizar as ferramentas do iOS, introduzir os conceitos sem entrar em detalhes aprofundados do sistema operacional e assim disponibilizar uma visão básica sobre o assunto.
+Após a leitura desse material e realização da prática o leitor deverá estar preparado para construir seus próprios aplicativos nativos, e poderá até monetizá-los se desejar.
+\end{singlespace}
+\thispagestyle{empty}
+
 
 \setcounter{tocdepth}{1} % 0 capítulos, 1 seções, 2 subseções
-
 \tableofcontents
-	
-\clearpage % se o verso ficar em branco...% VAI
-
-\lstset{language=[Objective]C}
+\thispagestyle{empty}
 
 \listoffigures
+\addcontentsline{toc}{chapter}{Lista de Figuras}
+\thispagestyle{empty}
 
-\addcontentsline{toc}{section}{Lista de Figuras}
-\clearpage % se o verso ficar em branco...% VAI
+\listoftables
+\addcontentsline{toc}{chapter}{Lista de Tabelas}
 \thispagestyle{empty}
 
 \listoflistings
-
-\addcontentsline{toc}{section}{Lista de Algoritmos}
-\clearpage % se o verso ficar em branco...% VAI
 \thispagestyle{empty}
 
-\chapter{Introdução}
+%\chapter*{Lista de Abreviaturas}
+%\addcontentsline{toc}{section}{Lista de Abreviaturas}
+%\begin{longtable}{ll}
+%\end{longtable}
 
-\begin{singlespace}
+\usemintedstyle{perldoc}
+
+\thispagestyle{empty}
+
+\doublespace
+%\onehalfspace
+%\singlespace
+
+\pagestyle{body}
+\pagenumbering{arabic}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\cha{introducao}{Introdução}
+
 Este material tem a intenção de auxiliar qualquer programador, de estudante a profissional, no desenvolvimento de aplicativos para a plataforma iOS. Passaremos do básico da plataforma de desenvolvimento, com a teoria da linguagem e a configuração do ambiente, até a parte prática com integração entre hardware e software, voltado tanto para projetos pequenos como projetos maiores em equipe.
 
 Antes de mais nada, uma boa noção de Orientação a Objeto é pré-requisito para o entendimento adequado dos conceitos que serão passados. Trataremos do assunto ao longo de todo o material, então esteja com o vocabulário na ponta da língua. Alguma experiência com C ou Java também é desejável devivo à proximidade com Objective-C.
@@ -4429,8 +4464,6 @@ Com isso nosso jogo está em um bom nível de jogabilidade, as práticas descrit
 \paragraph{}\textbf{Dica}: As informações e práticas para o desenvolvimento desse jogo foram extraídas com base no material disponível em:
 \textit{ \\\(http://digitalbreed.com/category/game-development\)}
 \end{framed}
-
-\end{singlespace}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \singlespace
