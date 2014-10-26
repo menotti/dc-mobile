@@ -1,5 +1,8 @@
 \documentclass[a4paper,12pt,brazil,oneside]{book}
 
+\usepackage{hyperref}
+
+
 \input{header.tex}
 
 \title{Título}
@@ -9,15 +12,13 @@
 
 \include{capa}
 
-\pagestyle{empty}
+\cleardoublepage
 
-\clearpage
-
-\selectlanguage{brazil}
 \onehalfspace
 
 \pagestyle{plain}
-\pagenumbering{roman}
+\pagenumbering{arabic}
+
 
 \chapter*{Sobre este documento}
 \addcontentsline{toc}{chapter}{Sobre}
@@ -39,44 +40,37 @@ Esse material didático oferece uma visão geral de como programar para o sistem
 O objetivo é fornecer noções sobre como utilizar as ferramentas do Android, introduzir os conceitos sem entrar em detalhes aprofundados do sistema operacional e assim disponibilizar uma visão básica sobre o assunto.
 Após a leitura desse material e realização da prática o leitor deverá estar preparado para construir seus próprios aplicativos nativos, e poderá até monetizá-los se desejar.
 \end{singlespace}
-\thispagestyle{empty}
-
 
 \setcounter{tocdepth}{1} % 0 capítulos, 1 seções, 2 subseções
+
 \tableofcontents
-\thispagestyle{empty}
+	
+\clearpage % se o verso ficar em branco...% VAI
+
+\lstset{language=[Objective]C}
 
 \listoffigures
+
 \addcontentsline{toc}{chapter}{Lista de Figuras}
+\clearpage % se o verso ficar em branco...% VAI
 \thispagestyle{empty}
+
+\listoflistings
+
+\addcontentsline{toc}{chapter}{Lista de Algoritmos}
+\clearpage % se o verso ficar em branco...% VAI
+\thispagestyle{empty}
+
 
 \listoftables
 \addcontentsline{toc}{chapter}{Lista de Tabelas}
 \thispagestyle{empty}
 
-\listoflistings
-\thispagestyle{empty}
 
-%\chapter*{Lista de Abreviaturas}
-%\addcontentsline{toc}{section}{Lista de Abreviaturas}
-%\begin{longtable}{ll}
-%\end{longtable}
+\chapter{Introdução}
 
-\usemintedstyle{perldoc}
+\begin{singlespace}
 
-\thispagestyle{empty}
-
-\doublespace
-%\onehalfspace
-%\singlespace
-
-\pagestyle{body}
-\pagenumbering{arabic}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\cha{introducao}{Introdução}
-%\setcounter{page}{1}
-%7-10p
 O Android hoje está em centenas de milhões de dispositivos móveis ao redor do mundo, e vem crescendo. É uma plataforma para desenvolvimento em dispositivos móveis como \emph{smartphones}, \emph{tablets} e outros. 
 
 Construído em uma colaboração \emph{open-source} com a comunidade de Linux, o Android se tornou a plataforma móvel mais utilizada e que mais cresce no mundo. Sua abertura o tornou o favorito de consumidores e desenvolvedores, levando a um rápido crescimento no número de aplicativos e jogos. Está disponível em centenas de dispositivos diferentes e de fabricantes diferentes em versões diferentes.
@@ -95,12 +89,8 @@ Atualmente\footnote{Data em que foi escrito: 04/2014} existem 5 principais vers�
 \footnote{\emph{Gingerbread}: \href{http://developer.android.com/about/versions/android-2.3-highlights.html}{http://developer.android.com/about/versions/android-2.3-highlights.html}}
 \ei
 
-O Google coletou os dados referentes a distribuição das versões do Android durante um período de 7 dias acabando em 1 de abril de 2014. Na \autoref{tab:distro} são apresentados os resultados obtidos, cuja proporção pode ser observada na \autoref{fig:dist}. Como esses dados são adquiridos por meio do novo aplicativo da Play Store, o qual dá apenas suporte para o Android 2.2 e superior, versões mais antigas não estão inclusas. Todavia, em Agosto de 2013, versões mais antigas que o Android 2.2 somavam um total de 1\% dos dispositivos que logaram nos servidores da Google.
-
-
 \begin{table}[htb!]
   \centering
-    \label{tab:distro}
     \begin{tabular}{llcr}
      \rowcolor{Gray} \hline 
     Versão        & Codinome           & API & Distribuição \\ \hline \hline
@@ -113,17 +103,20 @@ O Google coletou os dados referentes a distribuição das versões do Android du
     4.3         & Jelly Bean         & 18  & 8.9\%        \\ 
     4.4         & KitKat        & 19  & 5.3\%        \\ \hline
     \end{tabular}
-    % REITRADO DE: http://developer.android.com/about/dashboards/index.html
     \caption{Distribuição das versões do Android em 1 de abril de 2014.}
+     \label{tab:distribuicaoAndroid}
 \end{table}
 
-\begin{figure}[htb!]
-  \centering
-  \includegraphics[width=.85\textwidth]{figuras/chart.png}
-  \caption{Distribuição das versões do Android em 1 de abril de 2014.}
-  \label{fig:dist}
-\end{figure}
+O Google coletou os dados referentes a distribuição das versões do Android durante um período de 7 dias acabando em 1 de abril de 2014. Na \autoref{tab:distribuicaoAndroid} são apresentados os resultados obtidos, cuja proporção pode ser observada na \autoref{fig:distribuicaoAndroid}. 
 
+Como esses dados são adquiridos por meio do novo aplicativo da Play Store, o qual dá apenas suporte para o Android 2.2 e superior, versões mais antigas não estão inclusas. Todavia, em Agosto de 2013, versões mais antigas que o Android 2.2 somavam um total de 1\% dos dispositivos que logaram nos servidores da Google.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.75\textwidth]{figuras/introducao/chart.png}
+  \caption{Distribuição das vendas do Android em 1 de abril de 2014.}
+  \label{fig:distribuicaoAndroid}
+\end{figure}
 
 Esse material irá cobrir alguns tópicos no desenvolvimento de aplicativos para Android, tais como:
 \bi
@@ -139,23 +132,24 @@ Para esse material, algumas convenções serão seguidas:
   \item Dicas estarão envoltas por uma caixa para facilitar a visualização.
 \ei
 
-% http://tug.ctan.org/tex-archive/macros/latex/contrib/minted/
-% http://pygments.org/
+\chapter{Configuração do Ambiente}
 
-\cha{configambiente}{Configuração do Ambiente}
 A instalação e configuração do ambiente de desenvolvimento para Android é simples, o Google fornece um pacote chamado ADT \emph{(Android Development Tools)} que contém o ambiente Eclipse com o \emph{plugin} do Android, algumas ferramentas para instalação dos aplicativos nos \emph{smartphones}, o gerenciador do SDK e as imagens para o emulador do Android. Essas ferramentas são suficientes para o desenvolvimento na plataforma.
 O pacote ADT pode ser encontrado em: \href{http://developer.android.com/sdk/}{Android SDK}\footnote{\href{http://developer.android.com/sdk/}{http://developer.android.com/sdk/}}. 
 
 Basta fazer o download do pacote e extrair que tudo já está pré-configurado para iniciar o desenvolvimento, portanto não há muito o que configurar.
 
 Caso opte por utilizar uma instalação já existente do ambiente Eclipse, você pode instalar o plugin do Android automaticamente através da ferramenta de instalação de plugins do ambiente. Após a instalação será necessário abrir o \emph{SDK Manager} e instalar:
-\begin{itemize}[noitemsep, nolistsep]
-\item \emph{Android SDK Tools};
-\item \emph{Android SDK Platform-Tools}; e
-\item Para cada API que você irá utilizar, instalar o \emph{SDK Platform} e opcionalmente o \emph{Documentation for Android SDK} e o \emph{Samples for SDK}.
-\end{itemize}
 
-\cha{intro-android}{Linguagem do Android}
+\bi
+  \item Android SDK Tools.
+  \item Android SDK Platform-Tools.
+  \item Dicas estarão envoltas por uma caixa para facilitar a visualização.
+\ei
+
+E para cada API que você irá utilizar, instalar o \emph{SDK Platform} e opcionalmente o \emph{Documentation for Android SDK} e o \emph{Samples for SDK}
+
+\chapter{Linguagem do Android}
 \section{Linguagem}
 A linguagem usada para programar na plataforma Android é Java. Então, antes de engajar no aprendizado Android é recomendável estudar algum material sobre Java e principalmente o paradigma de orientação a objetos.
 
@@ -178,10 +172,6 @@ Dentro da pasta \texttt{res/} de recursos, encontram-se outros arquivos, referen
 Na pasta \texttt{values/} o mais importante é o arquivo \texttt{strings.xml} que contém os valores das strings do aplicativo. Sempre que você quiser referenciar alguma string, a mesma deverá estar expressa nesse arquivo. Fica fácil dessa forma fazer o aplicativo suportar múltiplos idiomas, pois basta traduzir esse único arquivo para alterar todos os textos do aplicativo.
 
 A pasta \texttt{menu/} contém os \emph{layouts} do menus do aplicativo, esses são aqueles que podem ser acessados através da \emph{Action Bar}\footnote{\emph{ActionBar}: \href{http://developer.android.com/design/patterns/actionbar.html}{http://developer.android.com/design/patterns/actionbar.html}} ou através dos botões físicos do aparelho.
-
-%%NÃO COMPILA%%
-
-%%IGNORAR TUDO ATE O \fi
 
 \section{Alguns arquivos importantes:}
 
@@ -206,20 +196,18 @@ Sempre que um recurso é adicionado no projeto, como por exemplo, uma nova image
 Esta é a classe principal do projeto e representa a tela inicial da aplicação. Observe que essa classe é filha de \emph{android.app.Activity}.
 A classe \emph{android.app.Activity} representa uma tela da aplicação e é responsável por controlar o estado e os eventos da tela. Assim, para cada tela da aplicação você criará uma classe-filha de \emph{Activity}. O método \emph{onCreate(bundle)} precisa ser implementado obrigatoriamente e é chamado de forma automática pelo Android quando a tela é criada. No entanto, a classe \emph{android.app.Activity} não sabe desenhar nada na tela e para isso precisa da ajuda da classe \emph{android.view.View} que, por sua vez, se encarrega de desenhar os componentes visuais, como campos de texto, botões e imagens. Para isso, existem diversas subclasses especializadas de \emph{android.view.View}.
 
-
 \textbf{AndroidManifest.xml:}
 
 O arquivo \emph{AndroidManifest.xml} é o arquivo principal do projeto e centraliza as configurações da aplicação. Note que existe, no arquivo xml a tag \emph{uses-sdk} a qual é utilizada para informar o level mínimo da API exigido pela aplicação. Por exemplo, uma aplicação pode ser compatível com a API level 8 mas otimizado para a 19, isto é, o Android 4.4: \emph{<uses-sdk android:minSdkVersion="8"   android:targetSkdVersion="19"  />}
 
 
 
-\newpage
 \textbf{Resumindo:}
-\begin{itemize}[noitemsep, nolistsep]
+\begin{itemize}
 \item \texttt{AndroidManifest.xml}: Configurações gerais do aplicativo;
 \item \texttt{src/}: Classes do aplicativo; e
 \item \texttt{res/}: Recursos do aplicativo tais que:
-	\begin{itemize}[nolistsep, noitemsep]
+	\begin{itemize}
 		\item \texttt{strings/}: Todos os textos da sua aplicação, suporte a múltiplos idiomas;	
 		\item \texttt{layout/}: Todos os \emph{layouts} de suas telas \emph{(activites)};
 		\item \texttt{drawable/}: Todas as imagens, separados por tamanho de tela; e
@@ -227,9 +215,8 @@ O arquivo \emph{AndroidManifest.xml} é o arquivo principal do projeto e central
 	\end{itemize}
 \end{itemize}
 
-
-%% FIRST APP %%
-\cha{primeiro-aplicativo}{Criando seu primeiro aplicativo}
+%First App
+\chapter{Criando seu primeiro aplicativo}
 Para exemplificar a criação de um aplicativo, seguiremos o exemplo dado pelo próprio manual do Google sobre o Android 
 (Ver original\footnote{Original em: \href{http://developer.android.com/training/basics/firstapp/creating-project.html}{http://developer.android.com/training/basics/firstapp/creating-project.html}}). 
 Trata-se de aplicativo simples do tipo \emph{''Hello World''}.
@@ -237,55 +224,57 @@ Trata-se de aplicativo simples do tipo \emph{''Hello World''}.
 Iniciaremos criando um novo projeto no Eclipse acessando o menu: \emph{File -> New -> Android Application Project}.
 
 Na janela que apareceu você deve colocar o nome do aplicativo, do projeto e do pacote. O nome do pacote deve seguir a convenção do Java\footnote{Convenção sobre nome dos pacotes: \href{http://docs.oracle.com/javase/tutorial/java/package/namingpkgs.html}{http://docs.oracle.com/javase/tutorial/java/package/namingpkgs.html}}.
-\begin{itemize}[noitemsep]
+\begin{itemize}
 	\item \textit{Minimum Required SDK:} É a versão mínima do sistema operacional Android que sua aplicação irá suportar, o mais comum é a versão 8 do SDK que se refere ao Android 2.2. Alguns tipos de layouts mais complexos não são suportados em versões mais antigas;
 	\item \textit{Target SDK:} É a versão principal do Android para qual seu aplicativo está sendo desenvolvido;
 	\item \textit{Compile With:} Versão do Android com qual seu aplicativo será compilado; e
 	\item \textit{Theme:} Cores do layout.
 \end{itemize}
 
-Observe na \autoref{fig:newapp1} a janela de criação de uma nova aplicação Android. Em \emph{Application Name} você deve colocar o nome do aplicativo, em \emph{Project Name}, o nome do projeto e em \emph{Package Name} o nome do pacote. Para esse exemplo utilizaremos como \emph{Minimum Required SDK} a versão API 8, já que nesse exemplo não usaremos nenhum layout que não é suportado em versões mais antigas. Em \emph{Target SDK} e \emph{Compile With} optaremos pela versão mais nova, a API 17. Por final o \emph{Theme} eu optei pelo \emph{Holo Light with Dark Action Bar} que é um tema com fundo branco e barra superior preta, um dos padrões do Android.
+Observe na \autoref{fig:firstapp1} a janela de criação de uma nova aplicação Android. Em \emph{Application Name} você deve colocar o nome do aplicativo, em \emph{Project Name}, o nome do projeto e em \emph{Package Name} o nome do pacote. Para esse exemplo utilizaremos como \emph{Minimum Required SDK} a versão API 8, já que nesse exemplo não usaremos nenhum layout que não é suportado em versões mais antigas. Em \emph{Target SDK} e \emph{Compile With} optaremos pela versão mais nova, a API 17. Por final o \emph{Theme} eu optei pelo \emph{Holo Light with Dark Action Bar} que é um tema com fundo branco e barra superior preta, um dos padrões do Android.
 
 \begin{framed}
-\textbf{Dica:} Para obter o máximo de compatibilidade sempre procure utilizar \emph{layouts} compatíveis com versões antigas, observe na \autoref{fig:dist} que versões antigas ainda tem uma fatia considerável do mercado.
+\textbf{Dica:} Para obter o máximo de compatibilidade sempre procure utilizar \emph{layouts} compatíveis com versões antigas, observe na \autoref{fig:distribuicaoAndroid} que versões antigas ainda tem uma fatia considerável do mercado.
 \end{framed}
 
-\begin{figure}[htb!]
+\begin{figure}[H]
   \centering
-  \label{fig:newapp1}
-  \includegraphics[width=.75\textwidth]{figuras/criandoapp1}
+  \includegraphics[width=.75\textwidth]{figuras/firstapp/firstapp1.png}
   \caption{Primeira janela de criação de novo aplicativo}
+  \label{fig:firstapp1}
 \end{figure}
 
-A \autoref{fig:newapp2} mostra a segunda janela da configuração inicial do seu aplicativo. 
 
-\begin{figure}[htb!]
+A \autoref{fig:firstapp2} mostra a segunda janela da configuração inicial do seu aplicativo. 
+
+\begin{figure}[H]
   \centering
-  \label{fig:newapp2}
-  \includegraphics[width=.75\textwidth]{figuras/criandoapp2.png}
+  \includegraphics[width=.75\textwidth]{figuras/firstapp/firstapp2.png}
   \caption{Segunda janela de criação de novo aplicativo}
+  \label{fig:firstapp2}
 \end{figure}
 
-Você pode escolher um ícone personalizado se marcar a caixa \emph{Create custom launcher icon} o que te levará para a janela da \autoref{fig:newapp3}. 
 
-\begin{figure}[htb!]
+Você pode escolher um ícone personalizado se marcar a caixa \emph{Create custom launcher icon} o que te levará para a janela da \autoref{fig:firstapp3}. 
+
+\begin{figure}[H]
   \centering
-  \label{fig:newapp3}
-  \includegraphics[width=.75\textwidth]{figuras/criandoapp3.jpg}
+  \includegraphics[width=.75\textwidth]{figuras/firstapp/firstapp3.png}
   \caption{Terceira janela de criação de novo aplicativo}
+  \label{fig:firstapp3}
 \end{figure}
   
-Se marcar \emph{Create Activity}  o assistente de criação te levará para a janela da \autoref{fig:newapp4} onde poderá escolher qual \emph{activity} vai ser criada para seu aplicativo. Em todos os exemplos escolheremos a opção \emph{Blank Activity}. Como nosso projeto não é uma biblioteca não marcaremos \emph{Mark this project as a library}. Se marcar \emph{Create Project in Workspace} o assistente irá salvar o projeto na pasta que foi configurada para o \emph{Workspace}, caso contrário ele irá pedir para escolher outro caminho. Como não trabalharemos com \emph{Working Sets} do Eclipse, a opção \emph{Add project to working sets} permanece desmarcada. 
+Se marcar \emph{Create Activity}  o assistente de criação te levará para a janela da \autoref{fig:firstapp4} onde poderá escolher qual \emph{activity} vai ser criada para seu aplicativo. Em todos os exemplos escolheremos a opção \emph{Blank Activity}. Como nosso projeto não é uma biblioteca não marcaremos \emph{Mark this project as a library}. Se marcar \emph{Create Project in Workspace} o assistente irá salvar o projeto na pasta que foi configurada para o \emph{Workspace}, caso contrário ele irá pedir para escolher outro caminho. Como não trabalharemos com \emph{Working Sets} do Eclipse, a opção \emph{Add project to working sets} permanece desmarcada. 
   
-\begin{figure}[htb!]  
+\begin{figure}[H]
   \centering
-  \label{fig:newapp4}
-  \includegraphics[width=.75\textwidth]{figuras/criandoapp4.png}
+  \includegraphics[width=.75\textwidth]{figuras/firstapp/firstapp4.png}
   \caption{Quarta janela de criação de novo aplicativo}
+  \label{fig:firstapp4}
 \end{figure}
  
-Finalmente a \autoref{fig:newapp5} mostra a janela para nomear a \emph{activity} inicial, nesse exemplo mantive \emph{MainActivity}. O nome do \emph{layout} dessa \emph{activity} mantive como \emph{activity\_main} que é o padrão. Na caixa \emph{Navigation Type} existem algumas opções de \emph{layout} pré-definidas pelo Android. São elas:
-\begin{itemize}[noitemsep, nolistsep]
+Finalmente a \autoref{fig:firstapp5} mostra a janela para nomear a \emph{activity} inicial, nesse exemplo mantive \emph{MainActivity}. O nome do \emph{layout} dessa \emph{activity} mantive como \emph{activity\_main} que é o padrão. Na caixa \emph{Navigation Type} existem algumas opções de \emph{layout} pré-definidas pelo Android. São elas:
+\begin{itemize}
 \item
 	\emph{None:} O \emph{layout} vem apenas com uma \emph{Action Bar}\footnote{Documentação da \emph{ActionBar}: \href{http://developer.android.com/guide/topics/ui/actionbar.html}{http://developer.android.com/guide/topics/ui/actionbar.html}}
 \item
@@ -298,19 +287,17 @@ Finalmente a \autoref{fig:newapp5} mostra a janela para nomear a \emph{activity}
 \end{itemize}
 
 
-\begin{figure}[htb!]
+\begin{figure}[H]
   \centering
-  \label{fig:newapp5}
-  \includegraphics[width=.75\textwidth]{figuras/criandoapp5.png}
+  \includegraphics[width=.75\textwidth]{figuras/firstapp/firstapp5.png}
   \caption{Quinta janela de criação de novo aplicativo}
+  \label{fig:firstapp5}
 \end{figure}
-
-
 
 
 Você pode configurar a versão do SDK manualmente modificando os valores no \emph{manifest}. Como mostrado no exemplo abaixo:
 
-\begin{singlespace}
+
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/firstapp/sdk-manifest.xml}
 \label{AndroidManifest.sdk}
@@ -319,24 +306,25 @@ Você pode configurar a versão do SDK manualmente modificando os valores no \em
 
 A tag \texttt{uses-sdk} serve apenas para o compilador saber quais versões do Android você pretende que seu aplicativo suporte. Dessa forma quando seu aplicativo for lançado na loja \emph{Google Play} o aplicativo só será visível para aqueles usuários que possuem a versão mínima do Android indicada no atributo.
 
-Primeiro vamos criar um \emph{layout} para o aplicativo usando o construtor de interfaces presente no ambiente, primeiro abra o arquivo \texttt{res/layout/activity\_main.xml} , segundo o \emph{manifest}, é essa \emph{activity} que será aberta quando o aplicativo for iniciado, isso é configurado através do \emph{intent-filter}\footnote{Mais informações na seção \ref{sec:especac}}. 
+Primeiro vamos criar um \emph{layout} para o aplicativo usando o construtor de interfaces presente no ambiente, primeiro abra o arquivo \texttt{res/layout/activity\_main.xml} , segundo o \emph{manifest}, é essa \emph{activity} que será aberta quando o aplicativo for iniciado, isso é configurado através do \emph{intent-filter}\footnote{Mais informações na \hyperref[sec:especac]{Seção \ref*{sec:especac}}}. 
 
 Selecione o ''Hello world'' e o remova da sua \emph{activity}.
 
 \begin{figure}[H]
   \centering
-  \includegraphics{figuras/3-criando-app.png}
-  \caption{Selecionando o Hello world}
-  \label{fig:b}
+  \includegraphics[width=.4\textwidth]{figuras/firstapp/firstapp6.png}
+  \caption{Selecionando o Hello World}
+  \label{fig:firstapp6}
 \end{figure}
 
-A tela deverá ficar parecida com a da figura 4.4. Agora arraste um \textit{Text Field -> Plain Text} e um \textit{Form Widgets -> Button} para sua \emph{activity}.
+A tela deverá ficar parecida com a \autoref{fig:firstapp6}. Agora arraste um \textit{Text Field -> Plain Text} e um \textit{Form Widgets -> Button} para sua \emph{activity}.
+
 
 \begin{figure}[H]
   \centering
-  \includegraphics{figuras/4-criando-app.png}
+  \includegraphics[width=.4\textwidth]{figuras/firstapp/firstapp7.png}
   \caption{\emph{activity} com os elementos colocados na tela}
-  \label{fig:a}
+  \label{fig:firstapp7}
 \end{figure}
 
 Ao clicar duas vezes no elemento no modo visual, você será levado ao marcador desse elemento no XML correspondente da \emph{activity}. Clique duas vezes na caixa de texto, o seguinte código será exibido:
@@ -352,7 +340,7 @@ Primeiro, na linha 2 modifique o \emph{id} do \emph{Text Field} para um nome mai
 \textbf{Dica:} Existem vários tipos de recursos, porém é importante salientar os diferentes tipos de \emph{id}. Quando referimos aos recursos podemos usar \texttt{@android:id/} para acessar recursos que já estão definidos no sistema Android. Usamos \texttt{@id/} para acessar recursos que já foram definidos no seu projeto. Para criar um novo recurso, usamos \texttt{@+id/}.
 \end{framed}
 
-Os outros atributos são para definir o tamanho, alinhamento e margem da caixa de texto. O valor \texttt{wrap\_content} dos atributos \texttt{layout\_width} e \texttt{layout\_height} (largura e altura, linhas 3 e 4) força a \emph{view} a mudar de tamanho automaticamente para abrigar seu conteúdo. Os atributos \texttt{layout\_alignParentLeft} e \texttt{layout\_alignParentTop} servem (linhas 5 e 6) para alinhar essa \emph{view} com a \emph{view} pai dela, dessa forma ficará alinhado com a borda esquerda e com a borda superior do pai. Os atributos \texttt{layout\_marginLeft} e \texttt{layout\_marginTop} (linhas 7 e 8) deslocam o elemento colocando uma margem entre a borda e a \emph{view}, esses valores estarão diferentes pois são computados automaticamente quando a \emph{view} é colocada através do construtor de interfaces. Note que isso só acontecerá caso esteja usando \texttt{RelativeLayout}\footnote{Mais informações na seção \ref{subsec:relativelayout}} que é o nosso caso. Por último o atributo \texttt{ems} (linha 9) configura o tamanho da fonte através da unidade de medida Em.
+Os outros atributos são para definir o tamanho, alinhamento e margem da caixa de texto. O valor \texttt{wrap\_content} dos atributos \texttt{layout\_width} e \texttt{layout\_height} (largura e altura, linhas 3 e 4) força a \emph{view} a mudar de tamanho automaticamente para abrigar seu conteúdo. Os atributos \texttt{layout\_alignParentLeft} e \texttt{layout\_alignParentTop} servem (linhas 5 e 6) para alinhar essa \emph{view} com a \emph{view} pai dela, dessa forma ficará alinhado com a borda esquerda e com a borda superior do pai. Os atributos \texttt{layout\_marginLeft} e \texttt{layout\_marginTop} (linhas 7 e 8) deslocam o elemento colocando uma margem entre a borda e a \emph{view}, esses valores estarão diferentes pois são computados automaticamente quando a \emph{view} é colocada através do construtor de interfaces. Note que isso só acontecerá caso esteja usando \texttt{RelativeLayout}\footnote{Mais informações na \hyperref[subsec:relativelayout]{Seção \ref*{subsec:relativelayout}}} que é o nosso caso. Por último o atributo \texttt{ems} (linha 9) configura o tamanho da fonte através da unidade de medida Em.
 
 Depois adicione uma \textit{hint} para essa caixa de texto, uma \textit{hint} é algo que vai estar escrito na caixa de texto quando ela estiver vazia, indicando que tipo de texto você pretende que seja escrito nessa caixa de texto, Neste exemplo (linha 10) a \textit{hint} é uma referência a \emph{string} chamada \emph{name} que iremos definir depois.
 
@@ -363,7 +351,8 @@ Depois modifique o código do botão que está no mesmo arquivo, troque o \emph{
 \caption{Código do botão}
 \end{listing}
 
-Agora iremos definir as \emph{strings} usadas anteriormente no arquivo \texttt{res/values/strings.xml}. Abra ele e o modifique para que fique como mostrado no Algoritmo \ref{code:arquivo-strings}.
+Agora iremos definir as \emph{strings} usadas anteriormente no arquivo \texttt{res/values/strings.xml}. Abra ele e o modifique para que fique como mostrado no 
+\hyperref[code:arquivo-strings]{Algoritmo \ref*{code:arquivo-strings}}
 
 \begin{listing}
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/firstapp/3.xml}
@@ -371,7 +360,8 @@ Agora iremos definir as \emph{strings} usadas anteriormente no arquivo \texttt{r
 \label{code:arquivo-strings}
 \end{listing}
 
-Após terminar abra a classe \texttt{MainActivity.java} localizada na pasta \texttt{src/com.example.meuapp/} do seu projeto e adicione um novo método que chamei de \emph{sendMessage}, ele será responsável por obter o conteúdo da caixa de texto e enviar para uma nova \emph{activity} que irá mostrar esse conteúdo.
+Após terminar abra a classe \texttt{MainActivity.java} localizada na pasta (navegue utilizando o explorador de arquivos)
+\texttt{src/com.example.firstapp/} do seu projeto e adicione um novo método que chamei de \emph{sendMessage}, ele será responsável por obter o conteúdo da caixa de texto e enviar para uma nova \emph{activity} que irá mostrar esse conteúdo.
 
 \begin{listing}
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/firstapp/4.java}
@@ -395,7 +385,7 @@ Primeiro, crie um novo \texttt{Intent}\footnote{Documentação Intent: \href{htt
 \label{code:obtendo-intent}
 \end{listing}
 
-Agora iremos obter o texto que está escrito na caixa para fazer algo com ele, no caso iremos enviar para outra \emph{activity} que irá mostrar esse texto. Como é feito no algoritmo \ref{code:obtendo-intent}.
+Agora iremos obter o texto que está escrito na caixa para fazer algo com ele, no caso iremos enviar para outra \emph{activity} que irá mostrar esse texto. Como é feito no \hyperref[code:obtendo-intent]{Algoritmo \ref*{code:obtendo-intent}}.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/firstapp/6.java}
@@ -413,16 +403,16 @@ Para que a próxima \emph{activity} consiga coletar esse valor, você deve defin
 \caption{Constante como chave para um extra}
 \end{listing}
 
-Agora você deve criar uma nova \emph{activity}, para isso vá em \textit{File -> New -> Other -> Android Activity} e selecione \textit{Blank Activity}. Preencha a próxima janela como na figura 4.8, depois clique \textit{Finish}. 
+Agora você deve criar uma nova \emph{activity}, para isso vá em \textit{File -> New -> Other -> Android Activity} e selecione \textit{Blank Activity}. Preencha a próxima janela como na \autoref{fig:firstapp8}, depois clique \textit{Finish}. 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=1\textwidth]{figuras/5-criando-app.png}
+  \includegraphics[width=.75\textwidth]{figuras/firstapp/firstapp8.png}
   \caption{Criando uma nova \emph{activity}}
-  \label{fig:e1}
+  \label{fig:firstapp8}
 \end{figure}
 
-Observe a figura 4.8. Em \emph{Project} você vai especificar o projeto em que a nova \emph{activity} será adicionado. Em \emph{Activity Name} especifique o nome da sua nova \emph{activity}. Em \emph{Layout Name} defina o nome do arquivo XML que contém o \emph{layout} da nova \emph{activity}. A opção \emph{Title} define o título da \emph{activity}, isso pode ser modificado posteriormente no arquivo de \emph{strings} pois o título será definido ali após a criação da \emph{activity}. A opção \emph{Launcher Activity} ficará desmarcada pois essa \emph{activity} não será usada para inicializar o aplicativo. Em \emph{Hierarchical Parent} você vai definir o pai da nova \emph{activity}, isso é usado para o Android implementar corretamente para qual \emph{activity} o botão de voltar irá voltar. Por último \emph{Navigation Type} deixe como \emph{None} pois só queremos o \emph{design} padrão. Clique em \emph{Finish} para criar a nova \emph{activity}.
+Observe na \autoref{fig:firstapp8}. Em \emph{Project} você vai especificar o projeto em que a nova \emph{activity} será adicionado. Em \emph{Activity Name} especifique o nome da sua nova \emph{activity}. Em \emph{Layout Name} defina o nome do arquivo XML que contém o \emph{layout} da nova \emph{activity}. A opção \emph{Title} define o título da \emph{activity}, isso pode ser modificado posteriormente no arquivo de \emph{strings} pois o título será definido ali após a criação da \emph{activity}. A opção \emph{Launcher Activity} ficará desmarcada pois essa \emph{activity} não será usada para inicializar o aplicativo. Em \emph{Hierarchical Parent} você vai definir o pai da nova \emph{activity}, isso é usado para o Android implementar corretamente para qual \emph{activity} o botão de voltar irá voltar. Por último \emph{Navigation Type} deixe como \emph{None} pois só queremos o \emph{design} padrão. Clique em \emph{Finish} para criar a nova \emph{activity}.
  
  % nota/dica necessaria?
 \begin{framed}
@@ -450,7 +440,7 @@ Agora para mostrar a mensagem na tela, você precisa criar um \texttt{TextView}\
 
 As linhas 3, 5 e 6 foram colocadas automaticamente na criação da \emph{activity}, a linha 3 faz uma chamada ao método da superclasse, a linha 6 é um método que inicializa a \emph{Action Bar}, que nesse aplicativo é a barra superior com o nome da \emph{activity} e um menu de opções que já vem pré-programado. Deixamos isso como está.
 
-O algoritmo \ref{code:obtendo-string-intent} foi colocado nas linhas 9 e 10 para obter a referência ao \emph{Intent}. Nas linhas 12-15 criamos um novo \texttt{TextView}, configuramos o tamanho da fonte e atribuímos o texto que será mostrado na tela a \emph{view}, respectivamente. 
+O \hyperref[code:obtendo-string-intent]{Algoritmo \ref*{code:obtendo-string-intent}} foi colocado nas linhas 9 e 10 para obter a referência ao \emph{Intent}. Nas linhas 12-15 criamos um novo \texttt{TextView}, configuramos o tamanho da fonte e atribuímos o texto que será mostrado na tela a \emph{view}, respectivamente. 
 
 Agora que o aplicativo está pronto, é necessário testar, caso tenha um smartphone Android você pode conectá-lo no seu computador e rodar diretamente, senão você deverá rodar em um emulador. Lembrando que para ambos os casos é necessária a instalação do SDK primeiro, acesse \emph{Android SDK Manager} e faça o download do SDK desejado.
 
@@ -490,22 +480,27 @@ Para rodar no emulador:
 \item Quando o emulador terminar de carregar, destrave a tela do emulador, usando o mouse.
 \ee
 
-Agora para rodar o aplicativo basta clicar em \emph{Run} na barra de tarefas do Eclipse e selecionar \textit{Android Application} na janela \emph{Run as}. O Eclipse irá instalar o APK e abrir o aplicativo automaticamente, no dispositivo ou no emulador. As figuras \ref{fig:1tela}, \ref{fig:1tela2} e \ref{fig:2tela} mostram a execução do aplicativo.
+Agora para rodar o aplicativo basta clicar em \emph{Run} na barra de tarefas do Eclipse e selecionar \textit{Android Application} na janela \emph{Run as}. O Eclipse irá instalar o APK e abrir o aplicativo automaticamente, no dispositivo ou no emulador. As figuras \autoref{fig:firstapp9}, \autoref{fig:firstapp10} e \autoref{fig:firstapp11} mostram a execução do aplicativo.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=.4\textwidth]{figuras/6-criando-app.png}
-  \caption{Primeira tela do primeiro aplicativo}
-  \label{fig:1tela}
-  \includegraphics[width=.4\textwidth]{figuras/7-criando-app.png}
-  \caption{Primeira tela após escrever texto na caixa de texto}
-  \label{fig:1tela2}
+  \includegraphics[width=.4\textwidth]{figuras/firstapp/firstapp9.png}
+  \caption{Primeira tela do aplicativo}
+  \label{fig:firstapp9}
 \end{figure}
+
 \begin{figure}[H]
   \centering
-  \includegraphics[width=.4\textwidth]{figuras/8-criando-app.png}
+  \includegraphics[width=.4\textwidth]{figuras/firstapp/firstapp10.png}
+  \caption{Primeira tela após digitar o texto}
+  \label{fig:firstapp10}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.4\textwidth]{figuras/firstapp/firstapp11.png}
   \caption{Segunda tela mostrando a mensagem enviada}
-  \label{fig:2tela}
+  \label{fig:firstapp11}
 \end{figure}
 
 %%%%%%% DESIGN %%%%%%%%%%
@@ -573,7 +568,7 @@ Uma \emph{Activity} contém \emph{Views} e \emph{ViewGroups}. Uma \emph{view} é
 
 \subsection{LinearLayout}
 
-O \texttt{LinearLayout} arranja \emph{views} em uma única coluna ou uma única linha, desse modo as \emph{views} podem ser arranjadas verticalmente ou horizontalmente. Como mostrado na figura 5.2:
+O \texttt{LinearLayout} arranja \emph{views} em uma única coluna ou uma única linha, desse modo as \emph{views} podem ser arranjadas verticalmente ou horizontalmente. Como mostrado na \autoref{fig:e3}:
 
 \begin{figure}[H]
   \centering
@@ -582,7 +577,7 @@ O \texttt{LinearLayout} arranja \emph{views} em uma única coluna ou uma única 
   \label{fig:e3}
 \end{figure}
 
-\emph{ViewGroups} também podem ser agrupados entre si para a criação de layouts mais complexos, por exemplo é possível agrupar um \texttt{LinearLayout} horizontal dentro de um vertical dessa forma é possível colocar \emph{views} lado a lado em uma camadas do \texttt{LinearLayout} vertical, representada na figura 5.3.
+\emph{ViewGroups} também podem ser agrupados entre si para a criação de layouts mais complexos, por exemplo é possível agrupar um \texttt{LinearLayout} horizontal dentro de um vertical dessa forma é possível colocar \emph{views} lado a lado em uma camadas do \texttt{LinearLayout} vertical, representada na \autoref{fig:e3}.
 
 \begin{figure}[H]
   \centering
@@ -611,9 +606,9 @@ O \texttt{FrameLayout} é o mais simples e eficiente tipo de \emph{layout}, pode
 
 Uma \emph{view} definida em um \texttt{FrameLayout} sempre será colocado no canto superior esquerdo da tela do dispositivo ou do \emph{ViewGroup} a que pertence o \texttt{FrameLayout}. Se mais de uma \emph{view} foi definida elas serão empilhadas uma em cima da outra. Isso significa que a primeira \emph{view} adicionada ao \texttt{FrameLayout} será mostrada na base da pilha, e a última adicionada será mostrada no topo.
 
-Você pode fazer com que as \emph{views} não sobreponham as outras usando o atributo \texttt{layout\_gravity}\footnote{\href{http://developer.android.com/reference/android/widget/FrameLayout.LayoutParams.html}{http://developer.android.com/reference/android/widget/FrameLayout.LayoutParams.html}}, dessa forma uma \emph{view} pode ficar posicionada na borda inferior e outra na borda superior e não ficarem sobrepostas.
+Você pode fazer com que as \emph{views} não sobreponham as outras usando o atributo \\ \texttt{layout\_gravity}\footnote{\href{http://developer.android.com/reference/android/widget/FrameLayout.LayoutParams.html}{http://developer.android.com/reference/android/widget/FrameLayout.LayoutParams.html}}, dessa forma uma \emph{view} pode ficar posicionada na borda inferior e outra na borda superior e não ficarem sobrepostas.
 
-É possível posicionar as \emph{views} dentro de um \texttt{FrameLayout} usando parâmetros diferentes no \texttt{layout\_gravity}, no exemplo da figura 5.5 existe um \texttt{FrameLayout} com 3 elementos e cada um com parâmetros diferentes. É possivel combinar os parâmetros utilizando a barra reta '|'.
+É possível posicionar as \emph{views} dentro de um \texttt{FrameLayout} usando parâmetros diferentes no \texttt{layout\_gravity}, no exemplo da \autoref{fig:e6} existe um \texttt{FrameLayout} com 3 elementos e cada um com parâmetros diferentes. É possivel combinar os parâmetros utilizando a barra reta '|'.
 
 \begin{figure}[H]
   \centering
@@ -677,7 +672,7 @@ A construção desse tipo de design é simples. No arquivo de \emph{layout} da \
 
 Se estiver usando o construtor de interface gráfica, pode arrastar uma \texttt{ListView} para dentro do \emph{layout}. Caso contrário pode construir manualmente no arquivo XML do \emph{layout} da \emph{activity}. 
 
-Você deve colocar o \texttt{LinearLayout} como raiz do arquivo XML, o elemento raiz sempre deve conter o atributo \texttt{xmlns:android} como mostrado na linha 2 do algoritmo \ref{code:linearlayout}, não entraremos em detalhes sobre os outros atributos. 
+Você deve colocar o \texttt{LinearLayout} como raiz do arquivo XML, o elemento raiz sempre deve conter o atributo \texttt{xmlns:android} como mostrado na linha 2 do \hyperref[code:linearlayout]{Algoritmo \ref*{code:linearlayout}}, não entraremos em detalhes sobre os outros atributos. 
 
 Adicione uma \texttt{ListView}, escreva o código abaixo dentro do \texttt{LinearLayout}. 
 \begin{listing}[H]
@@ -685,7 +680,7 @@ Adicione uma \texttt{ListView}, escreva o código abaixo dentro do \texttt{Linea
 \caption{Código de uma \texttt{ListView}}
 \end{listing}
 
-Você precisa popular a lista, para isso você pode criar um \texttt{string-array} no arquivo \texttt{strings.xml} com os elementos que deseja colocar na lista. Nesse exemplo do algoritmo \ref{code:string-array} foi criado uma lista com nome \texttt{listString} e 4 itens que serão mostrados em forma de lista pela \texttt{ListView}.
+Você precisa popular a lista, para isso você pode criar um \texttt{string-array} no arquivo \texttt{strings.xml} com os elementos que deseja colocar na lista. Nesse exemplo do \hyperref[code:string-array]{Algoritmo \ref*{code:string-array}} foi criado uma lista com nome \texttt{listString} e 4 itens que serão mostrados em forma de lista pela \texttt{ListView}.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/string-array.xml}
@@ -693,7 +688,7 @@ Você precisa popular a lista, para isso você pode criar um \texttt{string-arra
 \label{code:string-array}
 \end{listing}
 
-Finalmente, você deve escrever o código que irá preencher a lista com as \emph{strings}. Como é feito no algoritmo \ref{code:activity-lista} abaixo.
+Finalmente, você deve escrever o código que irá preencher a lista com as \emph{strings}. Como é feito no \hyperref[code:activity-lista]{Algoritmo \ref*{code:activity-lista}}.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/listactivity.java}
@@ -711,12 +706,12 @@ Na linha 22 usamos o método \texttt{ListView.setOnItemClickListener} para confi
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=.7\textwidth]{figuras/design/lista.png}
+  \includegraphics[width=.4\textwidth]{figuras/design/lista.png}
   \caption{Lista simples}
   \label{fig:e10}
 \end{figure}
 
-A figura 5.9 mostra como ficou o exemplo ao ser executado em um \emph{smartphone}, o item ''Menu 2'' foi clicado e um \texttt{Toast} foi mostrado no momento do clique.
+A \autoref{fig:e10} mostra como ficou o exemplo ao ser executado em um \emph{smartphone}, o item ''Menu 2'' foi clicado e um \texttt{Toast} foi mostrado no momento do clique.
 
 %%% LIST ADAPTER %%%
 \section{Listas Compostas}
@@ -729,7 +724,7 @@ A figura 5.9 mostra como ficou o exemplo ao ser executado em um \emph{smartphone
 \label{code:itemxml}
 \end{listing}	
 
-O algoritmo \ref{code:itemxml} mostra como você pode fazer a customização de um item da lista. Nesse exemplo há uma pequena imagem à esquerda e dois textos de cores e tamanhos diferentes. 
+O \hyperref[code:itemxml]{Algoritmo \ref*{code:itemxml}} mostra como você pode fazer a customização de um item da lista. Nesse exemplo há uma pequena imagem à esquerda e dois textos de cores e tamanhos diferentes. 
 Para isso primeiro criamos um \texttt{LinearLayout} que irá conter uma \texttt{ImageView} para mostrar a imagem e outro \texttt{LinearLayout} para colocar os dois textos. As cores do textos são configuradas com o atributo \texttt{textColor} e usa o padrão HTML de cores.
 
 Agora você precisa usar um adaptador para mostrar esse layout customizado em cada linha da lista, usaremos a classe \texttt{SimpleAdapter}\footnote{\href{http://developer.android.com/reference/android/widget/SimpleAdapter.html}{http://developer.android.com/reference/android/widget/SimpleAdapter.html}}. Essa classe faz a adaptação de um \texttt{ArrayList} de \texttt{Maps} para um \emph{layout} definido. 
@@ -740,9 +735,9 @@ Agora você precisa usar um adaptador para mostrar esse layout customizado em ca
 \label{code:custom-list}
 \end{listing}	
 
-Observando o algoritmo \ref{code:custom-list}. Na linha 13 criamos um \texttt{ArrayList} de \texttt{Maps}. Na linha 14 e 19 criamos um \texttt{HashMap} onde a chave é uma \emph{string} que identifica o conteúdo, essas chaves serão \emph{userIcon}, \emph{userName} e \emph{userText} respectivamente. Em \emph{userIcon} colocamos uma imagem, essa imagem deve ser colocada nas subpastas da pasta \texttt{drawable} e é acessada através da classe \texttt{R}. Em \emph{userName} colocamos um nome de usuário, por exemplo. Em \emph{userText} poderia ser colocada uma descrição, ou uma frase customizada do usuário mas nesse exemplo foi colocado uma sentença qualquer. Nas linhas 18 e 23 adicionamos o \texttt{Map} criado no \texttt{ArrayList}.
+Observando o \hyperref[code:custom-list]{Algoritmo \ref*{code:custom-list}}. Na linha 13 criamos um \texttt{ArrayList} de \texttt{Maps}. Na linha 14 e 19 criamos um \texttt{HashMap} onde a chave é uma \emph{string} que identifica o conteúdo, essas chaves serão \emph{userIcon}, \emph{userName} e \emph{userText} respectivamente. Em \emph{userIcon} colocamos uma imagem, essa imagem deve ser colocada nas subpastas da pasta \texttt{drawable} e é acessada através da classe \texttt{R}. Em \emph{userName} colocamos um nome de usuário, por exemplo. Em \emph{userText} poderia ser colocada uma descrição, ou uma frase customizada do usuário mas nesse exemplo foi colocado uma sentença qualquer. Nas linhas 18 e 23 adicionamos o \texttt{Map} criado no \texttt{ArrayList}.
 
-Criamos o \texttt{SimpleAdapter} nas linhas 26-29. Para o construtor passamos o \texttt{ArrayList} de \texttt{Maps} que contém os dados, passamos também o \emph{layout} que definimos anteriormente \texttt{R.layout.item}. Passamos um \emph{array} de \emph{strings} que contém as chaves que serão usadas para obter os dados e por último um \emph{array} de inteiros que contém os \emph{ids} das \emph{views} em que os conteúdos dos \texttt{Maps} serão colocados.
+Criamos o \texttt{SimpleAdapter} nas linhas 26-29. Para o construtor passamos o \texttt{ArrayList} de \texttt{Maps} que contém os dados, passamos também o \emph{layout} que definimos anteriormente \\ \texttt{R.layout.item}. Passamos um \emph{array} de \emph{strings} que contém as chaves que serão usadas para obter os dados e por último um \emph{array} de inteiros que contém os \emph{ids} das \emph{views} em que os conteúdos dos \texttt{Maps} serão colocados.
 
 \begin{figure}[H]
   \centering
@@ -751,7 +746,7 @@ Criamos o \texttt{SimpleAdapter} nas linhas 26-29. Para o construtor passamos o 
   \label{fig:e11}
 \end{figure}
 
-A figura 5.10 mostra como ficou o exemplo acima ao ser executado em um \emph{smartphone}. 
+A \autoref{fig:e11} mostra como ficou o exemplo acima ao ser executado em um \emph{smartphone}. 
 
 %%% EXPANDABLE LIST %%%
 \section{Listas expansíveis \texttt{(ExpandableListView)}}
@@ -783,7 +778,7 @@ Nesses dois \emph{layouts} teremos apenas uma \texttt{TextView} para abrigar um 
 \caption{Layout \texttt{list\_item\_child.xml}}
 \end{listing}	
 
-Em seguida precisamos criar uma classe que irá abrigar os dados dos elementos pai, elementos estes que serão expandidos quando clicados. Nesse exemplo criamos uma classe \emph{Parent}, como mostrado no algoritmo \ref{code:parent}
+Em seguida precisamos criar uma classe que irá abrigar os dados dos elementos pai, elementos estes que serão expandidos quando clicados. Nesse exemplo criamos uma classe \emph{Parent}, como mostrado no \hyperref[code:parent]{Algoritmo \ref*{code:parent}}.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/parent.java}
@@ -825,7 +820,7 @@ Para finalizar, você deve construir os objetos na classe da \emph{activity}, ne
 
 \newpage
 
-O algoritmo \ref{code:listaexp-ac} é a construção da lista expansível na \emph{activity}, na linha 9-10 obtemos a \emph{view} usando \texttt{findViewById()}. A linha 30-31 são um pouco mais complicadas, primeiro é preciso obter o \emph{id} do \texttt{string-array} que é subitem do item atual no laço de repetição. Para isso usamos \texttt{getResources().getIdentifier()} para obter o \emph{id} do subitem a partir do nome do item pai. Em seguida podemos acessar o \texttt{string-array} normalmente como é feito na linha 31.
+O \hyperref[code:listaexp-ac]{Algoritmo \ref*{code:listaexp-ac}} é a construção da lista expansível na \emph{activity}, na linha 9-10 obtemos a \emph{view} usando \texttt{findViewById()}. A linha 30-31 são um pouco mais complicadas, primeiro é preciso obter o \emph{id} do \texttt{string-array} que é subitem do item atual no laço de repetição. Para isso usamos \texttt{getResources().getIdentifier()} para obter o \emph{id} do subitem a partir do nome do item pai. Em seguida podemos acessar o \texttt{string-array} normalmente como é feito na linha 31.
 
  Na linha 41 usamos o \texttt{CustomAdapter} que criamos anteriormente.
 
@@ -856,7 +851,7 @@ Comece colocando um \texttt{GridView}\footnote{\href{http://developer.android.co
 \caption{Layout do \texttt{GridView}}
 \end{listing}	
 
-Vamos criar uma nova classe que será o adaptador de imagens para o \texttt{GridView}, chamemos a classe de \texttt{ImageAdapter}, ela é mostrada no algoritmo \ref{code:image-adapter}.
+Vamos criar uma nova classe que será o adaptador de imagens para o \texttt{GridView}, chamemos a classe de \texttt{ImageAdapter}, ela é mostrada no \hyperref[code:image-adapter]{Algoritmo \ref*{code:image-adapter}}.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/imageadapter.java}
@@ -866,7 +861,7 @@ Vamos criar uma nova classe que será o adaptador de imagens para o \texttt{Grid
 
 A classe \texttt{ImageAdapter} deve ser subclasse da classe \texttt{BaseAdapter}\footnote{\href{http://developer.android.com/reference/android/widget/BaseAdaptfer.html}{http://developer.android.com/reference/android/widget/BaseAdapter.html}}. Temos, como variável pública, um \emph{array} das imagens que queremos colocar na grade. Como todo \emph{id} de um recurso da classe \texttt{R} é um inteiro, criamos um \emph{array} de inteiros. Note que estamos considerando que todas as imagens já foram devidamente colocadas na pasta \texttt{drawable}.
 
-O método mais importante é o método \texttt{getView()}. Nele criamos uma nova \texttt{ImageView}\footnote{\href{http://developer.android.com/reference/android/widget/ImageView.html}{http://developer.android.com/reference/android/widget/ImageView.html}} para abrigar a imagem que queremos colocar na grade. Em seguida configuramos alguns parâmetros desse \texttt{ImageView}, o método \texttt{ImageView.setImageResource()} é responsável por estabelecer um \texttt{drawable} como conteúdo do \texttt{ImageView}. Já o método \texttt{View.setLayoutParams()} configura os parâmetros de \emph{layout} associados com essa \emph{view}, note que para esse método passamos parâmetros de \emph{layout} de uma \texttt{GridView}, que por sua vez recebe \texttt{(200,200)} como largura e altura de um elemento da grade.
+O método mais importante é o método \texttt{getView()}. Nele criamos uma nova \texttt{ImageView}\footnote{\href{http://developer.android.com/reference/android/widget/ImageView.html}{http://developer.android.com/reference/android/widget/ImageView.html}} para abrigar a imagem que queremos colocar na grade. Em seguida configuramos alguns parâmetros desse \texttt{ImageView}, o método \texttt{ImageView.setImageResource()} é responsável por estabelecer um \texttt{drawable} como conteúdo do \texttt{ImageView}. \\ Já o método \texttt{View.setLayoutParams()} configura os parâmetros de \emph{layout} associados com essa \emph{view}, note que para esse método passamos parâmetros de \emph{layout} de uma \texttt{GridView}, que por sua vez recebe \texttt{(200,200)} como largura e altura de um elemento da grade.
 
   \texttt{ImageView.setScaleType} controla como a imagem deve ser redimensionada para condizer com o tamanho do \texttt{ImageView}, \texttt{ImageView.ScaleType}\footnote{\href{http://developer.android.com/reference/android/widget/ImageView.ScaleType.html}{http://developer.android.com/reference/android/widget/ImageView.ScaleType.html}} são as formas disponíveis para escalar a imagem.
 
@@ -877,7 +872,7 @@ Agora basta criar a grade em sua \emph{activity}.
 \caption{\emph{activity} com grade}
 \end{listing}	
 
-Exemplo acima rodando em um \emph{smartphone} na figura 5.13:
+Exemplo acima rodando em um \emph{smartphone} na \autoref{fig:e15}:
 
 \begin{figure}[H]
   \centering
@@ -909,7 +904,7 @@ Em seguida, crie uma nova classe chamada \texttt{FullImageActivity}, essa é a \
 \label{code:act-fullimage}
 \end{listing}	 
 
-No algoritmo \ref{code:act-fullimage}, configuramos um \texttt{View.setOnItemClickListener()} de forma que quando uma imagem da grade for clicada, um \texttt{Intent} seja enviado a uma nova \emph{activity} que por sua vez ficará encarregada de mostrar a imagem em tela cheia.  Quando um item é clicado conseguimos obter a posição dele na grade com o parâmetro \texttt{pos} da função \texttt{onItemClick()}, essa posição é equivalente ao \emph{id} da imagem no \emph{array} criado na classe \texttt{ImageAdapter}.  A \texttt{FullImageActivity} por sua vez recebe esse \texttt{Intent} que possui o \emph{id} da imagem que deve ser mostrada e configura o \texttt{ImageView} de acordo. 
+No \hyperref[code:act-fullimage]{Algoritmo \ref*{code:act-fullimage}}, configuramos um \texttt{View.setOnItemClickListener()} de forma que quando uma imagem da grade for clicada, um \texttt{Intent} seja enviado a uma nova \emph{activity} que por sua vez ficará encarregada de mostrar a imagem em tela cheia.  Quando um item é clicado conseguimos obter a posição dele na grade com o parâmetro \texttt{pos} da função \texttt{onItemClick()}, essa posição é equivalente ao \emph{id} da imagem no \emph{array} criado na classe \texttt{ImageAdapter}.  A \texttt{FullImageActivity} por sua vez recebe esse \texttt{Intent} que possui o \emph{id} da imagem que deve ser mostrada e configura o \texttt{ImageView} de acordo. 
 
 \begin{figure}[H]
   \centering
@@ -996,7 +991,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	
 	Primeiro precisamos criar uma \emph{activity} que servirá como recipiente para as abas e seu conteúdo. O \texttt{TabWidget}\footnote{\href{http://developer.android.com/reference/android/widget/TabWidget.html}{http://developer.android.com/reference/android/widget/TabWidget.html}} é o controle de seleção das abas. Todo conteúdo das abas ficará contido dentro do \texttt{FrameLayout}, é nele que as respectivas \emph{activities} serão mostradas. O \texttt{TabHost}\footnote{\href{http://developer.android.com/reference/android/widget/TabHost.html}{http://developer.android.com/reference/android/widget/TabHost.html}} por sua vez serve como um recipiente para o \texttt{TabWidget} e o \texttt{FrameLayout}.
 	
-	Crie uma nova \emph{activity}, a chamaremos de \texttt{TabLayoutActivity}. No XML que define o \emph{layout} da \emph{activity}, insira o \texttt{TabHost}, o \texttt{TabWidget} e \texttt{FrameLayout} como mostrado no algoritmo abaixo.
+	Crie uma nova \emph{activity}, a chamaremos de \texttt{TabLayoutActivity}. No XML que define o \emph{layout} da \emph{activity}, insira o \texttt{TabHost}, o \texttt{TabWidget} e \texttt{FrameLayout} como mostrado no \hyperref[code:layout-tabhost]{Algoritmo \ref*{code:layout-tabhost}}.
 	
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/activity-tab-host.xml}
@@ -1011,17 +1006,20 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	\caption{\emph{Layout} do fragmento da aba.}
 	\end{listing}
 	
-	Precisamos definir as classes de cada fragmento de aba. Cada classe deverá estender a classe \texttt{Fragment} e inflar seu \emph{layout} correspondente. Depois cada fragmento será instanciado pela nossa \emph{activity} principal, \texttt{TabLayoutActivity} usando o \emph{fragment manager}. No algoritmo \ref{code:tab1frag} está definido a classe \texttt{Tab1Fragment} (as classes \texttt{Tab2Fragment} e \texttt{Tab3Fragment}) são exatamente iguais, exceto que elas inflam seus respectivos \emph{layouts}).
-	
-	\dica{Você deve importar a classe \texttt{android.support.v4.app.Fragment} para suportar versões mais antigas do Android!}
-	
+	Precisamos definir as classes de cada fragmento de aba. Cada classe deverá estender a classe \texttt{Fragment} e inflar seu \emph{layout} correspondente. Depois cada fragmento será instanciado pela nossa \emph{activity} principal, \texttt{TabLayoutActivity} usando o \emph{fragment manager}. No \hyperref[code:tab1frag]{Algoritmo \ref*{code:tab1frag}} está definido a classe \texttt{Tab1Fragment} (as classes \texttt{Tab2Fragment} e \texttt{Tab3Fragment}) são exatamente iguais, exceto que elas inflam seus respectivos \emph{layouts}).
+		
+	\begin{framed}
+	\paragraph{}\textbf{Dica}: Você deve importar a classe \texttt{android.support.v4.app.Fragment} para suportar versões mais antigas do Android!
+	\textit{}
+	\end{framed}
+
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/tab1-frag.java}
 	\caption{Classe \texttt{Tab1Fragment}}
 	\label{code:tab1frag}
 	\end{listing}
 	
-	Na classe \texttt{TabLayoutActivity}, note que estamos estendendo a classe \texttt{FragmentActivity} para poder usufruir das funcionalidades dos fragmentos. É necessário configurar o método \texttt{onCreate()}, esse é o ponto de início da nossa \emph{activity}. O primeiro passo é inflar o \emph{layout} com abas definido no algoritmo \ref{code:layout-tabhost}. O segundo passo é inicializar as abas, para isso invocamos o método \texttt{TabHost.setup()}, adicionar as abas e suas informações em um mapa e determinar a primeira aba como ativa.
+	Na classe \texttt{TabLayoutActivity}, note que estamos estendendo a classe \texttt{FragmentActivity} para poder usufruir das funcionalidades dos fragmentos. É necessário configurar o método \texttt{onCreate()}, esse é o ponto de início da nossa \emph{activity}. O primeiro passo é inflar o \emph{layout} com abas definido no \hyperref[code:layout-tabhost]{Algoritmo \ref*{code:layout-tabhost}}. O segundo passo é inicializar as abas, para isso invocamos o método \texttt{TabHost.setup()}, adicionar as abas e suas informações em um mapa e determinar a primeira aba como ativa.
 	
 	Primeiro criaremos uma classe que servirá de suporte para guardar as informações relevantes sobre as nossas abas.
 	
@@ -1046,7 +1044,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	
 	O parâmetro \emph{tag} do método \texttt{createTabContent()} é que define qual aba foi selecionada. O método retorna uma \emph{view} para mostrar os elementos da aba selecionada.
 	
-	Na classe \texttt{TabLayoutActivity} precisamos criar o método \texttt{initialiseTabHost()}. Siga o algoritmo \ref{code:inittab} abaixo. Note o uso do método \texttt{onTabChanged()}. Precisamos implementar esse método em seguida através da interface \texttt{TabHost.OnTabChangeListener}.
+	Na classe \texttt{TabLayoutActivity} precisamos criar o método \texttt{initialiseTabHost()}. Siga o \hyperref[code:inittab]{Algoritmo \ref*{code:inittab}} abaixo. Note o uso do método \texttt{onTabChanged()}. Precisamos implementar esse método em seguida através da interface \texttt{TabHost.OnTabChangeListener}.
 	
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/intialiseTabHost.java}
@@ -1076,7 +1074,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	\caption{Método \texttt{onSaveInstanceState()}}
 	\end{listing}
 	
-	A figura abaixo mostra o resultado.
+	A \autoref{fig:e18} mostra o resultado.
 	
 	\begin{figure}[H]
 	  \centering
@@ -1098,7 +1096,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	\caption{\emph{layout} do \texttt{ViewPager}}
 	\end{listing}
 	
-	Agora defina uma nova classe chamada \texttt{PagerAdapter} que irá estender a classe \texttt{FragmentPagerAdapter}. Primeiro crie uma lista que irá conter os fragmentos, isto é, as páginas que serão exibidas. Ao estender essa classe precisamos implementar dois métodos: \texttt{getItem()} e \texttt{getCount()}. O método \texttt{getItem()}, na linha 10 do algoritmo \ref{code:pageadap}, deve retornar o item que será selecionado pelo parâmetro \texttt{position}. O método \texttt{getCount()}, na linha 15, deve retornar a quantidade de páginas. Depois crie o construtor como mostrado nas linhas 4-7. 
+	Agora defina uma nova classe chamada \texttt{PagerAdapter} que irá estender a classe \\ \texttt{FragmentPagerAdapter}. Primeiro crie uma lista que irá conter os fragmentos, isto é, as páginas que serão exibidas. Ao estender essa classe precisamos implementar dois métodos: \texttt{getItem()} e \texttt{getCount()}. O método \texttt{getItem()}, na linha 10 do \hyperref[code:pageadap]{Algoritmo \ref*{code:pageadap}}, deve retornar o item que será selecionado pelo parâmetro \texttt{position}. O método \texttt{getCount()}, na linha 15, deve retornar a quantidade de páginas. Depois crie o construtor como mostrado nas linhas 4-7. 
 
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/pageradapter.java}
@@ -1108,13 +1106,16 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	
 	Por último devemos construir a \emph{activity} que irá conter o \texttt{PagerAdapter} e será responsável por mostrar as páginas. Neste exemplo iremos reutilizar os fragmentos que fizemos na seção anterior quando trabalhamos com abas.
 	
-	\dica{Você pode importar as classes e os arquivos de \emph{layout}. No \emph{PackageExplorer} na IDE Eclipse, clique com o botão direito sobre a pasta que quer importar os arquivos, depois clique em \emph{Import} e selecione \emph{General -> File System}. Agora selecione o caminho da pasta que contém os arquivos no campo \emph{From directory}. Selecione os arquivos que deseja importar e clique em \emph{Finish}.
-	
+	\begin{framed}
+	\paragraph{}\textbf{Dica}: Você pode importar as classes e os arquivos de \emph{layout}. No \emph{PackageExplorer} na IDE Eclipse, clique com o botão direito sobre a pasta que quer importar os arquivos, depois clique em \emph{Import} e selecione \emph{General -> File System}. Agora selecione o caminho da pasta que contém os arquivos no campo \emph{From directory}. Selecione os arquivos que deseja importar e clique em \emph{Finish}.
 	Note que ao importar classes Java será necessário trocar o pacote a que a classe pertence.
 	
-	Outra opção é usar o \texttt{import} do java para importar as classes sem ter elas no pacote.}
+	Outra opção é usar o \texttt{import} do java para importar as classes sem ter elas no pacote.
 	
-	Essa \emph{activity}, como mostrada no algoritmo \ref{code:act-pager} abaixo, apenas precisa instanciar os fragmentos (linhas 10,11 e 12), criar e determinar o adaptador, linhas 14, 16 e 17.
+	\textit{}
+	\end{framed}
+
+	Essa \emph{activity}, como mostrada no \hyperref[code:act-pager]{Algoritmo \ref*{code:act-pager}} abaixo, apenas precisa instanciar os fragmentos (linhas 10,11 e 12), criar e determinar o adaptador, linhas 14, 16 e 17.
 	
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/viewpager-activity.java}
@@ -1128,7 +1129,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	Ao juntar os dois conceitos, o de \emph{layout} com abas e o gesto de arrastar, podemos fazer o controle das abas arrastando a tela. Esse tipo de \emph{design} é comum em muitos aplicativos pela facilidade e rapidez com o que o usuário pode visualizar vários conteúdos. 
 	Nesse exemplo iremos reutilizar o código dos exemplos anteriores com algumas modificações. Serão reutilizadas classes: \texttt{TabInfo}, \texttt{TabFactory}, \texttt{PagerAdapter}, \texttt{Tab1Fragment}, \texttt{Tab2Fragment}, \texttt{Tab3Fragment}.
 	
-	Primeiro modificaremos o \emph{layout} das abas adicionando o \texttt{ViewPager} após \texttt{FrameLayout}. Note que esse é o mesmo \emph{layout} do algoritmo \ref{code:layout-tabhost}, por isso o algoritmo \ref{code:layout-viewpager} não está completo.
+	Primeiro modificaremos o \emph{layout} das abas adicionando o \texttt{ViewPager} após \texttt{FrameLayout}. Note que esse é o mesmo \emph{layout} do \hyperref[code:layout-tabhost]{Algoritmo \ref*{code:layout-tabhost}}, por isso o \hyperref[code:layout-viewpager]{Algoritmo \ref*{code:layout-viewpager}} não está completo.
 	
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/swipetabs-layout.xml}
@@ -1136,7 +1137,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	\label{code:layout-viewpager}
 	\end{listing}
 	
-	Agora iremos usar a classe \texttt{TabLayoutActivity} do exemplo anterior e fazer algumas alterações.  Nesse exemplo irei mudar o nome da classe para \texttt{SwipeTabActivity}. A primeira alteração é a adição de algumas variáveis para serem usadas na classe, adicione uma variável \texttt{PageAdapter} e uma \texttt{ViewPager}. Depois devemos alterar o método \texttt{onCreate()}, adicione uma chamada ao método \texttt{initialiseViewPager()}. A implementação é a mesma do método \texttt{onCreate()} do exemplo anterior com a adição da chamada ao método \texttt{setOnPageChangeListener()}. Devemos também implementar a interface \texttt{OnPageChangeListener}. No método \texttt{initialiseTabHost()} você precisa remover a linha \texttt{onTabChanged(''Tab1'');}.
+	Agora iremos usar a classe \texttt{TabLayoutActivity} do exemplo anterior e fazer algumas alterações.  Nesse exemplo irei mudar o nome da classe para \texttt{SwipeTabActivity}. A primeira alteração é a adição de algumas variáveis para serem usadas na classe, adicione uma variável \texttt{PageAdapter} e uma \texttt{ViewPager}. Depois devemos alterar o método \texttt{onCreate()}, adicione uma chamada ao método \texttt{initialiseViewPager()}. A implementação é a mesma do método \texttt{onCreate()} do exemplo anterior com a adição da chamada ao método \\ \texttt{setOnPageChangeListener()}. Devemos também implementar a interface \\ \texttt{OnPageChangeListener}.\\ No método \texttt{initialiseTabHost()} você precisa remover a linha \texttt{onTabChanged(''Tab1'');}.
 	
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/initialiseviewpager.java}
@@ -1150,17 +1151,17 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	\caption{Método \texttt{onTabChanged()} alterado}
 	\end{listing}
 	
-	Por fim, devemos implementar os métodos da interface \texttt{ViewPager.OnPageChangeListener}, somente o método \texttt{onPageSelected()} será usado, para selecionar a aba correspondente à pagina atual.
+	Por fim, devemos implementar os métodos da interface \\ \texttt{ViewPager.OnPageChangeListener}, somente o método \texttt{onPageSelected()} será usado, para selecionar a aba correspondente à pagina atual.
 	
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/vpinterface.java}
 	\caption{Métodos da interface \texttt{ViewPager.OnPageChangeListener}}
 	\end{listing}
 		
-	
-	\dica{Pela dificuldade em acompanhar passo a passo a construção desse \emph{design}, é recomendável obter o código do projeto no repositório. Está sob o nome \emph{SwipeableTabs}.}
-
-
+	\begin{framed}
+	\paragraph{}\textbf{Dica}: Pela dificuldade em acompanhar passo a passo a construção desse \emph{design}, é recomendável obter o código do projeto no repositório. Está sob o nome 		\emph{SwipeableTabs}.
+	\textit{}
+	\end{framed}
 	
 \section{\emph{ActionBar}}
 
@@ -1175,13 +1176,13 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	  \label{fig:e19}
 	\end{figure}
 	
-	A figura 5.18 mostra o uso da \emph{ActionBar} no aplicativo Calendário, padrão dos aparelhos Android mais atuais. É possível observar três principais componentes. O primeiro é um menu \emph{drop-down} que permite ao usuário mudar o modo de visualização do calendário. O segundo é um botão com o dia atual, 19, que ao ser pressionado faz com que o calendário posicione um cursor no dia e hora atuais. O terceiro é um outro menu \emph{drop-down} com algumas opções que podem ser interessantes ao usuário.
+	A \autoref{fig:e19} mostra o uso da \emph{ActionBar} no aplicativo Calendário, padrão dos aparelhos Android mais atuais. É possível observar três principais componentes. O primeiro é um menu \emph{drop-down} que permite ao usuário mudar o modo de visualização do calendário. O segundo é um botão com o dia atual, 19, que ao ser pressionado faz com que o calendário posicione um cursor no dia e hora atuais. O terceiro é um outro menu \emph{drop-down} com algumas opções que podem ser interessantes ao usuário.
 	
 	\subsection{Implementando a \emph{ActionBar}}
 	
 		A \emph{activity} popula a \emph{ActionBar} em seu método \texttt{onCreateOptionsMenu()}. Entradas na \emph{ActionBar} são chamadas de ações (\emph{actions}). 
 		
-		As ações para a \emph{ActionBar} são definidas em arquivos XML posicionados na pasta \texttt{menu/}. O algoritmo abaixo mostra o menu padrão dos exemplos que construímos até agora. Ele só contém um item \emph{''Settings''} que está no \emph{dropdown} menu que pode ser acessado através da \emph{ActionBar}, à direita. O fato dele estar escondido se deve ao atributo \texttt{showAsAction} estar com valor \emph{never}, ao ser mudado para \emph{always} o acesso ao \emph{Settings} será diretamente através da \emph{ActionBar}. Existe também o valor \emph{ifRoom} que irá mostrar apenas se houver espaço disponível.
+		As ações para a \emph{ActionBar} são definidas em arquivos XML posicionados na pasta \texttt{menu/}. O \hyperref[code:actionbarNew]{Algoritmo \ref*{code:actionbarNew}} mostra o menu padrão dos exemplos que construímos até agora. Ele só contém um item \emph{''Settings''} que está no \emph{dropdown} menu que pode ser acessado através da \emph{ActionBar}, à direita. O fato dele estar escondido se deve ao atributo \texttt{showAsAction} estar com valor \emph{never}, ao ser mudado para \emph{always} o acesso ao \emph{Settings} será diretamente através da \emph{ActionBar}. Existe também o valor \emph{ifRoom} que irá mostrar apenas se houver espaço disponível.
 		
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/actionbar-menupadrao.xml}
@@ -1191,13 +1192,18 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/oncreateoptionsmenu-padrao.java}
 		\caption{Método padrão \texttt{onCreateOptionsMenu()}}
+		\label{code:actionbarNew}
 		\end{listing}
 		
 		Se uma ação é selecionada, o método \texttt{onOptionsItemSelected()} é chamado. Ele recebe a ação selecionada como parâmetro \texttt{MenuItem}. Baseando-se nessa informação você pode decidir o que fazer. Nesse exemplo iremos abrir uma nova \emph{activity} que seria a tela de configuração do aplicativo.
 		
 		No seu projeto, crie uma nova \emph{Activity} do tipo \emph{Settings Activity}. 
 		
-		\dica{Para criar uma nova \emph{activity}, clique com o botão direito sob o projeto selecione \emph{New -> Other} (ou pressione \emph{Ctrl+N}). Selecione \emph{Android Activity} e selecione o tipo desejado.}
+		\begin{framed}
+\paragraph{}\textbf{Dica}: Para criar uma nova \emph{activity}, clique com o botão direito sob o projeto selecione \emph{New -> Other} (ou pressione \emph{Ctrl+N}). Selecione \emph{Android Activity} e selecione o tipo desejado.
+\textit{}
+\end{framed}
+
 		
 		Agora você deve fazer com que o método \texttt{OnCreateOptionsMenu()} abra essa nova \emph{activity}.
 		
@@ -1206,13 +1212,14 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\caption{Método \texttt{OnOptionsItemSelected()}}
 		\end{listing}
 
-		Para melhorar nossa \emph{ActionBar} vamos adicionar um campo para pesquisa. Você pode adicionar \emph{views} em sua \emph{ActionBar}. Para isso você deve usar o método \texttt{setCustomView()}  da classe \texttt{ActionBar} e passar uma \emph{view} como parâmetro. Você também precisa ativar a exibição de \emph{views} com o método \texttt{setDisplayOptions()} e passar a \emph{flag} \texttt{ActionBar.DISPLAY\_SHOW\_CUSTOM}.
+		Para melhorar nossa \emph{ActionBar} vamos adicionar um campo para pesquisa. Você pode adicionar \emph{views} em sua \emph{ActionBar}. Para isso você deve usar o método \texttt{setCustomView()}  da classe \texttt{ActionBar} e passar uma \emph{view} como parâmetro. Você também precisa ativar a exibição de \emph{views} com o método \texttt{setDisplayOptions()} e passar a \\ \emph{flag} \texttt{ActionBar.DISPLAY\_SHOW\_CUSTOM}.
 		
-		Primeiro vamos adicionar um ícone de busca na nossa \emph{ActionBar}, voltando ao arquivo do \emph{layout} da \emph{ActionBar}, adicione um novo item acima do primeiro como mostrado no algoritmo abaixo.
+		Primeiro vamos adicionar um ícone de busca na nossa \emph{ActionBar}, voltando ao arquivo do \emph{layout} da \emph{ActionBar}, adicione um novo item acima do primeiro como mostrado no \hyperref[code:actionbarNew2]{Algoritmo \ref*{code:actionbarNew2}}.
 		
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/newitem.xml}
 		\caption{Adicionando novo item na \emph{ActionBar}}
+		\label{code:actionbarNew2}
 		\end{listing}
 		
 		Observe o atributo \texttt{android:icon}, estamos obtendo um \emph{drawable} que já existe no sistema Android, e se chama \emph{ic\_menu\_search}. Esse é o ícone da busca, a lupa. Depois vamos adicionar uma ação a ser executada quando esse ícone for clicado. Iremos criar nesse exemplo, uma caixa de texto de forma programática, isto é, em vez de defini-la no XML iremos criá-la com código na \emph{Activity}. 
@@ -1224,7 +1231,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\caption{Configurando \emph{ActionBar} no método \texttt{onCreate()}}
 		\end{listing}
 		
-		No algoritmo \ref{code:actionbar-seach}, abaixo, criamos um \texttt{EditText} e o configuramos caso o botão com o ícone de busca seja pressionado. Na linha 5-6 criamos um \texttt{LayoutParams} que configura o tamanho da \emph{view}. Na linha 8 o método \texttt{EditText.setImeOptions()} é responsável por configurar o teclado para uma busca, junto com a linha 9 que diz para o \texttt{EditText} que a entrada será texto, essa combinação faz com que o teclado mostre o ícone da lupa no lugar da tecla \emph{Enter}. A linha 10 configura a cor do texto para branca. Adicionamos a \emph{view} na \emph{ActionBar} com o método \texttt{ActionBar.setCustomView()} e passamos como parâmetro a \emph{view} criada e os parâmetros de \emph{layout} criados. O método \texttt{EditText.requestFocus()} faz com que o foco seja dado à nova caixa de texto, para que possamos editá-la. Precisamos ainda fazer com que o teclado abra para que possamos editar a caixa de texto, é isso que as linhas 13-14 e 15 estão fazendo. O método \texttt{getSystemService()} obtém a referência de um serviço do Android, e nesse caso estamos pedindo pelo serviço de método de entrada, o teclado. O método \texttt{InputMethodManager.showSoftInput()} abre o \emph{Soft Input}, ou seja, o teclado virtual para edição da \emph{view}. 
+		No \hyperref[code:actionbar-seach]{Algoritmo \ref*{code:actionbar-seach}}, abaixo, criamos um \texttt{EditText} e o configuramos caso o botão com o ícone de busca seja pressionado. Na linha 5-6 criamos um \texttt{LayoutParams} que configura o tamanho da \emph{view}. Na linha 8 o método \texttt{EditText.setImeOptions()} é responsável por configurar o teclado para uma busca, junto com a linha 9 que diz para o \texttt{EditText} que a entrada será texto, essa combinação faz com que o teclado mostre o ícone da lupa no lugar da tecla \emph{Enter}. A linha 10 configura a cor do texto para branca. Adicionamos a \emph{view} na \emph{ActionBar} com o método \texttt{ActionBar.setCustomView()} e passamos como parâmetro a \emph{view} criada e os parâmetros de \emph{layout} criados. O método \texttt{EditText.requestFocus()} faz com que o foco seja dado à nova caixa de texto, para que possamos editá-la. Precisamos ainda fazer com que o teclado abra para que possamos editar a caixa de texto, é isso que as linhas 13-14 e 15 estão fazendo. O método \texttt{getSystemService()} obtém a referência de um serviço do Android, e nesse caso estamos pedindo pelo serviço de método de entrada, o teclado. O método \texttt{InputMethodManager.showSoftInput()} abre o \emph{Soft Input}, ou seja, o teclado virtual para edição da \emph{view}. 
 		
 		Finalmente fazemos com que ao botão de busca no teclado ser clicado, um \texttt{Toast} mostre para o usuário o conteúdo da caixa de texto. É isso que a interface \texttt{onEditorActionListener} faz com o método \texttt{onEditorAction()}.
 		
@@ -1244,7 +1251,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	  \label{fig:e20}
 	\end{figure}
 
-
+%%%COMUNICAÇÃO%%%
 \chapter{Comunicação}
 
 	Agora iremos explorar as funcionalidades de comunicação dos aparelhos Android como acesso a \emph{Internet} no caso de \emph{Tables} e \emph{Smartphones} e envio de SMS e chamadas de voz com os os \emph{Smartphones}. 
@@ -1273,7 +1280,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 		O método \texttt{doInBackground()} é o responsável por realizar a operação sem o usuário perceber. Existem outros dois métodos da classe \texttt{AsyncTask} que podem ser utilizados: \texttt{onProgressUpdate()}, caso queira mostrar o progresso de um \emph{download} para o usuário e \texttt{onPostExecute()} para executar alguma ação após o termino do \emph{download}.
 
-		Observe o algoritmo \ref{code:requesttask}, na linha 5-7 criamos um novo \texttt{HttpClient}, \texttt{HttpResponse} e uma \emph{string} para armazenar a resposta do servidor. Depois, envolto por um bloco \texttt{try-catch} temos uma chamada ao método \texttt{HttpClient.execute()} e é passado para ele um novo \texttt{HttpGet} com o parâmetro \texttt{uri[0]}, \texttt{uri} é um dos parâmetros do método e contém uma URI\footnote{\href{http://developer.android.com/reference/java/net/URI.html}{http://developer.android.com/reference/java/net/URI.html}} que identifica o destino da requisição.
+		Observe o \hyperref[code:requesttask]{Algoritmo \ref*{code:requesttask}}, na linha 5-7 criamos um novo \texttt{HttpClient}, \texttt{HttpResponse} e uma \emph{string} para armazenar a resposta do servidor. Depois, envolto por um bloco \texttt{try-catch} temos uma chamada ao método \texttt{HttpClient.execute()} e é passado para ele um novo \texttt{HttpGet} com o parâmetro \texttt{uri[0]}, \texttt{uri} é um dos parâmetros do método e contém uma URI\footnote{\href{http://developer.android.com/reference/java/net/URI.html}{http://developer.android.com/reference/java/net/URI.html}} que identifica o destino da requisição.
 
 		Na linha 11 foi criado um novo \texttt{StatusLine}\footnote{\href{http://developer.android.com/reference/org/apache/http/StatusLine.html}{http://developer.android.com/reference/org/apache/http/StatusLine.html}} para guardar a resposta da requisição HTTP que obtemos com o método \texttt{HttpResponse.getStatusLine()}. Depois comparamos o código do \emph{status} com \texttt{HttpStatus.SC\_OK} (equivalente ao código 200), o \emph{status} \texttt{OK} significa que a requisição e a resposta ocorreram como esperado e temos a resposta correta vindo do servidor. 
 
@@ -1290,8 +1297,11 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		Primeiro criamos uma nova variável \texttt{task} do tipo \texttt{AsyncTask} nos moldes da classe que criamos, dentro de um bloco \texttt{try-catch} criamos uma nova \texttt{URI} e atribuímos a ela o endereço da página do DC UFSCar. Em seguida iniciamos a variável \texttt{task} criando uma nova \texttt{RequestTask} e chamamos o método \texttt{execute()}, que ao ser chamado irá executar o método \texttt{doInBackground()}. 
 		
 		Por fim, criamos uma nova \texttt{WebView}\footnote{\href{http://developer.android.com/reference/android/webkit/WebView.html}{http://developer.android.com/reference/android/webkit/WebView.html}} e carregamos o conteúdo da \emph{string} \texttt{response} nela usando o método \texttt{WebView.loadData()}. A página é mostrada sem estilo pois não estamos puxando as folhas de estilo junto, somente o código HTML.
-		
-		 \dica{Usamos a \texttt{WebView} para mostrar o código HTML como página apenas para demonstração. Caso queira carregar uma página corretamente deve fornecer a \emph{URL} da página diretamente para a \texttt{WebView}.}
+		 
+		 \begin{framed}
+\paragraph{}\textbf{Dica}: Usamos a \texttt{WebView} para mostrar o código HTML como página apenas para demonstração. Caso queira carregar uma página corretamente deve fornecer a \emph{URL} da página diretamente para a \texttt{WebView}.
+\textit{}
+\end{framed}
 
 		\subsection{HTTP POST}
 		Diferentemente do \emph{GET}, onde os parâmetros para o servidor vão codificados na \emph{URL}, no \emph{POST} os parâmetros vão codificados no final do cabeçalho HTTP. Para enviar uma requisição do tipo \emph{POST}, usaremos a classe \texttt{HttpPost}. O algoritmo abaixo é reaproveitado da classe \texttt{RequestTask} e do método \texttt{doInBackgrond()}, onde mudaremos apenas algumas linhas. Agora estaremos enviando a requisição para essa página: \href{http://httpbin.org/post}{http://httpbin.org/post}, ela só aceita requisições do tipo \emph{POST}, se tentar com \emph{GET} irá receber uma mensagem de erro.
@@ -1312,7 +1322,10 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		
 		Vamos obter dados do objeto JSON retornado pelo exemplo anterior. Se você observar a \emph{string} na tela, irá perceber os dados que foram enviado via \emph{POST} dentro de um objeto JSON chamado \emph{form}. Queremos obter esses dados, para isso precisamos criar uma classe que será responsável por obter especificamente esses dados do \emph{form}.
 		
-		\dica{Em JSON, \{ representa um objeto JSON e [ representa um \emph{array} dentro de um objeto JSON}
+\begin{framed}
+\paragraph{}\textbf{Dica}: Em JSON, \{ representa um objeto JSON e [ representa um \emph{array} dentro de um objeto JSON
+\textit{}
+\end{framed}
 
 		Crie uma classe \texttt{JSONParser}, como mostrado abaixo.
 		
@@ -1322,7 +1335,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:jsonparser}
 		\end{listing} 
 
-		Para obter dados do \emph{form}, criamos um método \texttt{getFormData()}. Primeiro obtemos o objeto JSON dado pela \emph{string} retornada pela requisição \emph{POST} do exemplo anterior ao criar um novo \texttt{JSONObject} e passando a \emph{string} como parâmetro. Em seguida queremos obter outro objeto JSON, aquele cujo nome é \emph{form}, para isso chamamos o método \texttt{JSONObject.getJSONObject()} passando o nome do objeto junto. Após obter o objeto desejado, usamos o método \texttt{JSONObject.getString()} e passamos o nome do valor para obter o valor. Então ao passar \emph{"testing"} e \emph{"user"} esperamos como retorno \emph{POST} e \emph{You}, respectivamente. 
+		Para obter dados do \emph{form}, criamos um método \texttt{getFormData()}. Primeiro obtemos o objeto JSON dado pela \emph{string} retornada pela requisição \emph{POST} do exemplo anterior ao criar um novo \texttt{JSONObject} e passando a \emph{string} como parâmetro. Em seguida queremos obter outro objeto JSON, aquele cujo nome é \emph{form}, para isso chamamos o método \\ \texttt{JSONObject.getJSONObject()} passando o nome do objeto junto. Após obter o objeto desejado, usamos o método \\ \texttt{JSONObject.getString()} e passamos o nome do valor para obter o valor. Então ao passar \emph{"testing"} e \emph{"user"} esperamos como retorno \emph{POST} e \emph{You}, respectivamente. 
 
 		\subsection{Codificando JSON}
 
@@ -1375,7 +1388,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:sendsms}
 		\end{listing} 	
 	
-		Dentro de um bloco \texttt{try-catch} crie um novo \texttt{SMSManager} como mostrado na linha 3 do algoritmo \ref{code:sendsms}, use o método \texttt{SmsManager.sendTextMessage()} para enviar uma mensagem. O primeiro parâmetro é o número de telefone para qual a mensagem será enviada, o segundo é o telefone de origem, colocando \texttt{null} o valor será o número do próprio aparelho ou serviço, o terceiro parâmetro é o texto da mensagem.
+		Dentro de um bloco \texttt{try-catch} crie um novo \texttt{SMSManager} como mostrado na linha 3 do  \hyperref[code:sendsms]{Algoritmo \ref*{code:sendsms}}, use o método \texttt{SmsManager.sendTextMessage()} para enviar uma mensagem. O primeiro parâmetro é o número de telefone para qual a mensagem será enviada, o segundo é o telefone de origem, colocando \texttt{null} o valor será o número do próprio aparelho ou serviço, o terceiro parâmetro é o texto da mensagem.
 		
 		Completando, com um algoritmo simples para chamar o método quando o botão for pressionado.
 
@@ -1385,6 +1398,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:sendsms2}
 		\end{listing} 	
 
+%%%ARMAZENAMENTO%%%
 \chapter{Armazenamento}
 
 	O Android provê algumas opções para que você possa salvar dados persistentes de sua aplicação. A escolha da opção de armazenamento vai depender das necessidades da sua aplicação, isto é, se os dados vão ser visíveis somente pela aplicação ou se o usuário terá acesso a eles, quanto de espaço será necessário, que tipo de dados você pretende salvar.
@@ -1403,7 +1417,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
  
 		Você pode usar essa classe para armazenar dados durante o ciclo de vida de uma \emph{activity}. Isto é, antes da \emph{activity} ser destruída na função \texttt{onDestroy()}, os dados podem ser salvos durante a execução de \texttt{onStop()} e recuperados na execução de \texttt{onCreate()}.
 
-		Para usar a \texttt{SharedPreferences} na sua aplicação você deve chamar \texttt{getSharedPreferences()} se precisar de vários arquivos de preferencias que serão identificados pelo nome ou \texttt{getPreferences()} se precisar de apenas um arquivo para sua \emph{activity}, esse não necessita de nome pois será único para a \emph{activity}. Em seguida para escrever valores você deve chamar o método \texttt{edit()} para obter um \texttt{SharedPreferences.Editor}, e usar os métodos como \texttt{putString()} para adicionar novos valores. Por último \texttt{commit()} deve ser chamado para salvar os valores. Para ler os valores, você deve chamar métodos como \texttt{getBoolean()} ou \texttt{getString()}.
+		Para usar a \texttt{SharedPreferences} na sua aplicação você deve chamar \\ \texttt{getSharedPreferences()} se precisar de vários arquivos de preferencias que serão identificados pelo nome ou \\ \texttt{getPreferences()} se precisar de apenas um arquivo para sua \emph{activity}, esse não necessita de nome pois será único para a \emph{activity}. Em seguida para escrever valores você deve chamar o método \texttt{edit()} para obter um \texttt{SharedPreferences.Editor}, e usar os métodos como \texttt{putString()} para adicionar novos valores. Por último \texttt{commit()} deve ser chamado para salvar os valores. Para ler os valores, você deve chamar métodos como \texttt{getBoolean()} ou \texttt{getString()}.
 
 		O exemplo abaixo salva os dados de uma caixa de texto, uma barra de progresso e uma chave em uma \texttt{SharedPreferences} e depois os lê quando o aplicativo é aberto novamente.
 
@@ -1413,7 +1427,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:sharedpref}
 		\end{listing} 	
 		
-		Observe no algoritmo \ref{code:sharedpref} a utilização da classe \texttt{SharedPreferences}, no método \texttt{onStop()} chamamos o método \texttt{getPreferences(MODE\_PRIVATE)} para obter uma instância da classe no modo privado, isto é, os dados somente são acessíveis por esta \emph{activity} deste aplicativo. Na linha 30 obtemos o \texttt{SharedPreferences.Editor} ao chamar o método \texttt{SharedPreferences.edit()}.
+		Observe no algoritmo \hyperref[code:sharedpref]{Algoritmo \ref*{code:sharedpref}} a utilização da classe \texttt{SharedPreferences}, no método \texttt{onStop()} chamamos o método \texttt{getPreferences(MODE\_PRIVATE)} para obter uma instância da classe no modo privado, isto é, os dados somente são acessíveis por esta \emph{activity} deste aplicativo. Na linha 30 obtemos o \texttt{SharedPreferences.Editor} ao chamar o método \texttt{SharedPreferences.edit()}.
 		
 		O \texttt{Editor} é usado então para adicionar os valores que obtemos das \emph{views}. Na linha 32 usamos \texttt{putString()} para guardar o conteúdo da caixa de texto,
 \texttt{putInt()} para guardar a posição da \texttt{SeekBar} e \texttt{putBoolean()} para guardar o estado da chave. Finalmente invocamos \texttt{commit()} para salvar os dados.
@@ -1438,7 +1452,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\end{listing} 	
 		\newpage
 		Com o \texttt{AlertDialog.Builder} começamos a construir um novo alerta. Usamos o \texttt{LayoutInflater} para carregar o \emph{layout} com uma \texttt{EditText}.
-		Chamamos \texttt{setPositivoButton()} para criar um \emph{listener} que irá salvar o arquivo quando o botão for clicado.
+		\\ Chamamos \texttt{setPositivoButton()} para criar um \emph{listener} que irá salvar o arquivo quando o botão for clicado.
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/storage/internal2.java}
@@ -1446,7 +1460,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:internal2}
 		\end{listing} 	
 
-		Vamos analisar o algoritmo \ref{code:internal2}. Na linha 5 queremos a referência ao \texttt{EditText} contido no alerta, para isso precisamos usar a variável \texttt{fnameEntry} criada ao chamar o método \texttt{LayoutInflater.inflate()}. Depois, na linha 7-8 certificamos que o nome do arquivo não será vazio (se for vazio, o arquivo não é salvo), para isso atribuímos o nome \emph{untitled} a ele. Obtemos também o texto escrito na caixa de texto da \emph{activity} na linha 9.
+		Vamos analisar o \hyperref[code:internal2]{Algoritmo \ref*{code:internal2}}. Na linha 5 queremos a referência ao \texttt{EditText} contido no alerta, para isso precisamos usar a variável \texttt{fnameEntry} criada ao chamar o método \texttt{LayoutInflater.inflate()}. Depois, na linha 7-8 certificamos que o nome do arquivo não será vazio (se for vazio, o arquivo não é salvo), para isso atribuímos o nome \emph{untitled} a ele. Obtemos também o texto escrito na caixa de texto da \emph{activity} na linha 9.
 
 		Agora que já temos o nome e os dados do arquivo, precisamos efetivamente salvá-lo no armazenamento interno. Com o método \texttt{openFileOutput()} teremos um \texttt{FileOutputStream} que servirá para escrever os dados no arquivo. Isso é feito nas linhas 13-14 com o método \texttt{write()} e em seguida o método \texttt{close()}.
 		Para certificar ao usuário que o arquivo foi salvo, mostramos um \texttt{Toast} com a mensagem que o arquivo foi salvo.
@@ -1477,9 +1491,12 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:internal5}
 		\end{listing} 	
 		
-		Na linha 7 do algoritmo \ref{code:internal5} queremos obter a referência do arquivo selecionado. Chamando o método \texttt{getFilesDir()} nos é fornecido o diretório contendo os arquivos, com \texttt{listFiles()} temos um \emph{array} de \texttt{Files} e o selecionamos com a variável \texttt{which}, que é a posição clicada na lista do alerta. Para ler os dados desse arquivo, usamos a classe \texttt{BufferedReader} e guardamos as linhas sendo lidas em um objeto do tipo \texttt{StringBuilder}. Nas linhas 13-16 lemos cada linha do arquivo em um loop \emph{while} e usamos o método \texttt{append()} duas vezes, uma para adicionar a linha lida na \emph{string} e outra para adicionar o separador de linha (comumente \textbackslash n). Ao fim invocamos \texttt{close()} para fechar o \texttt{BufferedReader}. E colocamos o texto lido de volta na caixa de texto.
+		Na linha 7 do \hyperref[code:internal5]{Algoritmo \ref*{code:internal5}} queremos obter a referência do arquivo selecionado. Chamando o método \texttt{getFilesDir()} nos é fornecido o diretório contendo os arquivos, com \texttt{listFiles()} temos um \emph{array} de \texttt{Files} e o selecionamos com a variável \texttt{which}, que é a posição clicada na lista do alerta. Para ler os dados desse arquivo, usamos a classe \texttt{BufferedReader} e guardamos as linhas sendo lidas em um objeto do tipo \texttt{StringBuilder}. Nas linhas 13-16 lemos cada linha do arquivo em um loop \emph{while} e usamos o método \texttt{append()} duas vezes, uma para adicionar a linha lida na \emph{string} e outra para adicionar o separador de linha (comumente \textbackslash n). Ao fim invocamos \texttt{close()} para fechar o \texttt{BufferedReader}. E colocamos o texto lido de volta na caixa de texto.
 
- 		\dica{Você também pode optar por salvar seus arquivos no \emph{cache}, isto é, na pasta \emph{cache} da sua aplicação. Esses arquivos são apagados automaticamente quando o sistema necessita de memória. Para isso use o método \texttt{getCacheDir()} para obter o caminho do diretório de \emph{cache}.}
+\begin{framed}
+\paragraph{}\textbf{Dica}: Você também pode optar por salvar seus arquivos no \emph{cache}, isto é, na pasta \emph{cache} da sua aplicação. Esses arquivos são apagados automaticamente quando o sistema necessita de memória. Para isso use o método \texttt{getCacheDir()} para obter o caminho do diretório de \emph{cache}.
+\textit{}
+\end{framed}
 
 		\section{Armazenamento Externo}
 
@@ -1497,7 +1514,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:external1}
 		\end{listing} 	
 
-		O algoritmo \ref{code:external1} verifica se o armazenamento externo está disponível. Temos duas variáveis de controle que guardarão o estado da mídia,\texttt{mExternalStorageAvailable} e \texttt{mExternalStorageWriteable}. A primeira nos diz se o armazenamento externo está disponível e a segunda se é possível escrever nele. Na variável \texttt{state} é guardado o estado que é obtido através do método \texttt{getExternalStorageState()}. Uma comparação é feita com o resultado obtido, se for equivalente à \texttt{Environment.MEDIA\_MOUNTED} então sabemos que a mídia está montada e é possível escrever nela, então setamos os estados das variáveis de controle para \texttt{true}. Caso o resultado seja equivalente à \texttt{Environment.MEDIA\_MOUNTED\_READ\_ONLY} então sabemos que a mídia está montada porém está somente com permissão de leitura, nesse caso setamos apenas a variável de disponibilidade como \texttt{true} e mantemos a outra como \texttt{false}. Se o resultado não for esses dois estados, mas sim algum outro estado possível, então setamos as duas variáveis para \texttt{false}.
+		O \hyperref[code:external1]{Algoritmo \ref*{code:external1}} verifica se o armazenamento externo está disponível. Temos duas variáveis de controle que guardarão o estado da mídia,\texttt{mExternalStorageAvailable} e \texttt{mExternalStorageWriteable}. A primeira nos diz se o armazenamento externo está disponível e a segunda se é possível escrever nele. Na variável \texttt{state} é guardado o estado que é obtido através do método \texttt{getExternalStorageState()}. Uma comparação é feita com o resultado obtido, se for equivalente à \texttt{Environment.MEDIA\_MOUNTED} então sabemos que a mídia está montada e é possível escrever nela, então setamos os estados das variáveis de controle para \texttt{true}. Caso o resultado seja equivalente à \texttt{Environment.MEDIA\_MOUNTED\_READ\_ONLY} então sabemos que a mídia está montada porém está somente com permissão de leitura, nesse caso setamos apenas a variável de disponibilidade como \texttt{true} e mantemos a outra como \texttt{false}. Se o resultado não for esses dois estados, mas sim algum outro estado possível, então setamos as duas variáveis para \texttt{false}.
 
 		Após verificar a disponibilidade, você deve usar o método \texttt{getExternalFilesDir()} para obter uma referência ao caminho do diretório onde você deve salvar seus arquivos. Esse método recebe um parâmetro que especifica o tipo de subdiretório que você quer usar, tais como \texttt{DIRECTORY\_MUSIC} e \texttt{DIRECTORY\_RINGTONES}, ou passe \texttt{null} para obter a raiz dos diretórios da sua aplicação. O método irá criar o diretório apropriado se necessário. Ao especificar o tipo, você se assegura que o Android irá categorizar seus arquivos de forma apropriada. Se o usuário desinstalar seu aplicativo, todos os dados serão apagados.
 
@@ -1505,7 +1522,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 		O sistema classifica os arquivos encontrados nessas pastas na forma:
 
-		\begin{itemize}[noitemsep]
+		\begin{itemize}
 			\item \texttt{Music/} - Músicas do usuário;
 			\item \texttt{Podcasts/} - \emph{podcasts};
 			\item \texttt{Ringtones/} - Toques;
@@ -1532,7 +1549,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 \footnote{\href{http://developer.android.com/reference/android/database/sqlite/SQLiteOpenHelper.html}{http://developer.android.com/reference/android/database/sqlite/SQLiteOpenHelper.html}}.
  Chamaremos de \texttt{CarOpenHelper}. Essa classe tem algumas funções básicas, como criar e popular o BD, configurar a ação a ser tomada quando o BD é atualizado ou desatualizado.
 
-		O código \ref	{code:db1} abaixo demonstra a criação do BD usado no exemplo:
+		O \hyperref[code:db1]{Algoritmo \ref*{code:db1}} demonstra a criação do BD usado no exemplo:
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/storage/db1.java}
@@ -1542,7 +1559,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 		Primeiro criamos algumas \emph{Strings} para ajudar na criação do banco. Em seguida, criamos o construtor da classe, os argumentos passados são: o contexto da \emph{activity} que instanciou a classe, o nome do banco, um \texttt{CursorFactory} caso esteja usando (não é o caso), e a versão do banco que começa em 1 e deve incrementar a medida que você o atualiza. 
 		
-		O método \texttt{onCreate()} do banco é responsável pela criação do banco e de o popular. Fazemos isso executando consultas SQL diretamente ao banco com o método \texttt{execSQL()}. No código \ref{code:db1} você pode observar a chamada de \texttt{execSQL()} duas vezes. Não se confunda com a segunda consulta, que adiciona as tuplas ao banco, é só uma maneira de inserir várias tuplas em uma única consulta.
+		O método \texttt{onCreate()} do banco é responsável pela criação do banco e de o popular. Fazemos isso executando consultas SQL diretamente ao banco com o método \texttt{execSQL()}. No \hyperref[code:db1]{Algoritmo \ref*{code:db1}} você pode observar a chamada de \texttt{execSQL()} duas vezes. Não se confunda com a segunda consulta, que adiciona as tuplas ao banco, é só uma maneira de inserir várias tuplas em uma única consulta.
 
 		Agora na nossa \emph{activity} precisamos realizar as consultas para popular os \emph{Spinners}. No método \texttt{onCreate()} faça: 
 
@@ -1552,9 +1569,9 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:db2}
 		\end{listing} 	
 
-		Estou "pulando" a parte de obter as referências dos \emph{spinners} e botões e partindo para o que interessa no código \ref{code:db2}. Na linha 5 instanciamos o \texttt{CarOpenHelper} na variável \texttt{mDatabase}. Na linha 6 criamos um \emph{array} que contém as colunas que iremos fazer consulta, isto é necessário para o método \texttt{query()} na linha 10.
+		Estou "pulando" a parte de obter as referências dos \emph{spinners} e botões e partindo para o que interessa no código \hyperref[code:db2]{Algoritmo \ref*{code:db2}}. Na linha 5 instanciamos o \texttt{CarOpenHelper} na variável \texttt{mDatabase}. Na linha 6 criamos um \emph{array} que contém as colunas que iremos fazer consulta, isto é necessário para o método \texttt{query()} na linha 10.
 
-		Ao chamar \texttt{mDatabase.getReadableDatabase()} obtemos um objeto do tipo \texttt{SQLiteDatabase}
+		Ao chamar \texttt{mDatabase.getReadableDatabase()} obtemos um objeto do tipo \\ \texttt{SQLiteDatabase}
 \footnote{\href{http://developer.android.com/reference/android/database/sqlite/SQLiteDatabase.html}{http://developer.android.com/reference/android/database/sqlite/SQLiteDatabase.html}}
  mas que só permite a leitura. Já o método \texttt{query()} retorna um \texttt{Cursor} que é usado para iterar sobre os resultados. Na linha 10 observe os parâmetros que usamos para fazer a consulta: A tabela que vamos fazer a consulta, um \emph{array} de \emph{strings} com as colunas que queremos obter,  uma cláusula \texttt{WHERE} (observe que passar \textbf{null} aqui implica em retornar todas as tuplas da coluna), argumentos da seleção (para aqueles que conhecem \emph{prepared statements} onde "?" é substituído pelos valores, uma cláusula \texttt{GROUP BY} (\textbf{null} significa não agrupar), uma cláusula \texttt{HAVING}, uma cláusula \texttt{ORDER BY} e uma cláusula \texttt{LIMIT}.
 
@@ -1579,7 +1596,8 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	O resultado de \texttt{fetchCarList()} é enviado para outra \emph{activity} que irá mostrar os modelos em forma de uma lista. 
 
 	Nesse capítulo pudemos aprender apenas o básico de acesso ao banco de dados \texttt{SQLite}, é um assunto que tem muito mais o que aprender e recomendo olhar a documentação para futuras consultas. 
-
+	
+%%%CAMERA%%%
 \chapter{Câmera}
 	
 	O Android fornece um \emph{framework} para acesso às diferentes câmeras e funcionalidades dessas câmeras disponíveis no dispositivo. É possível tirar fotos e gravar vídeos nos aplicativos. Há duas formas de acessar a câmera, a primeira sendo pela API e a segunda pelo \texttt{Intent} da câmera. 
@@ -1636,7 +1654,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 		\subsection{Pré-visualização}
 
-		Em seguida iremos criar a classe da visualização da câmera. Essa classe estende \texttt{SurfaceView} e implementa a interface \texttt{SurfaceHolder.CallBack}, iremos chamar essa classe de \texttt{CameraPreview}. No código \ref{code:camera-preview1} abaixo começamos a implementar essa classe. Precisamos de duas variáveis \texttt{SurfaceHolder} e \texttt{Camera}. O construtor recebe o contexto e a câmera previamente instanciada como parâmetro. Obtemos o \texttt{SurfaceHolder} usando o método \texttt{getHolder()}, adicionamos a classe como \emph{callback}. Por último, na linha 11 configuramos o tipo do \texttt{SurfaceHolder} como \texttt{SURFACE\_TYPE\_PUSH\_BUFFERS} isso já é depredado mas é necessário para acessar a câmera em versões do Android mais antigas que 3.0.
+		Em seguida iremos criar a classe da visualização da câmera. Essa classe estende \texttt{SurfaceView} e implementa a interface \texttt{SurfaceHolder.CallBack}, iremos chamar essa classe de \\ \texttt{CameraPreview}. No \hyperref[code:camera-preview1]{Algoritmo \ref*{code:camera-preview1}} abaixo começamos a implementar essa classe. Precisamos de duas variáveis \texttt{SurfaceHolder} e \texttt{Camera}. O construtor recebe o contexto e a câmera previamente instanciada como parâmetro. Obtemos o \texttt{SurfaceHolder} usando o método \texttt{getHolder()}, adicionamos a classe como \emph{callback}. Por último, na linha 11 configuramos o tipo do \texttt{SurfaceHolder} como \texttt{SURFACE\_TYPE\_PUSH\_BUFFERS} isso já é depredado mas é necessário para acessar a câmera em versões do Android mais antigas que 3.0.
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/camerapreview1.java}
@@ -1644,7 +1662,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:camera-preview1}
 		\end{listing} 	
 
-		Continuando a analisar o algoritmo \ref{code:camera-preview1}. Precisamos sobrecarregar os métodos da interface. Esses são: \texttt{surfaceCreated()}, \texttt{surfaceChanged()} e \texttt{surfaceDestroyed()}. O primeiro, \texttt{surfaceCreated()} é responsável por instanciar a pré-visualização. Para isso chame o método \texttt{setPreviewDisplay()} passando o \texttt{holder} como parâmetro para a câmera saber onde a visualização será desenhada. Depois é só chamar \texttt{startPreview()} para iniciar a visualização. 
+		Continuando a analisar o \hyperref[code:camera-preview1]{Algoritmo \ref*{code:camera-preview1}}. Precisamos sobrecarregar os métodos da interface. Esses são: \texttt{surfaceCreated()}, \texttt{surfaceChanged()} e \texttt{surfaceDestroyed()}. O primeiro, \texttt{surfaceCreated()} é responsável por instanciar a pré-visualização. Para isso chame o método \texttt{setPreviewDisplay()} passando o \texttt{holder} como parâmetro para a câmera saber onde a visualização será desenhada. Depois é só chamar \texttt{startPreview()} para iniciar a visualização. 
 
 	O segundo, \texttt{surfaceChanged()} serve para parar e recomeçar a visualização quando o usuário rotaciona a tela, por exemplo. Para isso, é necessário fechar a visualização e depois iniciar novamente. Na linha 27 testamos para saber se o \texttt{mHolder} não tem nada desenhado, se for o caso então apenas retorne do método pois não há nada para ser fechado. Caso contrário então precisamos parar a visualização com \texttt{stopPreview()} e depois iniciar novamente da mesma forma como é feito no método \texttt{surfaceCreated()}.
 
@@ -1660,7 +1678,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:camera-layout}
 		\end{listing} 	
 
-	Você deve também especificar a orientação da \emph{activity} como \emph{landscape} no \emph{Manifest}. Como mostrado na linha 5 do código \ref{code:camera-orientation}. Apesar disso não ser obrigatório, é normal que tiremos fotos no modo paisagem e não retrato, mas isso não é regra.
+	Você deve também especificar a orientação da \emph{activity} como \emph{landscape} no \emph{Manifest}. Como mostrado na linha 5 do \hyperref[code:camera-orientation]{Algoritmo \ref*{code:camera-orientation}}. Apesar disso não ser obrigatório, é normal que tiremos fotos no modo paisagem e não retrato, mas isso não é regra.
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/camera/camera-orientation.xml}
@@ -1686,9 +1704,12 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	\subsection{Capturando e salvando as imagens}
 		Agora você está pronto para capturar e salvar as fotos em sua aplicação. Para isso você deve definir \emph{listeners} para o botão da sua interface que irá responder tirando uma foto.
 
-		\dica{Certifique-se de que há permissão para escrita no armazenamento externo para salvar as fotos.}
+\begin{framed}
+\paragraph{}\textbf{Dica}: Certifique-se de que há permissão para escrita no armazenamento externo para salvar as fotos.
+\textit{}
+\end{framed}
 
-		Para capturar uma foto, você deve usar o método \texttt{Camera.takePicture()}. Para receber os dados no format JPEG você deve implementar um \texttt{Camera.PictureCallback} que recebe os dados da imagem e os escrevem em um arquivo. Observe a implementação da interface \texttt{PictureCallback} no código abaixo, que pode ser escrito no método \texttt{onCreate()} da \emph{activity}.
+		Para capturar uma foto, você deve usar o método \texttt{Camera.takePicture()}. Para receber os dados no format JPEG você deve implementar um \texttt{Camera.PictureCallback} que recebe os dados da imagem e os escrevem em um arquivo. Observe a implementação da interface \texttt{PictureCallback} no \hyperref[code:camera-jpegcallback]{Algoritmo \ref*{code:camera-jpegcallback}}, que pode ser escrito no método \texttt{onCreate()} da \emph{activity}.
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/jpegcallback.java}
@@ -1704,7 +1725,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:camera-getoutput}
 		\end{listing} 			
 
-		Na linha 2 do método \texttt{getOutputMediaFile()} estamos escolhendo o nome da pasta que armazernará as fotos salvas. Para este exemplo, escolhi o nome do aplicativo concatenado com a \emph{string} \texttt{"\_PICS"}. Como neste exemplo o nome do aplicativo é \texttt{"Camera1"}, então a pasta será \texttt{"Camera1\_PICS"}. Na linha 5 criamos um objeto \texttt{File} que contêm uma referência a esta pasta que estamos criando, o caminho dela é dado pelo método \texttt{Environment.getExternalStoragePublicDirectory()} e em seguida pela variável \texttt{Environment.DIRECTORY\_PICTURES}. Essa chamada escolhe a pasta \texttt{Pictures/} do armazenamento externo e ao ser concatenada com a nossa variável \texttt{folder}, temos a pasta que iremos salvar as fotos. Em seguida é feita uma verificação se a pasta já existe, caso não exista ele tenta criá-la com o método \texttt{mkdirs()}, que retorna \texttt{false} caso não seja possível criar.
+		Na linha 2 do método \texttt{getOutputMediaFile()} estamos escolhendo o nome da pasta que armazernará as fotos salvas. Para este exemplo, escolhi o nome do aplicativo concatenado com a \emph{string} \texttt{"\_PICS"}. Como neste exemplo o nome do aplicativo é \texttt{"Camera1"}, então a pasta será \texttt{"Camera1\_PICS"}. Na linha 5 criamos um objeto \texttt{File} que contêm uma referência a esta pasta que estamos criando, o caminho dela é dado pelo método \\ \texttt{Environment.getExternalStoragePublicDirectory()} e em seguida pela variável \texttt{Environment.DIRECTORY\_PICTURES}. Essa chamada escolhe a pasta \texttt{Pictures/} do armazenamento externo e ao ser concatenada com a nossa variável \texttt{folder}, temos a pasta que iremos salvar as fotos. Em seguida é feita uma verificação se a pasta já existe, caso não exista ele tenta criá-la com o método \texttt{mkdirs()}, que retorna \texttt{false} caso não seja possível criar.
 
 		Para o nome do arquivo, criamos um \emph{timestamp} que pega a data e hora atual para o nome do arquivo. Isso pode ser observado na linha 16 com a criação de um \texttt{SimpleDateFormat} no formato \texttt{yyyyMMdd\_HHmmss}, ou seja: ano, mês, dia, hora, minuto e segundo, nesta ordem. Na linha 18 criamos novamente um objeto \texttt{File} mas que dessa vez irá guardar o caminho do arquivo. 
 
@@ -1718,9 +1739,9 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:camera-takepic}
 		\end{listing} 			
 
-		Basta chamar o método \texttt{takePicture()}\footnote{\href{http://developer.android.com/intl/es/reference/android/hardware/Camera.html}{http://developer.android.com/intl/es/reference/android/hardware/Camera.html}}, que recebe três \emph{callbacks}, são eles: \texttt{ShutterCallback}, e dois \texttt{PictureCallback}, um para imagens do tipo \texttt{RAW} e outra para imagens do tipo \texttt{JPEG}. Como só criamos um \emph{callback}, o resto será \texttt{null}.
+		Basta chamar o método \texttt{takePicture()}\footnote{\href{http://developer.android.com/intl/es/reference/android/hardware/Camera.html}{http://developer.android.com/intl/es/reference/android/hardware/Camera.html}}, que recebe três \emph{callbacks}, são eles: \\ \texttt{ShutterCallback}, e dois \texttt{PictureCallback}, um para imagens do tipo \texttt{RAW} e outra para imagens do tipo \texttt{JPEG}. Como só criamos um \emph{callback}, o resto será \texttt{null}.
 		
-		Entretanto, as imagens salvas estarão com uma qualidade bem inferior. Para corrigir isso você pode adicionar o seguinte código antes da linha 13 do algoritmo \ref{code:camera-activity}:
+		Entretanto, as imagens salvas estarão com uma qualidade bem inferior. Para corrigir isso você pode adicionar o \hyperref[code:better-quali]{Algoritmo \ref*{code:better-quali}} antes da linha 13 do \hyperref[code:camera-activity]{Algoritmo \ref*{code:camera-activity}}:
 	
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/params.java}
@@ -1747,7 +1768,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:preparevideo}
 		\end{listing} 			
 
-		Temos uma variável \texttt{recorder} da classe \texttt{MediaRecorder} e o instanciamos. O Primeiro passo é destravar a câmera com \texttt{unlock()} e atribuir a câmera ao \texttt{recorder} com \texttt{setCamera()}. O segundo passo é configurar a fonte de áudio e vídeo com \texttt{setAudioSource()} e \texttt{setVideoSource()}, respectivamente, como é feito nas linhas 6 e 7. O terceiro passo é configurar um \emph{profile} com o \texttt{setProfile()}, você pode obter um \emph{profile} usando o método \texttt{CamcorderProfile.get()}. O quarto passo é configurar o arquivo de saída com o método \texttt{setOutputFile()}, aqui usaremos o método \texttt{getOutpuMediaFile()} que fizemos antes. O quinto passo é configurar a visualização do \texttt{recorder} com \texttt{setPreviewDisplay()}, como é feito na linha 14 e passamos como parâmetro o método getSurface() da nossa classe \texttt{CameraPreview}. Por último devemos tentar chamar o método \texttt{prepare()}, mas caso dê errado precisamos liberar a câmera de volta, para isso usaremos o método \texttt{releaseMediaRecorder()}, que iremos criar abaixo.
+		Temos uma variável \texttt{recorder} da classe \texttt{MediaRecorder} e o instanciamos. O Primeiro passo é destravar a câmera com \texttt{unlock()} e atribuir a câmera ao \texttt{recorder} com \texttt{setCamera()}. O segundo passo é configurar a fonte de áudio e vídeo com \texttt{setAudioSource()} e \texttt{setVideoSource()}, respectivamente, como é feito nas linhas 6 e 7. O terceiro passo é configurar um \emph{profile} com o \texttt{setProfile()}, você pode obter um \emph{profile} usando o método \texttt{CamcorderProfile.get()}. O quarto passo é configurar o arquivo de saída com o método \texttt{setOutputFile()}, aqui usaremos o método \texttt{getOutpuMediaFile()} que fizemos antes. O quinto passo é configurar a visualização do \texttt{recorder} com \texttt{setPreviewDisplay()}, como é feito na linha 14 e passamos como parâmetro o método getSurface() da nossa classe \texttt{CameraPreview}. Por último devemos tentar chamar o método \texttt{prepare()}, mas caso dê errado precisamos liberar a câmera de volta, para isso usaremos o método \\ \texttt{releaseMediaRecorder()}, que iremos criar abaixo.
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/releaseRecorder.java}
@@ -1765,7 +1786,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:releaserecorder2}
 		\end{listing} 			
 
-		Por último, configurar um \emph{listener} para o botão de gravar vídeo, como mostrado no algoritmo \ref{code:recorderlistener} abaixo. 
+		Por último, configurar um \emph{listener} para o botão de gravar vídeo, como mostrado no \hyperref[code:recorderlistener]{Algoritmo \ref*{code:recorderlistener}} abaixo. 
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/recordlistener.java}
@@ -1773,9 +1794,12 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:recorderlistener}
 		\end{listing} 			
 
-		Com uma variável de controle \texttt{isRecording} guardamos se a câmera está gravando ou não. Caso esteja gravando e o usuário clique no botão chamamos \texttt{stop()}, liberamos o \texttt{recorder} com \texttt{releaseMediaRecorder()}, mudamos o texto do botão, além de marcar \texttt{isRecording} como falso, pois paramos de gravar. Caso contrário, isto é, o usuário quer começar a gravar então chamamos \texttt{prepareForRecording()} que criamos anteriormente, se o resultado for positivo significa que todas as preparações deram certo, podemos chamar \texttt{start()} e colocar \texttt{"Stop"} no botão onde antes era \texttt{"Record"}, além de marcar \texttt{isRecording} como verdadeiro. Se a preparação falhar, então apenas chamamos \texttt{releaseMediaRecorder()} para cancelar qualquer preparação que tenha sido feita.
+		Com uma variável de controle \texttt{isRecording} guardamos se a câmera está gravando ou não. Caso esteja gravando e o usuário clique no botão chamamos \texttt{stop()}, liberamos o \texttt{recorder} com \texttt{releaseMediaRecorder()}, mudamos o texto do botão, além de marcar \texttt{isRecording} como falso, pois paramos de gravar. Caso contrário, isto é, o usuário quer começar a gravar então chamamos \texttt{prepareForRecording()} que criamos anteriormente, se o resultado for positivo significa que todas as preparações deram certo, podemos chamar \texttt{start()} e colocar \texttt{"Stop"} no botão onde antes era \texttt{"Record"}, além de marcar \texttt{isRecording} como verdadeiro. Se a preparação falhar, então apenas chamamos \\ \texttt{releaseMediaRecorder()} para cancelar qualquer preparação que tenha sido feita.
 
-	\dica{Porque a complexidade de configurar a gravação de vídeo é alta, é recomendável baixar o projeto \texttt{Camera1} do repositório e estudar o código completo.}
+\begin{framed}
+\paragraph{}\textbf{Dica}: Porque a complexidade de configurar a gravação de vídeo é alta, é recomendável baixar o projeto \texttt{Camera1} do repositório e estudar o código completo.
+\textit{}
+\end{framed}
 
 	\section{Usando um \texttt{Intent}}
 
@@ -1785,7 +1809,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		
 		O \texttt{Intent} da câmera pode receber opcionalmente um objeto \texttt{Uri} que especifica o caminho e o nome do arquivo onde você gostaria que as fotos fossem salvas. Apesar de ser opcional, esse parâmetro é recomendável. Caso não seja especificado, a aplicação da câmera irá salvar a foto no local padrão com um nome padrão que pode ser visto no campo \texttt{Intent.getData()} que é retornado.
 
-		O código abaixo mostra como executar um \texttt{Intent} para capturar fotos.
+		O \hyperref[code:cameraintent]{Algoritmo \ref*{code:cameraintent}} mostra como executar um \texttt{Intent} para capturar fotos.
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/captureintent.java}
@@ -1793,7 +1817,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:cameraintent}
 		\end{listing} 		
 
-		Primeiro cria-se um novo \texttt{Intent} com parâmetro é \texttt{MediaStore.ACTION\_IMAGE\_CAPTURE} que configura uma \emph{activity} com câmera. Depois usamos o método \texttt{getOutputMediaFileUri()} que apenas faz uma chamada ao método \texttt{getOutputMediaFile()} (algoritmo \ref{code:camera-getoutput}) que usamos na seção anterior porém retornando uma \texttt{Uri}, que é o caminho do arquivo. Colocamos como extra no \texttt{Intent} o caminho retornado em \texttt{fileUri}, nesse caso \texttt{MediaStore.EXTRA\_OUTPUT} é apenas uma convenção para ficar claro que o valor passado no extra é para ser usado na \emph{activity} de câmera para salvar o arquivo. Por fim chamamos \texttt{startActivityForResult()}, que recebe o \texttt{Intent} e um código que indica uma \emph{activity} que captura imagens.
+		Primeiro cria-se um novo \texttt{Intent} com parâmetro é \texttt{MediaStore.ACTION\_IMAGE\_CAPTURE} que configura uma \emph{activity} com câmera. Depois usamos o método \texttt{getOutputMediaFileUri()} que apenas faz uma chamada ao método \texttt{getOutputMediaFile()} (\hyperref[code:camera-getoutput]{Algoritmo \ref*{code:camera-getoutput}}) que usamos na seção anterior porém retornando uma \texttt{Uri}, que é o caminho do arquivo. Colocamos como extra no \texttt{Intent} o caminho retornado em \texttt{fileUri}, nesse caso \\ \texttt{MediaStore.EXTRA\_OUTPUT} é apenas uma convenção para ficar claro que o valor passado no extra é para ser usado na \emph{activity} de câmera para salvar o arquivo. Por fim chamamos \texttt{startActivityForResult()}, que recebe o \texttt{Intent} e um código que indica uma \emph{activity} que captura imagens.
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/urifromfile.java}
@@ -1803,7 +1827,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 	\subsection{Recebendo resultado do \texttt{Intent}}
 		
-		Quando você chama \texttt{startActivityForResult()} significa que você espera uma resposta da \emph{activity} que chamou. Essa resposta será obtida no método \texttt{onActivityResult()} que você precisa escrever para manipular esses dados da resposta. O algoritmo \ref{code:requestresult} exemplifica esse método, que trata a resposta da câmera, isto é, se foi possível capturar a foto ou gravar o vídeo.
+		Quando você chama \texttt{startActivityForResult()} significa que você espera uma resposta da \emph{activity} que chamou. Essa resposta será obtida no método \texttt{onActivityResult()} que você precisa escrever para manipular esses dados da resposta. O \hyperref[code:requestresult]{Algoritmo \ref*{code:requestresult}} exemplifica esse método, que trata a resposta da câmera, isto é, se foi possível capturar a foto ou gravar o vídeo.
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/camera/requestresult.java}
@@ -1813,7 +1837,10 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 		A lógica está apenas em verificar o retorno da \emph{activity} e mostrar uma mensagem ao usuário, o informando do caminho em que foi salvo a imagem ou vídeo.  
 
-		\dica{Quando você passa uma \texttt{Uri} para a \emph{activity} de câmera, o retorno dela na variável \texttt{data} será sempre \texttt{null}. Você pode, entretanto, não especificar uma \texttt{Uri} e usar o campo \texttt{data} para criar um \texttt{Bitmap}.}
+		\begin{framed}
+\paragraph{}\textbf{Dica}: Quando você passa uma \texttt{Uri} para a \emph{activity} de câmera, o retorno dela na variável \texttt{data} será sempre \texttt{null}. Você pode, entretanto, não especificar uma \texttt{Uri} e usar o campo \texttt{data} para criar um \texttt{Bitmap}.
+\textit{ }
+\end{framed}
 
 	\subsection{\texttt{Intent} de capturar vídeo}
 
@@ -1827,6 +1854,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		
 		Isso conclui o capítulo de câmera, passamos por todas as fases da criação de um aplicativo que usa a câmera como principal elemento. Também vimos como é simples utilizar a câmera como uma \emph{activity} secundária cuja função é apenas capturar uma imagem. Sempre que existirem dúvidas, faça o \emph{download} dos projetos do repositório para ver o código completo em funcionamento.
 
+%%%AUDIO%%%
 \chapter{Áudio}
 	\section{Gravando e tocando áudio}
 
@@ -1897,9 +1925,15 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:audiofile}
 		\end{listing} 		
 
-		\dica{Não se esqueça das permissões no \emph{Manifest}!}
+\begin{framed}
+\paragraph{}\textbf{Dica}: Não se esqueça das permissões no \emph{Manifest}!
+\textit{}
+\end{framed}
 
 		Com isso terminamos nosso aplicativo que não só faz uma simples gravação de áudio, mas que também nos permite escutá-la usando a classe \texttt{MediaPlayer}.
+
+
+%%%LOCALIZACAO%%%
 
 \chapter{Localização e Mapas}
 
@@ -1939,7 +1973,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:locationmanager}
 		\end{listing} 	
 
-		A referência ao \texttt{LocationManager} deve ser obtida com o método \texttt{getSystemService()}.Criamos uma nova instância da classe \texttt{MyLocationListener} que criamos anteriormente. Depois deve-se registrar o \emph{listener} para receber atualizações usando \texttt{requestLocationUpdates()}. Os parâmetros são: o provedor que será usado, o intervalo mínimo entre atualizações (em milissegundos), a distância mínima entre atualizações (em metros) e o \emph{listener}. Nesse exemplo, estamos usando o GPS, caso queira usar a Internet, deve-se usar \texttt{LocationManager.NETWORK\_PROVIDER}.
+		A referência ao \texttt{LocationManager} deve ser obtida com o método \\ \texttt{getSystemService()}.Criamos uma nova instância da classe \texttt{MyLocationListener} que criamos anteriormente. Depois deve-se registrar o \emph{listener} para receber atualizações usando \texttt{requestLocationUpdates()}. Os parâmetros são: o provedor que será usado, o intervalo mínimo entre atualizações (em milissegundos), a distância mínima entre atualizações (em metros) e o \emph{listener}. Nesse exemplo, estamos usando o GPS, caso queira usar a Internet, deve-se usar \\ \texttt{LocationManager.NETWORK\_PROVIDER}.
 
  		\section{Google \emph{Maps}}
 
@@ -1953,9 +1987,9 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 	 	Caso esteja usando o \emph{Eclipse}, a chave de certificação \emph{debug} pode ser obtida no menu \emph{Window} > \emph{Preferences} > \emph{Android}  > \emph{Build}, sob o campo \emph{SHA-1 fingerprint}.
 
-		Você também pode adquirí-la pela linha de comando, usando o software \emph{keytool} que vem junto do JDK. Você irá precisar apontar para o arquivo \texttt{debug.keystore} que está na pasta \texttt{.android} do seu sistema. Basta executar o \emph{keytool} com o seguinte comando.
+		Você também pode adquirí-la pela linha de comando, usando o software \emph{keytool} que vem junto do JDK. Você irá precisar apontar para o arquivo \texttt{debug.keystore} que está na pasta \texttt{.android} do seu sistema. Basta executar o \emph{keytool} com o seguinte comando. \\
 
-		\texttt{keytool -list -v -keystore} \texttt{".android/debug.keystore"} \texttt{ -alias androiddebugkey} \texttt{ -storepass android} \texttt{ -keypass android}
+		\texttt{keytool -list -v -keystore} \texttt{".android/debug.keystore"} \\ \texttt{ -alias androiddebugkey} \texttt{ -storepass android} \texttt{ -keypass android}
 
 		\subsection{Obtendo a \emph{API Key}}
 
@@ -1999,7 +2033,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 		Primeiro, você deve fazer \emph{download} do Google \emph{Play Services} no \emph{SDK Manager}. Após o término do \emph{download} é necessário importar a biblioteca no Eclipse e referenciá-la em seu projeto. 
 		
-		A pasta com a biblioteca do Google \emph{Play Services} se encontrará na pasta \texttt{sdk/extras/google/google\_play\_services/libproject/} e se chama \texttt{google-play-services\_lib}. É necessário importar essa pasta como projeto existente no Eclipse, não se esqueça de marcar a opção para copiar o projeto para o seu \emph{workspace}. 
+		A pasta com a biblioteca do Google \emph{Play Services} se encontrará na pasta \\ \texttt{sdk/extras/google/google\_play\_services/libproject/} e se chama \texttt{google-play-services\_lib}. É necessário importar essa pasta como projeto existente no Eclipse, não se esqueça de marcar a opção para copiar o projeto para o seu \emph{workspace}. 
 
 		Depois de importar, você deve abrir as propriedades do seu projeto e selecionar \emph{Android} no menu à esquerda. Na parte inferior onde está escrito \emph{Library} clique em \emph{Add...} e selecione o \texttt{google-play-services\_lib}. Se aparecer um símbolo verde de "correto", então deu certo.
 
@@ -2057,8 +2091,8 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		Primeiro removemos o marcador anterior, depois adicionamos um novo marcador na posição obtida pelo \emph{listener}. Na linha 13 chamamos o método \texttt{moveCamera()} para colocar a câmera na posição do marcador. 
 
 		Para mais exemplos de mapas, você pode importar o projeto \emph{maps} da pasta \emph{samples} onde você obteve o \emph{libproject}.
-	 
 	
+%%%COMPARTILHAMENTO%%%
 \chapter{Compartilhamento} 
 
 		Já aprendemos a enviar dados à outras \emph{activities} usando a classe \texttt{Intent}. Agora veremos como faz para enviar esses dados e dar ao usuário a opção de escolher qual aplicativo já instalado no dispositivo ele quer usar para receber esses dados. Isso pode ser visto como compartilhamento. Imagine que você tirou uma foto e quer mostrar ao seus amigos pelo \emph{Facebook}. Na verdade está enviando uma foto à \emph{activity} do Facebook que recebe esse tipo de dado e assim ela tomará o controle.
@@ -2075,7 +2109,10 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 		Contanto que exista um aplicativo instalado no aparelho com um filtro que aceite \texttt{ACTION\_SEND} e o tipo \texttt{MIME} \texttt{"text/plain"} o Android irá executá-lo, caso exista mais de um então um alerta aparecerá perguntando qual aplicativo o usuário deseja escolher para receber o \texttt{Intent}. 
 
-		\dica{Se chamar \texttt{Intent.createChooser()} então o Android sempre irá mostrar o alerta. Você pode configurar o texto a ser mostrado no parâmetro.}
+\begin{framed}
+\paragraph{}\textbf{Dica}: Se chamar \texttt{Intent.createChooser()} então o Android sempre irá mostrar o alerta. Você pode configurar o texto a ser mostrado no parâmetro.
+\textit{}
+\end{framed}
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/sharing/createchooser.java}
@@ -2087,7 +2124,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 		Além de texto é possível enviar dados binários ou até mesmo mais de um dado ao enviar uma lista. Para enviar uma foto que você tirou com a câmera, por exemplo, você deve usar o \emph{extra} chamado \texttt{EXTRA\_STREAM} e configurar o tipo do \texttt{Intent} para \texttt{"image/jpeg"}.
 
-		Uma forma mais completa de enviar imagens ou outros tipos de dados é usando um \texttt{ContentProvider}\footnote{\href{http://developer.android.com/intl/es/reference/android/content/ContentProvider.html}{http://developer.android.com/intl/es/reference/android/content/ContentProvider.html}} que irá criar uma interface para a prover os dados a outras aplicações.
+		Uma forma mais completa de enviar imagens ou outros tipos de dados é usando um \\ \texttt{ContentProvider}\footnote{\href{http://developer.android.com/intl/es/reference/android/content/ContentProvider.html}{http://developer.android.com/intl/es/reference/android/content/ContentProvider.html}} que irá criar uma interface para a prover os dados a outras aplicações.
 
 		Outra parte importante do compartilhamento é fazer com que sua aplicação consiga receber dados de \texttt{Intents}. O primeiro passo para isso é configurar os \texttt{intent-filter} no \emph{Manifest}. Quando você define um \texttt{intent-filter} você está dizendo para o Android que uma determinada \emph{activity} é capaz de receber um determinado de \texttt{Intent}. Uma \emph{activity} pode ter múltiplos filtros, cada um relacionado a um determinado tipo de dado.
 
@@ -2095,7 +2132,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 		No primeiro aplicativo, é interessante salientar apenas os botões que adicionei para compartilhar. Um tem a função de compartilhar o texto e outro a imagem. Você pode, por exemplo compartilhar um e depois o outro no aplicativo do \emph{Gmail} que ambos irão ser adicionados ao corpo do e-mail.
 		
-		Observe no código abaixo, como ficaram os botões de compartilhamento.
+		Observe no \hyperref[code:sharingbtn]{Algoritmo \ref*{code:sharingbtn}}, como ficaram os botões de compartilhamento.
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/sharing/sharingbtn.java}
@@ -2113,7 +2150,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:intentfilter}
 		\end{listing} 	
 
-		É necessário criar um \texttt{intent-filter} para cada tipo de dado que será recebido. Como nesse caso só existe uma \emph{activity}, ela é tanto uma \emph{activity Launcher}, ou seja, aquela que abre o apicativo. Mas também recebe dois \emph{MIME Types}, são eles \texttt{text/plain} e \texttt{image/*}. Em seguida, precisamos receber os dados do \texttt{Intent} e mostrá-los para o usuário, como é feito no código abaixo:
+		É necessário criar um \texttt{intent-filter} para cada tipo de dado que será recebido. Como nesse caso só existe uma \emph{activity}, ela é tanto uma \emph{activity Launcher}, ou seja, aquela que abre o apicativo. Mas também recebe dois \emph{MIME Types}, são eles \texttt{text/plain} e \texttt{image/*}. Em seguida, precisamos receber os dados do \texttt{Intent} e mostrá-los para o usuário, como é feito no \hyperref[code:sharingintent]{Algoritmo \ref*{code:sharingintent}}:
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/sharing/receive.java}
@@ -2121,13 +2158,16 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:sharingintent}
 		\end{listing} 		
 
-		Lembre-se que nesse pedaço de código, estamos apenas preocupados em obter os dados do \texttt{Intent} e colocá-los nas suas \emph{views} e portanto não é o código completo da \emph{activity}. Basicamente o que fazemos é comparar as \emph{strings} recebidas no \texttt{Intent} para saber o que está sendo recebido. Ao verificar o \emph{action}, sabemos que o \texttt{Intent} veio através de compartilhamento e ao analisar o \emph{type}, sabemos o \emph{MIME type} e podemos construir a \emph{activity} de acordo.
+		Lembre-se que nesse trecho de código, estamos apenas preocupados em obter os dados do \texttt{Intent} e colocá-los nas suas \emph{views} e portanto não é o código completo da \emph{activity}. Basicamente o que fazemos é comparar as \emph{strings} recebidas no \texttt{Intent} para saber o que está sendo recebido. Ao verificar o \emph{action}, sabemos que o \texttt{Intent} veio através de compartilhamento e ao analisar o \emph{type}, sabemos o \emph{MIME type} e podemos construir a \emph{activity} de acordo.
 
-		\dica{Modifique a \emph{activity} para salvar a imagem ou o texto no caso do usuário voltar para compartilhar outra coisa. Você pode salvar os dados no \texttt{Bundle}.}
+\begin{framed}
+\paragraph{}\textbf{Dica}: Modifique a \emph{activity} para salvar a imagem ou o texto no caso do usuário voltar para compartilhar outra coisa. Você pode salvar os dados no \texttt{Bundle}.
+\textit{}
+\end{framed}
 
 		Esse capítulo tentou apenas para dar uma introdução ao compartilhamento de dados entre aplicativos. Outras coisas interessantes podem ser feitas, por exemplo adicionar o botão de \emph{Easy Share} como descrito \href{http://developer.android.com/intl/es/training/sharing/shareaction.html}{nessa página}\footnote{\href{http://developer.android.com/intl/es/training/sharing/shareaction.html}{http://developer.android.com/intl/es/training/sharing/shareaction.html}} da documentação. Além disso, existe também a classe \texttt{ContentProvider} que fornece uma interface para compartilhamento.
-		
-		
+
+%%%AGENDA DE CONTATOS%%%		
 \chapter{Agenda e Contatos} 
 	\section{Usando o \emph{Contacts Provider}}
 
@@ -2143,7 +2183,10 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	
 	Em seguida precisamos de uma \emph{activity} com uma lista para conter os contatos. Nesse exemplo criamos um XML de \emph{layout} que só contenha uma \texttt{ListView} e em seguida um outro XML para definir o \emph{layout} de um item da lista, nesse caso será somente uma \texttt{TextView}. Você poderá obter mais detalhes no código do projeto disponível no repositório.
 
-	\dica{Você pode incrementar essa lista adicionando outras informações do contato na lista, como a foto de cada um.}
+\begin{framed}
+\paragraph{}\textbf{Dica}: Você pode incrementar essa lista adicionando outras informações do contato na lista, como a foto de cada um.
+\textit{}
+\end{framed}
 
 	Após ter definido o \emph{layout} precisamos mostrar a lista de contatos, comece definindo a \emph{activity} que irá conter a lista. A lista deverá ser populada utilizando a classe \texttt{ContactsContract}\footnote{\href{http://developer.android.com/reference/android/provider/ContactsContract.html}{http://developer.android.com/reference/android/provider/ContactsContract.html}} que já nos providencia algumas constantes e métodos para acessar a lista de contatos.
 
@@ -2153,7 +2196,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:contactfragment}
 		\end{listing} 	
 	
-	Como pode ser observado no código \ref{code:contactfragment} estamos estendendo a classe \texttt{FragmentActivity}\footnote{\href{http://developer.android.com/reference/android/support/v4/app/FragmentActivity.html}{http://developer.android.com/reference/android/support/v4/app/FragmentActivity.html}} que nos permite usar o \texttt{Loader} em Android mais antigos. Além disso estamos implementando as interfaces \texttt{LoaderManager.LoaderCallbacks}\footnote{\href{http://developer.android.com/reference/android/app/LoaderManager.LoaderCallbacks.html}{http://developer.android.com/reference/android/app/LoaderManager.LoaderCallbacks.html}} que permite o carregamento de dados de forma assíncrona. Estamos implementando também a interface \texttt{OnItemClickListener}\footnote{\href{http://developer.android.com/reference/android/widget/AdapterView.OnItemClickListener.html}{http://developer.android.com/reference/android/widget/AdapterView.OnItemClickListener.html}} para que possamos carregar mais informações do contato quando este é clicado na lista.
+	Como pode ser observado no \hyperref[code:contactfragment]{Algoritmo \ref*{code:contactfragment}} estamos estendendo a classe \texttt{FragmentActivity}\footnote{\href{http://developer.android.com/reference/android/support/v4/app/FragmentActivity.html}{http://developer.android.com/reference/android/support/v4/app/FragmentActivity.html}} que nos permite usar o \texttt{Loader} em Android mais antigos. Além disso estamos implementando as interfaces \texttt{LoaderManager.LoaderCallbacks}\footnote{\href{http://developer.android.com/reference/android/app/LoaderManager.LoaderCallbacks.html}{http://developer.android.com/reference/android/app/LoaderManager.LoaderCallbacks.html}} que permite o carregamento de dados de forma assíncrona. Estamos implementando também a interface \texttt{OnItemClickListener}\footnote{\href{http://developer.android.com/reference/android/widget/AdapterView.OnItemClickListener.html}{http://developer.android.com/reference/android/widget/AdapterView.OnItemClickListener.html}} para que possamos carregar mais informações do contato quando este é clicado na lista.
 	
 	Precisamos de algumas variáveis para auxiliar na seleção dos contatos e na criação do adaptador da lista. A variável \texttt{FROM\_COLUMNS}, abaixo, são os dados que serão mostrados e que nesse caso é apenas o nome do contato. Observe que estamos fazendo uma pequena comparação da versão do SDK pois a partir da versão 3.0 do SDK, a classe \texttt{Contacts} foi alterada. Já a variável \texttt{TO\_IDS} serve para o adaptador saber onde colocar a informação, passamos para ele o \emph{id} do \texttt{TextView} que colocamos no XML. Como essa lição se baseia na lição da documentação oficial, estamos usando um dos \emph{ids} padrões do Android.
 
@@ -2187,7 +2230,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:contactonactivity}
 		\end{listing} 	
 
-	Na linha 4 do algoritmo \ref{code:contactonactivity}, estamos criando o \texttt{SimpleCursorAdapter}, como já discutido na lição de listas, é necessário passar para o adaptador o \emph{layout} interno da lista assim como os mapas com os dados e os \emph{ids} das \emph{views} em que esses dados serão inseridos. São esses parâmetros as variáveis \texttt{FROM\_COLUMNS} e \texttt{TO\_IDS}. Na linha 10 determinamos o adaptador para a lista e na linha 11 determinamos que o listener da lista será a própria classe. Isso é possível pois estamos implementando a interface \texttt{OnItemClickListener}.
+	Na linha 4 do \hyperref[code:contactonactivity]{Algoritmo \ref*{code:contactonactivity}}, estamos criando o \texttt{SimpleCursorAdapter}, como já discutido na lição de listas, é necessário passar para o adaptador o \emph{layout} interno da lista assim como os mapas com os dados e os \emph{ids} das \emph{views} em que esses dados serão inseridos. São esses parâmetros as variáveis \texttt{FROM\_COLUMNS} e \texttt{TO\_IDS}. Na linha 10 determinamos o adaptador para a lista e na linha 11 determinamos que o listener da lista será a própria classe. Isso é possível pois estamos implementando a interface \texttt{OnItemClickListener}.
 
 	Como estamos usando o \texttt{CursorLoader}\footnote{\href{http://developer.android.com/reference/android/content/CursorLoader.html}{http://developer.android.com/reference/android/content/CursorLoader.html}} para buscar os dados, nós precisamos inicializar a \emph{thread} que ficará no plano de fundo que irá controlar a busca de forma assíncrona. 
 
@@ -2223,7 +2266,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:contactinterfaces}
 		\end{listing} 	
 
-	Dessa forma, mostrada no algoritmo \ref{code:contactinterfaces}, conseguimos organizar melhor o código para as consultas que iremos fazer. Essa \emph{activity}, que decidi chamar \texttt{ContactDetailsActivity} também irá estender \texttt{FragmentActivity} e implementar \texttt{LoaderCallbacks<Cursor>}. Iremos utilizar essas três variáveis, das quais duas serão obtidas do \texttt{Intent} que abriu essa \emph{activity}.
+	Dessa forma, mostrada no \hyperref[code:contactinterfaces]{Algoritmo \ref*{code:contactinterfaces}}, conseguimos organizar melhor o código para as consultas que iremos fazer. Essa \emph{activity}, que decidi chamar \texttt{ContactDetailsActivity} também irá estender \texttt{FragmentActivity} e implementar \texttt{LoaderCallbacks<Cursor>}. Iremos utilizar essas três variáveis, das quais duas serão obtidas do \texttt{Intent} que abriu essa \emph{activity}.
 	
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/contacts/contactdetails.java}
@@ -2251,7 +2294,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	O método \texttt{hasPhone()}, chamado na linha 14, verifica se o contato tem algum número de telefone cadastrado. Esse método demonstra uma outra forma de se adquirir os dados de um contato, sem ser em outra \emph{thread}, mas na mesma \emph{thread} da \emph{UI (User Interface)}\footnote{Tudo que fizemos até agora (exceto o \texttt{AsyncTask} na lição de comunicação) está rodando na chamada \emph{UI thread}, isso significa que o Android está executando seu código na mesma \emph{thread} em que cria a interface do usuário. Usar o \texttt{Loader} implica em fazer com que as consultas rodem em uma outra \emph{thread}, liberando a \emph{UI thread} do serviço e impedindo que o aplicativo pareça estar travado enquanto busca informações. O \texttt{AsyncTask} é uma outra forma de executar \emph{background threads} de forma assíncrona.}. 
 
 	
-	Agora iremos implementar o método \texttt{onCreateLoader()}, de forma semelhante à última vez, mas agora iremos criar um \texttt{CursorLoader} diferente dependendo do \emph{id} que foi passado para o método - no caso é o \texttt{QUERY\_ID} que foi o parâmetro do método \texttt{restartLoader()}, visto no algoritmo \ref{code:contactdetailssetcontact}.
+	Agora iremos implementar o método \texttt{onCreateLoader()}, de forma semelhante à última vez, mas agora iremos criar um \texttt{CursorLoader} diferente dependendo do \emph{id} que foi passado para o método - no caso é o \texttt{QUERY\_ID} que foi o parâmetro do método \texttt{restartLoader()}, visto no algoritmo \hyperref[code:contactdetailssetcontact]{Algoritmo \ref*{code:contactdetailssetcontact}}.
 		
 		 \begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/contacts/oncreateloader2.java}
@@ -2276,6 +2319,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	
 		Esse capítulo tentou dar uma introdução à obtenção dos contatos da agenda. É uma tema especialmente difícil por haver muito rigor nos detalhes. É altamente recomendável estudar mais a fundo a lição presente na documentação oficial e o exemplo oferecido por eles. 
 
+
 \chapter{Acelerômetro}
 	Os dispositivos Android contam com um sensor chamado acelerômetro que consegue captar a aceleração do aparelho nos três eixos. É útil para fazer jogos, saber a orientação do aparelho, entre outras utilidades. Para isso o Android contém um \emph{framework} para os sensores, uma das classes é a \texttt{SensorManager} que contém vários métodos para acessar, registrar \emph{listeners} e constantes para calibrar os sensores, reportar a precisão do sensor e configurar a taxa de aquisição dos dados. Para saber mais sobre o \emph{framework}, acesse a \href{http://developer.android.com/guide/topics/sensors/sensors\_overview.html}{documentação oficial}\footnote{\href{http://developer.android.com/guide/topics/sensors/sensors\_overview.html}{http://developer.android.com/guide/topics/sensors/sensors\_overview.html}}.
 
@@ -2295,7 +2339,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	\label{code:accelactivitycreate}
 	\end{listing} 			
 
-	É necessário agora criar o \emph{listener} que irá escutar o sensor e escrever os dados na tela. O método \texttt{onSensorChanged()} é chamado de acordo com o intervalo definido em \texttt{registerListener()} na linha 4 do algoritmo \ref{code:accelregister}.
+	É necessário agora criar o \emph{listener} que irá escutar o sensor e escrever os dados na tela. O método \texttt{onSensorChanged()} é chamado de acordo com o intervalo definido em \\ \texttt{registerListener()} na linha 4 do algoritmo \hyperref[code:accelregister]{Algoritmo \ref*{code:accelregister}}.
 
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/accelerometer/listener.java}
@@ -2317,6 +2361,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	
 	Esse capítulo buscou apenas dar uma introdução bem simples ao uso de sensores, mas mais especificamente ao uso do acelerômetro. Todos os sensores podem ser programados de forma similar. 
 
+%%%BLUETOOTH%%%
 \chapter{Bluetooth}
 
 	O Android providencia uma API para conectar o aparelho em outros dispositivos \emph{Bluetooth}, sejam outros celulares, \emph{tablets}, fones de ouvido e até mesmo HDP \emph{(Health Device Profile)} que é um tipo de conexão \emph{Bluetooth} para aparelhos médicos. Com a API para \emph{Bluetooth} você pode: sondar outros dispositivos \emph{Bluetooth}, buscar por dispositivos já pareados, estabelecer conexões, transferir dados e gerenciar múltiplas conexões.
@@ -2347,7 +2392,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 	O segundo passo é verificar se o \emph{Bluetooth} está ativado, essa verificação é feita com uma chamada ao método \texttt{isEnabled()} como é feito na linha 13. Se o retorno for falso então nós iremos perguntar ao usuário se ele gostaria de ativar o adaptador \emph{Bluetooth}. Para isso é necessário lançar um \texttt{Intent} com \emph{action} igual à \texttt{BluetoothAdapter.ACTION\_REQUEST\_ENABLE}. Ao chamar o método \texttt{startActivityForResult()} um alerta irá perguntar ao usuário se ele quer ativar o \emph{Bluetooth}. A variável \texttt{REQUEST\_ENABLE\_BT} pode ser qualquer valor maior que 0.  
 
-	O terceiro passo é obter todos os dispositivos já pareados, a classe \texttt{BluetoothAdapter} mantém uma lista desses dispositivos que pode ser adquirida com a chamada ao método \texttt{getBondedDevices()}. Depois, adicionaremos o nome e endereço MAC desses dispositivos pareados à \texttt{ListView} usando o \texttt{ArrayAdapter}. 
+	O terceiro passo é obter todos os dispositivos já pareados, a classe \texttt{BluetoothAdapter} mantém uma lista desses dispositivos que pode ser adquirida com a chamada ao método \\ \texttt{getBondedDevices()}. Depois, adicionaremos o nome e endereço MAC desses dispositivos pareados à \texttt{ListView} usando o \texttt{ArrayAdapter}. 
 
 	O método \texttt{onActivityResult()} não precisa de nada especial. Mostrar para o usuário um \emph{feedback} já é suficiente.
 
@@ -2357,7 +2402,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	\label{code:bluetooth-onactivityresult}
 	\end{listing} 			
 
-	Voltando ao método \texttt{onCreate()} Observe o comentário \texttt{// [1]} na linha 31 do algoritmo \ref{code:bluetooth-oncreate1}, nesse pedaço do código iremos adicionar um rodapé na \texttt{ListView} com um botão que iniciará a varredura por novos dispositivos.
+	Voltando ao método \texttt{onCreate()} Observe o comentário \texttt{[1]} na linha 31 do \hyperref[code:bluetooth-oncreate1]{Algoritmo \ref*{code:bluetooth-oncreate1}}, nesse pedaço do código iremos adicionar um rodapé na \texttt{ListView} com um botão que iniciará a varredura por novos dispositivos.
 
 	Apesar de não ter apresentado este conceito antes, rodapés e cabeçalhos em \texttt{ListViews} são bem simples, construa um \emph{layout} XML e use o \texttt{LayoutInflater} para obter a \texttt{View}, depois adicione essa \texttt{View} à lista usando \texttt{addFooterView()}. Rodapés e cabeçalhos precisam ser adicionados à \texttt{ListView} antes de definir o adaptador. Também adicionaremos um \emph{listener} a um botão para que ele inicie a varredura. O método \texttt{startDiscovery()} é usado para fazer a varredura.
 
@@ -2367,7 +2412,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	\label{code:bluetooth-oncreate2}
 	\end{listing} 			
 
-	Porém, chamar \texttt{startDiscovery()} não é suficiente, é necessário construir um \texttt{BroadcastReceiver} para capturar os \texttt{Intents} que tenham as informações dos dispositivos \emph{Bluetooth} que foram descobertos.
+	Porém, chamar \texttt{startDiscovery()} não é suficiente, é necessário construir um \\ \texttt{BroadcastReceiver} para capturar os \texttt{Intents} que tenham as informações dos dispositivos \emph{Bluetooth} que foram descobertos.
 
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/broadcast.java}
@@ -2377,7 +2422,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 	O que esse \texttt{BroadcastReceiver} está fazendo é capturar os \texttt{Intents} e verificar em quais deles o campo \emph{action} equivale a \texttt{BluetoothDevice.ACTION\_FOUND}. Sendo positivo, é obtido um \texttt{BluetoothDevice} que veio no campo \emph{extra} do \texttt{Intent}. Então repetimos o procedimento de adicionar esse dispositivo no adaptador da lista. É necessário criar um \texttt{IntentFilter}\footnote{\href{http://developer.android.com/reference/android/content/IntentFilter.html}{http://developer.android.com/reference/android/content/IntentFilter.html}} para ser usado com o \texttt{BroadcastReceiver}.
 
-	Porém, para o \texttt{BroadcastReceiver} começar a funcionar é necessário registrá-lo com o método \texttt{registerReceiver()}. É importante também remove-lo com o método \texttt{unregisterReceiver()} no método \texttt{onDestroy()}.
+	Porém, para o \texttt{BroadcastReceiver} começar a funcionar é necessário registrá-lo com o método \texttt{registerReceiver()}. É importante também remove-lo com o método \\ \texttt{unregisterReceiver()} no método \texttt{onDestroy()}.
 
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/register.java}
@@ -2390,7 +2435,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	A primeira \emph{thread}, \texttt{AcceptThread}, irá instanciar um \texttt{BluetoothServerSocket}\footnote{\href{http://developer.android.com/reference/android/bluetooth/BluetoothServerSocket.html}{http://developer.android.com/reference/android/bluetooth/BluetoothServerSocket.html}}  usando o método \texttt{listenUsingRfcommWithServiceRecord()}, esse método cria um \emph{socket} seguro em um canal \emph{Bluetooth}, portanto toda informação será criptografada. Os parâmetros são \texttt{name} e \texttt{uuid}, \texttt{name} é o nome do serviço que nesse caso pode ser qualquer coisa. Já o \texttt{uuid} é um identificador universal único para ser usado com a aplicação, pode-se obter um número usando geradores aleatórios de UUID disponíveis na \emph{web}. A \emph{thread} irá ficar tentando escutar uma conexão com o método \texttt{accept()}. Note que este método é bloqueante e irá retornar um \emph{socket} se a conexão foi aceita ou irá gerar uma exceção.
 Como não queremos aceitar mais nenhuma conexão, chamamos \texttt{close()} que irá fechar o \texttt{BluetoothServerSocket} mas não irá fechar o \texttt{BluetoothSocket} criado, mantendo a conexão.
 
-Se o \emph{socket} conseguir ser instanciado corretamente, iremos chamar o método \texttt{manageConnection()}, responsável por instanciar a \emph{thread} que gerencia a conexão. 
+Se o \emph{socket} conseguir ser instanciado corretamente, iremos chamar o método \\ \texttt{manageConnection()}, responsável por instanciar a \emph{thread} que gerencia a conexão. 
 
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/acceptthread.java}
@@ -2398,7 +2443,7 @@ Se o \emph{socket} conseguir ser instanciado corretamente, iremos chamar o méto
 	\label{code:bluetooth-acceptthread}
 	\end{listing} 			
 
-	O algoritmo \ref{code:bluetooth-connectthread} abaixo mostra a segunda \emph{thread}, essa \emph{thread} é responsável por estabelecer uma conexão com outro dispositivo que esteja rodando a mesma aplicação, por isso é usado o mesmo UUID. O construtor irá receber um \texttt{BluetoothDevice}, que foi selecionado da lista, e tentará criar a conexão com o método \texttt{createRfcommSocketToServiceRecord()}. A \emph{thread} irá cancelar a varredura e irá tentar conectar ao socket usando \texttt{connect()}, que também é uma chamada bloqueante. Se a conexão falhar ou ocorrer um \emph{timeout}, ele irá gerar uma exceção. Por segurança, chamamos \texttt{close()} dentro do bloco \texttt{catch} para tentar fechar o \emph{socket} e liberar os recursos do aparelho. Se tudo der certo, chamamos o método \texttt{manageConnection()} que veremos logo. Por enquanto deixaremos a explicação da linha 29 em espera, voltaremos logo nela.
+	O \hyperref[code:bluetooth-connectthread]{Algoritmo \ref*{code:bluetooth-connectthread}} abaixo mostra a segunda \emph{thread}, essa \emph{thread} é responsável por estabelecer uma conexão com outro dispositivo que esteja rodando a mesma aplicação, por isso é usado o mesmo UUID. O construtor irá receber um \texttt{BluetoothDevice}, que foi selecionado da lista, e tentará criar a conexão com o método \texttt{createRfcommSocketToServiceRecord()}. A \emph{thread} irá cancelar a varredura e irá tentar conectar ao socket usando \texttt{connect()}, que também é uma chamada bloqueante. Se a conexão falhar ou ocorrer um \emph{timeout}, ele irá gerar uma exceção. Por segurança, chamamos \texttt{close()} dentro do bloco \texttt{catch} para tentar fechar o \emph{socket} e liberar os recursos do aparelho. Se tudo der certo, chamamos o método \texttt{manageConnection()} que veremos logo. Por enquanto deixaremos a explicação da linha 29 em espera, voltaremos logo nela.
 
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/connectthread.java}
@@ -2442,7 +2487,7 @@ Se o \emph{socket} conseguir ser instanciado corretamente, iremos chamar o méto
 	\label{code:bluetooth-showmessage}
 	\end{listing} 	
 
-	Com isso, podemos voltar e explicar a linha 29 do algoritmo \ref{code:bluetooth-acceptthread} e a linha 28 do algoritmo \ref{code:bluetooth-connected}. Essas são chamadas para o \texttt{Handler} da \emph{UI thread}. Dessa forma, podemos chamar métodos que precisam estar na \emph{UI thread}, mas fora dela. A chamada irá esperar até que a \emph{UI thread} entre para executar.
+	Com isso, podemos voltar e explicar a linha 29 do \hyperref[code:bluetooth-acceptthread]{Algoritmo \ref*{code:bluetooth-acceptthread}} e a linha 28 do algoritmo \hyperref[code:bluetooth-connected]{Algoritmo \ref*{code:bluetooth-connected}}. Essas são chamadas para o \texttt{Handler} da \emph{UI thread}. Dessa forma, podemos chamar métodos que precisam estar na \emph{UI thread}, mas fora dela. A chamada irá esperar até que a \emph{UI thread} entre para executar.
 
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/handler.java}
@@ -2462,7 +2507,7 @@ Se o \emph{socket} conseguir ser instanciado corretamente, iremos chamar o méto
 
 	Obtemos a \emph{string} do adaptador e usamos \texttt{split} para separar somente o endereço MAC. Criamos uma \texttt{ConnectThread} para conectar ao dispositivo \emph{Bluetooth}.
 
-	Por último iremos completar o método \texttt{onCreate()} (algoritmo \ref{code:bluetooth-oncreate1}), onde antes tinha \texttt{// [2]} complete com uma chamada à \texttt{AcceptThread}. 
+	Por último iremos completar o método \texttt{onCreate()} (\hyperref[code:bluetooth-oncreate1]{Algoritmo \ref*{code:bluetooth-oncreate1}}), onde antes tinha \texttt{// [2]} complete com uma chamada à \texttt{AcceptThread}. 
 
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/bluetooth/oncreate3.java}
@@ -2474,7 +2519,7 @@ Se o \emph{socket} conseguir ser instanciado corretamente, iremos chamar o méto
 
 	Esse capítulo tentou mostrar uma simples aplicação que utiliza o \emph{Bluetooth} no envio de dados. Hoje o \emph{Bluetooth} está presente em diversos dispositivos: \emph{smartphones}, fones de ouvido, caixas de som, aparelhos médicos, entre outros. O Android, por exemplo, utiliza o NFC para abrir uma conexão \emph{Bluetooth} entre dois aparelhos e enviar dados. Isso é chamado \emph{Android Beam}. 
 
-
+%%%INTERNACIONALIZAÇÃO%%%
 \chapter{Internacionalização}
 
 	É possível fazer com que sua aplicação dê suporte a diversos idiomas, o Android fornece uma maneira fácil de internacionalizar suas \emph{strings} e \emph{bitmaps}. 
@@ -2503,22 +2548,18 @@ Se o \emph{socket} conseguir ser instanciado corretamente, iremos chamar o méto
 
 	Se você quiser separar por país, por exemplo entre português brasileiro e português de Portugal, você deve adicionar o código do país ao nome da pasta, precedido por um \texttt{-r}. Português do Brasil seria \texttt{values-pt-rBR/} e de Portugal seria \texttt{values-pt-rPT/}.
 
-	
-
 
 \end{singlespace}
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \singlespace
 \selectlanguage{brazil}
-\clearpage
+\cleardoublepage
 \thispagestyle{empty}
 \phantomsection
+\addcontentsline{toc}{chapter}{Referências Bibliográficas}
+\bibliography{../comum/biblio}
+\bibliographystyle{apalike}
 \doublespace
-
-
 
 \end{document}

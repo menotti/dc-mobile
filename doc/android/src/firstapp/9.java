@@ -12,7 +12,7 @@ protected void onCreate(Bundle savedInstanceState) {
 	//Cria o TextView
 	TextView textView = new TextView(this);
 	textView.setTextSize(40);
-	textView.setText("Hello " + mensagem);
+	textView.setText("Ola " + mensagem);
 	
 	//Estabelece o text view como o layout da atividade
 	setContentView(textView);
