@@ -11,27 +11,10 @@
 \usepackage{bookman}                        %%% Fonte de Letras
 \usepackage{enumerate}
 \usepackage{lettrine}
-
-	
-\usepackage{framed}
-\usepackage{enumitem}
-\usepackage[htt]{hyphenat}
-
-\usepackage{hyperref}
-\hypersetup{
-%  backref, %omitir na versão final
-  pdfsubject =	{...},
-  pdftitle =	{...},
-  pdfkeywords = {...},
-  pdfauthor =	{Ricardo Menotti, Daniel Lucrédio, ...},
-  colorlinks =	{true}, %true na versão final
-  linkcolor =	{black!50!blue},
-  citecolor =	{black!50!blue},
-  urlcolor =	{black!50!blue},
-}
-
 \usepackage[chapter]{minted}
 \usepackage{caption}
+
+\usepackage{framed}
 
 %\usepackage{listings}
 %\lstset{
@@ -87,6 +70,7 @@
 \renewcommand\listoflistingscaption{Lista de Algoritmos}
 
 \renewcommand{\listoflistings}{%
+  \cleardoublepage
   \addcontentsline{toc}{chapter}{\listoflistingscaption}%
   \listof{listing}{\listoflistingscaption}%
 }
@@ -106,6 +90,18 @@
 \usepackage[sort]{natbib}
 \usepackage[a4paper,top=30mm,bottom=20mm,left=30mm,right=20mm]{geometry}
 
+\usepackage{hyperref}
+\hypersetup{
+%  backref, %omitir na versão final
+  pdfsubject =	{...},
+  pdftitle =	{...},
+  pdfkeywords = {...},
+  pdfauthor =	{Ricardo Menotti, Daniel Lucrédio, ...},
+  colorlinks =	{true}, %true na versão final
+  linkcolor =	{black!50!blue},
+  citecolor =	{black!50!blue},
+  urlcolor =	{black!50!blue},
+}
 
 \exhyphenpenalty = 10000
 
@@ -120,16 +116,14 @@
 \newcommand{\be}{\begin{enumerate}}
 \newcommand{\ee}{\end{enumerate}}
 
-\definecolor{Gray}{gray}{0.9}
-
 % using \autoref{} instead
-\newcommand{\reffig}[1]{Figura~\ref{fig:#1}}
-\newcommand{\reftab}[1]{Tabela~\ref{tab:#1}}
-\newcommand{\refcha}[1]{Capítulo~\ref{cha:#1}}
-\newcommand{\refses}[1]{Seção~\ref{ses:#1}}
-\newcommand{\refsub}[1]{Subseção~\ref{sub:#1}}
-\newcommand{\refape}[1]{Apêndice~\ref{ape:#1}}
-\newcommand{\refcod}[1]{Listagem~\ref{cod:#1}}
+%\newcommand{\reffig}[1]{Figura~\ref{fig:#1}}
+%\newcommand{\reftab}[1]{Tabela~\ref{tab:#1}}
+%\newcommand{\refcha}[1]{Capítulo~\ref{cha:#1}}
+%\newcommand{\refses}[1]{Seção~\ref{ses:#1}}
+%\newcommand{\refsub}[1]{Subseção~\ref{sub:#1}}
+%\newcommand{\refape}[1]{Apêndice~\ref{ape:#1}}
+%\newcommand{\refcod}[1]{Código~\ref{cod:#1}}
 \newcommand{\subfigureautorefname}{\figureautorefname}
 
 \newcommand{\cha}[2]{\chapter{#2}\label{cha:#1}} %\thispagestyle{empty}
@@ -144,13 +138,6 @@
   \caption{#2}
   \label{fig:#1}
 \end{figure}
-}
-
-%%DICA
-\newcommand{\dica}[1]{
-\begin{framed}
-\textbf{Dica:} #1
-\end{framed}
 }
 
 \newcommand{\ew}[1]{\selectlanguage{english}\emph{#1}\selectlanguage{brazil}}
