@@ -50,21 +50,22 @@ Após a leitura desse material e realização da prática o leitor deverá estar
 \lstset{language=[Objective]C}
 
 \listoffigures
-
+\clearpage
 \addcontentsline{toc}{chapter}{Lista de Figuras}
-\clearpage % se o verso ficar em branco...% VAI
+
+\thispagestyle{empty}
+
+\listoftables
+\clearpage
+\addcontentsline{toc}{chapter}{Lista de Tabelas}
+
 \thispagestyle{empty}
 
 \listoflistings
-
-\addcontentsline{toc}{chapter}{Lista de Algoritmos}
-\clearpage % se o verso ficar em branco...% VAI
+\clearpage
 \thispagestyle{empty}
 
-
-\listoftables
-\addcontentsline{toc}{chapter}{Lista de Tabelas}
-\thispagestyle{empty}
+%%\thispagestyle{empty}
 
 
 \chapter{Introdução}
@@ -132,7 +133,7 @@ Para esse material, algumas convenções serão seguidas:
   \item Dicas estarão envoltas por uma caixa para facilitar a visualização.
 \ei
 
-\chapter{Configuração do Ambiente}
+\section{Configuração do Ambiente}
 
 A instalação e configuração do ambiente de desenvolvimento para Android é simples, o Google fornece um pacote chamado ADT \emph{(Android Development Tools)} que contém o ambiente Eclipse com o \emph{plugin} do Android, algumas ferramentas para instalação dos aplicativos nos \emph{smartphones}, o gerenciador do SDK e as imagens para o emulador do Android. Essas ferramentas são suficientes para o desenvolvimento na plataforma.
 O pacote ADT pode ser encontrado em: \href{http://developer.android.com/sdk/}{Android SDK}\footnote{\href{http://developer.android.com/sdk/}{http://developer.android.com/sdk/}}. 
@@ -149,7 +150,7 @@ Caso opte por utilizar uma instalação já existente do ambiente Eclipse, você
 
 E para cada API que você irá utilizar, instalar o \emph{SDK Platform} e opcionalmente o \emph{Documentation for Android SDK} e o \emph{Samples for SDK}
 
-\chapter{Linguagem do Android}
+\chapter{Conhecendo a linguagem}
 \section{Linguagem}
 A linguagem usada para programar na plataforma Android é Java. Então, antes de engajar no aprendizado Android é recomendável estudar algum material sobre Java e principalmente o paradigma de orientação a objetos.
 
@@ -216,7 +217,7 @@ O arquivo \emph{AndroidManifest.xml} é o arquivo principal do projeto e central
 \end{itemize}
 
 %First App
-\chapter{Criando seu primeiro aplicativo}
+\section{Criando seu primeiro aplicativo}
 Para exemplificar a criação de um aplicativo, seguiremos o exemplo dado pelo próprio manual do Google sobre o Android 
 (Ver original\footnote{Original em: \href{http://developer.android.com/training/basics/firstapp/creating-project.html}{http://developer.android.com/training/basics/firstapp/creating-project.html}}). 
 Trata-se de aplicativo simples do tipo \emph{''Hello World''}.
@@ -1406,7 +1407,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	\bi
 		\item \emph{Shared Preferences}: Usada principalmente para salvar preferências do usuário, esse método guarda primitivas em duplas chave-valor;
 		\item Armazenamento Interno: Salva dados privados na memória do dispositivo;
-		\item Armazenamento Externo: Salva dados públicos na memória externa compartilhada;
+		\item Armazenamento externo: Salva dados públicos na memória externa compartilhada;
 		\item Banco de Dados \emph{SQLite}: Salva dados estruturados em um banco de dados privado.
 		\item Conexão com a rede: Salva dados na \emph{web} em seu próprio servidor na rede.
 	\ei
@@ -1498,7 +1499,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 \textit{}
 \end{framed}
 
-		\section{Armazenamento Externo}
+		\section{Armazenamento externo}
 
 		Todo dispositivo Android suporta um armazenamento externo que é compartilhado e que pode ser usado para salvar arquivos. Esse armazenamento pode ser tanto um cartão SD que esta conectado ao aparelho como a própria memória interna dele. Os arquivos salvos no armazenamento externo podem ser lidos por todos outros aplicativos e modificados quando o usuário conecta ao computador para transferir os arquivos via USB.
 
