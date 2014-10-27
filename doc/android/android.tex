@@ -133,9 +133,12 @@ Para esse material, algumas convenções serão seguidas:
   \item Dicas estarão envoltas por uma caixa para facilitar a visualização.
 \ei
 
+\newpage
+
 \section{Configuração do Ambiente}
 
 A instalação e configuração do ambiente de desenvolvimento para Android é simples, o Google fornece um pacote chamado ADT \emph{(Android Development Tools)} que contém o ambiente Eclipse com o \emph{plugin} do Android, algumas ferramentas para instalação dos aplicativos nos \emph{smartphones}, o gerenciador do SDK e as imagens para o emulador do Android. Essas ferramentas são suficientes para o desenvolvimento na plataforma.
+
 O pacote ADT pode ser encontrado em: \href{http://developer.android.com/sdk/}{Android SDK}\footnote{\href{http://developer.android.com/sdk/}{http://developer.android.com/sdk/}}. 
 
 Basta fazer o download do pacote e extrair que tudo já está pré-configurado para iniciar o desenvolvimento, portanto não há muito o que configurar.
@@ -145,10 +148,11 @@ Caso opte por utilizar uma instalação já existente do ambiente Eclipse, você
 \bi
   \item Android SDK Tools.
   \item Android SDK Platform-Tools.
-  \item Dicas estarão envoltas por uma caixa para facilitar a visualização.
 \ei
 
 E para cada API que você irá utilizar, instalar o \emph{SDK Platform} e opcionalmente o \emph{Documentation for Android SDK} e o \emph{Samples for SDK}
+
+Para padronizar as operações futuras, as aplicações serão configuradas para a API 19, para download abra o Android SDK Manager e marque o item \emph{Android 4.4.2 (API 19)} e clique para instalar o pacote. Algumas configurações vão necessitar de certas API's, caso queira utilizar seu aparelho para testar as aplicações por exemplo, baixe o \emph{Google USB Driver} do grupo \emph{Extras}.
 
 \chapter{Conhecendo a linguagem}
 \section{Linguagem}
@@ -318,6 +322,16 @@ Selecione o ''Hello world'' e o remova da sua \emph{activity}.
   \label{fig:firstapp6}
 \end{figure}
 
+Antes de continuar, altere a API selecionada por padrão para a 19 conforme a figura \autoref{fig:changeAPI} (ou outra menor, é possível instalar as versões através do \emph{Android SDK Manager}).
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.5\textwidth]{figuras/firstapp/changeAPI.png}
+  \caption{Alterando API padrão}
+  \label{fig:changeAPI}
+\end{figure}
+
+
 A tela deverá ficar parecida com a \autoref{fig:firstapp6}. Agora arraste um \textit{Text Field -> Plain Text} e um \textit{Form Widgets -> Button} para sua \emph{activity}.
 
 
@@ -393,7 +407,7 @@ Agora iremos obter o texto que está escrito na caixa para fazer algo com ele, n
 \caption{Obtendo o conteúdo da caixa de texto e enviando para outra \emph{activity}}
 \end{listing}
 
-O código na linha 3 está obtendo a referência da caixa de texto usando o método \texttt{findViewById()} passando o \textit{id} da caixa de texto como parâmetro, esse \emph{id} é obtido acessando uma variável estática da classe \texttt{R}  (observe que esse e o mesmo \emph{id} que voce colocou no arquivo xml do layout da \emph{activity}).
+O código na linha 3 está obtendo a referência da caixa de texto usando o método \\ \texttt{findViewById()} passando o \textit{id} da caixa de texto como parâmetro, esse \emph{id} é obtido acessando uma variável estática da classe \texttt{R}  (observe que esse e o mesmo \emph{id} que voce colocou no arquivo xml do layout da \emph{activity}).
 Em seguida usando o método \texttt{getText()} da caixa de texto, obtém-se a \emph{string} que foi escrita pelo usuário.
 
 Por fim, essa \emph{string} é colocada no \texttt{Intent} com o método \texttt{putExtra()}, uma \texttt{Intent} pode carregar consigo uma coleção de vários tipos de dados como pares chave-valor chamados \textit{extras}, esse método toma a chave como primeiro parâmetro e o valor no segundo parâmetro.
@@ -443,6 +457,8 @@ As linhas 3, 5 e 6 foram colocadas automaticamente na criação da \emph{activit
 
 O \hyperref[code:obtendo-string-intent]{Algoritmo \ref*{code:obtendo-string-intent}} foi colocado nas linhas 9 e 10 para obter a referência ao \emph{Intent}. Nas linhas 12-15 criamos um novo \texttt{TextView}, configuramos o tamanho da fonte e atribuímos o texto que será mostrado na tela a \emph{view}, respectivamente. 
 
+\newpage
+
 Agora que o aplicativo está pronto, é necessário testar, caso tenha um smartphone Android você pode conectá-lo no seu computador e rodar diretamente, senão você deverá rodar em um emulador. Lembrando que para ambos os casos é necessária a instalação do SDK primeiro, acesse \emph{Android SDK Manager} e faça o download do SDK desejado.
 
 Para rodar diretamente no smartphone:
@@ -460,12 +476,11 @@ Para rodar diretamente no smartphone:
 \textbf{Dica:} Caso ocorra o erro \emph{Launch error: adb rejected command: device not found}. Verifique se o aparelho está conectado e se os drivers estão instalados corretamente. Na área de notificações do aparelho deve ter uma notificação escrita: \emph{Android debugging enabled}. 
 \end{framed}
 
-
 \newpage 
 Para rodar no emulador:
 \be
 \item Abra o \textit{SDK Manager} através do Eclipse em: \textit{Window -> Android SDK Manager}
-\item Verifique se, para Android 4.2.2 (API 17) ou outro desejado os seguintes pacotes estejam instalados
+\item Verifique se, para Android 4.4.2 (API 19) ou outro desejado os seguintes pacotes estejam instalados
 	\bi
 	\item \textit{SDK Platform} e;
 	\item \textit{ARM EABI v7a System Image} ou;
@@ -480,6 +495,37 @@ Para rodar no emulador:
 \item Ainda na janela \emph{Android Virtual Device Manager} selecione o novo AVD e clique \emph{Start}
 \item Quando o emulador terminar de carregar, destrave a tela do emulador, usando o mouse.
 \ee
+
+%%
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.7\textwidth]{figuras/emulador/AddEmulador1.png}
+  \caption{Criando um novo \emph{Virtual Device}}
+  \label{fig:AddEmulador1}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.7\textwidth]{figuras/emulador/AddEmulador2.png}
+  \caption{Configurando opções de execução do aplicativo}
+  \label{fig:AddEmulador2}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.4\textwidth]{figuras/emulador/AddEmulador3.png}
+  \caption{Selecionando projeto para alterar o \emph{Target}}
+  \label{fig:AddEmulador3}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.7\textwidth]{figuras/emulador/AddEmulador4.png}
+  \caption{Alterando o \emph{Target} do aplicativo}
+  \label{fig:AddEmulador4}
+\end{figure}
+
 
 Agora para rodar o aplicativo basta clicar em \emph{Run} na barra de tarefas do Eclipse e selecionar \textit{Android Application} na janela \emph{Run as}. O Eclipse irá instalar o APK e abrir o aplicativo automaticamente, no dispositivo ou no emulador. As figuras \autoref{fig:firstapp9}, \autoref{fig:firstapp10} e \autoref{fig:firstapp11} mostram a execução do aplicativo.
 
@@ -503,6 +549,8 @@ Agora para rodar o aplicativo basta clicar em \emph{Run} na barra de tarefas do 
   \caption{Segunda tela mostrando a mensagem enviada}
   \label{fig:firstapp11}
 \end{figure}
+
+Para salvar o .apk do aplicativo (atua como instalador do aplicativo para os dispositivos físicos) é só clicar com o direito no projeto pelo \emph{Package Explorer} e em seguida \emph{Export}, por último selecionar a opção \emph{Android/Export Android Application}, são pedidas algumas informações sobre o aplicativo e por fim é gerado o arquivo instalador.
 
 %%%%%%% DESIGN %%%%%%%%%%
 \cha{design}{Design}
