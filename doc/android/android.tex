@@ -425,6 +425,14 @@ Para que a próxima \emph{activity} consiga coletar esse valor, você deve defin
 \caption{Constante como chave para um extra}
 \end{listing}
 
+Pode ser necessário adicionar o \emph{import} manualmente, basta adicionar os dois necessários (\hyperref[code:importTI]{Algoritmo \ref*{code:importTI}}) para esse exemplo antes da declaração da \emph{public class MainActivity ...}.
+
+\begin{listing}[H]
+\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/firstapp/10.java}
+\caption{\emph{import} para o \emph{TextView} e \emph{Intent}}
+\label{code:importTI}
+\end{listing}
+
 Agora você deve criar uma nova \emph{activity}, para isso vá em \textit{File -> New -> Other -> Android Activity} e selecione \textit{Blank Activity}. Preencha a próxima janela como na \autoref{fig:firstapp8}, depois clique \textit{Finish}. 
 
 \begin{figure}[H]
@@ -441,7 +449,6 @@ Observe na \autoref{fig:firstapp8}. Em \emph{Project} você vai especificar o pr
 \textbf{Dica:} O Eclipse adiciona automaticamente \emph{activities} criadas por esse método no \emph{Manifest}. Observe no \emph{Manifest} como é feito caso você precise adicionar manualmente.
 \end{framed}
 
-
 Abra a nova classe que foi criada junto com a \emph{activity}. A classe já vem com alguns métodos implementados, alguns não serão necessários para esse aplicativo e serão explicados em outras seções, mas mantenha-os na classe. Todas as classes que são subclasses de \emph{Activity} precisam implementar o método \texttt{onCreate()}\footnote{\href{http://developer.android.com/reference/android/app/Activity.html\#onCreate(android.os.Bundle)}{http://developer.android.com/reference/android/app/Activity.html\#onCreate(android.os.Bundle)}} que define o procedimento a ser executado quando a \emph{activity} é criada.
 
 Agora, precisamos extrair os dados enviados a essa \emph{activity} através do \emph{intent}, você pode obter a referência do \emph{intent} que começou a \emph{activity} chamando o método \texttt{getIntent()}\footnote{\href{http://developer.android.com/reference/android/app/Activity.html\#getIntent()}{http://developer.android.com/reference/android/app/Activity.html\#getIntent()}}.
@@ -452,17 +459,22 @@ Agora, precisamos extrair os dados enviados a essa \emph{activity} através do \
 \label{code:obtendo-string-intent}
 \end{listing}
 
-Após obter a referência do \emph{intent} que iniciou a \emph{activity}, queremos coletar os extras que foram passado junto com ele. Criamos uma \emph{string} que irá armazenar a mensagem que veio junto do \emph{intent} e chamamos o método \texttt{getStringExtra()} passando como parâmetro a chave desse extra, que definimos na classe \texttt{MainActivity}. 
-Agora para mostrar a mensagem na tela, você precisa criar um \texttt{TextView}\footnote{\href{http://developer.android.com/reference/android/widget/TextView.html}{http://developer.android.com/reference/android/widget/TextView.html}}, essa \emph{view} serve para mostrar texto. 
+
+Repare que na linha 15 alteramos a chamada do o método \texttt{setContentView} que era, originalmente serve para exibir o conteúdo da segunda tela (se você adicionar componentes a ela, será esse visual que será mostrado). Mas para o exercício a exibição ficou restrita a um\texttt{TextView}, caso você queira exibir a segunda tela propriamente dita deixe a chamada como o modelo original (para seguir com o exemplo deixe como definido no algoritmo \hyperref[code:metodoSegundaActivity]{Algoritmo \ref*{code:metodoSegundaActivity}}).
+
+Após obter a referência do \texttt{intent} que iniciou a \texttt{activity}, queremos coletar os extras que foram passado junto com ele. Criamos uma \texttt{string} que irá armazenar a mensagem que veio junto do \texttt{intent} e chamamos o método \texttt{getStringExtra()} passando como parâmetro a chave desse extra, que definimos na classe \texttt{MainActivity}. 
+Agora para mostrar a mensagem na tela, você precisa criar um \texttt{TextView}\footnote{\href{http://developer.android.com/reference/android/widget/TextView.html}{http://developer.android.com/reference/android/widget/TextView.html}}, essa \texttt{view} serve para mostrar texto. 
+
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/firstapp/9.java}
 \caption{Método \texttt{onCreate()} recebendo um \emph{Intent} e mostrando a mensagem}
+\label{code:metodoSegundaActivity}
 \end{listing}
 
 As linhas 3, 5 e 6 foram colocadas automaticamente na criação da \emph{activity}, a linha 3 faz uma chamada ao método da superclasse, a linha 6 é um método que inicializa a \emph{Action Bar}, que nesse aplicativo é a barra superior com o nome da \emph{activity} e um menu de opções que já vem pré-programado. Deixamos isso como está.
 
-O \hyperref[code:obtendo-string-intent]{Algoritmo \ref*{code:obtendo-string-intent}} foi colocado nas linhas 9 e 10 para obter a referência ao \emph{Intent}. Nas linhas 12-15 criamos um novo \texttt{TextView}, configuramos o tamanho da fonte e atribuímos o texto que será mostrado na tela a \emph{view}, respectivamente. 
+O \hyperref[code:metodoSegundaActivity]{Algoritmo \ref*{code:metodoSegundaActivity}} foi colocado nas linhas 9 e 10 para obter a referência ao \emph{Intent}. Nas linhas 12-15 criamos um novo \texttt{TextView}, configuramos o tamanho da fonte e atribuímos o texto que será mostrado na tela a \emph{view}, respectivamente. 
 
 \newpage
 

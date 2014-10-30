@@ -13,4 +13,7 @@ protected void onCreate(Bundle savedInstanceState) {
 	
 	//Estabelece o text view como o layout da atividade
 	setContentView(textView);
+
+	//Chamada antiga para definir o layout
+	//setContentView(R.layout.activity_display_message);
 }
