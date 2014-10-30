@@ -2,9 +2,6 @@
 protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	
-	// Show the Up button in the action bar.
-	setupActionBar();
-	
 	//Obtem o conteudo da Intent
 	Intent intent = getIntent();
 	String mensagem = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
