@@ -137,18 +137,25 @@ Para esse material, algumas convenções serão seguidas:
 
 \section{Configuração do Ambiente}
 
-A instalação e configuração do ambiente de desenvolvimento para Android é simples, o Google fornece um pacote chamado ADT \emph{(Android Development Tools)} que contém o ambiente Eclipse com o \emph{plugin} do Android, algumas ferramentas para instalação dos aplicativos nos \emph{smartphones}, o gerenciador do SDK e as imagens para o emulador do Android. Essas ferramentas são suficientes para o desenvolvimento na plataforma.
+A instalação e configuração do ambiente de desenvolvimento para Android é simples, o Google fornece um pacote chamado ADT \emph{(Android Development Tools)} que contém o ambiente Eclipse com o \emph{plugin} do Android, algumas ferramentas para instalação dos aplicativos nos \emph{smartphones}, o gerenciador do SDK e as imagens para o emulador do Android.
 
-O pacote ADT pode ser encontrado em: \href{http://developer.android.com/sdk/}{Android SDK}\footnote{\href{http://developer.android.com/sdk/}{http://developer.android.com/sdk/}}. 
+\singlespace
 
-Basta fazer o download do pacote e extrair que tudo já está pré-configurado para iniciar o desenvolvimento, portanto não há muito o que configurar.
+\textbf{O pacote completo que deve ser instalado é:}
+\begin{itemize}
+\item \href{http://developer.android.com/sdk/}{Eclipse ADT}\footnote{\href{http://developer.android.com/sdk/}{http://developer.android.com/sdk/}}.
+\item \href{http://goo.gl/X68FzJ}{JDK}\footnote{\href{http://goo.gl/X68FzJ}{http://goo.gl/X68FzJ }}. 
+\item \href{http://developer.android.com/sdk/}{JRE}\footnote{\href{http://developer.android.com/sdk/}{http://developer.android.com/sdk/}}. 
+\end{itemize}
 
-Caso opte por utilizar uma instalação já existente do ambiente Eclipse, você pode instalar o plugin do Android automaticamente através da ferramenta de instalação de plugins do ambiente. Após a instalação será necessário abrir o \emph{SDK Manager} e instalar:
+\textbf{Após a instalação será necessário abrir o \emph{SDK Manager} e instalar::}
+\begin{itemize}
+\item Android SDK Tools.
+\item Android SDK Platform-Tools.
+\item Android 4.4.2 (API 19).
+\end{itemize}
 
-\bi
-  \item Android SDK Tools.
-  \item Android SDK Platform-Tools.
-\ei
+\doublespace
 
 E para cada API que você irá utilizar, instalar o \emph{SDK Platform} e opcionalmente o \emph{Documentation for Android SDK} e o \emph{Samples for SDK}
 
@@ -232,7 +239,7 @@ Na janela que apareceu você deve colocar o nome do aplicativo, do projeto e do 
 \begin{itemize}
 	\item \textit{Minimum Required SDK:} É a versão mínima do sistema operacional Android que sua aplicação irá suportar, o mais comum é a versão 8 do SDK que se refere ao Android 2.2. Alguns tipos de layouts mais complexos não são suportados em versões mais antigas;
 	\item \textit{Target SDK:} É a versão principal do Android para qual seu aplicativo está sendo desenvolvido;
-	\item \textit{Compile With:} Versão do Android com qual seu aplicativo será compilado; e
+	\item \textit{Compile With:} Versão do Android com qual seu aplicativo será compilado, no nosso caso deixe como API 19;
 	\item \textit{Theme:} Cores do layout.
 \end{itemize}
 
@@ -463,21 +470,55 @@ Agora que o aplicativo está pronto, é necessário testar, caso tenha um smartp
 
 Para rodar diretamente no smartphone:
 \be
-\item Conecte seu smartphone no computador através do cabo USB. Se estiver desenvolvendo no Windows será preciso instalar os drivers USB do seu dispositivo. Se precisar de ajuda para instalar os drivers acesse: \href{http://developer.android.com/tools/extras/oem-usb.html}{OEM USB}\footnote{\href{http://developer.android.com/tools/extras/oem-usb.html}{http://developer.android.com/tools/extras/oem-usb.html}}
+\item Conecte seu smartphone no computador através do cabo USB. Se estiver desenvolvendo no Windows será preciso instalar os drivers USB do seu dispositivo (\emph{driver ADB}). Se precisar de ajuda para instalar os drivers acesse: \href{http://developer.android.com/tools/extras/oem-usb.html}{OEM USB}\footnote{\href{http://developer.android.com/tools/extras/oem-usb.html}{http://developer.android.com/tools/extras/oem-usb.html}}
 \item Ative o modo \emph{USB Debugging} no dispositivo
 	\bi
 	\item Para Android 3.2 ou mais antigos, a opção deve estar em \textit{Configurações -> Aplicativos	 -> Desenvolvimento}
 	\item Para Android 4.0 e 4.1, a opção está em \textit{Configurações -> Opções do desenvolvedor}
 	\item Para Android 4.2 e mais novos, a opção está escondida por padrão, para mostrar a opção você deve entrar em \textit{Sobre o telefone} e clicar em \textit{Número da versão} 7 vezes, ao retornar para tela anterior deverá aparecer \textit{Opções do desenvolvedor}
 	\ei
+\item Com o driver instalado e o device devidamente conectado, a única alteração necessária é selecionar o aparelho como \emph{target} para as aplicações desenvolvidas no eclipse.
 \ee
+
+A figura \autoref{fig:AddEmulador2} mostra como abrir as opções de execução do aplicativo, na tela \autoref{fig:AddEmulador3} é indicado a aba referente a opção de \emph{target}, depois deve ser selecionado a opção \emph{Always prompt to pick device} como ilustrado na figura \autoref{fig:AddEmulador12} e em seguida \emph{Run}.
+Essa opção vai exibir uma tela cada vez que o aplicativo for executado perguntando em qual \emph{device} queremos executar, se tudo estiver de acordo o aparelho será exibido como opção, assim como a figura \autoref{fig:AddEmulador13}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.7\textwidth]{figuras/emulador/AddEmulador2.png}
+  \caption{Configurando opções de execução do aplicativo}
+  \label{fig:AddEmulador2}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.4\textwidth]{figuras/emulador/AddEmulador3.png}
+  \caption{Selecionando projeto para alterar o \emph{Target}}
+  \label{fig:AddEmulador3}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.7\textwidth]{figuras/emulador/AddEmulador12.png}
+  \caption{Definindo opção de execução para exibir uma tela de \emph{devices} disponíveis}
+  \label{fig:AddEmulador12}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.7\textwidth]{figuras/emulador/AddEmulador13.png}
+  \caption{Selecionando o \emph{device} para executar o aplicativo}
+  \label{fig:AddEmulador13}
+\end{figure}
 
 \begin{framed}
 \textbf{Dica:} Caso ocorra o erro \emph{Launch error: adb rejected command: device not found}. Verifique se o aparelho está conectado e se os drivers estão instalados corretamente. Na área de notificações do aparelho deve ter uma notificação escrita: \emph{Android debugging enabled}. 
 \end{framed}
 
 \newpage 
-Para rodar no emulador:
+
+\emph{Para rodar no emulador}:
+
 \be
 \item Abra o \textit{SDK Manager} através do Eclipse em: \textit{Window -> Android SDK Manager}
 \item Verifique se, para Android 4.4.2 (API 19) ou outro desejado os seguintes pacotes estejam instalados
@@ -505,19 +546,6 @@ Para rodar no emulador:
   \label{fig:AddEmulador1}
 \end{figure}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=.7\textwidth]{figuras/emulador/AddEmulador2.png}
-  \caption{Configurando opções de execução do aplicativo}
-  \label{fig:AddEmulador2}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=.4\textwidth]{figuras/emulador/AddEmulador3.png}
-  \caption{Selecionando projeto para alterar o \emph{Target}}
-  \label{fig:AddEmulador3}
-\end{figure}
 
 \begin{figure}[H]
   \centering
