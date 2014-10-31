@@ -407,11 +407,13 @@ Primeiro, crie um novo \texttt{Intent}\footnote{Documentação Intent: \href{htt
 \label{code:obtendo-intent}
 \end{listing}
 
-Agora iremos obter o texto que está escrito na caixa para fazer algo com ele, no caso iremos enviar para outra \emph{activity} que irá mostrar esse texto. Como é feito no \hyperref[code:obtendo-intent]{Algoritmo \ref*{code:obtendo-intent}}.
+É necessário realizar outro \emph{import} como indicado pelo \hyperref[code:importTI]{Algoritmo \ref*{code:importTI}}.
+Agora iremos obter o texto que está escrito na caixa para fazer algo com ele, no caso iremos enviar para outra \emph{activity} que irá mostrar esse texto. Como é feito no \hyperref[code:obtendo-intent2]{Algoritmo \ref*{code:obtendo-intent2}}.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/firstapp/6.java}
 \caption{Obtendo o conteúdo da caixa de texto e enviando para outra \emph{activity}}
+\label{code:obtendo-intent2}
 \end{listing}
 
 O código na linha 3 está obtendo a referência da caixa de texto usando o método \\ \texttt{findViewById()} passando o \textit{id} da caixa de texto como parâmetro, esse \emph{id} é obtido acessando uma variável estática da classe \texttt{R}  (observe que esse e o mesmo \emph{id} que voce colocou no arquivo xml do layout da \emph{activity}).
@@ -425,11 +427,11 @@ Para que a próxima \emph{activity} consiga coletar esse valor, você deve defin
 \caption{Constante como chave para um extra}
 \end{listing}
 
-Pode ser necessário adicionar o \emph{import} manualmente, basta adicionar os dois necessários (\hyperref[code:importTI]{Algoritmo \ref*{code:importTI}}) para esse exemplo antes da declaração da \emph{public class MainActivity ...}.
+Pode ser necessário adicionar o \emph{import} manualmente, basta adicionar conforme o \hyperref[code:importTI]{Algoritmo \ref*{code:importTI}} antes da declaração da \emph{public class MainActivity ...}.
 
 \begin{listing}[H]
 \inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/firstapp/10.java}
-\caption{\emph{import} para o \emph{TextView} e \emph{Intent}}
+\caption{\emph{import} para o \emph{Intent}}
 \label{code:importTI}
 \end{listing}
 
