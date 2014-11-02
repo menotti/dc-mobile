@@ -1,3 +1,8 @@
+package com.example.tabhostrelativelayout;
+import android.content.Context;
+import android.view.View;
+import android.widget.TabHost.TabContentFactory;
+
 public class TabFactory implements TabContentFactory{
 	private final Context mContext;
 
@@ -5,7 +10,6 @@ public class TabFactory implements TabContentFactory{
 		mContext = context;
 	}
 	
-	@Override
 	public View createTabContent(String tag) {
 		View v = new View(mContext);
 		v.setMinimumHeight(0);

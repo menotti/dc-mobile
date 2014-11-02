@@ -474,9 +474,9 @@ Agora para mostrar a mensagem na tela, você precisa criar um \texttt{TextView}\
 \label{code:metodoSegundaActivity}
 \end{listing}
 
-As linhas 3, 5 e 6 foram colocadas automaticamente na criação da \emph{activity}, a linha 3 faz uma chamada ao método da superclasse, a linha 6 é um método que inicializa a \emph{Action Bar}, que nesse aplicativo é a barra superior com o nome da \emph{activity} e um menu de opções que já vem pré-programado. Deixamos isso como está.
+As linhas 1, 2 e 3 foram colocadas automaticamente na criação da \emph{activity}, a linha 3 faz uma chamada ao método da superclasse.
 
-O \hyperref[code:metodoSegundaActivity]{Algoritmo \ref*{code:metodoSegundaActivity}} foi colocado nas linhas 9 e 10 para obter a referência ao \emph{Intent}. Nas linhas 12-15 criamos um novo \texttt{TextView}, configuramos o tamanho da fonte e atribuímos o texto que será mostrado na tela a \emph{view}, respectivamente. 
+O \hyperref[code:metodoSegundaActivity]{Algoritmo \ref*{code:metodoSegundaActivity}} foi colocado nas linhas 6 e 7 para obter a referência ao \emph{Intent}. Nas linhas 10-12 criamos um novo \texttt{TextView}, configuramos o tamanho da fonte e atribuímos o texto que será mostrado na tela a \emph{view}, respectivamente. 
 
 \newpage
 
@@ -1082,7 +1082,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	
 	Primeiro precisamos criar uma \emph{activity} que servirá como recipiente para as abas e seu conteúdo. O \texttt{TabWidget}\footnote{\href{http://developer.android.com/reference/android/widget/TabWidget.html}{http://developer.android.com/reference/android/widget/TabWidget.html}} é o controle de seleção das abas. Todo conteúdo das abas ficará contido dentro do \texttt{FrameLayout}, é nele que as respectivas \emph{activities} serão mostradas. O \texttt{TabHost}\footnote{\href{http://developer.android.com/reference/android/widget/TabHost.html}{http://developer.android.com/reference/android/widget/TabHost.html}} por sua vez serve como um recipiente para o \texttt{TabWidget} e o \texttt{FrameLayout}.
 	
-	Crie uma nova \emph{activity}, a chamaremos de \texttt{TabLayoutActivity}. No XML que define o \emph{layout} da \emph{activity}, insira o \texttt{TabHost}, o \texttt{TabWidget} e \texttt{FrameLayout} como mostrado no \hyperref[code:layout-tabhost]{Algoritmo \ref*{code:layout-tabhost}}.
+	Crie um novo projeto com nome \texttt{TabHostRelativeLayout} e nomeie a \emph{activity} como \texttt{TabLayoutActivity}. No XML que define o \emph{layout} da \emph{activity}, insira o \texttt{TabHost}, o \texttt{TabWidget} e \texttt{FrameLayout} como mostrado no \hyperref[code:layout-tabhost]{Algoritmo \ref*{code:layout-tabhost}}.
 	
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/activity-tab-host.xml}
@@ -1090,12 +1090,26 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	\label{code:layout-tabhost}
 	\end{listing}
 	
-	Agora precisamos definir o \emph{layout} dos fragmentos, isto é, o \emph{layout} de cada aba. Para simplificar o exemplo, as abas só terão um fundo colorido, de cores diferentes. Para isso usa-se o atributo \texttt{background}.
+	Precisamos criar 3 novas \texttt{Activitys} que serão os fragmentos (telas) exibidos, para fazer isso navegue pelo \texttt{Package Explorer} \texttt{TabHostRelativeLayout->src} e clique com o botão direito em \texttt{com.example.tabhostrelativelayout} e em seguida \texttt{new->other}, selecione \texttt{Android->Android Activity} e selecione como \emph{Empty Activity}, a primeira terá \emph{Activiry Name} de \emph{Tab1Fragment}, a segunda  \emph{Tab2Fragment} e a terceira  \emph{Tab3Fragment}.
+	
+	Agora precisamos definir o \emph{layout} dos fragmentos, isto é, o \emph{layout} de cada aba. Para simplificar o exemplo, as abas só terão um fundo colorido, de cores diferentes. Para isso usa-se o atributo \texttt{background}. Os arquivos que devem ser editados são: \texttt{TabHostRelativeLayout->res->} \texttt{->layout->activity\_tab1\_fragment.xml} assim como \texttt{activity\_tab2\_fragment.xml} e \texttt{activity\_tab3\_fragment.xml}.
 	
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/tab-fragment.xml}
-	\caption{\emph{Layout} do fragmento da aba.}
+	\caption{\emph{tab\_fragment1.xml}}
 	\end{listing}
+	
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/tab-fragment2.xml}
+	\caption{\emph{tab\_fragment2.xml}}
+	\end{listing}
+		
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/tab-fragment3.xml}
+	\caption{\emph{tab\_fragment3.xml}}
+	\end{listing}
+	
+	Quando um bloco é declarado como \texttt{Linear Layout} os elementos são adicionados em sequência na tela (se colocar duas caixas de texto, elas ficarão uma ao lado da outra, não será possível posicionar da maneira que desejar), isso pode ser utilizado em uma página com um longo texto por exemplo (quando exceder o tamanho da tela é criado um \emph{scroll bar}). Nesse caso como uma estrutura de abas precisamos declarar como \texttt{Linear Layout}, porém para conservar a possibilidade de alinhar os componentes da maneira habitual declaramos um bloco \texttt{Relative Layout} dentro, isso torna a edição igual ao que foi realizado no primeiro aplicativo (poderá colocar componentes da maneira que precisar na tela do aplicativo).
 	
 	Precisamos definir as classes de cada fragmento de aba. Cada classe deverá estender a classe \texttt{Fragment} e inflar seu \emph{layout} correspondente. Depois cada fragmento será instanciado pela nossa \emph{activity} principal, \texttt{TabLayoutActivity} usando o \emph{fragment manager}. No \hyperref[code:tab1frag]{Algoritmo \ref*{code:tab1frag}} está definido a classe \texttt{Tab1Fragment} (as classes \texttt{Tab2Fragment} e \texttt{Tab3Fragment}) são exatamente iguais, exceto que elas inflam seus respectivos \emph{layouts}).
 		
@@ -1106,20 +1120,33 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/tab1-frag.java}
-	\caption{Classe \texttt{Tab1Fragment}}
+	\caption{Classe \texttt{Tab1Fragment.java}}
 	\label{code:tab1frag}
+	\end{listing}
+	
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/tab2-frag.java}
+	\caption{Classe \texttt{Tab2Fragment.java}}
+	\label{code:tab2frag}
+	\end{listing}
+	
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/tab3-frag.java}
+	\caption{Classe \texttt{Tab3Fragment.java}}
+	\label{code:tab3frag}
 	\end{listing}
 	
 	Na classe \texttt{TabLayoutActivity}, note que estamos estendendo a classe \texttt{FragmentActivity} para poder usufruir das funcionalidades dos fragmentos. É necessário configurar o método \texttt{onCreate()}, esse é o ponto de início da nossa \emph{activity}. O primeiro passo é inflar o \emph{layout} com abas definido no \hyperref[code:layout-tabhost]{Algoritmo \ref*{code:layout-tabhost}}. O segundo passo é inicializar as abas, para isso invocamos o método \texttt{TabHost.setup()}, adicionar as abas e suas informações em um mapa e determinar a primeira aba como ativa.
 	
-	Primeiro criaremos uma classe que servirá de suporte para guardar as informações relevantes sobre as nossas abas.
+	Primeiro criaremos uma classe (botão direito em 
+	\texttt{TabHostRelativeLayout->src->} \texttt{->com.example.tabhostrelativelayout} e em seguida \texttt{new->Class}) com o nome de \texttt{TabInfo} que servirá de suporte para guardar as informações relevantes sobre as nossas abas.
 	
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/tabinfo.java}
 	\caption{Classe \texttt{TabInfo}}
 	\end{listing}
 	
-	Em seguida, começaremos a escrever nossa classe \texttt{TabLayoutActivity}.
+	Em seguida, começaremos a escrever nossa classe \texttt{TabLayoutActivity} (classe principal do projeto, em \texttt{TabHostRelativeLayout->src->TabLayoutActivity.java}).
 	
  	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/tab-activity1.java}
@@ -1135,7 +1162,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	
 	O parâmetro \emph{tag} do método \texttt{createTabContent()} é que define qual aba foi selecionada. O método retorna uma \emph{view} para mostrar os elementos da aba selecionada.
 	
-	Na classe \texttt{TabLayoutActivity} precisamos criar o método \texttt{initialiseTabHost()}. Siga o \hyperref[code:inittab]{Algoritmo \ref*{code:inittab}} abaixo. Note o uso do método \texttt{onTabChanged()}. Precisamos implementar esse método em seguida através da interface \texttt{TabHost.OnTabChangeListener}.
+	Na classe \texttt{TabLayoutActivity} precisamos criar o método \texttt{initialiseTabHost()}. Siga o \hyperref[code:inittab]{Algoritmo \ref*{code:inittab}}. Note o uso do método \texttt{onTabChanged()}. Precisamos implementar esse método em seguida através da interface \texttt{TabHost.OnTabChangeListener}.
 	
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/intialiseTabHost.java}
@@ -1145,16 +1172,16 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	
 	Primeiro obtemos a \emph{view} \texttt{TabHost} usando o método \texttt{findViewById()}. Observe que estamos pegando um recurso já existente do sistema Android, já que estamos chamando a classe \texttt{R} do sistema, e não do nosso aplicativo. Em seguida chamamos o método \texttt{setup()}, a documentação diz que é necessário invocar esse método antes de adicionar abas se carregamos o \texttt{TabHost} usando \texttt{findViewById()}.
 	
-	Criamos um \texttt{TabInfo} e um \texttt{TabSpec} para nos auxiliar na adição das abas. Para adicionar as abas, primeiro chamamos o método \texttt{TabHost.newTabSpec()} para obtermos um novo \texttt{TabSpec} associado a esse \texttt{TabHost}, colocamos a \emph{tag} \texttt{''Tab1''} nele, como pode ser observado na linha 9. Em seguida determinados um indicador (que será mostrado ao usuário) a essa aba usando \texttt{TabSpec.setIndicator()}, na linha 10. Criamos um novo \texttt{TabInfo} e passamos a \emph{tag} criada, a classe com o conteúdo da aba e uma série de argumentos que podem ser passados entre \emph{activities}. Na linha 12 usamos o método \texttt{addTab()} criado anteriormente. Na linha 13 adicionamos a \emph{tag} e um ponteiro para o recém-criado \texttt{TabInfo} no \texttt{HashMap}.
-	
-	Repetimos o mesmo procedimento para as abas 2 e 3, porém mudando os valores da \emph{tag}, do indicador e da classe. Por último definimos a primeira aba como \emph{default} e determinamos o argumento \emph{this} para o método \texttt{setOnTabChangedListener()} pois iremos implementar o método \texttt{onTabChanged} em seguida.
+	Criamos um \texttt{TabInfo} e um \texttt{TabSpec} para nos auxiliar na adição das abas. Para adicionar as abas, primeiro chamamos o método \texttt{TabHost.newTabSpec()} para obtermos um novo \texttt{TabSpec} associado a esse \texttt{TabHost}, colocamos a \emph{tag} \texttt{''Tab1''} nele, como pode ser observado na linha 10. Em seguida determinados um indicador (que será mostrado ao usuário) a essa aba usando \texttt{TabSpec.setIndicator()}, na linha 11. Criamos um novo \texttt{TabInfo} e passamos a \emph{tag} criada, a classe com o conteúdo da aba e uma série de argumentos que podem ser passados entre \emph{activities}. Na linha 17 usamos o método \texttt{addTab()} criado anteriormente.
+		
+	Por último definimos a primeira aba como \emph{default} e determinamos o argumento \emph{this} para o método \texttt{setOnTabChangedListener()} pois iremos implementar o método \texttt{onTabChanged} em seguida.
 	
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/design/ontabchanged.java}
 	\caption{Método \texttt{onTabChanged()}}
 	\end{listing}
 	
-	Primeiro obtemos as informações da aba que queremos do mapa com \texttt{mapTabInfo.get(tag)}, usamos a \emph{tag} para obter o objeto que queremos. Em seguida testamos para saber se a aba selecionada é a mesma que a anterior, pois não faria sentido recarregar a mesma aba. Na linha 9 testado para saber se a última aba não é nula, isso deve ser feito para evitar uma falha do aplicativo, testamos também se o fragmento é nulo para então usar \texttt{detach()} para retirar esse fragmento do \emph{layout}. 
+	Primeiro obtemos as informações da aba que queremos do mapa com \texttt{mapTabInfo.get(tag)}, usamos a \emph{tag} para obter o objeto que queremos. Em seguida testamos para saber se a aba selecionada é a mesma que a anterior, pois não faria sentido recarregar a mesma aba. Na linha 11 testado para saber se a última aba não é nula, isso deve ser feito para evitar uma falha do aplicativo, testamos também se o fragmento é nulo para então usar \texttt{detach()} para retirar esse fragmento do \emph{layout}. 
 	
 	Fazemos o mesmo com a nova aba, caso o fragmento seja nulo isso quer dizer que ele não foi instanciado ainda, isto é, é a primeira vez que o usuário seleciona essa aba nesse ciclo de vida do aplicativo. Caso isso ocorra, então usamos \texttt{instantiate()} para instanciar esse novo fragmento e \texttt{add} para adiciona-lo ao \emph{layout}. Caso ele já tenha sido instanciado, então apenas usamos \texttt{attach()} para coloca-lo de volta no \emph{layout}.
 	
