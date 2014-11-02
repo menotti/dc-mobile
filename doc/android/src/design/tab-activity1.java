@@ -1,21 +1,30 @@
-public class TabLayoutActivity extends Activity
-						implements TabHost.OnTabChangeListener {
+package com.example.tabhostrelativelayout;
+
+import java.util.HashMap;
+
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.view.Menu;
+import android.widget.TabHost;
+
+public class TabLayoutActivity extends FragmentActivity implements 
+				TabHost.OnTabChangeListener {
 	private TabHost mTabHost;
-	private HashMap<String, TabInfo> mapTabInfo =
-									new HashMap<String, TabInfo>();
+	private HashMap<String, TabInfo> mapTabInfo = 
+		new HashMap<String, TabInfo>();
 	private TabInfo mLastTab = null;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//Estabelece o layout da activity
 		setContentView(R.layout.activity_tab_layout);
 		
-		//Metodo para inicializar as abas
 		initialiseTabHost(savedInstanceState);
 		if(savedInstanceState != null){
-			//Determina a aba que esta selecionada
-			mTabHost.setCurrentTabByTag
-				(savedInstanceState.getString("tab"));
+			mTabHost.setCurrentTabByTag(
+				savedInstanceState.getString("tab"));
 		}
 	}
+}

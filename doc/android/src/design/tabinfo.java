@@ -1,8 +1,13 @@
+package com.example.tabhostrelativelayout;
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+
 public class TabInfo {
-		private String tag;
-		private Class klass;
-		private Bundle args;
-		private Fragment fragment;
+		public String tag;
+		public Class klass;
+		public Bundle args;
+		public Fragment fragment;
 		
 		TabInfo(String tag, Class klass, Bundle args){
 			this.tag = tag;
