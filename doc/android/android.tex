@@ -243,7 +243,7 @@ Na janela que apareceu você deve colocar o nome do aplicativo, do projeto e do 
 	\item \textit{Theme:} Cores do layout.
 \end{itemize}
 
-Observe na \autoref{fig:firstapp1} a janela de criação de uma nova aplicação Android. Em \emph{Application Name} você deve colocar o nome do aplicativo, em \emph{Project Name}, o nome do projeto e em \emph{Package Name} o nome do pacote. Para esse exemplo utilizaremos como \emph{Minimum Required SDK} a versão API 8, já que nesse exemplo não usaremos nenhum layout que não é suportado em versões mais antigas. Em \emph{Target SDK} e \emph{Compile With} optaremos pela versão mais nova, a API 17. Por final o \emph{Theme} eu optei pelo \emph{Holo Light with Dark Action Bar} que é um tema com fundo branco e barra superior preta, um dos padrões do Android.
+Observe na \autoref{fig:firstapp1} a janela de criação de uma nova aplicação Android. Em \emph{Application Name} você deve colocar o nome do aplicativo, em \emph{Project Name}, o nome do projeto e em \emph{Package Name} o nome do pacote. Para esse exemplo utilizaremos como \emph{Minimum Required SDK} a versão API 8, já que nesse exemplo não usaremos nenhum layout que não é suportado em versões mais antigas. Em \emph{Target SDK} e \emph{Compile With} optaremos pela API 19. Por final o \emph{Theme} eu optei pelo \emph{Holo Light with Dark Action Bar} que é um tema com fundo branco e barra superior preta, um dos padrões do Android.
 
 \begin{framed}
 \textbf{Dica:} Para obter o máximo de compatibilidade sempre procure utilizar \emph{layouts} compatíveis com versões antigas, observe na \autoref{fig:distribuicaoAndroid} que versões antigas ainda tem uma fatia considerável do mercado.
@@ -1082,13 +1082,22 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	
 	Primeiro precisamos criar uma \emph{activity} que servirá como recipiente para as abas e seu conteúdo. O \texttt{TabWidget}\footnote{\href{http://developer.android.com/reference/android/widget/TabWidget.html}{http://developer.android.com/reference/android/widget/TabWidget.html}} é o controle de seleção das abas. Todo conteúdo das abas ficará contido dentro do \texttt{FrameLayout}, é nele que as respectivas \emph{activities} serão mostradas. O \texttt{TabHost}\footnote{\href{http://developer.android.com/reference/android/widget/TabHost.html}{http://developer.android.com/reference/android/widget/TabHost.html}} por sua vez serve como um recipiente para o \texttt{TabWidget} e o \texttt{FrameLayout}.
 	
-	Crie um novo projeto com nome \texttt{TabHostRelativeLayout} e nomeie a \emph{activity} como \texttt{TabLayoutActivity}. No XML que define o \emph{layout} da \emph{activity}, insira o \texttt{TabHost}, o \texttt{TabWidget} e \texttt{FrameLayout} como mostrado no \hyperref[code:layout-tabhost]{Algoritmo \ref*{code:layout-tabhost}}.
+	Crie um novo projeto com nome \texttt{TabHostRelativeLayout} e nomeie a \emph{main activity} como \texttt{TabLayoutActivity}. No XML que define o \emph{layout} da \emph{activity} (através do \texttt{Package Explorer} abrir \texttt{TabHostReLativeLayout->} \texttt{->res->layout->activity\_tab\_layout.xml}), insira o \texttt{TabHost}, o \texttt{TabWidget} e \texttt{FrameLayout} como mostrado no \hyperref[code:layout-tabhost]{Algoritmo \ref*{code:layout-tabhost}}.
 	
 	\begin{listing}[H]
 	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/design/activity-tab-host.xml}
 	\caption{\emph{Layout} da \emph{activity} \texttt{TabHostLayout}}
 	\label{code:layout-tabhost}
 	\end{listing}
+	
+	O código  \hyperref[code:layout-tabhost]{Algoritmo \ref*{code:layout-tabhost}} é a versão "código" da interface visual, é possível alternar entre os dois modos clicando na opção correspondente como mostrado na imagem \autoref{fig:VisualXml}.
+	
+	\begin{figure}[H]
+	  \centering
+	  \includegraphics[width=.6\textwidth]{figuras/design/tab-VisualXml.png}
+	  \caption{Alternando entre o modo visual e de codificação}
+	  \label{fig:VisualXml}
+	\end{figure}
 	
 	Precisamos criar 3 novas \texttt{Activitys} que serão os fragmentos (telas) exibidos, para fazer isso navegue pelo \texttt{Package Explorer} \texttt{TabHostRelativeLayout->src} e clique com o botão direito em \texttt{com.example.tabhostrelativelayout} e em seguida \texttt{new->other}, selecione \texttt{Android->Android Activity} e selecione como \emph{Empty Activity}, a primeira terá \emph{Activiry Name} de \emph{Tab1Fragment}, a segunda  \emph{Tab2Fragment} e a terceira  \emph{Tab3Fragment}.
 	
@@ -1201,6 +1210,15 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	  \label{fig:e18}
 	\end{figure}
 	
+	A estrutura final do projeto deve estar como exibido na imagem \autoref{fig:tabProject}.
+	
+	\begin{figure}[H]
+	  \centering
+	  \includegraphics[width=0.5\textwidth]{figuras/design/tab-project.png}
+	  \caption{Figura mostrando a estrutura final do projeto utilizando \texttt{TabHost}}
+	  \label{fig:e18}
+	\end{figure}
+	
 	
 % SWIPE %
 \section{Trocar de página com gesto de arrastar usando \texttt{ViewPager}}
@@ -1276,11 +1294,6 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 	\caption{Métodos da interface \texttt{ViewPager.OnPageChangeListener}}
 	\end{listing}
 		
-	\begin{framed}
-	\paragraph{}\textbf{Dica}: Pela dificuldade em acompanhar passo a passo a construção desse \emph{design}, é recomendável obter o código do projeto no repositório. Está sob o nome 		\emph{SwipeableTabs}.
-	\textit{}
-	\end{framed}
-	
 \section{\emph{ActionBar}}
 
 	A \emph{ActionBar} é aquela barra presente em em todos os aplicativos que fizemos de exemplo até agora. Ela pode mostrar o nome da \emph{activity}, ícones, ações que podem ser acionadas, outras \emph{views} ou botões interativos. Também pode ser usada para navegar entre as \emph{actvities} do seu aplicativo.
