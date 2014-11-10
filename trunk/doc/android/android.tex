@@ -2685,16 +2685,11 @@ Se o \emph{socket} conseguir ser instanciado corretamente, iremos chamar o méto
 	A utilização do \emph{Facebook SDK} para Android é o método mais prático para integrar o aplicativo com a plataforma da rede social. Com isso é possível implementar funções de login, escrita e leitura, apenas requisitando o acesso do usuário com sua conta já existente. As vantagens em utilizar isso são imensas, não será necessário várias etapas de cadastro e utilizando o feed de notícias do usuário é possível aumentar as capacidades do aplicativo.
 		
 	Atente-se ao uso da entidade \texttt{UiLifecycleHelper}, pois ela irá permitir verificar sempre se o usuário está ou não conectado ao Facebook.
-	
-	\begin{framed}
-	\paragraph{}\textbf{Dica}: dependendo da aplicação que estiver desenvolvendo, há diversas permissões que devem ser requisitadas, estão disponíveis em: 
-	\textit{https://developers.facebook.com/docs/facebook-login/permissions/v2.0}
-	\end{framed}
 
 \section{Configurando o projeto}
 
 	Primeiramente, é necessário fazer o download do \href{https://developers.facebook.com/docs/android}{Facebook SDK for Android}\footnote{\href{https://developers.facebook.com/docs/android}{https://developers.facebook.com/docs/android }}.
-	Extrai-a a pasta para um local que desejar, abra o eclipse e crie um novo \emph{Android Application Project} (sugere-se dar o nome de texttt{fbSDK}), mantenha o nome da activity name em \texttt{MainActivity}. 
+	Extrai-a a pasta para um local que desejar, abra o eclipse e crie um novo \emph{Android Application Project} (sugere-se dar o nome de \texttt{fbSDK}), mantenha o nome da activity name em \texttt{MainActivity}. 
 	
 	Agora iremos criar em conjunto uma aplicação no próprio facebook, é necessário acessar a \href{https://developers.facebook.com/quickstarts/?platform=android}{página de desenvolvedores}\footnote{\href{https://developers.facebook.com/quickstarts/?platform=android}{https://developers.facebook.com/quickstarts/?platform=android}} para prosseguir.
 	Na primeira etapa é necessário importar e adicionar o facebook SDK ao projeto android, atente-se para as permissões que devem ser configuradas no \texttt{AndroidManifest.xml}. Ao final da página são pedidos dados referente ao projeto criado no eclipse, em \emph{Package Name} insira \texttt{com.example.fbsdk} e em \emph{Default Activity Class Name} insira \texttt{com.example.fbsdk.MainActivity}.
@@ -2757,6 +2752,13 @@ Se o \emph{socket} conseguir ser instanciado corretamente, iremos chamar o méto
   \label{fig:facebookLogin}
 \end{figure}
 
+
+\begin{framed}
+	\paragraph{}\textbf{Dica}: dependendo da aplicação que estiver desenvolvendo, há diversas permissões que devem ser requisitadas, estão disponíveis em: 
+	\textit{https://developers.facebook.com/docs/facebook-login/permissions/v2.0}
+	\end{framed}
+	
+	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \singlespace
 \selectlanguage{brazil}
