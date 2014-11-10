@@ -2680,6 +2680,83 @@ Se o \emph{socket} conseguir ser instanciado corretamente, iremos chamar o méto
 	Se você quiser separar por país, por exemplo entre português brasileiro e português de Portugal, você deve adicionar o código do país ao nome da pasta, precedido por um \texttt{-r}. Português do Brasil seria \texttt{values-pt-rBR/} e de Portugal seria \texttt{values-pt-rPT/}.
 
 
+\chapter{Facebook SDK}
+	
+	A utilização do \emph{Facebook SDK} para Android é o método mais prático para integrar o aplicativo com a plataforma da rede social. Com isso é possível implementar funções de login, escrita e leitura, apenas requisitando o acesso do usuário com sua conta já existente. As vantagens em utilizar isso são imensas, não será necessário várias etapas de cadastro e utilizando o feed de notícias do usuário é possível aumentar as capacidades do aplicativo.
+		
+	Atente-se ao uso da entidade \texttt{UiLifecycleHelper}, pois ela irá permitir verificar sempre se o usuário está ou não conectado ao Facebook.
+	
+	\begin{framed}
+	\paragraph{}\textbf{Dica}: dependendo da aplicação que estiver desenvolvendo, há diversas permissões que devem ser requisitadas, estão disponíveis em: 
+	\textit{https://developers.facebook.com/docs/facebook-login/permissions/v2.0}
+	\end{framed}
+
+\section{Configurando o projeto}
+
+	Primeiramente, é necessário fazer o download do \href{https://developers.facebook.com/docs/android}{Facebook SDK for Android}\footnote{\href{https://developers.facebook.com/docs/android}{https://developers.facebook.com/docs/android }}.
+	Extrai-a a pasta para um local que desejar, abra o eclipse e crie um novo \emph{Android Application Project} (sugere-se dar o nome de texttt{fbSDK}), mantenha o nome da activity name em \texttt{MainActivity}. 
+	
+	Agora iremos criar em conjunto uma aplicação no próprio facebook, é necessário acessar a \href{https://developers.facebook.com/quickstarts/?platform=android}{página de desenvolvedores}\footnote{\href{https://developers.facebook.com/quickstarts/?platform=android}{https://developers.facebook.com/quickstarts/?platform=android}} para prosseguir.
+	Na primeira etapa é necessário importar e adicionar o facebook SDK ao projeto android, atente-se para as permissões que devem ser configuradas no \texttt{AndroidManifest.xml}. Ao final da página são pedidos dados referente ao projeto criado no eclipse, em \emph{Package Name} insira \texttt{com.example.fbsdk} e em \emph{Default Activity Class Name} insira \texttt{com.example.fbsdk.MainActivity}.
+	Caso os projetos importados no eclipse estejam exibindo erro, altere a versão do java de cada um deles (clique com o botão direito no projeto e acesse as propriedades, em seguida a opção \emph{Java compiler} e altera para versão 1.6).
+	
+	Na etapa seguinte será requisitado uma \emph{Key Hash}, clique em \texttt{Show how to generate a development key hash} e execute o comando exibido. Essa chave é única e gerada a partir de um arquivo \texttt{debug.keystore}, caso vá desenvolver uma aplicação em conjunto utilizando diversas estações de trabalho, será necessário obter a chave de cada um e adiciona-las nas configurações do aplicativo no facebook (mesmo que você adicione no campo da página atual ainda é necessário checar se tudo foi salvo corretamente, acesse a \href{https://developers.facebook.com/apps}{página de aplicativos}\footnote{\href{https://developers.facebook.com/apps}{https://developers.facebook.com/apps}}, selecione o aplicativo criado e em seguida as \emph{Settings}, se o campo \emph{Key Hashes} estiver em branco, adicione a key hash gerada anteriormente e clique em \emph{Save Chancges}.
+	
+	Existem mais uma ação que deve ser feita no \emph{AndroidManifest.xml}, na aba \emph{Application} adicione uma \texttt{Activity} com o Name \texttt{com.facebook.LoginActivity}, sem isso ao clicar no login button a aplicação irá fechar de forma trágica.
+		
+	Uma vez que o projeto já foi configurado para o aplicativo criado no facebook podemos prosseguir para utilização dos recursos que estão a disposição a partir de agora.
+	
+\newpage
+	
+\section{Login}
+	Vamos utilizar o \emph{Login Button} do facebook para que o usuário possa se identificar no aplicativo utilizando a sua conta da rede social, é possível implementar diversas funções, para esse exemplo vamos  mostrar como requisitar certas permissões para obter os dados de perfil (nome completo, id, email e foto).
+	
+	Abra o \texttt{.xml} da tela inicial do aplicativo no eclipse e substitua pelo código \hyperref[code:FBLoginXML]{Algoritmo \ref*{code:FBLoginXML}}.
+	
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/facebook/loginMainXML.xml}
+	\caption{Arquivo \texttt{.xml} da tela de login}
+	\label{code:FBLoginXML}
+	\end{listing} 	
+	
+	Na linha 3 há uma adição de um \emph{namespace} ao projeto, é necessária pois nas linhas 12 e 42 declaramos componentes que utilizam características externas, no caso se trata do botão de login e do receptor para foto do usuário.
+	
+	Quando alterar para o modo visual pode ser exibido um erro e o botão de login não será exibido corretamente, como ilustrado na imagem \autoref{fig:erroBotaoFB}, esse problema é corrigido fechando e abrindo novamente o eclipse (como complemento execute um \emph{Clean} no projeto antes de reabrir a IDE).
+	
+	\begin{figure}[H]
+  \centering
+  \includegraphics[width=.75\textwidth]{figuras/facebook/errobtnlogin.png}
+  \caption{Erro na renderização do \texttt{Login Button}}
+  \label{fig:erroBotaoFB}
+\end{figure}
+
+	Agora abra o \texttt{.java} da classe principal do projeto e substitua pelo código \hyperref[code:FBLoginJAVA1]{Algoritmo \ref*{code:FBLoginJAVA1}}.
+	
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/facebook/loginMainActivity.java}
+	\caption{Arquivo \texttt{.java} da tela de login parte 1}
+	\label{code:FBLoginJAVA1}
+	\end{listing}
+	
+	Os diversos métodos implementados são determinados pelo guia oficial do facebook e são utilizados internamente, a atenção nesse caso fica no método \texttt{onCreate} onde iniciamos o componente \emph{UiLifecycleHelper} e definimos as permissões que serão solicitadas pelo botão de login.
+	
+	No mesmo arquivo \texttt{.java} da classe principal adicione o método do \hyperref[code:FBLogin]{Algoritmo \ref*{code:FBLogin}}.
+	
+	\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/facebook/onSessionStateChanged.java}
+	\caption{Método de login do Facebook}
+	\label{code:FBLogin}
+	\end{listing}
+	
+	O método em especial é chamado quando o usuário troca de estado na aplicação, se ele logou então é feita uma requisição pelos seus dados e exibimos na tela nos campos correspondentes, mas se for o caso do usuário acabar de ter deslogado, então os valores dos campos são limpos.
+	
+	\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\textwidth]{figuras/facebook/face.png}
+  \caption{Utilização do Facebook SDK para implementar função de login}
+  \label{fig:facebookLogin}
+\end{figure}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \singlespace
 \selectlanguage{brazil}
