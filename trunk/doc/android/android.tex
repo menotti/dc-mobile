@@ -1574,55 +1574,81 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 		Para exemplificar, faremos um aplicativo do tipo bloco de notas. Será composto de dois botões, um para abrir um arquivo e outro para salvar um arquivo, e uma caixa de texto para escrever. Tudo será feito no método \texttt{onCreate()}, primeiro  usamos \texttt{findViewById()} para obter as \emph{views}. O botão de salvar irá abrir um alerta perguntando o nome do arquivo, e o botão de abrir mostrará um alerta permitindo ao usuário escolher dentre os arquivos já salvos anteriormente.
 
-		No código abaixo criamos o \emph{listener} do botão de salvar, dentro dele criamos um alerta e precisamos de um \emph{listener} para confirmar e um para cancelar.
-
+		Crie um novo projeto android (o exemplo foi nomeado de \emph{notepad}) e edite a \texttt{activity\_main.xml} (nome padrão, dependendo das configurações de criação pode ser outro) para o código \hyperref[code:newInternal1]{Algoritmo \ref*{code:newInternal1}}.
+		
 		\begin{listing}[H]
-		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/storage/internal1.java}
-		\caption{Passos iniciais do \emph{listener}, criando um alerta.}
-		\label{code:internal1}
-		\end{listing} 	
-		\newpage
-		Com o \texttt{AlertDialog.Builder} começamos a construir um novo alerta. Usamos o \texttt{LayoutInflater} para carregar o \emph{layout} com uma \texttt{EditText}.
-		\\ Chamamos \texttt{setPositivoButton()} para criar um \emph{listener} que irá salvar o arquivo quando o botão for clicado.
-
-		\begin{listing}[H]
-		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/storage/internal2.java}
-		\caption{Salvando um arquivo e mostrando um \texttt{Toast}}
-		\label{code:internal2}
-		\end{listing} 	
-
-		Vamos analisar o \hyperref[code:internal2]{Algoritmo \ref*{code:internal2}}. Na linha 5 queremos a referência ao \texttt{EditText} contido no alerta, para isso precisamos usar a variável \texttt{fnameEntry} criada ao chamar o método \texttt{LayoutInflater.inflate()}. Depois, na linha 7-8 certificamos que o nome do arquivo não será vazio (se for vazio, o arquivo não é salvo), para isso atribuímos o nome \emph{untitled} a ele. Obtemos também o texto escrito na caixa de texto da \emph{activity} na linha 9.
-
-		Agora que já temos o nome e os dados do arquivo, precisamos efetivamente salvá-lo no armazenamento interno. Com o método \texttt{openFileOutput()} teremos um \texttt{FileOutputStream} que servirá para escrever os dados no arquivo. Isso é feito nas linhas 13-14 com o método \texttt{write()} e em seguida o método \texttt{close()}.
-		Para certificar ao usuário que o arquivo foi salvo, mostramos um \texttt{Toast} com a mensagem que o arquivo foi salvo.
-
-		Se o usuário clicar em \emph{cancel} no alerta, precisamos fechá-lo, basta invocar \texttt{dialog.close()} no \emph{listener}.
-
-		\begin{listing}[H]
-		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/storage/internal3.java}
-		\caption{Fechando o alerta ao clicar em \emph{close}}
-		\label{code:internal3}
-		\end{listing} 	
-
-		Depois chame \texttt{builder.create().show()} no \texttt{listener} do botão \emph{Save} para mostrar o alerta.
- 
-		Para o botão \emph{Open} iremos mostrar um alerta com os nomes dos arquivos salvos anteriormente, quando um desses for clicado o arquivo se abrirá preenchendo a caixa de texto.
-
-		\begin{listing}[H]
-		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/storage/internal4.java}
-		\caption{Criando um alerta com os arquivos salvos}
-		\label{code:internal4}
-		\end{listing} 	
-	
-		Dessa vez usamos o método \texttt{builder.setItems()} para construir uma lista no alerta. O método \texttt{fileList()} retorna um \texttt{array} de nomes de arquivo que foram armazenados internalmente no aplicativo. 
-
-		\begin{listing}[H]
-		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/storage/internal5.java}
-		\caption{Criando um alerta com os arquivos salvos}
-		\label{code:internal5}
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/storage/newInternal1.xml}
+		\caption{Código da tela principal do editor de texto}
+		\label{code:newInternal1}
 		\end{listing} 	
 		
-		Na linha 7 do \hyperref[code:internal5]{Algoritmo \ref*{code:internal5}} queremos obter a referência do arquivo selecionado. Chamando o método \texttt{getFilesDir()} nos é fornecido o diretório contendo os arquivos, com \texttt{listFiles()} temos um \emph{array} de \texttt{Files} e o selecionamos com a variável \texttt{which}, que é a posição clicada na lista do alerta. Para ler os dados desse arquivo, usamos a classe \texttt{BufferedReader} e guardamos as linhas sendo lidas em um objeto do tipo \texttt{StringBuilder}. Nas linhas 13-16 lemos cada linha do arquivo em um loop \emph{while} e usamos o método \texttt{append()} duas vezes, uma para adicionar a linha lida na \emph{string} e outra para adicionar o separador de linha (comumente \textbackslash n). Ao fim invocamos \texttt{close()} para fechar o \texttt{BufferedReader}. E colocamos o texto lido de volta na caixa de texto.
+		Ao trocar para o modo visual teremos os elementos do editor de texto (um campo para entrada e um para saída de texto, um botão para salvar e outro para abrir documentos), como exibido na figura \autoref{fig:mainActivityInternal}.
+		
+		\begin{figure}[H]
+  \centering
+  \includegraphics[width=.4\textwidth]{figuras/api/internal/mainActivity.png}
+  \caption{Elementos da tela principal do editor de texto}
+  \label{fig:mainActivityInternal}
+\end{figure}
+		
+		Agora temos que criar a tela que será utilizada para nomear o arquivo (quando clicar no botão para salvar será pedido um nome para o documento), no \emph{package explorer} acesse o projeto criado e em seguida \texttt{res}, clique com o botão direito no directorio \texttt{layout->new->other} e selecione \texttt{Android XML layout file}, nomeie de \texttt{save\_dialog} (o resultado final deve ser igual ilustrado na \autoref{fig:newInternalLayoutl}), em seguida edite o xml para o \hyperref[code:newInternal2]{Algoritmo \ref*{code:newInternal2}}.
+		
+				\begin{figure}[H]
+  \centering
+  \includegraphics[width=.3\textwidth]{figuras/api/internal/layout.png}
+  \caption{Criação do layout da tela de save do aplicativo editor}
+  \label{fig:newInternalLayoutl}
+\end{figure}
+		
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/storage/newInternal2.xml}
+		\caption{Código da tela de \texttt{save} do editor de texto}
+		\label{code:newInternal2}
+		\end{listing} 	
+		
+		Com os modos visuais feitos, precisamos implementar os métodos dos botões da classe principal, abra a \texttt{src->com.example.notepad->MainActivity.java} (dependendo do nome das configurações de criação esse caminho terá outro nome) e comece declarando as variáveis que são ligadas aos componentes visuais da tela, assim como está no \hyperref[code:newInternal3]{Algoritmo \ref*{code:newInternal3}}.
+		
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/storage/newInternal1.java}
+		\caption{Código da classe principal do editor de texto}
+		\label{code:newInternal3}
+		\end{listing} 
+		
+		O próximo passo é implementar o método do botão de salvar, seguindo o \hyperref[code:newInternal4]{Algoritmo \ref*{code:newInternal4}}.
+		
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/storage/newInternal2.java}
+		\caption{Método do botão para salvar o documento}
+		\label{code:newInternal4}
+		\end{listing} 
+		
+		Vamos analisar o \hyperref[code:newInternal4]{Algoritmo \ref*{code:newInternal4}}. Na linha 14 queremos a referência ao \texttt{EditText} contido no alerta, para isso precisamos usar a variável \texttt{fnameEntry} criada ao chamar o método \texttt{LayoutInflater.inflate()}. Depois, na linha 16-17 certificamos que o nome do arquivo não será vazio (se for vazio, o arquivo não é salvo), para isso atribuímos o nome \emph{untitled} a ele. Obtemos também o texto escrito na caixa de texto da \emph{activity} na linha 18.
+
+		Agora que já temos o nome e os dados do arquivo, precisamos efetivamente salvá-lo no armazenamento interno. Com o método \texttt{openFileOutput()} teremos um \texttt{FileOutputStream} que servirá para escrever os dados no arquivo. Isso é feito nas linhas 22-23 com o método \texttt{write()} e em seguida o método \texttt{close()}.
+		Para certificar ao usuário que o arquivo foi salvo, mostramos um \texttt{Toast} com a mensagem que o arquivo foi salvo.
+
+		Se o usuário clicar em \emph{cancel} no alerta, precisamos fechá-lo, basta invocar \texttt{dialog.close()} no \emph{listener}. Depois é chamado o \texttt{builder.create().show()} no \texttt{listener} do botão \emph{Save} para mostrar o alerta.
+		
+		O próximo passo é implementar o método do botão de abrir, seguindo o \hyperref[code:newInternal5]{Algoritmo \ref*{code:newInternal5}}.
+		
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{java}{src/api/storage/newInternal3.java}
+		\caption{Método do botão para abrir um documento}
+		\label{code:newInternal5}
+		\end{listing} 
+ 
+		Para o botão \emph{Open} é mostrado um alerta com os nomes dos arquivos salvos anteriormente, quando um desses for clicado o arquivo se abrirá preenchendo a caixa de texto.
+	
+		Dessa vez foi usado o método \texttt{builder.setItems()} para construir uma lista no alerta. O método \texttt{fileList()} retorna um \texttt{array} de nomes de arquivo que foram armazenados internamente no aplicativo. 
+		
+		Na linha 14 do \hyperref[code:newInternal5]{Algoritmo \ref*{code:newInternal5}} queremos obter a referência do arquivo selecionado. Chamando o método \texttt{getFilesDir()} nos é fornecido o diretório contendo os arquivos, com \texttt{listFiles()} temos um \emph{array} de \texttt{Files} e o selecionamos com a variável \texttt{which}, que é a posição clicada na lista do alerta. Para ler os dados desse arquivo, usamos a classe \texttt{BufferedReader} e guardamos as linhas sendo lidas em um objeto do tipo \texttt{StringBuilder}. Nas linhas 20-21 lemos cada linha do arquivo em um loop \emph{while} e usamos o método \texttt{append()} duas vezes, uma para adicionar a linha lida na \emph{string} e outra para adicionar o separador de linha (comumente \textbackslash n). Ao fim invocamos \texttt{close()} para fechar o \texttt{BufferedReader}. E colocamos o texto lido de volta na caixa de texto.
+
+		\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\textwidth]{figuras/api/internal/internalFinal.png}
+  \caption{Resultado final do aplicativo editor de texto}
+  \label{fig:newInternalFinal}
+\end{figure}
 
 \begin{framed}
 \paragraph{}\textbf{Dica}: Você também pode optar por salvar seus arquivos no \emph{cache}, isto é, na pasta \emph{cache} da sua aplicação. Esses arquivos são apagados automaticamente quando o sistema necessita de memória. Para isso use o método \texttt{getCacheDir()} para obter o caminho do diretório de \emph{cache}.
