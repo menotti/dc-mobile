@@ -1478,7 +1478,6 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:jsonparser2}
 		\end{listing} 
 
-
 	\section{Telefone}
 		
 		É possível fazer uma chamada telefônica, porém você terá que usar o discador padrão do Android uma vez que ele não provê uma API pública para fazer chamadas diretamente pelo seu aplicativo. A única forma é através do intermediador \texttt{ACTION\_CALL}. O Exemplo abaixo mostra como fazer uma chamada usando esse intermediador.
@@ -2785,6 +2784,161 @@ Se o \emph{socket} conseguir ser instanciado corretamente, iremos chamar o méto
 	\end{framed}
 	
 	
+\chapter{Desenvolvimento de aplicações}
+
+%%CARDAPIO ONLINE RU%%
+
+\section{Cardápio online}
+
+\subsection{Web Service}
+
+É uma prática centralizar dados úteis em uma base única de forma que várias aplicações acessem a mesma fonte, mesmo que não utilize uma base de dados e seja simplesmente um serviço web que recebe e trata solicitações afim de fornecer determinadas informações ou realizar alguma ação pré-determinada.
+
+O \texttt{web service} utilizado também pode ser chamado pelo navegador e vai exibir os dados no formato JSON, como mostrado na \autoref{fig:webServiceCardapio}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.75\textwidth]{figuras/devapp/cardapio/APP_Cardapio3.png}
+  \caption{Visualização do \texttt{web service} do cardápio online}
+  \label{fig:webServiceCardapio}
+\end{figure}
+
+\begin{framed}
+\paragraph{}\textbf{Dica}: leia mais sobre o \href{http://alexandregama.org/2011/12/19/json-simples-e-pratico-parte-i/}{formato JSON}.
+\end{framed}
+
+\subsection{Construção do aplicativo}
+
+O cardápio online vai utilizar um \texttt{web service} para recuperar os dados presentes em uma base de dados externa e assim exibir na tela principal.
+
+O projeto exemplo foi nomeado de \texttt{cardapioOnline}, logo após cria-lo precisamos adicionar a permissão de acesso a internet. Abra o \texttt{manifest} (\texttt{AndroidManifest.xml}) e na aba \texttt{Permissions} adicione uma \texttt{Uses Permission} com o valor: \emph{android.permission.INTERNET}. O resultado deve ficar como na \autoref{fig:appCardapio1}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\textwidth]{figuras/devapp/cardapio/APP_Cardapio1.png}
+  \caption{Adicionando permissão de internet no aplicativo do cardápio online}
+  \label{fig:appCardapio1}
+\end{figure}
+
+Vamos editar a tela inicial do aplicativo, adicionando uma \texttt{TextView} para cada item do cardápio e um \texttt{Button} para atualizar os campos com os valores do \texttt{web-service}. Abra o xml responsável pela primeira tela (\texttt{res->layout->activity\_main.xml}, o nome pode mudar dependendo das configurações de criação do projeto) e deixe como o \hyperref[code:xmlCardapioParte1]{Algoritmo \ref*{code:xmlCardapioParte1}} e \hyperref[code:xmlCardapioParte2]{Algoritmo \ref*{code:xmlCardapioParte2}}
+
+\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/devapp/cardapio/activity_mainParte1.xml}
+	\caption{Primeira parte do código xml da tela inicial do cardápio online}
+	\label{code:xmlCardapioParte1}
+	\end{listing}
+	
+\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/devapp/cardapio/activity_mainParte2.xml}
+	\caption{Segunda parte do código xml da tela inicial do cardápio online}
+	\label{code:xmlCardapioParte2}
+	\end{listing}
+
+O código segue o mesmo padrão dos primeiros exemplos .xml, existe um \texttt{TextView} para cada item do almoço que será exibido e um botão na linha 40 que vai invocar o método para atualizar os valores.
+
+O \texttt{layout} da tela deve ficar como na \autoref{fig:appCardapio2}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.75\textwidth]{figuras/devapp/cardapio/APP_Cardapio2.png}
+  \caption{Tela inicial do aplicativo do cardápio online}
+  \label{fig:appCardapio2}
+\end{figure}
+
+Em seguida precisamos criar uma nova classe com o nome de \emph{Almoco}, a implementação é mostrada no \hyperref[code:javaAlmocoParte1]{Algoritmo \ref*{code:javaAlmocoParte1}} e \hyperref[code:javaAlmocoParte2]{Algoritmo \ref*{code:javaAlmocoParte2}}
+
+\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/devapp/cardapio/AlmocoParte1.java}
+	\caption{Primeira parte da classe Almoco}
+	\label{code:javaAlmocoParte1}
+	\end{listing}
+	
+\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/devapp/cardapio/AlmocoParte2.java}
+	\caption{Segunda parte da classe Almoco}
+	\label{code:javaAlmocoParte2}
+	\end{listing}
+	
+A utilização de orientação a objetos não é um item obrigatório, nesse caso a classe \emph{Almoco} contém um atributo para cada item do cardápio, os construtores e os \texttt{getters} \texttt{setters} padrões.
+
+Vamos criar outra classe chamada \emph{HttpConnection}, ela serve para criar a conexão com o servidor web (nesse caso para requisição dos dados exibidos) .O código é mostrado no \hyperref[code:javaHttpConnection]{Algoritmo \ref*{code:javaHttpConnection}}.
+
+\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/devapp/cardapio/HttpConnection.java}
+	\caption{Classe HttpConnection}
+	\label{code:javaHttpConnection}
+	\end{listing}
+
+A estrutura das classes do projeto deve ficar como na \autoref{fig:estruturaClasses}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.45\textwidth]{figuras/devapp/cardapio/estrutura.png}
+  \caption{Classes criadas no projeto do cardápio online}
+  \label{fig:estruturaClasses}
+\end{figure}
+
+Agora vamos implementar os métodos necessários para a aplicação fazer a requisição e exibição do cardápio. Abra o .java da classe principal (src->com.example.cardapioonline->MainActivity.java, o caminho pode ser diferente dependendo das opções de criação do projeto) e importe os itens do \hyperref[code:javaMainImports]{Algoritmo \ref*{code:javaMainImports}}.
+
+\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/devapp/cardapio/mainImports.java}
+	\caption{Classe HttpConnection}
+	\label{code:javaMainImports}
+	\end{listing}
+	
+A requisição http vai retornar uma \texttt{string} como resposta, posteriormente esse valor será interpretado e cada informação extraída (seguindo o padrão JSON).
+
+Em seguida vamos implementar o método acionado pelo botão da tela principal (todos os métodos seguintes devem ser implementados no mesmo arquivo \emph{MainActivity.java}).
+
+\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/devapp/cardapio/getJson.java}
+	\caption{Método chamado pelo \texttt{button} da tela principal}
+	\label{code:javaGetJson}
+	\end{listing}
+
+E agora o método \texttt{callServer}.
+
+\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/devapp/cardapio/callServer.java}
+	\caption{Método \texttt{callServer}}
+	\label{code:javaCallServer}
+	\end{listing}
+	
+Veja que o método acionado pelo botão (\texttt{getJson}) chama outro, esse intermédio aparentemente sem utilidade foi feito pois algumas operações não podem ser feitas diretamente por um componente da interface gráfica 
+
+Após conectar ao servidor, assim como ilustrado no \hyperref[code:javaCallServer]{Algoritmo \ref*{code:javaCallServer}}, é feito o download da informação provida pelo servidor (na prática é exatamente o valor exibido na tela, no nosso caso o serviço web já está configurado para exibir em uma única linha os valores no formato JSON, se utilizar isso com outra página toda informação exibida será armazenada na string de resposta).
+
+\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/devapp/cardapio/degenerateJSON.java}
+	\caption{Método \texttt{degenerateJSON}}
+	\label{code:javaDegenerate}
+	\end{listing}
+
+O \hyperref[code:javaDegenerate]{Algoritmo \ref*{code:javaDegenerate}} mostra o método \texttt{degenerateJSON} que é responsável por receber a string e converter para um objeto JSON (linha 5) e em seguida atribuir cada valor ao campo correspondente no objeto \emph{Almoco}.
+
+A parte final é exibir os dados na tela principal, como mostrado no \hyperref[code:javaRunThread]{Algoritmo \ref*{code:javaRunThread}}.
+
+\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/devapp/cardapio/runThread.java}
+	\caption{Método \texttt{runThread}}
+	\label{code:javaRunThread}
+	\end{listing}
+	
+Note que na linha 17 do \hyperref[code:javaDegenerate]{Algoritmo \ref*{code:javaDegenerate}} poderiamos já ter feito a atribuição dos valores nos campos da tela principal, mas ao invés disso chamamos outro método, isso ocorre devido a uma questão funcional dos aplicativos android na qual não podemos alterar propriedades dos elementos da interface gráfica em uma operação de \texttt{background} (se tentar fazer isso sem utilizar o método \texttt{runThread} o aplicativo vai fechar durante a operação).
+
+O resultado da aplicação sendo executada é mostrado na \autoref{fig:CardapioOnlinePreview}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.75\textwidth]{figuras/devapp/cardapio/appPreview.png}
+  \caption{Resultado da aplicação cardápio online}
+  \label{fig:CardapioOnlinePreview}
+\end{figure}
+
+\begin{framed}
+\paragraph{}\textbf{Dica}: um \texttt{web service} pode ser compartilhado entre aplicações de diferentes plataformas, como nesse caso que é utilizado o padrão de exibição JSON e por isso os mesmos dados são interpretados de maneira análoga por diferentes tipos de linguagens e aplicações.
+\end{framed}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \singlespace
 \selectlanguage{brazil}
