@@ -36,11 +36,11 @@
         android:textSize="32sp" />
 
     <TextView
-        android:id="@+id/lblsaladas"
+        android:id="@+id/lblsobremesa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/lblfeijao"
-        android:layout_below="@+id/lblfeijao"
-        android:text="[Saladas]"
+        android:layout_alignLeft="@+id/lblsaladas"
+        android:layout_below="@+id/lblsaladas"
+        android:text="[Sobremesa]"
         android:textSize="32sp" />
 ...

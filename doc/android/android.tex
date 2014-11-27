@@ -1621,7 +1621,7 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 		\label{code:newInternal4}
 		\end{listing} 
 		
-		Vamos analisar o \hyperref[code:newInternal4]{Algoritmo \ref*{code:newInternal4}}. Na linha 14 queremos a referência ao \texttt{EditText} contido no alerta, para isso precisamos usar a variável \texttt{fnameEntry} criada ao chamar o método \texttt{LayoutInflater.inflate()}. Depois, na linha 16-17 certificamos que o nome do arquivo não será vazio (se for vazio, o arquivo não é salvo), para isso atribuímos o nome \emph{untitled} a ele. Obtemos também o texto escrito na caixa de texto da \emph{activity} na linha 18.
+		Vamos analisar o \hyperref[code:newInternal4]{Algoritmo \ref*{code:newInternal4}}. Na linha 14 queremos a referência ao \texttt{EditText} contido no alerta, para isso precisamos usar a variável \texttt{fnameEntry} criada ao chamar o método \texttt{LayoutInflater.inflate()}. Depois, na linha 16-17 certificamos que o nome do arquivo não será vazio (se for vazio, o arquivo não é salvo), para isso atribuímos o nome \emph{untitled} a ele. Obtemos também o texto escrito na caixa de texto da \emph{activity} na linha 19.
 
 		Agora que já temos o nome e os dados do arquivo, precisamos efetivamente salvá-lo no armazenamento interno. Com o método \texttt{openFileOutput()} teremos um \texttt{FileOutputStream} que servirá para escrever os dados no arquivo. Isso é feito nas linhas 22-23 com o método \texttt{write()} e em seguida o método \texttt{close()}.
 		Para certificar ao usuário que o arquivo foi salvo, mostramos um \texttt{Toast} com a mensagem que o arquivo foi salvo.
