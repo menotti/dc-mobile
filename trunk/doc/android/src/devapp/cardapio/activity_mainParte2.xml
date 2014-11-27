@@ -1,14 +1,5 @@
- ...
-    <TextView
-        android:id="@+id/lblsobremesa"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/lblsaladas"
-        android:layout_below="@+id/lblsaladas"
-        android:text="[Sobremesa]"
-        android:textSize="32sp" />
-
-    <TextView
+...
+<TextView
         android:id="@+id/lblarroz"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,8 +7,7 @@
         android:layout_below="@+id/lblguarnicao"
         android:text="[Arroz]"
         android:textSize="32sp" />
-
-    <TextView
+<TextView
         android:id="@+id/lblbebida"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,5 +37,5 @@
         android:onClick="getJson"
         android:text="Atualizar"
         android:textSize="24sp" />
-        
+
 </RelativeLayout>
