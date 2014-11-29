@@ -2097,19 +2097,92 @@ E dessa forma obtemos o mesmo resultado, porém com a adição dinâmica do frag
 
 		Já existe uma nova API que utiliza o Google \emph{Play Services}, a documentação oficial pode ser vista \href{https://developer.android.com/google/play-services/location.html}{aqui}\footnote{\href{https://developer.android.com/google/play-services/location.html}{https://developer.android.com/google/play-services/location.html}}
 
-		\section{Acessando a localização}
-	
-		Antes de iniciar, você precisa definir se quer obter a localização usando GPS \emph{(Global Positioning System)} ou usando a Internet. Caso opte por usar o GPS, deve-se atentar ao fato que o GPS demora muito para inicializar e obter as coordenadas. Enquanto que usando a Internet isso é praticamente instantâneo, porém a localização não é tão precisa. Ou seja, se quer rapidez use a Internet como seu \emph{Location Provider}, se quer precisão use o GPS.
+Antes de iniciar, você precisa definir se quer obter a localização usando GPS \emph{(Global Positioning System)} ou usando a Internet. Caso opte por usar o GPS, deve-se atentar ao fato que o GPS demora muito para inicializar e obter as coordenadas. Enquanto que usando a Internet isso é praticamente instantâneo, porém a localização não é tão precisa. Ou seja, se quer rapidez use a Internet como seu \emph{Location Provider}, se quer precisão use o GPS.
 
-		Sabendo disso então você deve colocar as permissões no \emph{Manifest}, mostradas abaixo.
+\newpage
+		\section{Introdução ao uso do GPS}
+		
+		Primeiramente esse exemplo servirá para mostrar de que forma é possível obter os dados do GPS (latitude e longitude) e mostra-los na tela (as sessões seguintes vão abordar conceitos mais avançados explicando como integrar a aplicação ao google maps).
+		
+		Crie um novo projeto (o exemplo foi nomeado como \emph{projGPS}) e a primeira ação deve ser adicionar as permissões necessárias no \emph{Manifest} (projGPS->AndroidManifest.xml , aba \texttt{Permissions} adicionar as \texttt{Uses-Permissions} exibidas no \hyperref[code:locationpermNew]{Algoritmo \ref*{code:locationpermNew}}).
 
 		\begin{listing}[H]
 		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/maps/perm1.xml}
 		\caption{Permissões para obter localização}
+		\label{code:locationpermNew}
+		\end{listing} 
+
+		Agora vamos adicionar os elementos da tela do aplicativo (composto por quatro \texttt{TextViews} e um \texttt{Button}, se tiver criado o projeto com as configurações padrões o arquivo que deve ser editado é o \emph{activity\_main.xml} (projGPS->res->layout->activity\_main.xml), já deve existir um \texttt{TextView} que foi criado anteriormente, remova-o e adicione o trecho mostrado no \hyperref[code:gpsMainXml]{Algoritmo \ref*{code:gpsMainXml}}.
+		
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/maps/gpsMainXml.xml}
+		\caption{Tela inicial do aplicativo GPS}
+		\label{code:gpsMainXml}
+		\end{listing} 
+		
+		Sobre o \hyperref[code:gpsMainXml]{Algoritmo \ref*{code:gpsMainXml}}, na linha 8 definimos o método que será chamado ao acionar o botão. Nas linhas 32 e 43 nomeamos as duas \texttt{TextViews} que exibirão os valores lidos do GPS.
+		
+		Precisamos criar uma nova classe que será utilizada para obter a localização via GPS, crie uma com o nome de \emph{MyLocation} (acesse via \emph{Package Explorer}: projGPS->src, clique com o botão direito em \texttt{com.example.projgps} e em new->class) e deixe como mostrado no \hyperref[code:MyLocation1]{Algoritmo \ref*{code:MyLocation1}} e \hyperref[code:MyLocation2]{Algoritmo \ref*{code:MyLocation2}}.
+		
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/maps/MyLocation1.java}
+		\caption{Parte 1 da classe \emph{MyLocation}}
+		\label{code:MyLocation1}
+		\end{listing}
+		
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/maps/MyLocation2.java}
+		\caption{Parte 2 da classe \emph{MyLocation}}
+		\label{code:MyLocation2}
+		\end{listing}
+		
+		A classe \emph{MyLocation} implementa métodos para abstrairmos a leitura do GPS. Agora a última etapa consiste em implementarmos o método que vai atualizar a posição atual, abra o arquivo .java da tela inicial do projeto (projGps->src->com.example.projgps->MainActivity.java). Repare com atenção na classe \emph{LocationResult} pois ela será utilizada posteriormente (se precisar revise os conceitos que envolvem classes estáticas e abstras) . Normalmente a própria IDE (no caso, eclipse) faz o controle dos \emph{imports} necessários, as referência utilizadas nesse projeto são exibidas no \hyperref[code:projGpsImports]{Algoritmo \ref*{code:projGpsImports}}.
+		
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/maps/gpsMainImports.java}
+		\caption{\emph{Imports} utilizados no projeto GPS}
+		\label{code:projGpsImports}
+		\end{listing}
+		
+		E finalmente o método \texttt{atualizarDados} mostrado no \hyperref[code:projGpsAtt]{Algoritmo \ref*{code:projGpsAtt}} (deve ser declarado como método da \emph{MainActivity}).
+		
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/maps/atualizarDados.java}
+		\caption{Método que faz a chamada para atualizar os dados do GPS}
+		\label{code:projGpsAtt}
+		\end{listing}
+	
+		No  \hyperref[code:projGpsAtt]{Algoritmo \ref*{code:projGpsAtt}}  fazemos uso dos métodos da classe \emph{MyLocation} através da \emph{LocationResult}, o principal que acaba ocorrendo é exibir o resultado da leitura (feitos nas linhas 10 e 11) na tela do aplicativo.
+	
+		O resultado esperado fica como exibido na \autoref{fig:gpsFinal}.
+	
+		\begin{figure}[H]
+  \centering
+  \includegraphics[width=.75\textwidth]{figuras/api/localizacao/GPS.png}
+  \caption{Exibindo as coordenadas do GPS na tela}
+  \label{fig:gpsFinal}
+\end{figure}
+
+		\subsection{Testar o aplicativo sem possuir um dispositivo com GPS}
+		
+		No caso de não ter em mãos um dispositivo para testar ainda sim é possível simular a aplicação no emulador, na IDE (nesse caso no eclipse) acesse o menu \texttt{windows->AVD Manager} (pode ser que esteja como \emph{Android Virtual Device Manager}), caso já tenha uma AVD criada clique em \texttt{Start} ou crie uma nova e então inicie.
+		
+		Com a AVD executando, acesse no eclipse o menu \texttt{Windows->Open Perspective->Others} e escolha \emph{DDMS}. Na tela que acabou de abrir deve ser visível o nome da AVD e uma série de opções no lado direito, acesse a aba \emph{Emulator Control} e em \emph{Location Controls} clique em \texttt{Send} (caso queira pode alterar os valores padrões).
+		
+		Agora retorne para a exibição padrão do eclipse (Windows->Open Perspective->Others e então selecione \emph{Java}) e execute seu projeto na AVD, as coordenadas que serão exibidas são aquelas enviadas anteriormente. 
+
+	
+		\section{Utilizando a localização com o \texttt{onLocationChanged}}		
+
+		Novamente você deve colocar as permissões no \emph{Manifest}, mostradas abaixo.
+
+		\begin{listing}[H]
+		\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/api/maps/perm1.xml}
+		\caption{Permissões para solicitar localização}
 		\label{code:locationperm}
 		\end{listing} 		
 
-		A permissão \texttt{INTERNET} só será necessária caso não queira obter a localização usando o GPS.
+		Lembrando que a permissão \texttt{INTERNET} só será necessária caso não queira obter a localização usando o GPS.
 
 		O próximo passo é criar um \texttt{LocationListener} para acessar a localização.
 
