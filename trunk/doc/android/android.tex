@@ -2867,7 +2867,7 @@ Se o \emph{socket} conseguir ser instanciado corretamente, iremos chamar o méto
 
 É uma prática centralizar dados úteis em uma base única de forma que várias aplicações acessem a mesma fonte, mesmo que não utilize uma base de dados e seja simplesmente um serviço web que recebe e trata solicitações afim de fornecer determinadas informações ou realizar alguma ação pré-determinada.
 
-O \texttt{web service} utilizado também pode ser chamado pelo navegador e vai exibir os dados no formato JSON, como mostrado na \autoref{fig:webServiceCardapio}.
+O \texttt{webservice} utilizado também pode ser chamado pelo navegador e vai exibir os dados no formato JSON, como mostrado na \autoref{fig:webServiceCardapio}.
 
 \begin{figure}[H]
   \centering
@@ -3011,6 +3011,165 @@ O resultado da aplicação sendo executada é mostrado na \autoref{fig:CardapioO
 \begin{framed}
 \paragraph{}\textbf{Dica}: um \texttt{web service} pode ser compartilhado entre aplicações de diferentes plataformas, como nesse caso que é utilizado o padrão de exibição JSON e por isso os mesmos dados são interpretados de maneira análoga por diferentes tipos de linguagens e aplicações.
 \end{framed}
+
+%%MURAL DE MENSAGENS%%
+
+\section{Mural de Mensagens}
+
+\subsection{Web Service}
+
+Foram utilizados dois \texttt{web services}, um deles utilizado para obter uma lista de mensagens existentes em uma base de dados (mostrado na \autoref{fig:webservicemural}) e o outro para salvar novas mensagens.
+O diferencial no uso do JSON nesse caso é que o resultado vai alem de algumas informações para uma lista de objetos.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.75\textwidth]{figuras/devapp/muraldemensagens/webService.png}
+  \caption{Web Service para exibir informações do mural de mensagens}
+  \label{fig:webservicemural}
+\end{figure}
+
+\begin{framed}
+\paragraph{}\textbf{Dica}: leia mais sobre \href{http://devmedia.com.br/introducao-ao-formato-json/25275}{listas de objetos em JSON}.
+\end{framed}
+
+\subsection{Construção do aplicativo}
+
+Antes de mais nada é necessário fazer o download de um complemento, abra o \emph{SDK Manager} e na baixe a \emph{Android Support Library}, localizada na aba \emph{Extras}. Em seguida crie um novo projeto, é sugerido título de \texttt{MuralDeMensagens}.
+
+Como já foi referenciado em projetos anteriores, algumas ações requerem autorização do usuário, no projeto vamos utilizar ao todo três, abra o arquivo \texttt{manifest} do projeto (pelo \emph{package explorer}, \texttt{MuralDeMensagens->AndroidManifest.xml}) e adicione as permissões mostradas no \hyperref[code:permissoesMural]{Algoritmo \ref*{code:permissoesMural}}.
+
+\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/devapp/muraldemensagens/permissoes.java}
+	\caption{Permissões para o projeto de mensagens}
+	\label{code:permissoesMural}
+	\end{listing}
+	
+A linha 1 do \hyperref[code:permissoesMural]{Algoritmo \ref*{code:permissoesMural}} é referente a permissão para utilizar a função vibrar do aparelho e a 2 permissão para acessar a internet.
+
+A ideia do aplicativo é apresentar uma tela inicial para o usuário enviar uma mensagem e uma segunda tela para exibir uma lista de todas as mensagens enviadas. Quando o botão para enviar mensagem for acionado ele solicita ao \texttt{webservice} a inclusão da mensagem nova e aciona um alerta no device na área de notificação que abrirá a segunda tela. Como o número de mensagens é variado precisaremos criar um layout dinâmico para a tela, na prática criamos um layout que será repetido diversas vezes dentro de outro.
+
+O próximo passo é criar um novo layout que será repetido para exibir cada mensagem, clique com o direito na pasta layout do projeto (\texttt{res->layout}) e em seguida \texttt{new->Android XML Layout File}, dê o nome de \emph{row}. Agora acesse o \emph{row.xml} e deixe como no \hyperref[code:rowXml]{Algoritmo \ref*{code:rowXml}}.
+
+\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/devapp/muraldemensagens/row.xml}
+	\caption{Layout row.xml}
+	\label{code:rowXml}
+	\end{listing}
+	
+Note que o layout apenas é composto por duas \emph{TextView's}, mais tarde serão utilizadas como como um modelo para exibir as mensagens em uma activity. No próximo passo criaremos duas classes especiais que servirão como base para a aplicação, clique com o direito em \texttt{src->com.example.muraldemensagens} e em \texttt{new->Class}.
+A primeira classe se chamará \emph{Item}, em poucas palavras é a classe que representa cada mensagem recebida no formato JSON, deixe-a como no \hyperref[code:classeItemMsg]{Algoritmo \ref*{code:classeItemMsg}}.
+
+\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/devapp/muraldemensagens/Item.java}
+	\caption{Classe \emph{Item}}
+	\label{code:classeItemMsg}
+	\end{listing}
+	
+A segunda classe se chamará \emph{MyAdapter}, basicamente ela serve como uma camada de abstração para utilizarmos o \emph{ListView}, que será o componente responsável por exibir a lista de mensagens, cada linha da lista será igual ao layout definido no \hyperref[code:rowXml]{Algoritmo \ref*{code:rowXml}}. Deixe a classe \emph{MyAdapter} como no \hyperref[code:MyAdapterMsg]{Algoritmo \ref*{code:MyAdapterMsg}}.
+
+\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/devapp/muraldemensagens/MyAdapter.java}
+	\caption{Classe \emph{MyAdapter}}
+	\label{code:MyAdapterMsg}
+	\end{listing}
+
+Já criamos a base da aplicação, agora criaremos a segunda tela do aplicativo (sim, criaremos a segunda antes da primeira, será explicado depois), essa servirá para exibir as mensagens cadastradas pelos usuários.
+Crie uma nova \emph{Android Activity} (clique com o direito em \texttt{rc->com.example.muraldemensagens} e em seguida \texttt{new->Android Activity}) com o nome de \emph{MensagensActivity}.
+
+Primeiro edite o .xml referente ao novo layout (\texttt{res->layout->activity\_mensagens.xml}) como mostrado no \hyperref[code:showMsgXML]{Algoritmo \ref*{code:showMsgXML}}.
+
+\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/devapp/muraldemensagens/mensagens.xml}
+	\caption{Activity para exibir as mensagens cadastradas}
+	\label{code:showMsgXML}
+	\end{listing}
+	
+A diferença nesse layout é o \emph{ListView} declarado na linha 7, utilizando a classe \emph{MyAdapter}, \emph{Item} e esse componente é possível adicionar uma lista de mensagens exibidas com o layout da \emph{row.xml} também declarada anteriormente.
+
+Na sequência abra o .java referente a segunda tela (\texttt{src->com.example.muraldemensagens-> ->MensagensActivity.java}) pois iremos implementar os métodos e uma classe necessários para exibir as mensagens da base de dados.
+O primeiro é o método OnCreate, a única alteração é a inclusão da chamada de um método na linha 6 (que deve ser implementado em seguida) passando como parâmetro a url do webservice responsável por exibir a lista de mensagens cadastradas.
+
+\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/devapp/muraldemensagens/msgOnCreate.java}
+	\caption{Método \emph{OnCreate} da segunda tela do aplicativo}
+	\label{code:OnCreateMSG2}
+	\end{listing}
+	
+A classe \emph{HttpAsyncTask} deve ser implementado como segue no \hyperref[code:httpReqMsg]{Algoritmo \ref*{code:httpReqMsg}} no mesmo arquivo que o OnCreate.
+
+\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/devapp/muraldemensagens/HttpReq.java}
+	\caption{Classe HttpAsyncTask }
+	\label{code:httpReqMsg}
+	\end{listing}
+	
+É no \hyperref[code:httpReqMsg]{Algoritmo \ref*{code:httpReqMsg}}  que é feito a leitura dos valores recebidos pelo webservice (no caso caso todo conteudo é recebido como um array de objetos, cada objeto é lido e depois adicionado na lista de itens). Além disso precisamos implementar o método responsável por receber o conteúdo respondido pelo webservice pela url que definimos como parâmetro,
+
+\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/devapp/muraldemensagens/extraMsg.	java}
+	\caption{Método extras para requisição do conteúdo do webservice}
+	\label{code:metodosExtras}
+	\end{listing}
+	
+Como referência no \hyperref[code:importsTela2Msg]{Algoritmo \ref*{code:importsTela2Msg}} estão todos os imports realizados no .java da segunda tela do aplicativo.
+
+\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/devapp/muraldemensagens/importsMsg.java}
+	\caption{Importações realizadas na segunda tela do aplicativo de mensagens }
+	\label{code:importsTela2Msg}
+	\end{listing}
+
+A última etapa é configurar o Main do aplicativo, primeiramente abra o .xml da primeira tela (res->layout->activity\_main.xml) e deixe como no \hyperref[code:mainXmlMsg]{Algoritmo \ref*{code:mainXmlMsg}}.
+
+\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/devapp/muraldemensagens/main.xml}
+	\caption{Código XML da primeira tela do aplicativo de mensagens}
+	\label{code:mainXmlMsg}
+	\end{listing}
+	
+O diferencial do \hyperref[code:mainXmlMsg]{Algoritmo \ref*{code:mainXmlMsg}} é a chamada do método \emph{gerarNotificacao} quando o botão é acionado. Agora abra o .java da primeira tela (src->com.example.muralderecados->MainActivity.java). Vamos implementar o método referenciado.
+
+A primeira parte, mostrada no \hyperref[code:mainParte1Msg]{Algoritmo \ref*{code:mainParte1Msg}}, é responsável por salvar a mensagem inserida na base de dados, para isso é feito uma requisição ao webservice passando as variáveis da mensagem via url, esse é um tipo especial de operação na qual foi necessário utilizar o objeto \emph{Thread}.
+
+\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/devapp/muraldemensagens/mainParte1.java}
+	\caption{Primeira parte do método \emph{gerarNotificacao}}
+	\label{code:mainParte1Msg}
+	\end{listing}
+	
+A segunda parte agora exibida pelo \hyperref[code:mainParte2Msg]{Algoritmo \ref*{code:mainParte2Msg}} é referente a notificação exibida no device e a configuração de qual ação será tomada quando o usuário clicar sobre ela.
+
+\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/devapp/muraldemensagens/mainParte2.java}
+	\caption{Segunda parte do método \emph{gerarNotificacao}}
+	\label{code:mainParte2Msg}
+	\end{listing}
+	
+Como referência, o \hyperref[code:importsMainMsg]{Algoritmo \ref*{code:importsMainMsg}} lista todos as importações utilizadas no .java da primeira tela do aplicativo de mensagens.
+
+\begin{listing}[H]
+	\inputminted[linenos=true,fontsize=\small,frame=lines, framesep=2mm, tabsize=2,numbersep=5pt]{xml}{src/devapp/muraldemensagens/importsMain.java}
+	\caption{Importações do .java da primeira tela do aplicativo de mensagens}
+	\label{code:importsMainMsg}
+	\end{listing}
+
+Por fim temos nosso aplicativo funcionando, enviando mensagens para a base de dados e listando todas existentes, como exibido na \autoref{fig:appMsgFinal}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\textwidth]{figuras/devapp/muraldemensagens/appMsg.png}
+  \caption{Aplicativo mural de mensagens finalizado}
+  \label{fig:appMsgFinal}
+\end{figure}
+
+A estrutura final do projeto pode ser vista na \autoref{fig:estruturaMsg}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.35\textwidth]{figuras/devapp/muraldemensagens/estrutura.png}
+  \caption{Estrutura final do aplicativo mural de mensagens}
+  \label{fig:estruturaMsg}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \singlespace
