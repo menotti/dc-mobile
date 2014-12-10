@@ -17,7 +17,7 @@ public static String GET(String url){
         return result;
     }
  
-    private static String convertInputStreamToString(InputStream inputStream) 
+private static String convertInputStreamToString(InputStream inputStream) 
 							throws IOException{
         BufferedReader bufferedReader = new BufferedReader(
 					 new InputStreamReader(inputStream));
