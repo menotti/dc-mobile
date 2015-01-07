@@ -1,11 +1,13 @@
 package com.example.firstapp;
 
 import android.support.v7.app.ActionBarActivity;
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import android.widget.TextView;
+import android.content.Intent;
 
 public class DisplayMessageActivity extends ActionBarActivity {
 
@@ -21,6 +23,7 @@ public class DisplayMessageActivity extends ActionBarActivity {
 		textView.setText("Ola " + mensagem);
 		
 		setContentView(textView);
+		//setContentView(this);
 	}
 
 	@Override
