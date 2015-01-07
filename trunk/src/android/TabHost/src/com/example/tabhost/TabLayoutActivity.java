@@ -2,7 +2,6 @@ package com.example.tabhost;
 
 import java.util.HashMap;
 
-import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
