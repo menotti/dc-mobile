@@ -10,6 +10,8 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <Social/Social.h>
 #import "SuggestionScreenViewController.h"
+#import "CategoryScreenViewController.h"
+#import "AppDelegate.h"
 
 @interface SecondScreenViewController : UIViewController
 
@@ -17,6 +19,8 @@
 @property (nonatomic, strong) NSString *profileEmail;
 @property (nonatomic, strong) NSString *profilePic;
 @property (nonatomic, strong) NSString *profileId;
+
+@property (nonatomic, strong) NSMutableDictionary *params;
 
 @property (weak, nonatomic) IBOutlet UILabel *lblUsername;
 @property (weak, nonatomic) IBOutlet UILabel *lblEmail;
@@ -26,5 +30,8 @@
 - (IBAction)compartilharAuto:(id)sender;
 - (IBAction)manualShare:(id)sender;
 - (IBAction)openSuggestionScreen:(id)sender;
+- (IBAction)openCategoryScreen:(id)sender;
+
+-(void)fetchNewDataWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler;
 
 @end

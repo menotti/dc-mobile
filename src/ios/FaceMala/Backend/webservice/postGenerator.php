@@ -33,29 +33,44 @@
     echo "<br> rows: ";
     echo $rows;
   */
-    if($rows==0){
+    if($rows!=0){
       //suggestion OK SUCESS
       //echo "AEW HUE SUCESS BRBRBRBR !!! <br>";
 
-       $postSearch=mysql_query ("Select * From tbl_posts where category_id='$category_id_suggestion' order by id desc ")
+       $postSearch=mysql_query ("Select * From tbl_posts WHERE category_id='$category_id_suggestion' order by id desc ")
         or die ("<center><BR><BR><BR><BR><b><h2>Error on searching for existing posts</center></b></h2>");
 
-       $regPosts=mysql_fetch_assoc($postSearch);
+       while($regPosts=mysql_fetch_assoc($postSearch)){
        
-       $post_id        = $regPosts['id'];
-       $post_name      = $regPosts['name'];
-       $post_caption   = $regPosts['caption'];
-       $post_description = $regPosts['description'];
-       $post_link      = $regPosts['link'];
-       $post_picture   = $regPosts['picture'];
+        $post_id_temp  = $regPosts['id'];
+/*
+        echo $post_id;
+        echo "<BR><BR>";
+        echo $fb_id;
+        echo "<BR><BR>";
+*/
+       $UserPostSearch=mysql_query ("Select * From tbl_user_posts WHERE post_id='$post_id_temp' AND user_id='$fb_id' order by id desc")
+        or die ("<center><BR><BR><BR><BR><b><h2>Error on searching for existing user posts</center></b></h2>");
+       
+       $rows2 = mysql_num_rows($UserPostSearch);
+       
+       if($rows2==0){
+           $post_id        = $regPosts['id'];
+           $post_name      = $regPosts['name'];
+           $post_caption   = $regPosts['caption'];
+           $post_description = $regPosts['description'];
+           $post_link      = $regPosts['link'];
+           $post_picture   = $regPosts['picture'];
 
-       $temp = $category_id_suggestion;
-       $categorySearchForName=mysql_query ("Select * From tbl_category where id= '$temp' ")
-        or die ("<center><BR><BR><BR><BR><b><h2>Error on searching for existing posts</center></b></h2>");
-       $categoryReg=mysql_fetch_assoc($categorySearchForName);
-       $post_category = $categoryReg['name'];
+           $temp = $category_id_suggestion;
+           $categorySearchForName=mysql_query ("Select * From tbl_category where id= '$temp' ")
+                or die ("<center><BR><BR><BR><BR><b><h2>Error on searching for existing posts</center></b></h2>");
+           $categoryReg=mysql_fetch_assoc($categorySearchForName);
+           $post_category = $categoryReg['name'];
 
-       $found = TRUE;
+           $found = TRUE;
+           }
+       }
     }
 
    }
@@ -63,14 +78,15 @@
    if($found==FALSE){
        $post_id        =   "0";
        $post_name      =   "Oh";
-       $post_caption   =   "for you";
-       $post_description = "no posts :(";
+       $post_caption   =   "postei";
+       $post_description = "muuito hj :)";
        $post_link      = "http://mobile.dc.ufscar.br";
-       $post_picture   = "https://cdn4.iconfinder.com/data/icons/windev-contacts-2/512/cry-512.png";
+       $post_picture   = "http://img1.wikia.nocookie.net/__cb20121112150543/dickfigures/images/d/d0/Troll-Face-Dancing1.jpg";
    }
 
     mysql_free_result(categorySearch);
     mysql_free_result(preferenceSearch);
+    mysql_free_result(UserPostSearch);
     mysql_free_result(postSearch);
     mysql_free_result(categorySearchForName);
 
