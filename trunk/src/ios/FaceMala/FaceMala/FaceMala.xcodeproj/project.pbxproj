@@ -26,6 +26,8 @@
 		7ED86B5519DCB3590094A54F /* FirstAppViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ED86B5019DCB3590094A54F /* FirstAppViewController.xib */; };
 		7ED86B5619DCB3590094A54F /* SecondScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ED86B5219DCB3590094A54F /* SecondScreenViewController.m */; };
 		7ED86B5719DCB3590094A54F /* SecondScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ED86B5319DCB3590094A54F /* SecondScreenViewController.xib */; };
+		7EE25F0B1A76F76300D26BC2 /* CategoryScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EE25F091A76F76300D26BC2 /* CategoryScreenViewController.m */; };
+		7EE25F0C1A76F76300D26BC2 /* CategoryScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EE25F0A1A76F76300D26BC2 /* CategoryScreenViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,9 @@
 		7ED86B5119DCB3590094A54F /* SecondScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondScreenViewController.h; sourceTree = "<group>"; };
 		7ED86B5219DCB3590094A54F /* SecondScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondScreenViewController.m; sourceTree = "<group>"; };
 		7ED86B5319DCB3590094A54F /* SecondScreenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondScreenViewController.xib; sourceTree = "<group>"; };
+		7EE25F081A76F76300D26BC2 /* CategoryScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryScreenViewController.h; sourceTree = "<group>"; };
+		7EE25F091A76F76300D26BC2 /* CategoryScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryScreenViewController.m; sourceTree = "<group>"; };
+		7EE25F0A1A76F76300D26BC2 /* CategoryScreenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryScreenViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +144,9 @@
 				7E12F83319DCEF04006D1502 /* SuggestionScreenViewController.h */,
 				7E12F83419DCEF04006D1502 /* SuggestionScreenViewController.m */,
 				7E12F83519DCEF04006D1502 /* SuggestionScreenViewController.xib */,
+				7EE25F081A76F76300D26BC2 /* CategoryScreenViewController.h */,
+				7EE25F091A76F76300D26BC2 /* CategoryScreenViewController.m */,
+				7EE25F0A1A76F76300D26BC2 /* CategoryScreenViewController.xib */,
 			);
 			path = FaceMala;
 			sourceTree = "<group>";
@@ -258,6 +266,7 @@
 				7ED86B3219DC38870094A54F /* Images.xcassets in Resources */,
 				7E12F83719DCEF04006D1502 /* SuggestionScreenViewController.xib in Resources */,
 				7ED86B5719DCB3590094A54F /* SecondScreenViewController.xib in Resources */,
+				7EE25F0C1A76F76300D26BC2 /* CategoryScreenViewController.xib in Resources */,
 				7ED86B5519DCB3590094A54F /* FirstAppViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -281,6 +290,7 @@
 				7E12F83619DCEF04006D1502 /* SuggestionScreenViewController.m in Sources */,
 				7ED86B3019DC38860094A54F /* AppDelegate.m in Sources */,
 				7ED86B5619DCB3590094A54F /* SecondScreenViewController.m in Sources */,
+				7EE25F0B1A76F76300D26BC2 /* CategoryScreenViewController.m in Sources */,
 				7ED86B2C19DC38860094A54F /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
