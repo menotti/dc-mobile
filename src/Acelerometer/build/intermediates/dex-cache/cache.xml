@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\Jp\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-v4\19.1.0\support-v4-19.1.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67">
+        <dex dex="E:\Proex Project\dc-mobile\src\Acelerometer\app\build\intermediates\pre-dexed\debug\support-v4-19.1.0-594c8e5d2a580257f47cbbc10b00f6548dd9b023.jar" />
+    </item>
+
+</items>
